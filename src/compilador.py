@@ -68,7 +68,6 @@ def generar_imagen_og(titulo, ruta_salida):
     img = Image.new('RGB', (1200, 630), color='#1e293b')
     d = ImageDraw.Draw(img)
     d.rectangle([(40, 40), (1160, 590)], outline="#2563eb", width=8)
-    # Nota: Usamos texto simple nativo para evitar fallos de fuentes en el servidor
     d.text((80, 260), f"Minitools\n\n> {titulo}", fill="#ffffff")
     img.save(ruta_salida, "JPEG", quality=85)
 
@@ -86,12 +85,7 @@ def compilar():
     sitemap_urls = []
     
     for n in nodos:
-        # LINTER & VALIDACIÓN MATEMÁTICA
         calc = n.get("calculadora", {})
-        if "algoritmo" in calc:
-            # Test unitario básico
-            pass
-
         ruta_silo = f"{n['_idioma']}/{'/'.join(n['_cluster_path'])}/{n['id']}"
         dir_final = os.path.join(DIR_SALIDA, ruta_silo)
         os.makedirs(dir_final, exist_ok=True)
@@ -148,16 +142,53 @@ def compilar():
         generar_imagen_og(n["meta"]["title"], os.path.join(DIR_SALIDA, "assets", "og", f"{n['id']}.jpg"))
         sitemap_urls.append(f"https://minitools.io/{ruta_silo}/")
 
+    # 🏠 NUEVO: GENERAR AUTOMÁTICAMENTE LA PORTADA PRINCIPAL (INDEX.HTML DE LA RAÍZ)
+    html_lista_herramientas = "".join([
+        f'<li><a href="./{item["_idioma"]}/{"/".join(item["_cluster_path"])}/{item["id"]}/" style="color: #2563eb; font-weight: bold; text-decoration: none; font-size: 1.1rem;">'
+        f'{item["meta"]["title"]}</a> <span style="color:#64748b; font-size:0.85rem;">({item["_idioma"].upper()})</span></li>'
+        for item in nodos
+    ])
+
+    html_portada = f"""<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Minitools | Directorio de Herramientas Programáticas</title>
+        <style>
+            body {{ font-family: system-ui, sans-serif; background: #f8fafc; color: #0f172a; margin: 0; padding: 40px 20px; }}
+            .container {{ max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }}
+            h1 {{ margin-top: 0; color: #1e293b; font-size: 2.2rem; }}
+            ul {{ padding-left: 20px; margin-top: 20px; }}
+            li {{ margin-bottom: 15px; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🛠️ Minitools Factory</h1>
+            <p style="color: #64748b; font-size: 1.1rem;">Bienvenido al centro de mandos de tu catálogo semántico. El sistema mapea tus datos y actualiza este índice automáticamente en cada despliegue.</p>
+            <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 30px 0;">
+            <h2 style="color: #334155; font-size: 1.4rem;">Herramientas Activas en el Ecosistema:</h2>
+            <ul>
+                {html_lista_herramientas if html_lista_herramientas else "<li>No hay herramientas cargadas en la carpeta content/ todavía.</li>"}
+            </ul>
+        </div>
+    </body>
+    </html>"""
+
+    os.makedirs(DIR_SALIDA, exist_ok=True)
+    with open(os.path.join(DIR_SALIDA, "index.html"), 'w', encoding='utf-8') as h_file:
+        h_file.write(html_portada)
+
     # Guardar sitemap
     xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     for u in sitemap_urls: xml += f'<url><loc>{u}</loc></url>'
     xml += '</urlset>'
     
-    os.makedirs(DIR_SALIDA, exist_ok=True)
     with open(os.path.join(DIR_SALIDA, "sitemap.xml"), 'w', encoding='utf-8') as s_file:
         s_file.write(xml)
         
-    print(f"🚀 Compilación exitosa. {len(nodos)} objetos procesados.")
+    print(f"🚀 Compilación exitosa. {len(nodos)} objetos procesados e índice general creado.")
 
 if __name__ == "__main__":
     compilar()
