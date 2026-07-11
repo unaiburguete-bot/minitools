@@ -188,10 +188,6 @@ def compilar():
     with open(os.path.join(DIR_SALIDA, "index.html"), 'w', encoding='utf-8') as h_file:
         h_file.write(html_portada)
 
-    # 🌐 AUTO-GENERACIÓN DEL ARCHIVO CNAME PARA EL DOMINIO PERSONALIZADO
-    with open(os.path.join(DIR_SALIDA, "CNAME"), 'w', encoding='utf-8') as cname_file:
-        cname_file.write("minitools.io")
-
     # Guardar sitemap
     xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     for u in sitemap_urls: xml += f'<url><loc>{u}</loc></url>'
