@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de RPM de YouTube Exacto (2026) | Minitools</title>
+    <meta name="description" content="Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática.">
+    <link rel="canonical" href="https://minitools.io/es/youtube/monetizacion/rpm-youtube/">
+    <style>
+        :root { --bg: #f8fafc; --surface: #ffffff; --border: #e2e8f0; --text: #0f172a; --muted: #64748b; --primary: #2563eb; --primary-light: #eff6ff; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+        .nav-container { background: var(--surface); border-bottom: 1px solid var(--border); padding: 15px 20px; font-weight: bold; }
+        .nav-container a { text-decoration: none; color: var(--text); font-size: 1.3rem; }
+        .main-layout { max-width: 1100px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 280px; gap: 30px; }
+        @media (max-width: 850px) { .main-layout { grid-template-columns: 1fr; } }
+        .breadcrumbs { font-size: 0.85rem; color: var(--muted); margin-bottom: 15px; }
+        .breadcrumbs a { color: var(--primary); text-decoration: none; }
+        .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .tool-card h1 { margin-top: 0; font-size: 1.7rem; }
+        .monetization-bar { background: var(--primary-light); border: 1px dashed var(--primary); padding: 15px; border-radius: 8px; text-align: center; margin: 20px 0; }
+        .monetization-bar a { background: var(--primary); color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 0.85rem; display: inline-block; margin-top: 5px; }
+        .seo-article { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 30px; }
+        .sidebar-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .sidebar-link-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+        .sidebar-link-list li { margin-bottom: 10px; }
+        .sidebar-link-list a { color: var(--text); text-decoration: none; }
+        .sidebar-link-list a:hover { color: var(--primary); }
+    </style>
+    
+</head>
+<body>
+
+    <nav class="nav-container">
+        <a href="/">🛠️ Minitools</a>
+    </nav>
+
+    <div class="main-layout">
+        <main>
+            <div class="breadcrumbs">
+                <a href="/">Inicio</a> &gt; <a href="/es/youtube/monetizacion/">Youtube</a> &gt; <span>Revenue Per Mille</span>
+            </div>
+
+            <section class="tool-card">
+                <h1>¿Cuánto dinero paga YouTube por tus visitas? Calcular RPM Exacto</h1>
+                
+            <label style="display:block; margin-top:10px; font-weight:bold;">Número de Visitas Totales</label><input type="number" id="visitas" placeholder="Ej. 100000" style="width:100%; padding:10px; margin-top:5px; border:1px solid #cbd5e1; border-radius:6px;"><label style="display:block; margin-top:10px; font-weight:bold;">Tu RPM Estimado (€)</label><input type="number" id="rpm" placeholder="Ej. 4.25" style="width:100%; padding:10px; margin-top:5px; border:1px solid #cbd5e1; border-radius:6px;">
+            <button onclick="calcular_rpm-youtube()" style="width:100%; background:#2563eb; color:white; border:none; padding:12px; font-weight:bold; margin-top:15px; border-radius:6px; cursor:pointer;">Calcular Ahora</button>
+            <div id="res_rpm-youtube" style="margin-top:15px; padding:15px; background:#f1f5f9; border-radius:6px; text-align:center; font-weight:bold; display:none;"></div>
+            <script>
+                function calcular_rpm-youtube() {
+                    let valores = {};
+                    valores['inputs.visitas'] = parseFloat(document.getElementById('visitas').value || 0);valores['inputs.rpm'] = parseFloat(document.getElementById('rpm').value || 0);
+                    valores['bloques_mil'] = valores['inputs.visitas'] / 1000;
+valores['ingresos_totales'] = valores['bloques_mil'] * valores['inputs.rpm'];
+
+                    let resDiv = document.getElementById('res_rpm-youtube');
+                    resDiv.style.display = 'block';
+                    resDiv.innerHTML = 'Ingresos Totales Estimados: ' + valores['ingresos_totales'].toFixed(2) + ' €';
+                }
+            </script>
+        
+            </section>
+
+            <div class="monetization-bar">
+                <p>⚡ ¿Quieres duplicar tu RPM? Aplica estas estrategias de patrocinio de alto ticket.</p>
+                <a href="https://google.com" target="_blank" rel="noopener noreferrer nofollow">Probar Solución Profesional →</a>
+            </div>
+
+            <article class="seo-article">
+                <h2>¿Qué es y cómo funciona?</h2>
+                <p><h1>¿Cuánto paga YouTube realmente? Guía definitiva sobre el RPM</h1>
+<p>El <strong>RPM</strong> (Revenue Per Mille) es la métrica más honesta y transparente que existe para un creador de contenido. A diferencia del CPM, el RPM calcula el dinero real que va a parar a tu bolsillo tras las comisiones de la plataforma.</p>
+<h2>Ejemplos prácticos de cálculo en escenarios reales</h2>
+<p>Si manejas un canal de entretenimiento con un público mayoritariamente latinoamericano, tu RPM podría rondar los 1.20€. Para un canal con 100.000 visitas, la matemática estructurada nos devuelve unos ingresos estimados modestos. Sin embargo, si tu nicho es el desarrollo de software o las finanzas personales en España o EE.UU., ese mismo volumen de visitas puede multiplicar tus ingresos por 5 o por 10 gracias a la puja de los anunciantes.</p>
+<h2>Errores críticos al analizar tus métricas</h2>
+<p>El fallo más común de los principiantes es multiplicar sus visitas totales por el CPM de los vídeos. Recuerda que no todas las visitas monetizan (algunos usuarios usan bloqueadores de anuncios o no ven publicidad) y que Google se queda con el 45% de los ingresos por anuncios tradicionales. Mira siempre tu RPM para tener proyecciones reales del negocio.</p></p>
+                
+                <h2>Preguntas Frecuentes</h2>
+                <div class="faq-item"><h3>¿Cuál es la diferencia entre CPM y RPM?</h3><p>El CPM es el coste que pagan los anunciantes por cada 1.000 impresiones de anuncios, mientras que el RPM son tus ingresos netos reales por cada 1.000 visitas tras la comisión de YouTube.</p></div><div class="faq-item"><h3>¿Cómo puedo subir mi RPM?</h3><p>Creando vídeos de mayor duración (más de 8 minutos) para meter anuncios mid-roll y enfocándote en audiences con alto poder adquisitivo (EE.UU.) o nichos caros (Finanzas, SaaS).</p></div>
+            </article>
+        </main>
+
+        <aside>
+            <div class="sidebar-box">
+                <h4 style="margin-top:0;">Herramientas Relacionadas</h4>
+                <ul class="sidebar-link-list">
+                    
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <footer style="text-align: center; padding: 20px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); background: #fff;">
+        <p>&copy; 2026 Minitools. Procesado en local con privacidad absoluta.</p>
+    </footer>
+
+</body>
+</html>
