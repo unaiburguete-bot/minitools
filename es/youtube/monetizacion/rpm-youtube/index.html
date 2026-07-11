@@ -245,11 +245,11 @@
                 <h1>¿Cuánto dinero paga YouTube por tus visitas? Calcular RPM Exacto</h1>
                 <div class="tool-ui-box">
                     
-            <label style="display:block; margin-top:10px; font-weight:bold;">Número de Visitas Totales</label><input type="number" id="visitas" placeholder="Ej. 100000" style="width:100%; padding:10px; margin-top:5px; border:1px solid #cbd5e1; border-radius:6px;"><label style="display:block; margin-top:10px; font-weight:bold;">Tu RPM Estimado (€)</label><input type="number" id="rpm" placeholder="Ej. 4.25" style="width:100%; padding:10px; margin-top:5px; border:1px solid #cbd5e1; border-radius:6px;">
-            <button onclick="calcular_rpm-youtube()" style="width:100%; background:#2563eb; color:white; border:none; padding:12px; font-weight:bold; margin-top:15px; border-radius:6px; cursor:pointer;">Calcular Ahora</button>
-            <div id="res_rpm-youtube" style="margin-top:15px; padding:15px; background:#f1f5f9; border-radius:6px; text-align:center; font-weight:bold; display:none;"></div>
+            <label>Número de Visitas Totales</label><input type="number" id="visitas" placeholder="Ej. 100000" oninput="calcular_rpm_youtube()"> <label>Tu RPM Estimado (€)</label><input type="number" id="rpm" placeholder="Ej. 4.25" oninput="calcular_rpm_youtube()"> 
+            <button onclick="calcular_rpm_youtube()" class="calc-btn">Calcular Ahora ⚡</button>
+            <div id="res_rpm-youtube" class="calc-result-box" style="display:none;"></div>
             <script>
-                function calcular_rpm-youtube() {
+                function calcular_rpm_youtube() {
                     let valores = {};
                     valores['inputs.visitas'] = parseFloat(document.getElementById('visitas').value || 0);valores['inputs.rpm'] = parseFloat(document.getElementById('rpm').value || 0);
                     valores['bloques_mil'] = valores['inputs.visitas'] / 1000;
@@ -257,7 +257,7 @@ valores['ingresos_totales'] = valores['bloques_mil'] * valores['inputs.rpm'];
 
                     let resDiv = document.getElementById('res_rpm-youtube');
                     resDiv.style.display = 'block';
-                    resDiv.innerHTML = 'Ingresos Totales Estimados: ' + valores['ingresos_totales'].toFixed(2) + ' €';
+                    resDiv.innerHTML = 'Ingresos Totales Estimados: ' + valores['ingresos_totales'].toLocaleString('es-ES', {maximumFractionDigits: 2}) + ' €';
                 }
             </script>
         
