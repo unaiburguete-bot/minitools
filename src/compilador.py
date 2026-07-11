@@ -58,7 +58,7 @@ def calcular_grafo_semantico(nodos):
                     score += 1
             
             if score > 0:
-                url = f"/{n_potencial['_idioma']}/{'/'.join(n_potencial['_cluster_path'])}/{n_potencial['id']}/"
+                url = f"/minitools/{n_potencial['_idioma']}/{'/'.join(n_potencial['_cluster_path'])}/{n_potencial['id']}/"
                 relacionados.append({"title": n_potencial["meta"]["title"], "url": url, "score": score})
         
         n_actual["_relacionados"] = sorted(relacionados, key=lambda x: x["score"], reverse=True)[:5]
@@ -67,7 +67,7 @@ def generar_imagen_og(titulo, ruta_salida):
     os.makedirs(os.path.dirname(ruta_salida), exist_ok=True)
     img = Image.new('RGB', (1200, 630), color='#1e293b')
     d = ImageDraw.Draw(img)
-    d.rectangle([(40, 40), (1160, 590)], outline="#2563eb", width=8)
+    d.rectangle([(40, 40), (1160, 590)], outline="#6366f1", width=8)
     d.text((80, 260), f"Minitools\n\n> {titulo}", fill="#ffffff")
     img.save(ruta_salida, "JPEG", quality=85)
 
@@ -90,7 +90,10 @@ def compilar():
         dir_final = os.path.join(DIR_SALIDA, ruta_silo)
         os.makedirs(dir_final, exist_ok=True)
         
-        html_inputs = "".join([f'<label style="display:block; margin-top:10px; font-weight:bold;">{i["label"]}</label><input type="{i["type"]}" id="{i["id"]}" placeholder="{i["placeholder"]}" style="width:100%; padding:10px; margin-top:5px; border:1px solid #cbd5e1; border-radius:6px;">' for i in calc.get("inputs", [])])
+        # FIX EXCLUSIVO: Eliminar guiones medios del ID de funcion JS para evitar cortocircuitos matemáticos
+        func_js_name = n['id'].replace('-', '_')
+        
+        html_inputs = "".join([f'<label>{i["label"]}</label><input type="{i["type"]}" id="{i["id"]}" placeholder="{i["placeholder"]}" oninput="calcular_{func_js_name}()"> ' for i in calc.get("inputs", [])])
         
         js_ops = ""
         for paso in calc.get("algoritmo", {}).get("pasos", []):
@@ -101,16 +104,16 @@ def compilar():
 
         html_calculadora = f"""
             {html_inputs}
-            <button onclick="calcular_{n['id']}()" style="width:100%; background:#2563eb; color:white; border:none; padding:12px; font-weight:bold; margin-top:15px; border-radius:6px; cursor:pointer;">Calcular Ahora</button>
-            <div id="res_{n['id']}" style="margin-top:15px; padding:15px; background:#f1f5f9; border-radius:6px; text-align:center; font-weight:bold; display:none;"></div>
+            <button onclick="calcular_{func_js_name}()" class="calc-btn">Calcular Ahora ⚡</button>
+            <div id="res_{n['id']}" class="calc-result-box" style="display:none;"></div>
             <script>
-                function calcular_{n['id']}() {{
+                function calcular_{func_js_name}() {{
                     let valores = {{}};
                     { "".join([f"valores['inputs.{i['id']}'] = parseFloat(document.getElementById('{i['id']}').value || 0);" for i in calc.get("inputs", [])]) }
                     {js_ops}
                     let resDiv = document.getElementById('res_{n['id']}');
                     resDiv.style.display = 'block';
-                    resDiv.innerHTML = '{calc.get("algoritmo", {}).get("label", "Resultado")}: ' + valores['{calc.get("algoritmo", {}).get("output", "")}'].toFixed(2) + ' {calc.get("algoritmo", {}).get("unidad", "")}';
+                    resDiv.innerHTML = '{calc.get("algoritmo", {}).get("label", "Resultado")}: ' + valores['{calc.get("algoritmo", {}).get("output", "")}'].toLocaleString('es-ES', {{maximumFractionDigits: 2}}) + ' {calc.get("algoritmo", {}).get("unidad", "")}';
                 }}
             </script>
         """
@@ -142,10 +145,13 @@ def compilar():
         generar_imagen_og(n["meta"]["title"], os.path.join(DIR_SALIDA, "assets", "og", f"{n['id']}.jpg"))
         sitemap_urls.append(f"https://minitools.io/{ruta_silo}/")
 
-    # 🏠 NUEVO: GENERAR AUTOMÁTICAMENTE LA PORTADA PRINCIPAL (INDEX.HTML DE LA RAÍZ)
+    # 🏠 DISEÑO DE PORTADA PREMIUM (INDEX.HTML DE LA RAÍZ)
     html_lista_herramientas = "".join([
-        f'<li><a href="./{item["_idioma"]}/{"/".join(item["_cluster_path"])}/{item["id"]}/" style="color: #2563eb; font-weight: bold; text-decoration: none; font-size: 1.1rem;">'
-        f'{item["meta"]["title"]}</a> <span style="color:#64748b; font-size:0.85rem;">({item["_idioma"].upper()})</span></li>'
+        f'<div style="background: white; border: 1px solid #e2e8f0; padding: 24px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); transition: all 0.2s;" onmouseover="this.style.borderColor=\'#6366f1\'; this.style.transform=\'translateY(-2px)\';" onmouseout="this.style.borderColor=\'#e2e8f0\'; this.style.transform=\'translateY(0)\';">'
+        f'<span style="background: #eef2ff; color: #4f46e5; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; text-transform: uppercase;">{item["vectores"]["plataforma"]}</span>'
+        f'<h3 style="margin: 12px 0 8px 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;"><a href="./{item["_idioma"]}/{"/".join(item["_cluster_path"])}/{item["id"]}/" style="color: #0f172a; text-decoration: none;">{item["meta"]["title"]}</a></h3>'
+        f'<p style="color: #64748b; font-size: 0.95rem; margin: 0;">{item["meta"]["description"]}</p>'
+        f'</div>'
         for item in nodos
     ])
 
@@ -154,24 +160,26 @@ def compilar():
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Minitools | Directorio de Herramientas Programáticas</title>
+        <title>Minitools Factory | Directorio Inteligente</title>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
         <style>
-            body {{ font-family: system-ui, sans-serif; background: #f8fafc; color: #0f172a; margin: 0; padding: 40px 20px; }}
-            .container {{ max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }}
-            h1 {{ margin-top: 0; color: #1e293b; font-size: 2.2rem; }}
-            ul {{ padding-left: 20px; margin-top: 20px; }}
-            li {{ margin-bottom: 15px; }}
+            body {{ font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: #0f172a; margin: 0; padding: 60px 20px; -webkit-font-smoothing: antialiased; }}
+            .container {{ max-width: 1000px; margin: 0 auto; }}
+            .hero {{ text-align: center; margin-bottom: 50px; }}
+            .hero h1 {{ font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 12px; color: #1e293b; }}
+            .hero p {{ color: #64748b; font-size: 1.2rem; max-width: 600px; margin: 0 auto; }}
+            .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 40px; }}
         </style>
     </head>
     <body>
         <div class="container">
-            <h1>🛠️ Minitools Factory</h1>
-            <p style="color: #64748b; font-size: 1.1rem;">Bienvenido al centro de mandos de tu catálogo semántico. El sistema mapea tus datos y actualiza este índice automáticamente en cada despliegue.</p>
-            <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 30px 0;">
-            <h2 style="color: #334155; font-size: 1.4rem;">Herramientas Activas en el Ecosistema:</h2>
-            <ul>
-                {html_lista_herramientas if html_lista_herramientas else "<li>No hay herramientas cargadas en la carpeta content/ todavía.</li>"}
-            </ul>
+            <div class="hero">
+                <h1>⚡ Minitools Factory</h1>
+                <p>Calculadoras mecánicas y aplicaciones semánticas de rendimiento atómico. Sin anuncios invasivos ni rastreadores.</p>
+            </div>
+            <div class="grid">
+                {html_lista_herramientas if html_lista_herramientas else "<p>Cargando catálogo primario...</p>"}
+            </div>
         </div>
     </body>
     </html>"""
@@ -179,6 +187,10 @@ def compilar():
     os.makedirs(DIR_SALIDA, exist_ok=True)
     with open(os.path.join(DIR_SALIDA, "index.html"), 'w', encoding='utf-8') as h_file:
         h_file.write(html_portada)
+
+    # 🌐 AUTO-GENERACIÓN DEL ARCHIVO CNAME PARA EL DOMINIO PERSONALIZADO
+    with open(os.path.join(DIR_SALIDA, "CNAME"), 'w', encoding='utf-8') as cname_file:
+        cname_file.write("minitools.io")
 
     # Guardar sitemap
     xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -188,7 +200,7 @@ def compilar():
     with open(os.path.join(DIR_SALIDA, "sitemap.xml"), 'w', encoding='utf-8') as s_file:
         s_file.write(xml)
         
-    print(f"🚀 Compilación exitosa. {len(nodos)} objetos procesados e índice general creado.")
+    print("🚀 Compilación completada con diseño premium y parche JS activo.")
 
 if __name__ == "__main__":
     compilar()
