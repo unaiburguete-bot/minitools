@@ -5,6 +5,11 @@ version: 1.2
 creado: 2026-07-01
 actualizado: 2026-07-11
 
+# 🎯 METADATOS PARA GOOGLE
+meta:
+  title: "Calculadora de RPM de YouTube Exacto (2026)"
+  description: "Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática."
+
 # 🧠 VECTORES DEL GRAFO SEMÁNTICO
 vectores:
   plataforma: YouTube
@@ -32,7 +37,7 @@ calculadora:
       - id: ingresos_totales
         op: "multiplicacion"
         args: ["bloques_mil", "inputs.rpm"]
-    output: " ingresos_totales"
+    output: "ingresos_totales"
     unidad: "€"
     label: "Ingresos Totales Estimados"
 
@@ -46,7 +51,7 @@ faqs:
   - q: "¿Cuál es la diferencia entre CPM y RPM?"
     a: "El CPM es el coste que pagan los anunciantes por cada 1.000 impresiones de anuncios, mientras que el RPM son tus ingresos netos reales por cada 1.000 visitas tras la comisión de YouTube."
   - q: "¿Cómo puedo subir mi RPM?"
-    a: "Creando vídeos de mayor duración (más de 8 minutos) para meter anuncios mid-roll y enfocándote en audiencias con alto poder adquisitivo (EE.UU.) o nichos caros (Finanzas, SaaS)."
+    a: "Creando vídeos de mayor duración (más de 8 minutos) para meter anuncios mid-roll y enfocándote en audiences con alto poder adquisitivo (EE.UU.) o nichos caros (Finanzas, SaaS)."
 ---
 
 # ¿Cuánto paga YouTube realmente? Guía definitiva sobre el RPM
