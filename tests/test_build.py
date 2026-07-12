@@ -1,6 +1,15 @@
 from pathlib import Path
+import importlib.util
 
 ROOT = Path(__file__).resolve().parents[1]
+
+_COMPILER_SPEC = importlib.util.spec_from_file_location(
+    "clicivo_compilador", ROOT / "src" / "compilador.py"
+)
+assert _COMPILER_SPEC and _COMPILER_SPEC.loader
+_COMPILER_MODULE = importlib.util.module_from_spec(_COMPILER_SPEC)
+_COMPILER_SPEC.loader.exec_module(_COMPILER_MODULE)
+build_monetization = _COMPILER_MODULE.build_monetization
 PUBLIC = ROOT / "public"
 
 
@@ -326,3 +335,47 @@ def test_select_inputs_are_rendered_for_employment_tools():
     ).read_text(encoding="utf-8")
     assert '<select id="desempleo_trabajador">' in salary
     assert '<select id="tipo_indemnizacion">' in dismissal
+
+
+
+def test_affiliate_block_is_clear_safe_and_contextual():
+    block = build_monetization(
+        {
+            "id": "demo-afiliacion",
+            "monetizacion": {
+                "proveedor": "Herramienta Demo",
+                "red": "PartnerStack",
+                "titulo": "Organiza mejor tu negocio",
+                "descripcion": "Una solución relacionada con esta calculadora.",
+                "boton": "Conocer la herramienta",
+                "afiliado_url": "https://example.com/recomendacion?ref=clicivo",
+            },
+        }
+    )
+
+    assert "Recomendación con enlace de afiliado" in block
+    assert "Clicivo puede recibir una comisión" in block
+    assert 'rel="sponsored noopener noreferrer nofollow"' in block
+    assert 'data-affiliate-provider="Herramienta Demo"' in block
+    assert 'data-affiliate-network="PartnerStack"' in block
+    assert "<script" not in block
+
+
+def test_affiliate_block_stays_hidden_without_approved_link():
+    block = build_monetization(
+        {"id": "demo-sin-enlace", "monetizacion": {"afiliado_url": ""}}
+    )
+    assert block == ""
+
+
+def test_affiliate_tracking_and_legal_disclosure_are_generated():
+    tool = (
+        PUBLIC / "es/negocios/autonomos/calculadora-tarifa-hora/index.html"
+    ).read_text(encoding="utf-8")
+    legal = (PUBLIC / "aviso-legal/index.html").read_text(encoding="utf-8")
+
+    assert "affiliate_click" in tool
+    assert "affiliate_clicked" not in tool
+    assert "destination_domain" in tool
+    assert "Enlaces externos y afiliación" in legal
+    assert "puede recibir una comisión" in legal

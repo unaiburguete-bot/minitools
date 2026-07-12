@@ -208,10 +208,17 @@ def analytics_snippet(page_type: str, node: dict[str, Any] | None = None) -> str
                 link_url: related.href
             }});
             const affiliate = event.target.closest('[data-affiliate-link]');
-            if (affiliate) window.clicivoTrack('affiliate_clicked', {{
-                tool_id: document.body.dataset.toolId || '',
-                link_url: affiliate.href
-            }});
+            if (affiliate) {{
+                let destinationDomain = '';
+                try {{ destinationDomain = new URL(affiliate.href).hostname; }} catch (error) {{}}
+                window.clicivoTrack('affiliate_click', {{
+                    tool_id: document.body.dataset.toolId || '',
+                    affiliate_provider: affiliate.dataset.affiliateProvider || '',
+                    affiliate_network: affiliate.dataset.affiliateNetwork || '',
+                    placement: affiliate.dataset.affiliatePlacement || 'after_calculator',
+                    destination_domain: destinationDomain
+                }});
+            }}
         }});
     }});
 }})();
@@ -869,6 +876,71 @@ def build_structured_data(node: dict[str, Any], canonical: str) -> str:
     return json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
 
+
+def build_monetization(node: dict[str, Any]) -> str:
+    """Construye un bloque de afiliación claro, contextual y sin scripts externos."""
+    monetization = node.get("monetizacion") or {}
+    affiliate_url = str(monetization.get("afiliado_url", "")).strip()
+    if not affiliate_url:
+        return ""
+
+    parsed = urlparse(affiliate_url)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        fail(
+            f"afiliado_url debe ser una URL HTTP(S) válida en la herramienta {node.get('id', 'sin-id')}"
+        )
+
+    provider = str(monetization.get("proveedor", "")).strip()
+    network = str(monetization.get("red", "")).strip()
+    label = str(
+        monetization.get("etiqueta", "Recomendación con enlace de afiliado")
+    ).strip()
+    title = str(
+        monetization.get("titulo")
+        or provider
+        or "Recurso recomendado"
+    ).strip()
+    description = str(
+        monetization.get("descripcion")
+        or monetization.get("cta")
+        or "Una opción relacionada con esta herramienta que puede ayudarte a dar el siguiente paso."
+    ).strip()
+    button = str(
+        monetization.get("boton")
+        or (f"Conocer {provider}" if provider else "Ver recurso recomendado")
+    ).strip()
+    disclosure = str(
+        monetization.get("aviso")
+        or "Clicivo puede recibir una comisión si contratas desde este enlace, sin coste adicional para ti."
+    ).strip()
+
+    provider_html = (
+        f'<p class="affiliate-provider">Recurso recomendado: {html.escape(provider)}</p>'
+        if provider
+        else ""
+    )
+
+    return (
+        '<section class="affiliate-card" aria-label="Recomendación comercial">'
+        f'<p class="affiliate-label">{html.escape(label)}</p>'
+        '<div class="affiliate-main">'
+        '<div class="affiliate-copy">'
+        f'{provider_html}'
+        f'<h2>{html.escape(title)}</h2>'
+        f'<p>{html.escape(description)}</p>'
+        '</div>'
+        f'<a class="affiliate-button" data-affiliate-link '
+        f'data-affiliate-provider="{html.escape(provider, quote=True)}" '
+        f'data-affiliate-network="{html.escape(network, quote=True)}" '
+        'data-affiliate-placement="after_calculator" '
+        f'href="{html.escape(affiliate_url, quote=True)}" target="_blank" '
+        'rel="sponsored noopener noreferrer nofollow">'
+        f'{html.escape(button)} <span aria-hidden="true">→</span></a>'
+        '</div>'
+        f'<p class="affiliate-disclosure">{html.escape(disclosure)}</p>'
+        '</section>'
+    )
+
 def render_tool(node: dict[str, Any], template: str) -> str:
     route = node_route(node)
     canonical = absolute_url(route)
@@ -887,18 +959,7 @@ def render_tool(node: dict[str, Any], template: str) -> str:
         for item in node.get("faqs", [])
     )
 
-    monetization = node.get("monetizacion", {})
-    affiliate_url = str(monetization.get("afiliado_url", "")).strip()
-    if affiliate_url:
-        monetization_html = (
-            '<div class="monetization-bar">'
-            f'<p>{html.escape(str(monetization.get("cta", "")))}</p>'
-            f'<a data-affiliate-link href="{html.escape(affiliate_url, quote=True)}" target="_blank" '
-            'rel="sponsored noopener noreferrer nofollow">Ver recurso recomendado →</a>'
-            "</div>"
-        )
-    else:
-        monetization_html = ""
+    monetization_html = build_monetization(node)
 
     updated = str(node.get("actualizado", node.get("creado", "")))
     body_html = markdown.markdown(
@@ -1392,7 +1453,7 @@ def legal_pages() -> dict[str, tuple[str, str, str]]:
 <h2>2. Objeto</h2><p>Clicivo ofrece calculadoras, herramientas y contenidos informativos de uso gratuito. Los resultados son orientativos y dependen de los datos introducidos por cada usuario.</p>
 <h2>3. Condiciones de uso</h2><p>La persona usuaria se compromete a utilizar el sitio de forma lícita y a no realizar acciones que dañen, sobrecarguen o alteren su funcionamiento. No se garantiza que los resultados sean adecuados para decisiones fiscales, jurídicas, financieras o profesionales sin una comprobación adicional.</p>
 <h2>4. Propiedad intelectual</h2><p>Salvo indicación contraria, el diseño, código, textos, estructura y elementos propios de Clicivo pertenecen a su titular o se utilizan con licencia. No se autoriza su reproducción o explotación comercial sin permiso, salvo los usos permitidos legalmente.</p>
-<h2>5. Enlaces externos</h2><p>Clicivo puede incluir enlaces a servicios de terceros. El titular no controla sus contenidos, disponibilidad ni políticas. Cuando existan enlaces de afiliación, se identificarán de forma clara.</p>
+<h2>5. Enlaces externos y afiliación</h2><p>Clicivo puede incluir enlaces a servicios de terceros. El titular no controla sus contenidos, disponibilidad, precios ni políticas. Algunos enlaces pueden ser de afiliación: se identificarán de forma clara junto al propio bloque comercial. Si una persona contrata o compra mediante uno de esos enlaces, Clicivo puede recibir una comisión sin que ello incremente el precio para la persona usuaria.</p>
 <h2>6. Responsabilidad</h2><p>Se procura mantener la información actualizada y el servicio disponible, pero pueden existir errores, interrupciones o cambios de terceros. El uso de los resultados es responsabilidad de quien los consulta.</p>
 <h2>7. Legislación aplicable</h2><p>Este sitio se rige por la legislación española. Para cualquier consulta puede utilizarse el correo indicado anteriormente.</p>
 <p class="notice"><strong>Última actualización:</strong> 12 de julio de 2026.</p>"""
