@@ -26,6 +26,8 @@ SUPPORTED_OPERATIONS = {
     "suma": "+",
     "resta": "-",
     "potencia": "**",
+    "minimo": "min",
+    "maximo": "max",
 }
 SUPPORTED_VALIDATIONS = {
     "mayor_que": ">",
@@ -315,6 +317,13 @@ def validate_entities(nodes: list[dict[str, Any]]) -> None:
             for key in ["label", "type", "placeholder"]:
                 if key not in input_item:
                     fail(f"Falta inputs.{input_id}.{key} en {source}")
+            if str(input_item.get("type")) == "select":
+                options = input_item.get("options")
+                if not isinstance(options, list) or not options:
+                    fail(f"El select '{input_id}' necesita opciones en {source}")
+                for option in options:
+                    if not isinstance(option, dict) or "value" not in option or not option.get("label"):
+                        fail(f"Opción inválida en el select '{input_id}' de {source}")
 
         available_refs = {f"inputs.{input_id}" for input_id in input_ids}
         for validation in calculator.get("validaciones", []):
@@ -394,6 +403,10 @@ CATEGORY_LABELS = {
     "precios": "Precios",
     "rentabilidad": "Rentabilidad",
     "autonomos": "Autónomos",
+    "empleo": "Empleo y salarios",
+    "salarios": "Salarios",
+    "liquidacion-laboral": "Liquidación laboral",
+    "extincion-contrato": "Extinción del contrato",
 }
 
 SOCIAL_PLATFORMS = {"youtube", "instagram", "tiktok", "twitch"}
@@ -422,6 +435,14 @@ FAMILY_DEFINITIONS = {
             "planificar tarifas en pequeños negocios y actividades profesionales."
         ),
     },
+    "empleo": {
+        "label": "Empleo y salarios",
+        "title": "Herramientas de empleo y salarios",
+        "description": (
+            "Calculadoras orientativas para entender el sueldo neto, la liquidación "
+            "laboral y determinadas indemnizaciones por extinción del contrato."
+        ),
+    },
 }
 PLATFORM_DESCRIPTIONS = {
     "youtube": "Calculadoras para analizar monetización, ingresos, RPM, visualizaciones y horas de reproducción en YouTube.",
@@ -430,6 +451,7 @@ PLATFORM_DESCRIPTIONS = {
     "twitch": "Calculadoras para streamers, audiencias y monetización en Twitch.",
     "finanzas-personales": "Simuladores para planificar hipotecas, préstamos, ahorro e inversión con cifras orientativas y transparentes.",
     "negocios-y-autonomos": "Herramientas para fijar precios, controlar márgenes, calcular rentabilidad y definir tarifas profesionales.",
+    "empleo-y-salarios": "Calculadoras laborales orientativas para estimar sueldo neto, liquidaciones e indemnizaciones en España.",
 }
 
 
@@ -464,7 +486,7 @@ def platform_label(node: dict[str, Any]) -> str:
 
 def platform_theme(node: dict[str, Any]) -> str:
     key = platform_key(node)
-    supported_themes = SOCIAL_PLATFORMS | {"finanzas-personales", "negocios-y-autonomos"}
+    supported_themes = SOCIAL_PLATFORMS | {"finanzas-personales", "negocios-y-autonomos", "empleo-y-salarios"}
     return f"theme-{key}" if key in supported_themes else "theme-default"
 
 
@@ -516,6 +538,10 @@ def category_page_title(node: dict[str, Any]) -> str:
         if topic == "Herramientas":
             return "Herramientas para negocios y autónomos"
         return f"Herramientas de {topic.lower()} para negocios y autónomos"
+    if platform_key(node) == "empleo-y-salarios":
+        if topic == "Herramientas":
+            return "Herramientas de empleo y salarios"
+        return f"Herramientas de {topic.lower()}"
     if topic == "Herramientas":
         return f"Herramientas de {platform}"
     return f"Herramientas de {topic.lower()} de {platform}"
@@ -618,9 +644,27 @@ def build_calculator(node: dict[str, Any]) -> str:
 
     input_html: list[str] = []
     for item in inputs:
+        input_id = html.escape(str(item["id"]), quote=True)
+        label_html = (
+            f'<label for="{input_id}">{html.escape(str(item["label"]))}</label>'
+        )
+        if str(item["type"]) == "select":
+            options_html = [
+                f'<option value="">{html.escape(str(item["placeholder"]))}</option>'
+            ]
+            for option in item.get("options", []):
+                options_html.append(
+                    f'<option value="{html.escape(str(option["value"]), quote=True)}">'
+                    f'{html.escape(str(option["label"]))}</option>'
+                )
+            input_html.append(
+                label_html + f'<select id="{input_id}">{"".join(options_html)}</select>'
+            )
+            continue
+
         attributes = [
             f'type="{html.escape(str(item["type"]), quote=True)}"',
-            f'id="{html.escape(str(item["id"]), quote=True)}"',
+            f'id="{input_id}"',
             f'placeholder="{html.escape(str(item["placeholder"]), quote=True)}"',
             'inputmode="decimal"',
         ]
@@ -629,11 +673,7 @@ def build_calculator(node: dict[str, Any]) -> str:
                 attributes.append(
                     f'{attribute}="{html.escape(str(item[attribute]), quote=True)}"'
                 )
-        input_html.append(
-            f'<label for="{html.escape(str(item["id"]), quote=True)}">'
-            f'{html.escape(str(item["label"]))}</label>'
-            f'<input {" ".join(attributes)}>'
-        )
+        input_html.append(label_html + f'<input {" ".join(attributes)}>')
 
     input_statements: list[str] = []
     for item in inputs:
@@ -686,6 +726,14 @@ def build_calculator(node: dict[str, Any]) -> str:
         if step["op"] == "potencia":
             operation_statements.append(
                 f"values[{step_key}] = Math.pow({left}, {right});"
+            )
+        elif step["op"] == "minimo":
+            operation_statements.append(
+                f"values[{step_key}] = Math.min({left}, {right});"
+            )
+        elif step["op"] == "maximo":
+            operation_statements.append(
+                f"values[{step_key}] = Math.max({left}, {right});"
             )
         else:
             operation_statements.append(
@@ -866,6 +914,7 @@ def render_tool(node: dict[str, Any], template: str) -> str:
         "{{SOCIAL_URL}}": site_path(f"{node['_language']}/redes-sociales"),
         "{{FINANCE_URL}}": site_path(f"{node['_language']}/finanzas"),
         "{{BUSINESS_URL}}": site_path(f"{node['_language']}/negocios"),
+        "{{EMPLOYMENT_URL}}": site_path(f"{node['_language']}/empleo"),
         "{{ALL_TOOLS_URL}}": site_path(all_tools_route(node["_language"])),
         "{{META_TITLE}}": str(node["meta"]["title"]),
         "{{META_DESCRIPTION}}": str(node["meta"]["description"]),
@@ -1032,6 +1081,9 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
         .tool-card-home.platform-negocios-y-autonomos {{ border-color:#cddfea;background:linear-gradient(145deg,#fff,#f3f8fb);box-shadow:0 14px 36px rgba(8,47,73,.07); }}
         .tool-card-home.platform-negocios-y-autonomos .tag {{ color:#fff;background:linear-gradient(105deg,#0f4c66,#0e7490 62%,#d97706); }}
         .tool-card-home.platform-negocios-y-autonomos .card-link {{ color:#0f5b78; }}
+        .tool-card-home.platform-empleo-y-salarios {{ border-color:#ded6ea;background:linear-gradient(145deg,#fff,#f8f6fc);box-shadow:0 14px 36px rgba(76,29,149,.065); }}
+        .tool-card-home.platform-empleo-y-salarios .tag {{ color:#fff;background:linear-gradient(105deg,#312e81,#6d28d9 62%,#a16207); }}
+        .tool-card-home.platform-empleo-y-salarios .card-link {{ color:#5b21b6; }}
         .tool-card-home p {{ color:var(--muted);line-height:1.65; }}
         .card-link {{ display:inline-block;margin-top:7px;color:var(--primary);font-weight:700;text-decoration:none; }}
         footer {{ border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.9rem; }}
@@ -1039,7 +1091,7 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
     </style>
 </head>
 <body>
-<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path('es/negocios')}">Negocios</a><a href="{site_path(all_tools_route())}">Todas las herramientas</a></nav></div></header>
+<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path('es/negocios')}">Negocios</a><a href="{site_path('es/empleo')}">Empleo</a><a href="{site_path(all_tools_route())}">Todas las herramientas</a></nav></div></header>
 <main>
     <section class="hero wrap">
         <div class="eyebrow">Herramientas gratuitas</div>
@@ -1116,12 +1168,13 @@ main{{padding:56px 0 84px}}.crumbs{{font-size:.88rem;color:var(--muted);margin-b
 body.theme-instagram{{--bg:#fff8fc;--text:#29162f;--muted:#765f7c;--border:#f0d7e5;--primary:#d62976;--primary-light:#fff0f7;background:radial-gradient(circle at 10% 5%,rgba(247,119,55,.18),transparent 26rem),radial-gradient(circle at 92% 8%,rgba(131,58,180,.15),transparent 30rem),linear-gradient(180deg,#fff8fc,#fff 55%,#faf7ff)}}body.theme-instagram header{{background:rgba(255,250,253,.9)}}body.theme-instagram h1{{background:linear-gradient(100deg,#713080,#d62976 52%,#e85d18);-webkit-background-clip:text;background-clip:text;color:transparent}}body.theme-instagram .directory-card{{border-color:#efd2e2;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(255,247,252,.94));box-shadow:0 20px 55px rgba(131,58,180,.09)}}body.theme-instagram .pill{{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}}
 body.theme-finanzas-personales{{--bg:#f5fbf8;--text:#102a23;--muted:#587067;--border:#cfe9dc;--primary:#047857;--primary-light:#e7f8f0;background:radial-gradient(circle at 10% 5%,rgba(16,185,129,.13),transparent 28rem),radial-gradient(circle at 92% 8%,rgba(14,116,144,.10),transparent 30rem),linear-gradient(180deg,#f4fbf8,#fff 58%,#f4faf8)}}body.theme-finanzas-personales header{{background:rgba(248,253,251,.92);border-bottom-color:#d5eadf}}body.theme-finanzas-personales h1{{color:#123c31}}body.theme-finanzas-personales .directory-card,body.theme-finanzas-personales .tool-card{{border-color:#cfe9dc;background:linear-gradient(145deg,#fff,#f4fbf8);box-shadow:0 20px 55px rgba(5,150,105,.07)}}body.theme-finanzas-personales .pill{{color:#065f46;background:#dff7eb}}body.theme-finanzas-personales .open-link,body.theme-finanzas-personales .crumbs a{{color:#047857}}
 body.theme-negocios-y-autonomos{{--bg:#f4f8fb;--text:#102b3a;--muted:#5b7180;--border:#cddfea;--primary:#0f5b78;--primary-light:#e7f2f7;background:radial-gradient(circle at 10% 5%,rgba(14,116,144,.13),transparent 28rem),radial-gradient(circle at 92% 8%,rgba(245,158,11,.12),transparent 30rem),linear-gradient(180deg,#f3f8fb,#fff 58%,#f8fafb)}}body.theme-negocios-y-autonomos header{{background:rgba(248,251,253,.93);border-bottom-color:#d6e4ec}}body.theme-negocios-y-autonomos h1{{color:#123b4d}}body.theme-negocios-y-autonomos .directory-card,body.theme-negocios-y-autonomos .tool-card{{border-color:#cddfea;background:linear-gradient(145deg,#fff,#f2f7fa);box-shadow:0 20px 55px rgba(8,47,73,.07)}}body.theme-negocios-y-autonomos .pill{{color:#fff;background:linear-gradient(105deg,#0f4c66,#0e7490 62%,#d97706)}}body.theme-negocios-y-autonomos .open-link,body.theme-negocios-y-autonomos .crumbs a{{color:#0f5b78}}
+body.theme-empleo-y-salarios{{--bg:#f8f7fc;--text:#211b35;--muted:#655f76;--border:#ded8ea;--primary:#5b21b6;--primary-light:#f0eafe;background:radial-gradient(circle at 10% 5%,rgba(91,33,182,.12),transparent 28rem),radial-gradient(circle at 92% 8%,rgba(161,98,7,.10),transparent 30rem),linear-gradient(180deg,#f8f7fc,#fff 58%,#faf9fc)}}body.theme-empleo-y-salarios header{{background:rgba(251,250,253,.93);border-bottom-color:#e3ddec}}body.theme-empleo-y-salarios h1{{color:#2f2350}}body.theme-empleo-y-salarios .directory-card,body.theme-empleo-y-salarios .tool-card{{border-color:#ded8ea;background:linear-gradient(145deg,#fff,#f8f6fc);box-shadow:0 20px 55px rgba(76,29,149,.065)}}body.theme-empleo-y-salarios .pill{{color:#fff;background:linear-gradient(105deg,#312e81,#6d28d9 62%,#a16207)}}body.theme-empleo-y-salarios .open-link,body.theme-empleo-y-salarios .crumbs a{{color:#5b21b6}}
 footer{{background:#fff;border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.88rem}}footer a{{color:#475569}}
 @media(max-width:700px){{.header-inner{{align-items:flex-start;flex-direction:column;padding:16px 0}}.site-nav{{gap:14px;flex-wrap:wrap}}main{{padding-top:38px}}.catalog-section-head{{align-items:flex-start;flex-direction:column}}}}
 </style>
 </head>
 <body class="{html.escape(theme_class, quote=True)}">
-<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path('es/negocios')}">Negocios</a><a href="{site_path(all_tools_route(language))}">Todas las herramientas</a></nav></div></header>
+<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path('es/negocios')}">Negocios</a><a href="{site_path('es/empleo')}">Empleo</a><a href="{site_path(all_tools_route(language))}">Todas las herramientas</a></nav></div></header>
 <main class="wrap"><nav class="crumbs" aria-label="Migas de pan">{breadcrumbs}</nav><h1>{html.escape(title)}</h1><p class="intro">{html.escape(description)}</p>{content_html}</main>
 <footer><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)}. Herramientas claras para decisiones rápidas. · {legal_footer()}</div></footer>
 </body></html>"""
@@ -1198,6 +1251,8 @@ def render_platform(route: str, nodes: list[dict[str, Any]]) -> str:
     platform_title = (
         "Herramientas para negocios y autónomos"
         if platform_key(first) == "negocios-y-autonomos"
+        else "Herramientas de empleo y salarios"
+        if platform_key(first) == "empleo-y-salarios"
         else f"Herramientas de {platform}"
     )
     return render_catalog_shell(
@@ -1223,6 +1278,8 @@ def render_category(route: str, nodes: list[dict[str, Any]]) -> str:
         description = "Mide la interacción, compara el rendimiento y toma mejores decisiones para tu perfil o tus campañas de Instagram."
     elif platform_key(first) == "negocios-y-autonomos":
         description = f"Calculadoras y recursos gratuitos de {topic.lower()} para pequeños negocios, autónomos y profesionales."
+    elif platform_key(first) == "empleo-y-salarios":
+        description = f"Calculadoras orientativas de {topic.lower()} para personas trabajadoras en España, con metodología y límites explicados."
     else:
         description = f"Calculadoras y utilidades gratuitas de {topic.lower()} para {platform}."
 

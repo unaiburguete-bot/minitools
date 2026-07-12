@@ -32,6 +32,12 @@ def test_core_outputs_exist():
         "es/negocios/precios/calculadora-margen-beneficio/index.html",
         "es/negocios/rentabilidad/simulador-punto-equilibrio/index.html",
         "es/negocios/autonomos/calculadora-tarifa-hora/index.html",
+        "es/empleo/index.html",
+        "es/empleo-y-salarios/index.html",
+        "es/empleo/salarios/index.html",
+        "es/empleo/salarios/calculadora-sueldo-neto/index.html",
+        "es/empleo/liquidacion-laboral/calculadora-finiquito/index.html",
+        "es/empleo/extincion-contrato/calculadora-indemnizacion-despido/index.html",
     ]
     for relative in expected:
         assert (PUBLIC / relative).exists(), f"Falta public/{relative}"
@@ -91,6 +97,12 @@ def test_sitemap_contains_new_architecture_and_old_urls():
         "https://clicivo.com/es/negocios/precios/calculadora-margen-beneficio/",
         "https://clicivo.com/es/negocios/rentabilidad/simulador-punto-equilibrio/",
         "https://clicivo.com/es/negocios/autonomos/calculadora-tarifa-hora/",
+        "https://clicivo.com/es/empleo/",
+        "https://clicivo.com/es/empleo-y-salarios/",
+        "https://clicivo.com/es/empleo/salarios/",
+        "https://clicivo.com/es/empleo/salarios/calculadora-sueldo-neto/",
+        "https://clicivo.com/es/empleo/liquidacion-laboral/calculadora-finiquito/",
+        "https://clicivo.com/es/empleo/extincion-contrato/calculadora-indemnizacion-despido/",
     ]
     for url in expected:
         assert f"<loc>{url}</loc>" in sitemap
@@ -140,7 +152,7 @@ def test_all_tools_page_contains_every_tool():
         for path in (PUBLIC / "es").rglob("index.html")
         if "SoftwareApplication" in path.read_text(encoding="utf-8")
     ]
-    assert len(tool_pages) == 15
+    assert len(tool_pages) == 18
     for path in tool_pages:
         relative = path.parent.relative_to(PUBLIC).as_posix()
         assert f'href="/{relative}/"' in catalog
@@ -251,3 +263,66 @@ def test_navigation_includes_business():
         page_html = page.read_text(encoding="utf-8")
         assert 'href="/es/negocios/"' in page_html
         assert ">Negocios</a>" in page_html
+
+
+
+def test_employment_family_and_theme_are_generated():
+    home = (PUBLIC / "index.html").read_text(encoding="utf-8")
+    family = (PUBLIC / "es/empleo/index.html").read_text(encoding="utf-8")
+    platform = (PUBLIC / "es/empleo-y-salarios/index.html").read_text(encoding="utf-8")
+    salary = (
+        PUBLIC / "es/empleo/salarios/calculadora-sueldo-neto/index.html"
+    ).read_text(encoding="utf-8")
+
+    assert "Herramientas de empleo y salarios" in home
+    assert 'href="/es/empleo/"' in home
+    assert "Empleo y salarios" in family
+    assert "Salarios" in platform
+    assert '<body class="theme-empleo-y-salarios"' in salary
+    assert "CLICIVO EMPLOYMENT THEME" in salary
+
+
+def test_employment_calculators_have_official_2026_parameters_and_limits():
+    salary = (
+        PUBLIC / "es/empleo/salarios/calculadora-sueldo-neto/index.html"
+    ).read_text(encoding="utf-8")
+    settlement = (
+        PUBLIC / "es/empleo/liquidacion-laboral/calculadora-finiquito/index.html"
+    ).read_text(encoding="utf-8")
+    dismissal = (
+        PUBLIC / "es/empleo/extincion-contrato/calculadora-indemnizacion-despido/index.html"
+    ).read_text(encoding="utf-8")
+
+    assert "5.101,20" in salary
+    assert "Contrato indefinido: 1,55 %" in salary
+    assert "Contrato temporal: 1,60 %" in salary
+    assert "Math.min" in salary
+    assert "Math.max" in salary
+    assert "Liquidación bruta estimada" in settlement
+    assert "documento de liquidación" in settlement
+    assert "20 días/año" in dismissal
+    assert "33 días/año" in dismissal
+    assert "12 de febrero de 2012" in dismissal
+
+
+def test_navigation_includes_employment():
+    pages = [
+        PUBLIC / "index.html",
+        PUBLIC / "es/finanzas/index.html",
+        PUBLIC / "es/empleo/salarios/calculadora-sueldo-neto/index.html",
+    ]
+    for page in pages:
+        page_html = page.read_text(encoding="utf-8")
+        assert 'href="/es/empleo/"' in page_html
+        assert ">Empleo</a>" in page_html
+
+
+def test_select_inputs_are_rendered_for_employment_tools():
+    salary = (
+        PUBLIC / "es/empleo/salarios/calculadora-sueldo-neto/index.html"
+    ).read_text(encoding="utf-8")
+    dismissal = (
+        PUBLIC / "es/empleo/extincion-contrato/calculadora-indemnizacion-despido/index.html"
+    ).read_text(encoding="utf-8")
+    assert '<select id="desempleo_trabajador">' in salary
+    assert '<select id="tipo_indemnizacion">' in dismissal
