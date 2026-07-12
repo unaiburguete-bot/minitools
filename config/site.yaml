@@ -1,0 +1,14 @@
+site_name: "Minitools"
+site_description: "Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar."
+
+site_origin: "https://unaiburguete-bot.github.io"
+base_path: "/minitools"
+
+default_language: "es"
+content_dir: "content"
+output_dir: "public"
+template_path: "template.html"
+
+brand:
+  short_name: "Minitools"
+  footer_name: "Minitools"
