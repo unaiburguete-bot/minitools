@@ -20,6 +20,12 @@ def test_core_outputs_exist():
         "es/youtube/monetizacion/rpm-youtube/index.html",
         "es/instagram/analitica/index.html",
         "es/instagram/analitica/engagement-instagram-seguidores/index.html",
+        "es/finanzas/index.html",
+        "es/finanzas-personales/index.html",
+        "es/finanzas/hipotecas/index.html",
+        "es/finanzas/hipotecas/calculadora-hipoteca/index.html",
+        "es/finanzas/ahorro-inversion/calculadora-interes-compuesto/index.html",
+        "es/finanzas/prestamos/calculadora-prestamo-personal/index.html",
     ]
     for relative in expected:
         assert (PUBLIC / relative).exists(), f"Falta public/{relative}"
@@ -67,6 +73,12 @@ def test_sitemap_contains_new_architecture_and_old_urls():
         "https://clicivo.com/es/youtube/monetizacion/rpm-youtube/",
         "https://clicivo.com/es/instagram/analitica/",
         "https://clicivo.com/es/instagram/analitica/engagement-instagram-seguidores/",
+        "https://clicivo.com/es/finanzas/",
+        "https://clicivo.com/es/finanzas-personales/",
+        "https://clicivo.com/es/finanzas/hipotecas/",
+        "https://clicivo.com/es/finanzas/hipotecas/calculadora-hipoteca/",
+        "https://clicivo.com/es/finanzas/ahorro-inversion/calculadora-interes-compuesto/",
+        "https://clicivo.com/es/finanzas/prestamos/calculadora-prestamo-personal/",
     ]
     for url in expected:
         assert f"<loc>{url}</loc>" in sitemap
@@ -116,7 +128,7 @@ def test_all_tools_page_contains_every_tool():
         for path in (PUBLIC / "es").rglob("index.html")
         if "SoftwareApplication" in path.read_text(encoding="utf-8")
     ]
-    assert len(tool_pages) == 9
+    assert len(tool_pages) == 12
     for path in tool_pages:
         relative = path.parent.relative_to(PUBLIC).as_posix()
         assert f'href="/{relative}/"' in catalog
@@ -129,3 +141,51 @@ def test_tool_breadcrumbs_include_family_platform_and_topic():
     assert 'href="/es/redes-sociales/">Redes sociales</a>' in youtube
     assert 'href="/es/youtube/">YouTube</a>' in youtube
     assert 'href="/es/youtube/monetizacion/">Monetización</a>' in youtube
+
+
+def test_finance_family_and_theme_are_generated():
+    home = (PUBLIC / "index.html").read_text(encoding="utf-8")
+    family = (PUBLIC / "es/finanzas/index.html").read_text(encoding="utf-8")
+    platform = (PUBLIC / "es/finanzas-personales/index.html").read_text(encoding="utf-8")
+    mortgage = (
+        PUBLIC / "es/finanzas/hipotecas/calculadora-hipoteca/index.html"
+    ).read_text(encoding="utf-8")
+
+    assert "Herramientas de finanzas" in home
+    assert 'href="/es/finanzas/"' in home
+    assert "Finanzas personales" in family
+    assert "Hipotecas" in platform
+    assert '<body class="theme-finanzas-personales"' in mortgage
+    assert "CLICIVO FINANCE THEME" in mortgage
+
+
+def test_finance_calculators_have_multiple_results_and_power_operation():
+    mortgage = (
+        PUBLIC / "es/finanzas/hipotecas/calculadora-hipoteca/index.html"
+    ).read_text(encoding="utf-8")
+    compound = (
+        PUBLIC / "es/finanzas/ahorro-inversion/calculadora-interes-compuesto/index.html"
+    ).read_text(encoding="utf-8")
+    loan = (
+        PUBLIC / "es/finanzas/prestamos/calculadora-prestamo-personal/index.html"
+    ).read_text(encoding="utf-8")
+
+    assert "Math.pow" in mortgage
+    assert "Cuota mensual estimada" in mortgage
+    assert "Intereses totales" in mortgage
+    assert "Capital final estimado" in compound
+    assert "Rendimiento acumulado" in compound
+    assert "Comisión de apertura" in loan
+    assert "Total a devolver" in loan
+
+
+def test_navigation_includes_finance():
+    pages = [
+        PUBLIC / "index.html",
+        PUBLIC / "es/redes-sociales/index.html",
+        PUBLIC / "es/finanzas/hipotecas/calculadora-hipoteca/index.html",
+    ]
+    for page in pages:
+        html = page.read_text(encoding="utf-8")
+        assert 'href="/es/finanzas/"' in html
+        assert ">Finanzas</a>" in html
