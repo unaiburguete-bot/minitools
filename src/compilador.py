@@ -77,6 +77,11 @@ SITE_TAGLINE = str(CONFIG.get("site_tagline", CONFIG["site_description"]))
 SITE_DESCRIPTION = str(CONFIG["site_description"])
 CUSTOM_DOMAIN = str(CONFIG["custom_domain"])
 ANALYTICS_MEASUREMENT_ID = str(CONFIG.get("analytics_measurement_id", "")).strip()
+LEGAL_OWNER = str(CONFIG.get("legal_owner", "Unai Burguete"))
+LEGAL_TRADE_NAME = str(CONFIG.get("legal_trade_name", "Zurekin Comunicación"))
+LEGAL_NIF = str(CONFIG.get("legal_nif", "44571964B"))
+LEGAL_ADDRESS = str(CONFIG.get("legal_address", "Calle Santutxu 80, 48006 Bilbao, España"))
+LEGAL_EMAIL = str(CONFIG.get("legal_email", "info@zurekincomunicacion.com"))
 
 if ANALYTICS_MEASUREMENT_ID and not re.fullmatch(r"G-[A-Z0-9]+", ANALYTICS_MEASUREMENT_ID):
     fail("analytics_measurement_id debe tener un formato como G-XXXXXXXXXX")
@@ -84,6 +89,7 @@ if ANALYTICS_MEASUREMENT_ID and not re.fullmatch(r"G-[A-Z0-9]+", ANALYTICS_MEASU
 
 
 def analytics_snippet(page_type: str, node: dict[str, Any] | None = None) -> str:
+    """Implementa consentimiento básico: GA4 no se carga hasta aceptar."""
     if not ANALYTICS_MEASUREMENT_ID:
         return ""
 
@@ -99,42 +105,105 @@ def analytics_snippet(page_type: str, node: dict[str, Any] | None = None) -> str
 
     params_json = json.dumps(page_params, ensure_ascii=False).replace("</", "<\\/")
     measurement_id = json.dumps(ANALYTICS_MEASUREMENT_ID)
-    tool_view = (
-        f"window.clicivoTrack('tool_view', {params_json});"
-        if node is not None
-        else ""
-    )
+    cookie_policy_url = json.dumps(site_path("politica-cookies"), ensure_ascii=False)
 
     return f"""
-<script async src="https://www.googletagmanager.com/gtag/js?id={html.escape(ANALYTICS_MEASUREMENT_ID, quote=True)}"></script>
+<style>
+.cookie-banner{{position:fixed;left:20px;right:20px;bottom:20px;z-index:9999;max-width:760px;margin:auto;background:#fff;border:1px solid #cbd5e1;border-radius:18px;box-shadow:0 22px 70px rgba(15,23,42,.22);padding:22px;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif}}
+.cookie-banner[hidden]{{display:none}}
+.cookie-banner h2{{font-size:1.1rem;margin:0 0 8px}}
+.cookie-banner p{{font-size:.92rem;line-height:1.55;color:#475569;margin:0 0 16px}}
+.cookie-banner a{{color:#4f46e5}}
+.cookie-actions{{display:flex;gap:10px;flex-wrap:wrap}}
+.cookie-actions button{{flex:1;min-width:140px;border:1px solid #4f46e5;border-radius:10px;padding:11px 15px;font:inherit;font-weight:800;cursor:pointer}}
+.cookie-accept{{background:#4f46e5;color:#fff}}
+.cookie-reject{{background:#fff;color:#4338ca}}
+.cookie-settings-link{{background:none!important;border:0!important;color:#475569!important;text-decoration:underline;min-width:auto!important;flex:0 0 auto!important}}
+.cookie-preferences{{position:fixed;left:16px;bottom:16px;z-index:9998;border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:999px;padding:9px 13px;font:600 .82rem 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 20px rgba(15,23,42,.12)}}
+@media(max-width:560px){{.cookie-banner{{left:12px;right:12px;bottom:12px;padding:18px}}.cookie-actions{{display:grid}}.cookie-actions button{{width:100%}}}}
+</style>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){{dataLayer.push(arguments);}}
-gtag('js', new Date());
-gtag('config', {measurement_id});
-window.clicivoTrack = function(eventName, parameters) {{
-    gtag('event', eventName, parameters || {{}});
-}};
-document.addEventListener('DOMContentLoaded', function() {{
-    {tool_view}
-}});
-document.addEventListener('click', function(event) {{
-    const related = event.target.closest('[data-related-tool]');
-    if (related) {{
-        window.clicivoTrack('related_tool_clicked', {{
-            source_tool_id: document.body.dataset.toolId || '',
-            destination_tool_id: related.dataset.relatedTool || '',
-            link_url: related.href
-        }});
+(function(){{
+    const measurementId = {measurement_id};
+    const pageParams = {params_json};
+    const storageKey = 'clicivo_cookie_consent';
+    const cookiePolicyUrl = {cookie_policy_url};
+    let analyticsLoaded = false;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){{dataLayer.push(arguments);}};
+    gtag('consent', 'default', {{
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+    }});
+
+    function loadAnalytics() {{
+        if (analyticsLoaded) return;
+        analyticsLoaded = true;
+        gtag('consent', 'update', {{ analytics_storage: 'granted' }});
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+        document.head.appendChild(script);
+        gtag('js', new Date());
+        gtag('config', measurementId, {{ anonymize_ip: true }});
+        window.clicivoTrack = function(eventName, parameters) {{
+            gtag('event', eventName, parameters || {{}});
+        }};
+        if (pageParams.tool_id) window.clicivoTrack('tool_view', pageParams);
     }}
-    const affiliate = event.target.closest('[data-affiliate-link]');
-    if (affiliate) {{
-        window.clicivoTrack('affiliate_clicked', {{
-            tool_id: document.body.dataset.toolId || '',
-            link_url: affiliate.href
-        }});
+
+    window.clicivoTrack = function() {{}};
+
+    function setConsent(value) {{
+        localStorage.setItem(storageKey, value);
+        const banner = document.getElementById('clicivo-cookie-banner');
+        if (banner) banner.hidden = true;
+        if (value === 'accepted') loadAnalytics();
+        else gtag('consent', 'update', {{ analytics_storage: 'denied' }});
     }}
-}});
+
+    function showBanner() {{
+        const banner = document.getElementById('clicivo-cookie-banner');
+        if (banner) banner.hidden = false;
+    }}
+
+    document.addEventListener('DOMContentLoaded', function() {{
+        document.body.insertAdjacentHTML('beforeend',
+            '<div id="clicivo-cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="clicivo-cookie-title" hidden>' +
+            '<h2 id="clicivo-cookie-title">Tu privacidad en Clicivo</h2>' +
+            '<p>Usamos cookies analíticas de Google Analytics para saber qué herramientas resultan útiles y mejorar la web. Puedes aceptar o rechazar estas cookies. Las necesarias para guardar tu elección no requieren consentimiento. <a href="' + cookiePolicyUrl + '">Más información</a>.</p>' +
+            '<div class="cookie-actions"><button type="button" id="clicivo-cookie-accept" class="cookie-accept">Aceptar analítica</button><button type="button" id="clicivo-cookie-reject" class="cookie-reject">Rechazar</button></div></div>' +
+            '<button type="button" id="clicivo-cookie-settings" class="cookie-preferences">Configurar cookies</button>'
+        );
+        const choice = localStorage.getItem(storageKey);
+        if (choice === 'accepted') loadAnalytics();
+        else if (choice !== 'rejected') showBanner();
+
+        document.getElementById('clicivo-cookie-accept')?.addEventListener('click', () => setConsent('accepted'));
+        document.getElementById('clicivo-cookie-reject')?.addEventListener('click', () => setConsent('rejected'));
+        document.getElementById('clicivo-cookie-settings')?.addEventListener('click', showBanner);
+
+        document.addEventListener('click', function(event) {{
+            const related = event.target.closest('[data-related-tool]');
+            if (related) window.clicivoTrack('related_tool_clicked', {{
+                source_tool_id: document.body.dataset.toolId || '',
+                destination_tool_id: related.dataset.relatedTool || '',
+                link_url: related.href
+            }});
+            const affiliate = event.target.closest('[data-affiliate-link]');
+            if (affiliate) window.clicivoTrack('affiliate_clicked', {{
+                tool_id: document.body.dataset.toolId || '',
+                link_url: affiliate.href
+            }});
+        }});
+    }});
+}})();
 </script>
 """
 
@@ -580,6 +649,9 @@ def render_tool(node: dict[str, Any], template: str) -> str:
         "{{ANALYTICS_SNIPPET}}": analytics_snippet("tool", node),
         "{{TOOL_ID}}": str(node["id"]),
         "{{CURRENT_YEAR}}": str(date.today().year),
+        "{{LEGAL_URL}}": site_path("aviso-legal"),
+        "{{PRIVACY_URL}}": site_path("privacidad"),
+        "{{COOKIES_URL}}": site_path("politica-cookies"),
     }
 
     rendered = template
@@ -673,7 +745,7 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
         <div class="grid">{cards}</div>
     </section>
 </main>
-<footer><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)}. Herramientas claras para decisiones rápidas.</div></footer>
+<footer><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)}. Herramientas claras para decisiones rápidas. · {legal_footer()}</div></footer>
 </body>
 </html>"""
 
@@ -704,8 +776,91 @@ def render_category(route: str, nodes: list[dict[str, Any]]) -> str:
 </style>
 </head>
 <body><header><div class="wrap"><a href="{site_path()}">◆ {html.escape(SITE_NAME)}</a></div></header>
-<main class="wrap"><div class="crumbs"><a href="{site_path()}">Inicio</a> › {html.escape(title)}</div><h1>{html.escape(title)}</h1><p class="intro">Calculadoras y utilidades gratuitas para resolver tareas de {html.escape(title.lower())}.</p><div class="grid">{cards}</div></main></body></html>"""
+<main class="wrap"><div class="crumbs"><a href="{site_path()}">Inicio</a> › {html.escape(title)}</div><h1>{html.escape(title)}</h1><p class="intro">Calculadoras y utilidades gratuitas para resolver tareas de {html.escape(title.lower())}.</p><div class="grid">{cards}</div></main><footer style="background:#fff;border-top:1px solid #e2e8f0;padding:28px 0;color:#64748b;font-size:.88rem"><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)} · {legal_footer()}</div></footer></body></html>"""
 
+
+def legal_footer() -> str:
+    return (
+        f'<a href="{site_path("aviso-legal")}">Aviso legal</a> · '
+        f'<a href="{site_path("privacidad")}">Privacidad</a> · '
+        f'<a href="{site_path("politica-cookies")}">Cookies</a>'
+    )
+
+
+def render_legal_page(slug: str, title: str, body_html: str, description: str) -> str:
+    canonical = absolute_url(slug)
+    return f"""<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{html.escape(title)} | {html.escape(SITE_NAME)}</title>
+<meta name="description" content="{html.escape(description, quote=True)}">
+<link rel="canonical" href="{canonical}">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+{analytics_snippet("legal")}
+<style>
+*{{box-sizing:border-box}}body{{margin:0;background:#f8fafc;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.7}}.wrap{{width:min(860px,calc(100% - 40px));margin:0 auto}}header{{background:#fff;border-bottom:1px solid #e2e8f0;padding:20px 0}}header a{{color:#0f172a;text-decoration:none;font-weight:800}}main{{padding:54px 0 80px}}.crumbs{{font-size:.9rem;color:#64748b;margin-bottom:20px}}.crumbs a{{color:#4f46e5;text-decoration:none}}article{{background:#fff;border:1px solid #e2e8f0;border-radius:22px;padding:clamp(24px,5vw,46px);box-shadow:0 10px 30px rgba(15,23,42,.04)}}h1{{font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.045em;line-height:1.1;margin:0 0 24px}}h2{{font-size:1.35rem;margin:30px 0 10px}}h3{{font-size:1.05rem;margin:22px 0 8px}}p,li{{color:#475569}}ul{{padding-left:22px}}a{{color:#4f46e5}}table{{width:100%;border-collapse:collapse;margin:18px 0;font-size:.92rem}}th,td{{border:1px solid #e2e8f0;padding:10px;text-align:left;vertical-align:top}}th{{background:#f8fafc}}.notice{{background:#eef2ff;border:1px solid #c7d2fe;border-radius:12px;padding:15px}}footer{{background:#fff;border-top:1px solid #e2e8f0;padding:28px 0;color:#64748b;font-size:.88rem}}footer a{{color:#475569}}
+</style>
+</head>
+<body><header><div class="wrap"><a href="{site_path()}">◆ {html.escape(SITE_NAME)}</a></div></header>
+<main class="wrap"><div class="crumbs"><a href="{site_path()}">Inicio</a> › {html.escape(title)}</div><article><h1>{html.escape(title)}</h1>{body_html}</article></main>
+<footer><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)} · {legal_footer()}</div></footer></body></html>"""
+
+
+def legal_pages() -> dict[str, tuple[str, str, str]]:
+    owner = html.escape(LEGAL_OWNER)
+    trade = html.escape(LEGAL_TRADE_NAME)
+    nif = html.escape(LEGAL_NIF)
+    address = html.escape(LEGAL_ADDRESS)
+    email = html.escape(LEGAL_EMAIL)
+    email_link = f'<a href="mailto:{html.escape(LEGAL_EMAIL, quote=True)}">{email}</a>'
+
+    notice = f"""
+<p>En cumplimiento de la normativa aplicable a los servicios de la sociedad de la información, se facilitan los datos de identificación de la persona responsable de este sitio web.</p>
+<h2>1. Titular del sitio</h2>
+<ul><li><strong>Titular:</strong> {owner}, persona trabajadora autónoma.</li><li><strong>Nombre comercial:</strong> {trade}.</li><li><strong>NIF:</strong> {nif}.</li><li><strong>Domicilio profesional:</strong> {address}.</li><li><strong>Correo electrónico:</strong> {email_link}.</li><li><strong>Dominio:</strong> clicivo.com.</li></ul>
+<h2>2. Objeto</h2><p>Clicivo ofrece calculadoras, herramientas y contenidos informativos de uso gratuito. Los resultados son orientativos y dependen de los datos introducidos por cada usuario.</p>
+<h2>3. Condiciones de uso</h2><p>La persona usuaria se compromete a utilizar el sitio de forma lícita y a no realizar acciones que dañen, sobrecarguen o alteren su funcionamiento. No se garantiza que los resultados sean adecuados para decisiones fiscales, jurídicas, financieras o profesionales sin una comprobación adicional.</p>
+<h2>4. Propiedad intelectual</h2><p>Salvo indicación contraria, el diseño, código, textos, estructura y elementos propios de Clicivo pertenecen a su titular o se utilizan con licencia. No se autoriza su reproducción o explotación comercial sin permiso, salvo los usos permitidos legalmente.</p>
+<h2>5. Enlaces externos</h2><p>Clicivo puede incluir enlaces a servicios de terceros. El titular no controla sus contenidos, disponibilidad ni políticas. Cuando existan enlaces de afiliación, se identificarán de forma clara.</p>
+<h2>6. Responsabilidad</h2><p>Se procura mantener la información actualizada y el servicio disponible, pero pueden existir errores, interrupciones o cambios de terceros. El uso de los resultados es responsabilidad de quien los consulta.</p>
+<h2>7. Legislación aplicable</h2><p>Este sitio se rige por la legislación española. Para cualquier consulta puede utilizarse el correo indicado anteriormente.</p>
+<p class="notice"><strong>Última actualización:</strong> 12 de julio de 2026.</p>"""
+
+    privacy = f"""
+<p>Esta política explica cómo se tratan los datos personales cuando utilizas Clicivo.</p>
+<h2>1. Responsable del tratamiento</h2><ul><li><strong>Responsable:</strong> {owner}, bajo el nombre comercial {trade}.</li><li><strong>NIF:</strong> {nif}.</li><li><strong>Dirección:</strong> {address}.</li><li><strong>Contacto:</strong> {email_link}.</li></ul>
+<h2>2. Datos tratados</h2><p>Clicivo no exige registro para utilizar las calculadoras. Los valores que introduces se procesan en tu navegador y no se envían deliberadamente a nuestros servidores ni a Google Analytics.</p><p>Podemos tratar:</p><ul><li>Datos técnicos y de navegación cuando aceptas cookies analíticas, como páginas visitadas, tipo de dispositivo e interacciones con las herramientas.</li><li>Datos que facilites voluntariamente al escribir al correo de contacto.</li></ul>
+<h2>3. Finalidades y bases jurídicas</h2><ul><li><strong>Analítica:</strong> conocer el uso de la web y mejorar sus herramientas, únicamente con tu consentimiento.</li><li><strong>Atención de consultas:</strong> responder a comunicaciones, sobre la base de tu solicitud y, cuando proceda, del interés legítimo en atenderla.</li><li><strong>Seguridad:</strong> prevenir abusos y mantener la integridad del sitio, sobre la base del interés legítimo y obligaciones legales.</li></ul>
+<h2>4. Destinatarios y proveedores</h2><p>Cuando aceptas analítica, se utiliza Google Analytics, prestado en Europa por Google Ireland Limited. Google puede tratar datos conforme a sus condiciones y políticas. La infraestructura web se publica mediante GitHub Pages y el dominio se gestiona mediante proveedores externos.</p>
+<h2>5. Transferencias internacionales</h2><p>Algunos proveedores tecnológicos pueden tratar datos fuera del Espacio Económico Europeo. Cuando sea aplicable, deberán utilizar mecanismos reconocidos por la normativa, como decisiones de adecuación o cláusulas contractuales tipo.</p>
+<h2>6. Conservación</h2><p>Los datos se conservarán durante el tiempo necesario para cada finalidad y para cumplir obligaciones legales. Los datos de Analytics se mantienen durante el periodo configurado en la propiedad y las cookies durante su vigencia o hasta que las elimines.</p>
+<h2>7. Derechos</h2><p>Puedes solicitar acceso, rectificación, supresión, oposición, limitación o portabilidad escribiendo a {email_link}. También puedes retirar tu consentimiento para Analytics mediante el botón «Configurar cookies».</p><p>Si consideras que el tratamiento no se ajusta a la normativa, puedes presentar una reclamación ante la Agencia Española de Protección de Datos.</p>
+<h2>8. Menores</h2><p>Clicivo no está dirigido específicamente a menores ni solicita conscientemente sus datos personales.</p>
+<h2>9. Cambios</h2><p>Esta política puede actualizarse para reflejar cambios legales, técnicos o de los servicios utilizados.</p>
+<p class="notice"><strong>Última actualización:</strong> 12 de julio de 2026.</p>"""
+
+    cookies = f"""
+<p>Clicivo utiliza almacenamiento estrictamente necesario para recordar tu elección y, solo si aceptas, cookies de Google Analytics para medir el uso de la web.</p>
+<h2>1. ¿Qué son las cookies?</h2><p>Son pequeños archivos o identificadores que un sitio puede guardar en el dispositivo para recordar información o medir la navegación.</p>
+<h2>2. Cookies utilizadas</h2>
+<table><thead><tr><th>Nombre</th><th>Proveedor</th><th>Finalidad</th><th>Duración orientativa</th></tr></thead><tbody>
+<tr><td>clicivo_cookie_consent</td><td>Clicivo</td><td>Guarda en el almacenamiento local si has aceptado o rechazado la analítica.</td><td>Hasta que borres los datos del navegador o cambies tu elección.</td></tr>
+<tr><td>_ga</td><td>Google Analytics</td><td>Distinguir usuarios y elaborar estadísticas agregadas.</td><td>Hasta 2 años.</td></tr>
+<tr><td>_ga_*</td><td>Google Analytics</td><td>Mantener el estado de la sesión y medición de la propiedad.</td><td>Hasta 2 años.</td></tr>
+</tbody></table>
+<p>Las denominaciones o duraciones pueden cambiar si Google modifica su servicio. Puedes consultar información adicional en la documentación y política de privacidad de Google.</p>
+<h2>3. Consentimiento</h2><p>Las cookies analíticas no se cargan antes de que pulses «Aceptar analítica». Rechazar es tan sencillo como aceptar y no impide utilizar las calculadoras.</p>
+<h2>4. Cambiar o retirar tu elección</h2><p>Utiliza el botón «Configurar cookies», visible en la parte inferior de la web. También puedes borrar cookies y almacenamiento local desde la configuración de tu navegador.</p>
+<h2>5. Responsable</h2><p>El responsable es {owner}, bajo el nombre comercial {trade}. Contacto: {email_link}.</p>
+<p class="notice"><strong>Última actualización:</strong> 12 de julio de 2026.</p>"""
+
+    return {
+        "aviso-legal": ("Aviso legal", notice, "Información legal y condiciones de uso de Clicivo."),
+        "privacidad": ("Política de privacidad", privacy, "Información sobre el tratamiento de datos personales en Clicivo."),
+        "politica-cookies": ("Política de cookies", cookies, "Información sobre las cookies y la analítica utilizadas por Clicivo."),
+    }
 
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -746,6 +901,10 @@ def compile_site() -> None:
     for route, category_nodes in sorted(categories.items()):
         write_text(OUTPUT_DIR / route / "index.html", render_category(route, category_nodes))
         sitemap_entries.append((absolute_url(route), None))
+
+    for slug, (title, body_html, description) in legal_pages().items():
+        write_text(OUTPUT_DIR / slug / "index.html", render_legal_page(slug, title, body_html, description))
+        sitemap_entries.append((absolute_url(slug), None))
 
     sitemap_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',

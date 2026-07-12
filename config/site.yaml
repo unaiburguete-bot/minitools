@@ -15,3 +15,9 @@ template_path: "template.html"
 brand:
   short_name: "Clicivo"
   footer_name: "Clicivo"
+
+legal_owner: "Unai Burguete"
+legal_trade_name: "Zurekin Comunicación"
+legal_nif: "44571964B"
+legal_address: "Calle Santutxu 80, 48006 Bilbao, España"
+legal_email: "info@zurekincomunicacion.com"
