@@ -1,4 +1,4 @@
-site_name: "Minitools"
+site_name: "Clicivo"
 site_description: "Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar."
 
 site_origin: "https://unaiburguete-bot.github.io"
@@ -10,5 +10,5 @@ output_dir: "public"
 template_path: "template.html"
 
 brand:
-  short_name: "Minitools"
-  footer_name: "Minitools"
+  short_name: "Clicivo"
+  footer_name: "Clicivo"
