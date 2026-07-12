@@ -1,69 +1,110 @@
 ---
 id: rpm-youtube
-entidad: Revenue Per Mille
-version: 1.2
+entidad: Ingresos mensuales estimados de YouTube
+version: 2.0
 creado: 2026-07-01
-actualizado: 2026-07-11
+actualizado: 2026-07-12
 
-# 🎯 METADATOS PARA GOOGLE
 meta:
-  title: "Calculadora de RPM de YouTube Exacto (2026)"
-  description: "Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática."
+  title: "Calculadora de ingresos mensuales de YouTube con RPM"
+  description: "Estima cuánto puede generar un canal de YouTube al mes según sus visualizaciones diarias, el número de días y su RPM."
 
-# 🧠 VECTORES DEL GRAFO SEMÁNTICO
 vectores:
   plataforma: YouTube
   audiencia: Creadores
-  dificultad: Intermedio
+  dificultad: Básico
   objetivo: Monetización
-  intencion: ¿Cuánto dinero paga YouTube por tus visitas? Calcular RPM Exacto
+  intencion: Calcular ingresos mensuales estimados de YouTube con visualizaciones diarias y RPM
 
-# 🧮 LÓGICA DECLARATIVA DE LA CALCULADORA
 calculadora:
   inputs:
-    - id: visitas
-      label: "Número de Visitas Totales"
+    - id: visitas_diarias
+      label: "Visualizaciones diarias"
       type: "number"
-      placeholder: "Ej. 100000"
+      placeholder: "Ej. 10000"
       min: 0
       step: 1
+
+    - id: dias
+      label: "Número de días"
+      type: "number"
+      placeholder: "Ej. 30"
+      min: 1
+      step: 1
+
     - id: rpm
-      label: "Tu RPM Estimado (€)"
+      label: "RPM estimado (€)"
       type: "number"
       placeholder: "Ej. 4.25"
       min: 0
       step: 0.01
+
   algoritmo:
     pasos:
+      - id: visitas_periodo
+        op: "multiplicacion"
+        args: ["inputs.visitas_diarias", "inputs.dias"]
+
       - id: bloques_mil
         op: "division"
-        args: ["inputs.visitas", 1000]
-      - id: ingresos_totales
+        args: ["visitas_periodo", 1000]
+
+      - id: ingresos_periodo
         op: "multiplicacion"
         args: ["bloques_mil", "inputs.rpm"]
-    output: "ingresos_totales"
-    unidad: "€"
-    label: "Ingresos Totales Estimados"
 
-# 💰 CONFIGURACIÓN DE MONETIZACIÓN CONTEXTUAL
+    output: "ingresos_periodo"
+    unidad: " €"
+    label: "Ingresos estimados del periodo"
+
 monetizacion:
   cta: ""
   afiliado_url: ""
 
-# ❓ PREGUNTAS FRECUENTES ESTRUCTURADAS
 faqs:
-  - q: "¿Cuál es la diferencia entre CPM y RPM?"
-    a: "El CPM es el coste que pagan los anunciantes por cada 1.000 impresiones de anuncios, mientras que el RPM son tus ingresos netos reales por cada 1.000 visitas tras la comisión de YouTube."
-  - q: "¿Cómo puedo subir mi RPM?"
-    a: "El RPM varía según la audiencia, la temática, la estacionalidad, el formato publicitario y otras fuentes de ingresos. Compáralo por periodos equivalentes y revisa los datos reales de YouTube Analytics."
+  - q: "¿Cómo se calculan los ingresos mensuales de YouTube?"
+    a: "Se multiplican las visualizaciones diarias por el número de días, se divide el resultado entre 1.000 y se multiplica por el RPM."
+
+  - q: "¿El resultado es una cantidad garantizada?"
+    a: "No. Es una estimación basada en el RPM introducido. Los ingresos reales pueden variar por audiencia, temática, estacionalidad y visualizaciones monetizadas."
 ---
 
-# ¿Cuánto paga YouTube realmente? Guía definitiva sobre el RPM
+# Calculadora de ingresos mensuales de YouTube
 
-El **RPM** (Revenue Per Mille) es la métrica más honesta y transparente que existe para un creador de contenido. A diferencia del CPM, el RPM calcula el dinero real que va a parar a tu bolsillo tras las comisiones de la plataforma.
+Esta herramienta estima cuánto podría generar un canal durante un mes o cualquier otro periodo a partir de sus visualizaciones diarias y su RPM.
 
-## Ejemplos prácticos de cálculo en escenarios reales
-El RPM cambia según el país de la audiencia, la temática, la época del año, la duración de los vídeos y la mezcla de ingresos. Para obtener una proyección útil, introduce el RPM real que aparece en YouTube Analytics y compara periodos equivalentes.
+La fórmula utilizada es:
 
-## Errores críticos al analizar tus métricas
-El fallo más común de los principiantes es multiplicar sus visitas totales por el CPM de los vídeos. Recuerda que no todas las visualizaciones generan publicidad y que el reparto de ingresos depende del producto y del formato. Para proyectar el negocio, utiliza el RPM real de tu canal y explica siempre que el resultado es una estimación.
+**Ingresos estimados = visualizaciones diarias × días ÷ 1.000 × RPM**
+
+## Ejemplo práctico
+
+Un canal recibe **10.000 visualizaciones diarias**, mantiene ese ritmo durante **30 días** y tiene un RPM de **4,25 €**:
+
+**10.000 × 30 ÷ 1.000 × 4,25 = 1.275 €**
+
+Los ingresos estimados del periodo serían **1.275 €**.
+
+## Cómo utilizar esta calculadora
+
+Introduce:
+
+- La media de visualizaciones que recibe el canal cada día.
+- El número de días que deseas proyectar.
+- El RPM real o estimado del canal.
+
+Puedes utilizar 30 días para una proyección mensual o cambiar el periodo para calcular una semana, un trimestre u otra duración.
+
+## Qué RPM conviene introducir
+
+Para una estimación realista, utiliza el RPM de YouTube Analytics correspondiente a un periodo reciente y comparable.
+
+También puedes probar tres escenarios:
+
+- Prudente, con un RPM bajo.
+- Probable, con el RPM medio del canal.
+- Optimista, con un RPM más alto.
+
+## Limitaciones
+
+La proyección presupone que el ritmo de visualizaciones y el RPM se mantienen estables durante todo el periodo. Los resultados reales pueden variar por país, temática, época del año, duración de los vídeos y porcentaje de visualizaciones monetizadas.
