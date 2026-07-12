@@ -26,6 +26,12 @@ def test_core_outputs_exist():
         "es/finanzas/hipotecas/calculadora-hipoteca/index.html",
         "es/finanzas/ahorro-inversion/calculadora-interes-compuesto/index.html",
         "es/finanzas/prestamos/calculadora-prestamo-personal/index.html",
+        "es/negocios/index.html",
+        "es/negocios-y-autonomos/index.html",
+        "es/negocios/precios/index.html",
+        "es/negocios/precios/calculadora-margen-beneficio/index.html",
+        "es/negocios/rentabilidad/simulador-punto-equilibrio/index.html",
+        "es/negocios/autonomos/calculadora-tarifa-hora/index.html",
     ]
     for relative in expected:
         assert (PUBLIC / relative).exists(), f"Falta public/{relative}"
@@ -79,6 +85,12 @@ def test_sitemap_contains_new_architecture_and_old_urls():
         "https://clicivo.com/es/finanzas/hipotecas/calculadora-hipoteca/",
         "https://clicivo.com/es/finanzas/ahorro-inversion/calculadora-interes-compuesto/",
         "https://clicivo.com/es/finanzas/prestamos/calculadora-prestamo-personal/",
+        "https://clicivo.com/es/negocios/",
+        "https://clicivo.com/es/negocios-y-autonomos/",
+        "https://clicivo.com/es/negocios/precios/",
+        "https://clicivo.com/es/negocios/precios/calculadora-margen-beneficio/",
+        "https://clicivo.com/es/negocios/rentabilidad/simulador-punto-equilibrio/",
+        "https://clicivo.com/es/negocios/autonomos/calculadora-tarifa-hora/",
     ]
     for url in expected:
         assert f"<loc>{url}</loc>" in sitemap
@@ -128,7 +140,7 @@ def test_all_tools_page_contains_every_tool():
         for path in (PUBLIC / "es").rglob("index.html")
         if "SoftwareApplication" in path.read_text(encoding="utf-8")
     ]
-    assert len(tool_pages) == 12
+    assert len(tool_pages) == 15
     for path in tool_pages:
         relative = path.parent.relative_to(PUBLIC).as_posix()
         assert f'href="/{relative}/"' in catalog
@@ -189,3 +201,53 @@ def test_navigation_includes_finance():
         html = page.read_text(encoding="utf-8")
         assert 'href="/es/finanzas/"' in html
         assert ">Finanzas</a>" in html
+
+
+def test_business_family_and_theme_are_generated():
+    home = (PUBLIC / "index.html").read_text(encoding="utf-8")
+    family = (PUBLIC / "es/negocios/index.html").read_text(encoding="utf-8")
+    platform = (PUBLIC / "es/negocios-y-autonomos/index.html").read_text(encoding="utf-8")
+    margin = (
+        PUBLIC / "es/negocios/precios/calculadora-margen-beneficio/index.html"
+    ).read_text(encoding="utf-8")
+
+    assert "Herramientas para negocios y autónomos" in home
+    assert 'href="/es/negocios/"' in home
+    assert "Negocios y autónomos" in family
+    assert "Precios" in platform
+    assert '<body class="theme-negocios-y-autonomos"' in margin
+    assert "CLICIVO BUSINESS THEME" in margin
+
+
+def test_business_calculators_have_multiple_results_and_validation():
+    margin = (
+        PUBLIC / "es/negocios/precios/calculadora-margen-beneficio/index.html"
+    ).read_text(encoding="utf-8")
+    break_even = (
+        PUBLIC / "es/negocios/rentabilidad/simulador-punto-equilibrio/index.html"
+    ).read_text(encoding="utf-8")
+    hourly = (
+        PUBLIC / "es/negocios/autonomos/calculadora-tarifa-hora/index.html"
+    ).read_text(encoding="utf-8")
+
+    assert "Margen sobre ventas" in margin
+    assert "Markup sobre coste" in margin
+    assert "Precio para el margen objetivo" in margin
+    assert "El precio de venta debe ser mayor" in break_even
+    assert "Facturación de equilibrio" in break_even
+    assert "Margen de seguridad" in break_even
+    assert "Tarifa mínima por hora" in hourly
+    assert "Horas facturables al año" in hourly
+    assert "Proyecto de 20 horas" in hourly
+
+
+def test_navigation_includes_business():
+    pages = [
+        PUBLIC / "index.html",
+        PUBLIC / "es/finanzas/index.html",
+        PUBLIC / "es/negocios/precios/calculadora-margen-beneficio/index.html",
+    ]
+    for page in pages:
+        page_html = page.read_text(encoding="utf-8")
+        assert 'href="/es/negocios/"' in page_html
+        assert ">Negocios</a>" in page_html

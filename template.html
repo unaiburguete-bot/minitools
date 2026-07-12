@@ -139,13 +139,51 @@
         body.theme-finanzas-personales .sidebar-link-list a:hover{color:#047857}
         body.theme-finanzas-personales footer{background:rgba(248,253,251,.92);border-top-color:#d5eadf}
 
+        /* CLICIVO BUSINESS THEME */
+        body.theme-negocios-y-autonomos{
+            --bg:#f3f8fb;--surface:#fff;--border:#cddfea;--text:#102b3a;--muted:#5b7180;
+            --primary:#0f5b78;--primary-hover:#0b455d;--primary-light:#e7f2f7;
+            --success-bg:#effaf8;--success-border:#a7e6d8;--success-text:#0f6659;
+            background:
+                radial-gradient(circle at 8% 5%,rgba(14,116,144,.13),transparent 29rem),
+                radial-gradient(circle at 94% 10%,rgba(245,158,11,.12),transparent 31rem),
+                linear-gradient(180deg,#f3f8fb 0%,#fff 54%,#f8fafb 100%);
+        }
+        body.theme-negocios-y-autonomos .header-nav{background:rgba(248,251,253,.93);border-bottom-color:#d6e4ec}
+        body.theme-negocios-y-autonomos .brand-mark{color:#0f5b78}
+        body.theme-negocios-y-autonomos .breadcrumbs a{color:#0f5b78}
+        body.theme-negocios-y-autonomos .tool-card{
+            position:relative;overflow:hidden;border-color:#cddfea;
+            background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(242,247,250,.96));
+            box-shadow:0 24px 70px rgba(8,47,73,.075)
+        }
+        body.theme-negocios-y-autonomos .tool-card::before{
+            content:"";position:absolute;width:245px;height:245px;right:-105px;top:-125px;border-radius:50%;
+            background:linear-gradient(135deg,rgba(14,116,144,.18),rgba(245,158,11,.15));pointer-events:none
+        }
+        body.theme-negocios-y-autonomos .free-badge{
+            position:relative;color:#fff;background:linear-gradient(105deg,#0f4c66,#0e7490 62%,#d97706);
+            box-shadow:0 8px 22px rgba(8,47,73,.13)
+        }
+        body.theme-negocios-y-autonomos .tool-card h1{position:relative;max-width:850px;color:#123b4d}
+        body.theme-negocios-y-autonomos .tool-ui-box{position:relative;background:rgba(255,255,255,.87);border-color:#d6e4ec}
+        body.theme-negocios-y-autonomos .tool-ui-box label{color:#294b5b}
+        body.theme-negocios-y-autonomos .tool-ui-box input{border-color:#cbdde6;background:#fcfeff}
+        body.theme-negocios-y-autonomos .tool-ui-box input:focus{border-color:#0e7490;box-shadow:0 0 0 4px rgba(14,116,144,.11)}
+        body.theme-negocios-y-autonomos .calc-btn{background:linear-gradient(105deg,#0f4c66,#0e7490 62%,#d97706);box-shadow:0 12px 28px rgba(8,47,73,.20)}
+        body.theme-negocios-y-autonomos .calc-btn:hover{background:linear-gradient(105deg,#0b3b50,#0f5b78 62%,#b45309)}
+        body.theme-negocios-y-autonomos .seo-article,body.theme-negocios-y-autonomos .sidebar-box{border-color:#d6e4ec;box-shadow:0 18px 50px rgba(8,47,73,.055)}
+        body.theme-negocios-y-autonomos .seo-article h1,body.theme-negocios-y-autonomos .seo-article h2,body.theme-negocios-y-autonomos .seo-article h3{color:#173e50}
+        body.theme-negocios-y-autonomos .sidebar-link-list a:hover{color:#0f5b78}
+        body.theme-negocios-y-autonomos footer{background:rgba(248,251,253,.93);border-top-color:#d6e4ec}
+
         @media(max-width:900px){.main-layout{grid-template-columns:1fr;gap:30px;margin:24px auto}.sidebar-box{position:static}}
         @media(max-width:700px){.nav-container{align-items:flex-start;flex-direction:column}.nav-links{gap:13px;flex-wrap:wrap}}
         @media(max-width:560px){.header-nav{padding:14px 18px}.main-layout{padding:0 16px}.tool-card,.seo-article{padding:24px;border-radius:18px}.tool-ui-box{padding:18px}}
     </style>
 </head>
 <body class="{{THEME_CLASS}}" data-tool-id="{{TOOL_ID}}">
-<nav class="header-nav"><div class="nav-container"><a class="nav-brand" href="{{HOME_URL}}"><span class="brand-mark">◆</span> {{SITE_NAME}}</a><div class="nav-links"><a href="{{SOCIAL_URL}}">Redes sociales</a><a href="{{FINANCE_URL}}">Finanzas</a><a href="{{ALL_TOOLS_URL}}">Todas las herramientas</a></div></div></nav>
+<nav class="header-nav"><div class="nav-container"><a class="nav-brand" href="{{HOME_URL}}"><span class="brand-mark">◆</span> {{SITE_NAME}}</a><div class="nav-links"><a href="{{SOCIAL_URL}}">Redes sociales</a><a href="{{FINANCE_URL}}">Finanzas</a><a href="{{BUSINESS_URL}}">Negocios</a><a href="{{ALL_TOOLS_URL}}">Todas las herramientas</a></div></div></nav>
 <div class="main-layout">
     <main>
         <nav class="breadcrumbs" aria-label="Migas de pan"><a href="{{HOME_URL}}">Inicio</a> › <a href="{{FAMILY_URL}}">{{FAMILY_NAME}}</a> › <a href="{{PLATFORM_URL}}">{{PLATFORM_NAME}}</a> › <a href="{{CATEGORY_URL}}">{{TOPIC_NAME}}</a> › <span>{{TOOL_NAME}}</span></nav>
