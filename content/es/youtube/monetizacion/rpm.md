@@ -25,10 +25,14 @@ calculadora:
       label: "Número de Visitas Totales"
       type: "number"
       placeholder: "Ej. 100000"
+      min: 0
+      step: 1
     - id: rpm
       label: "Tu RPM Estimado (€)"
       type: "number"
       placeholder: "Ej. 4.25"
+      min: 0
+      step: 0.01
   algoritmo:
     pasos:
       - id: bloques_mil
@@ -43,15 +47,15 @@ calculadora:
 
 # 💰 CONFIGURACIÓN DE MONETIZACIÓN CONTEXTUAL
 monetizacion:
-  cta: "⚡ ¿Quieres duplicar tu RPM? Aplica estas estrategias de patrocinio de alto ticket."
-  afiliado_url: "https://google.com"
+  cta: ""
+  afiliado_url: ""
 
 # ❓ PREGUNTAS FRECUENTES ESTRUCTURADAS
 faqs:
   - q: "¿Cuál es la diferencia entre CPM y RPM?"
     a: "El CPM es el coste que pagan los anunciantes por cada 1.000 impresiones de anuncios, mientras que el RPM son tus ingresos netos reales por cada 1.000 visitas tras la comisión de YouTube."
   - q: "¿Cómo puedo subir mi RPM?"
-    a: "Creando vídeos de mayor duración (más de 8 minutos) para meter anuncios mid-roll y enfocándote en audiences con alto poder adquisitivo (EE.UU.) o nichos caros (Finanzas, SaaS)."
+    a: "El RPM varía según la audiencia, la temática, la estacionalidad, el formato publicitario y otras fuentes de ingresos. Compáralo por periodos equivalentes y revisa los datos reales de YouTube Analytics."
 ---
 
 # ¿Cuánto paga YouTube realmente? Guía definitiva sobre el RPM
@@ -59,7 +63,7 @@ faqs:
 El **RPM** (Revenue Per Mille) es la métrica más honesta y transparente que existe para un creador de contenido. A diferencia del CPM, el RPM calcula el dinero real que va a parar a tu bolsillo tras las comisiones de la plataforma.
 
 ## Ejemplos prácticos de cálculo en escenarios reales
-Si manejas un canal de entretenimiento con un público mayoritariamente latinoamericano, tu RPM podría rondar los 1.20€. Para un canal con 100.000 visitas, la matemática estructurada nos devuelve unos ingresos estimados modestos. Sin embargo, si tu nicho es el desarrollo de software o las finanzas personales en España o EE.UU., ese mismo volumen de visitas puede multiplicar tus ingresos por 5 o por 10 gracias a la puja de los anunciantes.
+El RPM cambia según el país de la audiencia, la temática, la época del año, la duración de los vídeos y la mezcla de ingresos. Para obtener una proyección útil, introduce el RPM real que aparece en YouTube Analytics y compara periodos equivalentes.
 
 ## Errores críticos al analizar tus métricas
-El fallo más común de los principiantes es multiplicar sus visitas totales por el CPM de los vídeos. Recuerda que no todas las visitas monetizan (algunos usuarios usan bloqueadores de anuncios o no ven publicidad) y que Google se queda con el 45% de los ingresos por anuncios tradicionales. Mira siempre tu RPM para tener proyecciones reales del negocio.
+El fallo más común de los principiantes es multiplicar sus visitas totales por el CPM de los vídeos. Recuerda que no todas las visualizaciones generan publicidad y que el reparto de ingresos depende del producto y del formato. Para proyectar el negocio, utiliza el RPM real de tu canal y explica siempre que el resultado es una estimación.
