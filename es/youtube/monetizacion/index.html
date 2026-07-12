@@ -7,6 +7,38 @@
 <link rel="canonical" href="https://clicivo.com/es/youtube/monetizacion/">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B3DXJWJHYG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', "G-B3DXJWJHYG");
+window.clicivoTrack = function(eventName, parameters) {
+    gtag('event', eventName, parameters || {});
+};
+document.addEventListener('DOMContentLoaded', function() {
+    
+});
+document.addEventListener('click', function(event) {
+    const related = event.target.closest('[data-related-tool]');
+    if (related) {
+        window.clicivoTrack('related_tool_clicked', {
+            source_tool_id: document.body.dataset.toolId || '',
+            destination_tool_id: related.dataset.relatedTool || '',
+            link_url: related.href
+        });
+    }
+    const affiliate = event.target.closest('[data-affiliate-link]');
+    if (affiliate) {
+        window.clicivoTrack('affiliate_clicked', {
+            tool_id: document.body.dataset.toolId || '',
+            link_url: affiliate.href
+        });
+    }
+});
+</script>
+
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif}.wrap{width:min(900px,calc(100% - 40px));margin:0 auto}header{background:#fff;border-bottom:1px solid #e2e8f0;padding:20px 0}header a{color:#0f172a;text-decoration:none;font-weight:800}main{padding:60px 0 80px}.crumbs{font-size:.9rem;color:#64748b;margin-bottom:20px}.crumbs a{color:#4f46e5;text-decoration:none}h1{font-size:clamp(2.2rem,6vw,3.8rem);letter-spacing:-.05em;margin:0 0 14px}.intro{color:#64748b;font-size:1.1rem;margin-bottom:34px}.grid{display:grid;gap:18px}article{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:24px}article h2{margin:0 0 8px;font-size:1.25rem}article a{color:#0f172a;text-decoration:none}article p{color:#64748b;margin:0;line-height:1.6}
 </style>

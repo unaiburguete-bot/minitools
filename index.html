@@ -20,6 +20,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Clicivo","url":"https://clicivo.com/","description":"Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar.","inLanguage":"es"}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B3DXJWJHYG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', "G-B3DXJWJHYG");
+window.clicivoTrack = function(eventName, parameters) {
+    gtag('event', eventName, parameters || {});
+};
+document.addEventListener('DOMContentLoaded', function() {
+    
+});
+document.addEventListener('click', function(event) {
+    const related = event.target.closest('[data-related-tool]');
+    if (related) {
+        window.clicivoTrack('related_tool_clicked', {
+            source_tool_id: document.body.dataset.toolId || '',
+            destination_tool_id: related.dataset.relatedTool || '',
+            link_url: related.href
+        });
+    }
+    const affiliate = event.target.closest('[data-affiliate-link]');
+    if (affiliate) {
+        window.clicivoTrack('affiliate_clicked', {
+            tool_id: document.body.dataset.toolId || '',
+            link_url: affiliate.href
+        });
+    }
+});
+</script>
+
     <style>
         :root { --bg:#f8fafc;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#4f46e5;--primary-light:#eef2ff; }
         * { box-sizing:border-box; }

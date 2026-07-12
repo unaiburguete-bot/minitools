@@ -20,6 +20,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Calculadora de ingresos de YouTube Shorts por RPM","description":"Estima cuánto dinero pueden generar tus YouTube Shorts introduciendo las visualizaciones con interacción y el RPM real o previsto.","url":"https://clicivo.com/es/youtube/monetizacion/ingresos-youtube-shorts/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://clicivo.com/"},{"@type":"ListItem","position":2,"name":"Youtube · Monetizacion","item":"https://clicivo.com/es/youtube/monetizacion/"},{"@type":"ListItem","position":3,"name":"Ingresos estimados de YouTube Shorts","item":"https://clicivo.com/es/youtube/monetizacion/ingresos-youtube-shorts/"}]}]</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B3DXJWJHYG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', "G-B3DXJWJHYG");
+window.clicivoTrack = function(eventName, parameters) {
+    gtag('event', eventName, parameters || {});
+};
+document.addEventListener('DOMContentLoaded', function() {
+    window.clicivoTrack('tool_view', {"page_type": "tool", "tool_id": "ingresos-youtube-shorts", "tool_name": "Calculadora de ingresos de YouTube Shorts por RPM", "platform": "YouTube"});
+});
+document.addEventListener('click', function(event) {
+    const related = event.target.closest('[data-related-tool]');
+    if (related) {
+        window.clicivoTrack('related_tool_clicked', {
+            source_tool_id: document.body.dataset.toolId || '',
+            destination_tool_id: related.dataset.relatedTool || '',
+            link_url: related.href
+        });
+    }
+    const affiliate = event.target.closest('[data-affiliate-link]');
+    if (affiliate) {
+        window.clicivoTrack('affiliate_clicked', {
+            tool_id: document.body.dataset.toolId || '',
+            link_url: affiliate.href
+        });
+    }
+});
+</script>
+
     <style>
         :root {
             --bg:#f8fafc;--surface:#fff;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;
@@ -47,7 +79,7 @@
         @media(max-width:560px){.header-nav{padding:14px 18px}.main-layout{padding:0 16px}.tool-card,.seo-article{padding:24px;border-radius:18px}.tool-ui-box{padding:18px}}
     </style>
 </head>
-<body>
+<body data-tool-id="ingresos-youtube-shorts">
 <nav class="header-nav"><div class="nav-container"><a href="/"><span class="brand-mark">◆</span> Clicivo</a></div></nav>
 <div class="main-layout">
     <main>
@@ -69,6 +101,9 @@
                     resultBox.hidden = true;
                     errorBox.textContent = message;
                     errorBox.hidden = false;
+                    if (window.clicivoTrack) {
+                        window.clicivoTrack('calculation_error', {...{"tool_id": "ingresos-youtube-shorts", "tool_name": "Calculadora de ingresos de YouTube Shorts por RPM", "platform": "YouTube"}, error_message: message});
+                    }
                 };
                 errorBox.hidden = true;
                 const raw_visualizaciones = document.getElementById("visualizaciones").value.trim();if (raw_visualizaciones === '') return showError('Completa el campo ' + "Visualizaciones con interacción" + '.');const number_visualizaciones = Number(raw_visualizaciones);if (!Number.isFinite(number_visualizaciones)) return showError('Introduce un número válido en ' + "Visualizaciones con interacción" + '.');if (number_visualizaciones < 0) return showError('El valor de ' + "Visualizaciones con interacción" + ' no puede ser menor que 0.');values["inputs.visualizaciones"] = number_visualizaciones;const raw_rpm = document.getElementById("rpm").value.trim();if (raw_rpm === '') return showError('Completa el campo ' + "RPM de Shorts (€)" + '.');const number_rpm = Number(raw_rpm);if (!Number.isFinite(number_rpm)) return showError('Introduce un número válido en ' + "RPM de Shorts (€)" + '.');if (number_rpm < 0) return showError('El valor de ' + "RPM de Shorts (€)" + ' no puede ser menor que 0.');values["inputs.rpm"] = number_rpm;
@@ -78,6 +113,9 @@
                 const formatted = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 }).format(result);
                 resultBox.textContent = "Ingresos estimados" + ': ' + formatted + (" €" ? ' ' + " €" : '');
                 resultBox.hidden = false;
+                if (window.clicivoTrack) {
+                    window.clicivoTrack('tool_calculated', {"tool_id": "ingresos-youtube-shorts", "tool_name": "Calculadora de ingresos de YouTube Shorts por RPM", "platform": "YouTube"});
+                }
             }
         </script>
     </div>
@@ -127,7 +165,7 @@
             <div class="faq-item"><h3>¿Cómo se calculan los ingresos de YouTube Shorts?</h3><p>Se dividen las visualizaciones con interacción entre 1.000 y se multiplica el resultado por el RPM de Shorts introducido.</p></div><div class="faq-item"><h3>¿Dónde puedo encontrar mi RPM de Shorts?</h3><p>Puedes consultarlo en YouTube Studio, dentro de Analytics e Ingresos, filtrando el contenido por Shorts.</p></div><div class="faq-item"><h3>¿El resultado es una cantidad garantizada?</h3><p>No. Es una estimación basada en el RPM introducido. Los ingresos reales pueden variar por audiencia, país, periodo y reparto de ingresos.</p></div>
         </article>
     </main>
-    <aside><section class="sidebar-box"><h2>Herramientas relacionadas</h2><ul class="sidebar-link-list"><li><a href="/es/youtube/monetizacion/calcular-rpm-youtube/">Calculadora de RPM de YouTube con ingresos y visualizaciones</a></li><li><a href="/es/youtube/monetizacion/horas-visualizacion-youtube/">Calculadora de horas de visualización de YouTube para monetización</a></li><li><a href="/es/youtube/monetizacion/ingresos-youtube/">Calculadora de ingresos de YouTube por visitas y RPM</a></li><li><a href="/es/youtube/monetizacion/rpm-youtube/">Calculadora de ingresos mensuales de YouTube con RPM</a></li><li><a href="/es/youtube/monetizacion/visualizaciones-objetivo-youtube/">Calculadora de visualizaciones necesarias para ganar dinero en YouTube</a></li></ul></section></aside>
+    <aside><section class="sidebar-box"><h2>Herramientas relacionadas</h2><ul class="sidebar-link-list"><li><a data-related-tool="calcular-rpm-youtube" href="/es/youtube/monetizacion/calcular-rpm-youtube/">Calculadora de RPM de YouTube con ingresos y visualizaciones</a></li><li><a data-related-tool="horas-visualizacion-youtube" href="/es/youtube/monetizacion/horas-visualizacion-youtube/">Calculadora de horas de visualización de YouTube para monetización</a></li><li><a data-related-tool="ingresos-youtube" href="/es/youtube/monetizacion/ingresos-youtube/">Calculadora de ingresos de YouTube por visitas y RPM</a></li><li><a data-related-tool="rpm-youtube" href="/es/youtube/monetizacion/rpm-youtube/">Calculadora de ingresos mensuales de YouTube con RPM</a></li><li><a data-related-tool="visualizaciones-objetivo-youtube" href="/es/youtube/monetizacion/visualizaciones-objetivo-youtube/">Calculadora de visualizaciones necesarias para ganar dinero en YouTube</a></li></ul></section></aside>
 </div>
 <footer>© 2026 Clicivo. Herramientas claras para decisiones rápidas.</footer>
 </body>
