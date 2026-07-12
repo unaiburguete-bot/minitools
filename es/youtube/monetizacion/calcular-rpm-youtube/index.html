@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculadora de RPM de YouTube con ingresos y visualizaciones | Clicivo</title>
+    <meta name="description" content="Calcula el RPM real de un canal de YouTube introduciendo los ingresos obtenidos y el número de visualizaciones.">
+    <link rel="canonical" href="https://clicivo.com/es/youtube/monetizacion/calcular-rpm-youtube/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Clicivo">
+    <meta property="og:title" content="Calculadora de RPM de YouTube con ingresos y visualizaciones">
+    <meta property="og:description" content="Calcula el RPM real de un canal de YouTube introduciendo los ingresos obtenidos y el número de visualizaciones.">
+    <meta property="og:url" content="https://clicivo.com/es/youtube/monetizacion/calcular-rpm-youtube/">
+    <meta property="og:image" content="https://clicivo.com/assets/og/calcular-rpm-youtube.jpg/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de RPM de YouTube con ingresos y visualizaciones">
+    <meta name="twitter:description" content="Calcula el RPM real de un canal de YouTube introduciendo los ingresos obtenidos y el número de visualizaciones.">
+    <meta name="twitter:image" content="https://clicivo.com/assets/og/calcular-rpm-youtube.jpg/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Calculadora de RPM de YouTube con ingresos y visualizaciones","description":"Calcula el RPM real de un canal de YouTube introduciendo los ingresos obtenidos y el número de visualizaciones.","url":"https://clicivo.com/es/youtube/monetizacion/calcular-rpm-youtube/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://clicivo.com/"},{"@type":"ListItem","position":2,"name":"Youtube · Monetizacion","item":"https://clicivo.com/es/youtube/monetizacion/"},{"@type":"ListItem","position":3,"name":"RPM real de YouTube","item":"https://clicivo.com/es/youtube/monetizacion/calcular-rpm-youtube/"}]}]</script>
+    <style>
+        :root {
+            --bg:#f8fafc;--surface:#fff;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;
+            --primary:#4f46e5;--primary-hover:#4338ca;--primary-light:#eef2ff;
+            --success-bg:#f0fdf4;--success-border:#bbf7d0;--success-text:#166534;
+            --error-bg:#fff7ed;--error-border:#fed7aa;--error-text:#9a3412;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+        .header-nav{background:rgba(255,255,255,.88);backdrop-filter:blur(10px);position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);padding:16px 24px}
+        .nav-container{max-width:1140px;margin:0 auto}.nav-container a{text-decoration:none;color:var(--text);font-weight:800;font-size:1.3rem;letter-spacing:-.03em}.brand-mark{color:var(--primary)}
+        .main-layout{max-width:1140px;margin:40px auto;padding:0 24px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:38px}
+        .breadcrumbs{font-size:.85rem;color:var(--muted);margin-bottom:20px;font-weight:600}.breadcrumbs a{color:var(--primary);text-decoration:none}.breadcrumbs a:hover{color:var(--primary-hover)}
+        .tool-card,.seo-article,.sidebar-box{background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 30px rgba(15,23,42,.035)}
+        .tool-card{border-radius:24px;padding:36px;margin-bottom:30px}.tool-card h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.045em;margin-bottom:10px;line-height:1.15}.free-badge{display:inline-block;margin-bottom:18px;padding:5px 10px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase}
+        .tool-ui-box{background:#fbfdff;border:1px solid #eef2f7;border-radius:16px;padding:24px;margin-top:24px}.tool-ui-box label{display:block;margin-top:15px;font-size:.9rem;font-weight:700;color:#334155}.tool-ui-box label:first-child{margin-top:0}.tool-ui-box input{width:100%;padding:13px 15px;margin-top:7px;border:1px solid var(--border);border-radius:10px;font:inherit;color:var(--text);background:#fff}.tool-ui-box input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-light)}
+        .calc-btn{width:100%;background:var(--primary);color:#fff;border:0;padding:14px;font-weight:800;font-size:1rem;margin-top:24px;border-radius:10px;cursor:pointer;font-family:inherit;box-shadow:0 7px 18px rgba(79,70,229,.2)}.calc-btn:hover{background:var(--primary-hover);transform:translateY(-1px)}
+        .calc-result-box,.calc-error{margin-top:18px;padding:16px;border-radius:10px;text-align:center;font-weight:700}.calc-result-box{background:var(--success-bg);border:1px solid var(--success-border);color:var(--success-text)}.calc-error{background:var(--error-bg);border:1px solid var(--error-border);color:var(--error-text)}
+        .monetization-bar{background:linear-gradient(135deg,var(--primary-light),#f5f3ff);border:1px solid rgba(79,70,229,.16);padding:24px;border-radius:18px;text-align:center;margin:30px 0}.monetization-bar p{font-weight:700;color:#4338ca;margin-bottom:12px}.monetization-bar a{background:var(--text);color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:800;font-size:.9rem;display:inline-block}
+        .seo-article{border-radius:24px;padding:40px}.seo-article h1,.seo-article h2,.seo-article h3{color:#1e293b;letter-spacing:-.025em}.seo-article h1{font-size:1.8rem;margin-bottom:18px}.seo-article h2{font-size:1.45rem;margin:30px 0 12px}.seo-article h3{font-size:1.15rem;margin:22px 0 8px}.seo-article p{color:#475569;margin-bottom:16px;font-size:1.03rem}.seo-article ul,.seo-article ol{margin:0 0 18px 22px;color:#475569}
+        .reviewed{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.86rem}.faq-heading{margin-top:42px!important;border-top:1px solid var(--border);padding-top:30px}.faq-item{border-bottom:1px solid var(--border);padding:20px 0}.faq-item:last-child{border-bottom:0}.faq-item h3{font-size:1.05rem;margin-bottom:7px}.faq-item p{font-size:.95rem;margin:0}
+        .sidebar-box{border-radius:20px;padding:24px;position:sticky;top:94px}.sidebar-box h2{font-size:1rem;margin-bottom:16px}.sidebar-link-list{list-style:none}.sidebar-link-list li{margin-bottom:12px}.sidebar-link-list a{color:var(--muted);text-decoration:none;font-size:.94rem;font-weight:600}.sidebar-link-list a:hover{color:var(--primary)}.empty-state{color:var(--muted);font-size:.9rem}
+        footer{text-align:center;padding:30px;color:var(--muted);font-size:.88rem;font-weight:500;border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+        @media(max-width:900px){.main-layout{grid-template-columns:1fr;gap:30px;margin:24px auto}.sidebar-box{position:static}}
+        @media(max-width:560px){.header-nav{padding:14px 18px}.main-layout{padding:0 16px}.tool-card,.seo-article{padding:24px;border-radius:18px}.tool-ui-box{padding:18px}}
+    </style>
+</head>
+<body>
+<nav class="header-nav"><div class="nav-container"><a href="/"><span class="brand-mark">◆</span> Clicivo</a></div></nav>
+<div class="main-layout">
+    <main>
+        <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> › <a href="/es/youtube/monetizacion/">Youtube · Monetizacion</a> › <span>RPM real de YouTube</span></nav>
+        <section class="tool-card">
+            <span class="free-badge">Herramienta gratuita</span>
+            <h1>Calcular el RPM real de YouTube a partir de ingresos y visualizaciones</h1>
+            <div class="tool-ui-box">
+        <label for="ingresos">Ingresos obtenidos (€)</label><input type="number" id="ingresos" placeholder="Ej. 425" inputmode="decimal" min="0" step="0.01"><label for="visualizaciones">Número de visualizaciones</label><input type="number" id="visualizaciones" placeholder="Ej. 100000" inputmode="decimal" min="1" step="1">
+        <button type="button" onclick="calculate_calcular_rpm_youtube()" class="calc-btn">Calcular ahora</button>
+        <p id="error_calcular-rpm-youtube" class="calc-error" role="alert" hidden></p>
+        <div id="result_calcular-rpm-youtube" class="calc-result-box" role="status" aria-live="polite" hidden></div>
+        <script>
+            function calculate_calcular_rpm_youtube() {
+                const values = {};
+                const errorBox = document.getElementById("error_calcular-rpm-youtube");
+                const resultBox = document.getElementById("result_calcular-rpm-youtube");
+                const showError = (message) => {
+                    resultBox.hidden = true;
+                    errorBox.textContent = message;
+                    errorBox.hidden = false;
+                };
+                errorBox.hidden = true;
+                const raw_ingresos = document.getElementById("ingresos").value.trim();if (raw_ingresos === '') return showError('Completa el campo ' + "Ingresos obtenidos (€)" + '.');const number_ingresos = Number(raw_ingresos);if (!Number.isFinite(number_ingresos)) return showError('Introduce un número válido en ' + "Ingresos obtenidos (€)" + '.');if (number_ingresos < 0) return showError('El valor de ' + "Ingresos obtenidos (€)" + ' no puede ser menor que 0.');values["inputs.ingresos"] = number_ingresos;const raw_visualizaciones = document.getElementById("visualizaciones").value.trim();if (raw_visualizaciones === '') return showError('Completa el campo ' + "Número de visualizaciones" + '.');const number_visualizaciones = Number(raw_visualizaciones);if (!Number.isFinite(number_visualizaciones)) return showError('Introduce un número válido en ' + "Número de visualizaciones" + '.');if (number_visualizaciones < 1) return showError('El valor de ' + "Número de visualizaciones" + ' no puede ser menor que 1.');values["inputs.visualizaciones"] = number_visualizaciones;
+                if (values["inputs.visualizaciones"] === 0) return showError('No es posible dividir entre cero.');values["ingresos_por_visita"] = values["inputs.ingresos"] / values["inputs.visualizaciones"];values["rpm_real"] = values["ingresos_por_visita"] * 1000;
+                const result = values["rpm_real"];
+                if (!Number.isFinite(result)) return showError('No se ha podido calcular el resultado. Revisa los valores.');
+                const formatted = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 }).format(result);
+                resultBox.textContent = "RPM estimado" + ': ' + formatted + (" €" ? ' ' + " €" : '');
+                resultBox.hidden = false;
+            }
+        </script>
+    </div>
+        </section>
+        
+        <article class="seo-article">
+            <h1>Calculadora de RPM de YouTube</h1>
+<p>Esta herramienta calcula el RPM real de un canal de YouTube a partir de los ingresos obtenidos y del número total de visualizaciones.</p>
+<p>La fórmula utilizada es:</p>
+<p><strong>RPM = ingresos ÷ visualizaciones × 1.000</strong></p>
+<h2>Ejemplo práctico</h2>
+<p>Un canal obtiene <strong>425 €</strong> con <strong>100.000 visualizaciones</strong>:</p>
+<p><strong>425 ÷ 100.000 × 1.000 = 4,25 €</strong></p>
+<p>El RPM estimado sería de <strong>4,25 €</strong>.</p>
+<h2>Qué datos debes introducir</h2>
+<p>Utiliza ingresos y visualizaciones del mismo periodo. Por ejemplo:</p>
+<ul>
+<li>Ingresos de los últimos 28 días.</li>
+<li>Visualizaciones de esos mismos 28 días.</li>
+</ul>
+<p>No mezcles periodos distintos porque el resultado dejaría de ser comparable.</p>
+<h2>Para qué sirve conocer el RPM</h2>
+<p>El RPM permite:</p>
+<ul>
+<li>Comparar el rendimiento de distintos periodos.</li>
+<li>Estimar ingresos futuros.</li>
+<li>Detectar cambios en la monetización.</li>
+<li>Comparar vídeos o temáticas.</li>
+<li>Planificar objetivos de visualizaciones.</li>
+</ul>
+<h2>Diferencia entre RPM y CPM</h2>
+<p>El CPM representa lo que pagan los anunciantes por 1.000 impresiones publicitarias.</p>
+<p>El RPM representa lo que realmente obtiene el creador por cada 1.000 visualizaciones.</p>
+<p>Por eso el RPM suele ser la métrica más útil para estimar ingresos reales.</p>
+<h2>Limitaciones</h2>
+<p>El resultado depende de que los ingresos y las visualizaciones correspondan exactamente al mismo periodo. También puede variar por país, temática, época del año, duración de los vídeos y porcentaje de visualizaciones monetizadas.</p>
+            <p class="reviewed">Última revisión: 2026-07-12</p>
+            <h2 class="faq-heading">Preguntas frecuentes</h2>
+            <div class="faq-item"><h3>¿Cómo se calcula el RPM de YouTube?</h3><p>Se dividen los ingresos obtenidos entre las visualizaciones y se multiplica el resultado por 1.000.</p></div><div class="faq-item"><h3>¿Debo usar visualizaciones totales o monetizadas?</h3><p>Para calcular el RPM general del canal, utiliza las visualizaciones totales del periodo correspondiente a los ingresos introducidos.</p></div>
+        </article>
+    </main>
+    <aside><section class="sidebar-box"><h2>Herramientas relacionadas</h2><ul class="sidebar-link-list"><li><a href="/es/youtube/monetizacion/ingresos-youtube/">Calculadora de ingresos de YouTube por visitas y RPM</a></li><li><a href="/es/youtube/monetizacion/visualizaciones-objetivo-youtube/">Calculadora de visualizaciones necesarias para ganar dinero en YouTube</a></li><li><a href="/es/youtube/monetizacion/rpm-youtube/">Calculadora de RPM de YouTube Exacto (2026)</a></li></ul></section></aside>
+</div>
+<footer>© 2026 Clicivo. Herramientas claras para decisiones rápidas.</footer>
+</body>
+</html>
