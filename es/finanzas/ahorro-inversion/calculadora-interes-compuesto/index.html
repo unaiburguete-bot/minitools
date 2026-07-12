@@ -237,13 +237,51 @@
         body.theme-finanzas-personales .sidebar-link-list a:hover{color:#047857}
         body.theme-finanzas-personales footer{background:rgba(248,253,251,.92);border-top-color:#d5eadf}
 
+        /* CLICIVO BUSINESS THEME */
+        body.theme-negocios-y-autonomos{
+            --bg:#f3f8fb;--surface:#fff;--border:#cddfea;--text:#102b3a;--muted:#5b7180;
+            --primary:#0f5b78;--primary-hover:#0b455d;--primary-light:#e7f2f7;
+            --success-bg:#effaf8;--success-border:#a7e6d8;--success-text:#0f6659;
+            background:
+                radial-gradient(circle at 8% 5%,rgba(14,116,144,.13),transparent 29rem),
+                radial-gradient(circle at 94% 10%,rgba(245,158,11,.12),transparent 31rem),
+                linear-gradient(180deg,#f3f8fb 0%,#fff 54%,#f8fafb 100%);
+        }
+        body.theme-negocios-y-autonomos .header-nav{background:rgba(248,251,253,.93);border-bottom-color:#d6e4ec}
+        body.theme-negocios-y-autonomos .brand-mark{color:#0f5b78}
+        body.theme-negocios-y-autonomos .breadcrumbs a{color:#0f5b78}
+        body.theme-negocios-y-autonomos .tool-card{
+            position:relative;overflow:hidden;border-color:#cddfea;
+            background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(242,247,250,.96));
+            box-shadow:0 24px 70px rgba(8,47,73,.075)
+        }
+        body.theme-negocios-y-autonomos .tool-card::before{
+            content:"";position:absolute;width:245px;height:245px;right:-105px;top:-125px;border-radius:50%;
+            background:linear-gradient(135deg,rgba(14,116,144,.18),rgba(245,158,11,.15));pointer-events:none
+        }
+        body.theme-negocios-y-autonomos .free-badge{
+            position:relative;color:#fff;background:linear-gradient(105deg,#0f4c66,#0e7490 62%,#d97706);
+            box-shadow:0 8px 22px rgba(8,47,73,.13)
+        }
+        body.theme-negocios-y-autonomos .tool-card h1{position:relative;max-width:850px;color:#123b4d}
+        body.theme-negocios-y-autonomos .tool-ui-box{position:relative;background:rgba(255,255,255,.87);border-color:#d6e4ec}
+        body.theme-negocios-y-autonomos .tool-ui-box label{color:#294b5b}
+        body.theme-negocios-y-autonomos .tool-ui-box input{border-color:#cbdde6;background:#fcfeff}
+        body.theme-negocios-y-autonomos .tool-ui-box input:focus{border-color:#0e7490;box-shadow:0 0 0 4px rgba(14,116,144,.11)}
+        body.theme-negocios-y-autonomos .calc-btn{background:linear-gradient(105deg,#0f4c66,#0e7490 62%,#d97706);box-shadow:0 12px 28px rgba(8,47,73,.20)}
+        body.theme-negocios-y-autonomos .calc-btn:hover{background:linear-gradient(105deg,#0b3b50,#0f5b78 62%,#b45309)}
+        body.theme-negocios-y-autonomos .seo-article,body.theme-negocios-y-autonomos .sidebar-box{border-color:#d6e4ec;box-shadow:0 18px 50px rgba(8,47,73,.055)}
+        body.theme-negocios-y-autonomos .seo-article h1,body.theme-negocios-y-autonomos .seo-article h2,body.theme-negocios-y-autonomos .seo-article h3{color:#173e50}
+        body.theme-negocios-y-autonomos .sidebar-link-list a:hover{color:#0f5b78}
+        body.theme-negocios-y-autonomos footer{background:rgba(248,251,253,.93);border-top-color:#d6e4ec}
+
         @media(max-width:900px){.main-layout{grid-template-columns:1fr;gap:30px;margin:24px auto}.sidebar-box{position:static}}
         @media(max-width:700px){.nav-container{align-items:flex-start;flex-direction:column}.nav-links{gap:13px;flex-wrap:wrap}}
         @media(max-width:560px){.header-nav{padding:14px 18px}.main-layout{padding:0 16px}.tool-card,.seo-article{padding:24px;border-radius:18px}.tool-ui-box{padding:18px}}
     </style>
 </head>
 <body class="theme-finanzas-personales" data-tool-id="calculadora-interes-compuesto">
-<nav class="header-nav"><div class="nav-container"><a class="nav-brand" href="/"><span class="brand-mark">◆</span> Clicivo</a><div class="nav-links"><a href="/es/redes-sociales/">Redes sociales</a><a href="/es/finanzas/">Finanzas</a><a href="/es/herramientas/">Todas las herramientas</a></div></div></nav>
+<nav class="header-nav"><div class="nav-container"><a class="nav-brand" href="/"><span class="brand-mark">◆</span> Clicivo</a><div class="nav-links"><a href="/es/redes-sociales/">Redes sociales</a><a href="/es/finanzas/">Finanzas</a><a href="/es/negocios/">Negocios</a><a href="/es/herramientas/">Todas las herramientas</a></div></div></nav>
 <div class="main-layout">
     <main>
         <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> › <a href="/es/finanzas/">Finanzas</a> › <a href="/es/finanzas-personales/">Finanzas personales</a> › <a href="/es/finanzas/ahorro-inversion/">Ahorro e inversión</a> › <span>Calculadora de interés compuesto</span></nav>
@@ -271,6 +309,7 @@
                 };
                 errorBox.hidden = true;
                 const raw_capital_inicial = document.getElementById("capital_inicial").value.trim().replace(',', '.');if (raw_capital_inicial === '') return showError('Completa el campo ' + "Capital inicial (€)" + '.');const number_capital_inicial = Number(raw_capital_inicial);if (!Number.isFinite(number_capital_inicial)) return showError('Introduce un número válido en ' + "Capital inicial (€)" + '.');if (number_capital_inicial < 0) return showError('El valor de ' + "Capital inicial (€)" + ' no puede ser menor que 0.');if (number_capital_inicial > 10000000) return showError('El valor de ' + "Capital inicial (€)" + ' no puede ser mayor que 10000000.');values["inputs.capital_inicial"] = number_capital_inicial;const raw_aportacion_mensual = document.getElementById("aportacion_mensual").value.trim().replace(',', '.');if (raw_aportacion_mensual === '') return showError('Completa el campo ' + "Aportación mensual (€)" + '.');const number_aportacion_mensual = Number(raw_aportacion_mensual);if (!Number.isFinite(number_aportacion_mensual)) return showError('Introduce un número válido en ' + "Aportación mensual (€)" + '.');if (number_aportacion_mensual < 0) return showError('El valor de ' + "Aportación mensual (€)" + ' no puede ser menor que 0.');if (number_aportacion_mensual > 1000000) return showError('El valor de ' + "Aportación mensual (€)" + ' no puede ser mayor que 1000000.');values["inputs.aportacion_mensual"] = number_aportacion_mensual;const raw_rentabilidad_anual = document.getElementById("rentabilidad_anual").value.trim().replace(',', '.');if (raw_rentabilidad_anual === '') return showError('Completa el campo ' + "Rentabilidad anual estimada (%)" + '.');const number_rentabilidad_anual = Number(raw_rentabilidad_anual);if (!Number.isFinite(number_rentabilidad_anual)) return showError('Introduce un número válido en ' + "Rentabilidad anual estimada (%)" + '.');if (number_rentabilidad_anual < 0.01) return showError('El valor de ' + "Rentabilidad anual estimada (%)" + ' no puede ser menor que 0.01.');if (number_rentabilidad_anual > 50) return showError('El valor de ' + "Rentabilidad anual estimada (%)" + ' no puede ser mayor que 50.');values["inputs.rentabilidad_anual"] = number_rentabilidad_anual;const raw_plazo_anos = document.getElementById("plazo_anos").value.trim().replace(',', '.');if (raw_plazo_anos === '') return showError('Completa el campo ' + "Plazo (años)" + '.');const number_plazo_anos = Number(raw_plazo_anos);if (!Number.isFinite(number_plazo_anos)) return showError('Introduce un número válido en ' + "Plazo (años)" + '.');if (number_plazo_anos < 1) return showError('El valor de ' + "Plazo (años)" + ' no puede ser menor que 1.');if (number_plazo_anos > 80) return showError('El valor de ' + "Plazo (años)" + ' no puede ser mayor que 80.');values["inputs.plazo_anos"] = number_plazo_anos;
+                
                 if (100 === 0) return showError('No es posible dividir entre cero.');values["rentabilidad_decimal"] = values["inputs.rentabilidad_anual"] / 100;if (12 === 0) return showError('No es posible dividir entre cero.');values["rentabilidad_mensual"] = values["rentabilidad_decimal"] / 12;values["numero_meses"] = values["inputs.plazo_anos"] * 12;values["base_factor"] = 1 + values["rentabilidad_mensual"];values["factor"] = Math.pow(values["base_factor"], values["numero_meses"]);values["capital_inicial_futuro"] = values["inputs.capital_inicial"] * values["factor"];values["factor_aportaciones_numerador"] = values["factor"] - 1;if (values["rentabilidad_mensual"] === 0) return showError('No es posible dividir entre cero.');values["factor_aportaciones"] = values["factor_aportaciones_numerador"] / values["rentabilidad_mensual"];values["aportaciones_futuras"] = values["inputs.aportacion_mensual"] * values["factor_aportaciones"];values["capital_final"] = values["capital_inicial_futuro"] + values["aportaciones_futuras"];values["aportaciones_periodicas"] = values["inputs.aportacion_mensual"] * values["numero_meses"];values["total_aportado"] = values["inputs.capital_inicial"] + values["aportaciones_periodicas"];values["intereses_generados"] = values["capital_final"] - values["total_aportado"];
 
                 for (const item of resultDefinitions) {
