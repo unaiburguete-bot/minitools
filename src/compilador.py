@@ -338,8 +338,29 @@ def category_route(node: dict[str, Any]) -> str:
     return "/".join([node["_language"], *node["_cluster_path"]])
 
 
+CATEGORY_LABELS = {
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "twitch": "Twitch",
+    "monetizacion": "Monetización",
+    "analitica": "Analítica",
+}
+
+
 def humanize_slug(value: str) -> str:
-    return value.replace("-", " ").strip().title()
+    normalized = value.strip().lower()
+    return CATEGORY_LABELS.get(normalized, value.replace("-", " ").strip().title())
+
+
+def platform_key(node: dict[str, Any]) -> str:
+    platform = str(node.get("vectores", {}).get("plataforma", "")).strip().lower()
+    return re.sub(r"[^a-z0-9]+", "-", platform).strip("-") or "default"
+
+
+def platform_theme(node: dict[str, Any]) -> str:
+    key = platform_key(node)
+    return f"theme-{key}" if key in {"youtube", "instagram", "tiktok", "twitch"} else "theme-default"
 
 
 def category_name(cluster_path: list[str]) -> str:
@@ -629,6 +650,7 @@ def render_tool(node: dict[str, Any], template: str) -> str:
 
     replacements = {
         "{{LANG}}": node["_language"],
+        "{{THEME_CLASS}}": platform_theme(node),
         "{{SITE_NAME}}": SITE_NAME,
         "{{HOME_URL}}": site_path(),
         "{{META_TITLE}}": str(node["meta"]["title"]),
@@ -663,7 +685,7 @@ def render_tool(node: dict[str, Any], template: str) -> str:
 def render_home(nodes: list[dict[str, Any]]) -> str:
     cards = "".join(
         f"""
-        <article class="tool-card-home">
+        <article class="tool-card-home platform-{html.escape(platform_key(node), quote=True)}">
             <span class="tag">{html.escape(str(node['vectores']['plataforma']))}</span>
             <h2><a href="{html.escape(site_path(node_route(node)), quote=True)}">{html.escape(str(node['meta']['title']))}</a></h2>
             <p>{html.escape(str(node['meta']['description']))}</p>
@@ -727,6 +749,10 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
         .tag {{ display:inline-block;padding:5px 9px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase; }}
         .tool-card-home h2 {{ margin:16px 0 9px;font-size:1.28rem;line-height:1.35;letter-spacing:-.025em; }}
         .tool-card-home h2 a {{ color:var(--text);text-decoration:none; }}
+        .tool-card-home.platform-instagram {{ border-color:#efd2e2;background:linear-gradient(145deg,#fff,#fff7fc);box-shadow:0 14px 36px rgba(131,58,180,.08); }}
+        .tool-card-home.platform-instagram .tag {{ color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4); }}
+        .tool-card-home.platform-instagram .card-link {{ color:#c02675; }}
+
         .tool-card-home p {{ color:var(--muted);line-height:1.65; }}
         .card-link {{ display:inline-block;margin-top:7px;color:var(--primary);font-weight:700;text-decoration:none; }}
         footer {{ border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.9rem; }}
@@ -755,12 +781,40 @@ def render_category(route: str, nodes: list[dict[str, Any]]) -> str:
     language = parts[0]
     cluster_parts = parts[1:]
     title = category_name(cluster_parts)
+    theme_class = platform_theme(nodes[0]) if nodes else "theme-default"
+    is_instagram = theme_class == "theme-instagram"
+    intro = (
+        "Mide la interacción, compara el rendimiento y toma mejores decisiones para tu perfil o tus campañas de Instagram."
+        if is_instagram
+        else f"Calculadoras y utilidades gratuitas para resolver tareas de {title.lower()}."
+    )
     cards = "".join(
-        f'<article><h2><a href="{html.escape(site_path(node_route(node)), quote=True)}">{html.escape(str(node["meta"]["title"]))}</a></h2>'
-        f'<p>{html.escape(str(node["meta"]["description"]))}</p></article>'
+        f'<article><span class="platform-pill">{html.escape(str(node["vectores"]["plataforma"]))}</span>'
+        f'<h2><a href="{html.escape(site_path(node_route(node)), quote=True)}">{html.escape(str(node["meta"]["title"]))}</a></h2>'
+        f'<p>{html.escape(str(node["meta"]["description"]))}</p>'
+        f'<a class="open-link" href="{html.escape(site_path(node_route(node)), quote=True)}">Abrir herramienta →</a></article>'
         for node in nodes
     )
     canonical = absolute_url(route)
+    theme_css = ""
+    if is_instagram:
+        theme_css = """
+body.theme-instagram{background:radial-gradient(circle at 10% 5%,rgba(247,119,55,.18),transparent 26rem),radial-gradient(circle at 92% 8%,rgba(131,58,180,.15),transparent 30rem),linear-gradient(180deg,#fff8fc,#fff 55%,#faf7ff);color:#29162f}
+body.theme-instagram header{background:rgba(255,250,253,.9);border-bottom-color:#f1d8e5;backdrop-filter:blur(10px)}
+body.theme-instagram header a{color:#29162f}
+body.theme-instagram .crumbs a{color:#c02675}
+body.theme-instagram h1{background:linear-gradient(100deg,#713080,#d62976 52%,#e85d18);-webkit-background-clip:text;background-clip:text;color:transparent}
+body.theme-instagram .intro{max-width:720px;color:#765f7c}
+body.theme-instagram .grid{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+body.theme-instagram article{position:relative;overflow:hidden;border-color:#efd2e2;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(255,247,252,.94));box-shadow:0 20px 55px rgba(131,58,180,.09);transition:transform .2s ease,box-shadow .2s ease}
+body.theme-instagram article:hover{transform:translateY(-3px);box-shadow:0 26px 70px rgba(131,58,180,.13)}
+body.theme-instagram article::after{content:"";position:absolute;width:105px;height:105px;right:-45px;top:-50px;border-radius:50%;background:linear-gradient(135deg,rgba(247,119,55,.27),rgba(214,41,118,.21),rgba(131,58,180,.20))}
+body.theme-instagram article a{color:#35163d}
+body.theme-instagram article p{color:#765f7c}
+body.theme-instagram .platform-pill{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}
+body.theme-instagram .open-link{color:#c02675}
+body.theme-instagram footer{background:rgba(255,250,253,.9)!important;border-top-color:#f1d8e5!important}
+"""
     return f"""<!doctype html>
 <html lang="{html.escape(language)}">
 <head>
@@ -772,11 +826,12 @@ def render_category(route: str, nodes: list[dict[str, Any]]) -> str:
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 {analytics_snippet("category")}
 <style>
-*{{box-sizing:border-box}}body{{margin:0;background:#f8fafc;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif}}.wrap{{width:min(900px,calc(100% - 40px));margin:0 auto}}header{{background:#fff;border-bottom:1px solid #e2e8f0;padding:20px 0}}header a{{color:#0f172a;text-decoration:none;font-weight:800}}main{{padding:60px 0 80px}}.crumbs{{font-size:.9rem;color:#64748b;margin-bottom:20px}}.crumbs a{{color:#4f46e5;text-decoration:none}}h1{{font-size:clamp(2.2rem,6vw,3.8rem);letter-spacing:-.05em;margin:0 0 14px}}.intro{{color:#64748b;font-size:1.1rem;margin-bottom:34px}}.grid{{display:grid;gap:18px}}article{{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:24px}}article h2{{margin:0 0 8px;font-size:1.25rem}}article a{{color:#0f172a;text-decoration:none}}article p{{color:#64748b;margin:0;line-height:1.6}}
+*{{box-sizing:border-box}}body{{margin:0;background:#f8fafc;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif}}.wrap{{width:min(960px,calc(100% - 40px));margin:0 auto}}header{{background:#fff;border-bottom:1px solid #e2e8f0;padding:20px 0}}header a{{color:#0f172a;text-decoration:none;font-weight:800}}main{{padding:64px 0 84px}}.crumbs{{font-size:.9rem;color:#64748b;margin-bottom:20px}}.crumbs a{{color:#4f46e5;text-decoration:none}}h1{{font-size:clamp(2.2rem,6vw,3.8rem);letter-spacing:-.05em;margin:0 0 14px}}.intro{{color:#64748b;font-size:1.1rem;line-height:1.7;margin-bottom:36px}}.grid{{display:grid;gap:20px}}article{{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:26px}}article h2{{margin:13px 0 8px;font-size:1.25rem;line-height:1.35}}article a{{color:#0f172a;text-decoration:none}}article p{{color:#64748b;margin:0;line-height:1.6}}.platform-pill{{display:inline-block;padding:5px 9px;border-radius:999px;background:#eef2ff;color:#4f46e5;font-size:.73rem;font-weight:800;text-transform:uppercase}}.open-link{{display:inline-block;margin-top:14px;color:#4f46e5;font-weight:800;font-size:.9rem}}
+{theme_css}
 </style>
 </head>
-<body><header><div class="wrap"><a href="{site_path()}">◆ {html.escape(SITE_NAME)}</a></div></header>
-<main class="wrap"><div class="crumbs"><a href="{site_path()}">Inicio</a> › {html.escape(title)}</div><h1>{html.escape(title)}</h1><p class="intro">Calculadoras y utilidades gratuitas para resolver tareas de {html.escape(title.lower())}.</p><div class="grid">{cards}</div></main><footer style="background:#fff;border-top:1px solid #e2e8f0;padding:28px 0;color:#64748b;font-size:.88rem"><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)} · {legal_footer()}</div></footer></body></html>"""
+<body class="{theme_class}"><header><div class="wrap"><a href="{site_path()}">◆ {html.escape(SITE_NAME)}</a></div></header>
+<main class="wrap"><div class="crumbs"><a href="{site_path()}">Inicio</a> › {html.escape(title)}</div><h1>{html.escape(title)}</h1><p class="intro">{html.escape(intro)}</p><div class="grid">{cards}</div></main><footer style="background:#fff;border-top:1px solid #e2e8f0;padding:28px 0;color:#64748b;font-size:.88rem"><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)} · {legal_footer()}</div></footer></body></html>"""
 
 
 def legal_footer() -> str:

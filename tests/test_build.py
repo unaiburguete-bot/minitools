@@ -14,6 +14,8 @@ def test_core_outputs_exist():
         "404.html",
         "es/youtube/monetizacion/index.html",
         "es/youtube/monetizacion/rpm-youtube/index.html",
+        "es/instagram/analitica/index.html",
+        "es/instagram/analitica/engagement-instagram-seguidores/index.html",
     ]
     for relative in expected:
         assert (PUBLIC / relative).exists(), f"Falta public/{relative}"
@@ -56,3 +58,30 @@ def test_sitemap_contains_home_category_and_tool():
         "<loc>https://clicivo.com/es/youtube/monetizacion/rpm-youtube/</loc>"
         in sitemap
     )
+
+
+def test_instagram_has_its_own_visual_theme():
+    tool = (
+        PUBLIC
+        / "es/instagram/analitica/engagement-instagram-seguidores/index.html"
+    ).read_text(encoding="utf-8")
+    category = (PUBLIC / "es/instagram/analitica/index.html").read_text(
+        encoding="utf-8"
+    )
+    youtube = (
+        PUBLIC / "es/youtube/monetizacion/rpm-youtube/index.html"
+    ).read_text(encoding="utf-8")
+
+    assert '<body class="theme-instagram"' in tool
+    assert '<body class="theme-instagram"' in category
+    assert "CLICIVO INSTAGRAM THEME" in tool
+    assert '<body class="theme-youtube"' in youtube
+
+
+def test_sitemap_contains_instagram_tool_and_category():
+    sitemap = (PUBLIC / "sitemap.xml").read_text(encoding="utf-8")
+    assert "<loc>https://clicivo.com/es/instagram/analitica/</loc>" in sitemap
+    assert (
+        "<loc>https://clicivo.com/es/instagram/analitica/"
+        "engagement-instagram-seguidores/</loc>"
+    ) in sitemap
