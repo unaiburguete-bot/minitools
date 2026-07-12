@@ -1,28 +1,68 @@
-<!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Minitools Factory | Directorio Inteligente</title>
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-        <style>
-            body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: #0f172a; margin: 0; padding: 60px 20px; -webkit-font-smoothing: antialiased; }
-            .container { max-width: 1000px; margin: 0 auto; }
-            .hero { text-align: center; margin-bottom: 50px; }
-            .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 12px; color: #1e293b; }
-            .hero p { color: #64748b; font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
-            .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 40px; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="hero">
-                <h1>⚡ Minitools Factory</h1>
-                <p>Calculadoras mecánicas y aplicaciones semánticas de rendimiento atómico. Sin anuncios invasivos ni rastreadores.</p>
-            </div>
-            <div class="grid">
-                <div style="background: white; border: 1px solid #e2e8f0; padding: 24px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); transition: all 0.2s;" onmouseover="this.style.borderColor='#6366f1'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)';"><span style="background: #eef2ff; color: #4f46e5; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; text-transform: uppercase;">YouTube</span><h3 style="margin: 12px 0 8px 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;"><a href="./es/youtube/monetizacion/rpm-youtube/" style="color: #0f172a; text-decoration: none;">Calculadora de RPM de YouTube Exacto (2026)</a></h3><p style="color: #64748b; font-size: 0.95rem; margin: 0;">Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática.</p></div>
-            </div>
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clicivo | Herramientas y calculadoras gratuitas</title>
+    <meta name="description" content="Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar.">
+    <link rel="canonical" href="https://clicivo.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Clicivo">
+    <meta property="og:title" content="Clicivo | Herramientas gratuitas">
+    <meta property="og:description" content="Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar.">
+    <meta property="og:url" content="https://clicivo.com/">
+    <meta property="og:image" content="https://clicivo.com/assets/og/clicivo-home.jpg/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Clicivo | Herramientas gratuitas">
+    <meta name="twitter:description" content="Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar.">
+    <meta name="twitter:image" content="https://clicivo.com/assets/og/clicivo-home.jpg/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Clicivo","url":"https://clicivo.com/","description":"Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar.","inLanguage":"es"}</script>
+    <style>
+        :root { --bg:#f8fafc;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#4f46e5;--primary-light:#eef2ff; }
+        * { box-sizing:border-box; }
+        body { margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased; }
+        .wrap { width:min(1080px,calc(100% - 40px));margin:0 auto; }
+        header { padding:22px 0;border-bottom:1px solid var(--border);background:rgba(255,255,255,.88);backdrop-filter:blur(10px); }
+        .brand { color:var(--text);text-decoration:none;font-size:1.25rem;font-weight:800;letter-spacing:-.03em; }
+        .brand-mark { color:var(--primary); }
+        .hero { padding:88px 0 54px;text-align:center; }
+        .eyebrow { color:var(--primary);font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase; }
+        h1 { max-width:780px;margin:14px auto 18px;font-size:clamp(2.5rem,7vw,4.8rem);line-height:1.02;letter-spacing:-.06em; }
+        .hero p { max-width:680px;margin:0 auto;color:var(--muted);font-size:1.15rem;line-height:1.7; }
+        .catalog-title { margin:20px 0 24px;font-size:1.6rem;letter-spacing:-.03em; }
+        .grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;padding-bottom:80px; }
+        .tool-card-home { padding:26px;border:1px solid var(--border);border-radius:20px;background:var(--surface);box-shadow:0 10px 30px rgba(15,23,42,.04); }
+        .tag { display:inline-block;padding:5px 9px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase; }
+        .tool-card-home h2 { margin:16px 0 9px;font-size:1.28rem;line-height:1.35;letter-spacing:-.025em; }
+        .tool-card-home h2 a { color:var(--text);text-decoration:none; }
+        .tool-card-home p { color:var(--muted);line-height:1.65; }
+        .card-link { display:inline-block;margin-top:7px;color:var(--primary);font-weight:700;text-decoration:none; }
+        footer { border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.9rem; }
+    </style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="/"><span class="brand-mark">◆</span> Clicivo</a></div></header>
+<main>
+    <section class="hero wrap">
+        <div class="eyebrow">Herramientas gratuitas</div>
+        <h1>Calcula, convierte y decide mejor.</h1>
+        <p>Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar. Sin instalaciones, sin registros y con resultados inmediatos.</p>
+    </section>
+    <section class="wrap" aria-labelledby="catalog-title">
+        <h2 class="catalog-title" id="catalog-title">Herramientas disponibles</h2>
+        <div class="grid">
+        <article class="tool-card-home">
+            <span class="tag">YouTube</span>
+            <h2><a href="/es/youtube/monetizacion/rpm-youtube/">Calculadora de RPM de YouTube Exacto (2026)</a></h2>
+            <p>Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática.</p>
+            <a class="card-link" href="/es/youtube/monetizacion/rpm-youtube/">Abrir herramienta →</a>
+        </article>
         </div>
-    </body>
-    </html>
+    </section>
+</main>
+<footer><div class="wrap">© 2026 Clicivo. Herramientas claras para decisiones rápidas.</div></footer>
+</body>
+</html>
