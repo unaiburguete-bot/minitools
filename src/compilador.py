@@ -27,6 +27,14 @@ SUPPORTED_OPERATIONS = {
     "resta": "-",
     "potencia": "**",
 }
+SUPPORTED_VALIDATIONS = {
+    "mayor_que": ">",
+    "mayor_o_igual": ">=",
+    "menor_que": "<",
+    "menor_o_igual": "<=",
+    "igual": "===",
+    "distinto": "!==",
+}
 
 
 def fail(message: str) -> None:
@@ -309,6 +317,24 @@ def validate_entities(nodes: list[dict[str, Any]]) -> None:
                     fail(f"Falta inputs.{input_id}.{key} en {source}")
 
         available_refs = {f"inputs.{input_id}" for input_id in input_ids}
+        for validation in calculator.get("validaciones", []):
+            operation = validation.get("op")
+            args = validation.get("args")
+            if operation not in SUPPORTED_VALIDATIONS:
+                fail(
+                    f"Validación desconocida '{operation}' en {source}. "
+                    f"Permitidas: {', '.join(SUPPORTED_VALIDATIONS)}"
+                )
+            if not isinstance(args, list) or len(args) != 2:
+                fail(f"Cada validación necesita exactamente dos argumentos en {source}")
+            for arg in args:
+                if isinstance(arg, (int, float)):
+                    continue
+                if str(arg) not in available_refs:
+                    fail(f"Referencia desconocida '{arg}' en una validación de {source}")
+            if not validation.get("mensaje"):
+                fail(f"Falta el mensaje de una validación en {source}")
+
         step_ids: set[str] = set()
         for step in steps:
             step_id = str(step.get("id", ""))
@@ -364,6 +390,10 @@ CATEGORY_LABELS = {
     "hipotecas": "Hipotecas",
     "ahorro-inversion": "Ahorro e inversión",
     "prestamos": "Préstamos",
+    "negocios": "Negocios",
+    "precios": "Precios",
+    "rentabilidad": "Rentabilidad",
+    "autonomos": "Autónomos",
 }
 
 SOCIAL_PLATFORMS = {"youtube", "instagram", "tiktok", "twitch"}
@@ -384,6 +414,14 @@ FAMILY_DEFINITIONS = {
             "interés compuesto con resultados claros y comparables."
         ),
     },
+    "negocios": {
+        "label": "Negocios",
+        "title": "Herramientas para negocios y autónomos",
+        "description": (
+            "Calculadoras gratuitas para fijar precios, analizar rentabilidad y "
+            "planificar tarifas en pequeños negocios y actividades profesionales."
+        ),
+    },
 }
 PLATFORM_DESCRIPTIONS = {
     "youtube": "Calculadoras para analizar monetización, ingresos, RPM, visualizaciones y horas de reproducción en YouTube.",
@@ -391,6 +429,7 @@ PLATFORM_DESCRIPTIONS = {
     "tiktok": "Herramientas para analizar rendimiento, crecimiento y monetización en TikTok.",
     "twitch": "Calculadoras para streamers, audiencias y monetización en Twitch.",
     "finanzas-personales": "Simuladores para planificar hipotecas, préstamos, ahorro e inversión con cifras orientativas y transparentes.",
+    "negocios-y-autonomos": "Herramientas para fijar precios, controlar márgenes, calcular rentabilidad y definir tarifas profesionales.",
 }
 
 
@@ -425,7 +464,7 @@ def platform_label(node: dict[str, Any]) -> str:
 
 def platform_theme(node: dict[str, Any]) -> str:
     key = platform_key(node)
-    supported_themes = SOCIAL_PLATFORMS | {"finanzas-personales"}
+    supported_themes = SOCIAL_PLATFORMS | {"finanzas-personales", "negocios-y-autonomos"}
     return f"theme-{key}" if key in supported_themes else "theme-default"
 
 
@@ -473,6 +512,10 @@ def category_name(cluster_path: list[str]) -> str:
 def category_page_title(node: dict[str, Any]) -> str:
     platform = platform_label(node)
     topic = topic_name(node)
+    if platform_key(node) == "negocios-y-autonomos":
+        if topic == "Herramientas":
+            return "Herramientas para negocios y autónomos"
+        return f"Herramientas de {topic.lower()} para negocios y autónomos"
     if topic == "Herramientas":
         return f"Herramientas de {platform}"
     return f"Herramientas de {topic.lower()} de {platform}"
@@ -621,6 +664,16 @@ def build_calculator(node: dict[str, Any]) -> str:
             f"values[{js_ref}] = number_{safe_input_id};"
         )
 
+    validation_statements: list[str] = []
+    for validation in calculator.get("validaciones", []):
+        left = js_reference(validation["args"][0])
+        right = js_reference(validation["args"][1])
+        operator = SUPPORTED_VALIDATIONS[str(validation["op"])]
+        message = json.dumps(str(validation["mensaje"]), ensure_ascii=False)
+        validation_statements.append(
+            f"if (!({left} {operator} {right})) return showError({message});"
+        )
+
     operation_statements: list[str] = []
     for step in algorithm["pasos"]:
         left = js_reference(step["args"][0])
@@ -689,6 +742,7 @@ def build_calculator(node: dict[str, Any]) -> str:
                 }};
                 errorBox.hidden = true;
                 {''.join(input_statements)}
+                {''.join(validation_statements)}
                 {''.join(operation_statements)}
 
                 for (const item of resultDefinitions) {{
@@ -811,6 +865,7 @@ def render_tool(node: dict[str, Any], template: str) -> str:
         "{{HOME_URL}}": site_path(),
         "{{SOCIAL_URL}}": site_path(f"{node['_language']}/redes-sociales"),
         "{{FINANCE_URL}}": site_path(f"{node['_language']}/finanzas"),
+        "{{BUSINESS_URL}}": site_path(f"{node['_language']}/negocios"),
         "{{ALL_TOOLS_URL}}": site_path(all_tools_route(node["_language"])),
         "{{META_TITLE}}": str(node["meta"]["title"]),
         "{{META_DESCRIPTION}}": str(node["meta"]["description"]),
@@ -959,6 +1014,10 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
         .family-finanzas::after {{ background:linear-gradient(135deg,rgba(5,150,105,.17),rgba(14,116,144,.12)); }}
         .family-finanzas .family-icon {{ background:#e7f8f0;color:#047857; }}
         .family-finanzas .family-count,.family-finanzas .family-link {{ color:#047857!important; }}
+        .family-negocios {{ background:linear-gradient(145deg,#fff,#f4f9fc);border-color:#cddfea; }}
+        .family-negocios::after {{ background:linear-gradient(135deg,rgba(8,47,73,.16),rgba(245,158,11,.16)); }}
+        .family-negocios .family-icon {{ background:#e7f2f7;color:#0f4c66; }}
+        .family-negocios .family-count,.family-negocios .family-link {{ color:#0f5b78!important; }}
         .tools-grid {{ display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;padding-bottom:80px; }}
         .tool-card-home {{ padding:26px;border:1px solid var(--border);border-radius:20px;background:var(--surface);box-shadow:0 10px 30px rgba(15,23,42,.04); }}
         .tag {{ display:inline-block;padding:5px 9px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase; }}
@@ -970,6 +1029,9 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
         .tool-card-home.platform-finanzas-personales {{ border-color:#cfe9dc;background:linear-gradient(145deg,#fff,#f4fbf8);box-shadow:0 14px 36px rgba(5,150,105,.07); }}
         .tool-card-home.platform-finanzas-personales .tag {{ color:#065f46;background:#dff7eb; }}
         .tool-card-home.platform-finanzas-personales .card-link {{ color:#047857; }}
+        .tool-card-home.platform-negocios-y-autonomos {{ border-color:#cddfea;background:linear-gradient(145deg,#fff,#f3f8fb);box-shadow:0 14px 36px rgba(8,47,73,.07); }}
+        .tool-card-home.platform-negocios-y-autonomos .tag {{ color:#fff;background:linear-gradient(105deg,#0f4c66,#0e7490 62%,#d97706); }}
+        .tool-card-home.platform-negocios-y-autonomos .card-link {{ color:#0f5b78; }}
         .tool-card-home p {{ color:var(--muted);line-height:1.65; }}
         .card-link {{ display:inline-block;margin-top:7px;color:var(--primary);font-weight:700;text-decoration:none; }}
         footer {{ border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.9rem; }}
@@ -977,7 +1039,7 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
     </style>
 </head>
 <body>
-<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path(all_tools_route())}">Todas las herramientas</a></nav></div></header>
+<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path('es/negocios')}">Negocios</a><a href="{site_path(all_tools_route())}">Todas las herramientas</a></nav></div></header>
 <main>
     <section class="hero wrap">
         <div class="eyebrow">Herramientas gratuitas</div>
@@ -1053,12 +1115,13 @@ main{{padding:56px 0 84px}}.crumbs{{font-size:.88rem;color:var(--muted);margin-b
 .catalog-section{{margin-top:48px}}.catalog-section:first-child{{margin-top:0}}.catalog-section-head{{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}}.catalog-section h2{{margin:0;font-size:1.65rem;letter-spacing:-.035em}}.catalog-section-head a{{color:var(--primary);font-weight:800;text-decoration:none}}.tools-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}}.tool-card{{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:23px}}.tool-card h3{{font-size:1.08rem;line-height:1.42;margin:12px 0 8px}}.tool-card h3 a{{color:var(--text);text-decoration:none}}.tool-card p{{color:var(--muted);font-size:.92rem;line-height:1.6;margin:0}}.tool-card.platform-instagram{{border-color:#efd2e2;background:linear-gradient(145deg,#fff,#fff8fc)}}.tool-card.platform-instagram .pill{{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}}
 body.theme-instagram{{--bg:#fff8fc;--text:#29162f;--muted:#765f7c;--border:#f0d7e5;--primary:#d62976;--primary-light:#fff0f7;background:radial-gradient(circle at 10% 5%,rgba(247,119,55,.18),transparent 26rem),radial-gradient(circle at 92% 8%,rgba(131,58,180,.15),transparent 30rem),linear-gradient(180deg,#fff8fc,#fff 55%,#faf7ff)}}body.theme-instagram header{{background:rgba(255,250,253,.9)}}body.theme-instagram h1{{background:linear-gradient(100deg,#713080,#d62976 52%,#e85d18);-webkit-background-clip:text;background-clip:text;color:transparent}}body.theme-instagram .directory-card{{border-color:#efd2e2;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(255,247,252,.94));box-shadow:0 20px 55px rgba(131,58,180,.09)}}body.theme-instagram .pill{{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}}
 body.theme-finanzas-personales{{--bg:#f5fbf8;--text:#102a23;--muted:#587067;--border:#cfe9dc;--primary:#047857;--primary-light:#e7f8f0;background:radial-gradient(circle at 10% 5%,rgba(16,185,129,.13),transparent 28rem),radial-gradient(circle at 92% 8%,rgba(14,116,144,.10),transparent 30rem),linear-gradient(180deg,#f4fbf8,#fff 58%,#f4faf8)}}body.theme-finanzas-personales header{{background:rgba(248,253,251,.92);border-bottom-color:#d5eadf}}body.theme-finanzas-personales h1{{color:#123c31}}body.theme-finanzas-personales .directory-card,body.theme-finanzas-personales .tool-card{{border-color:#cfe9dc;background:linear-gradient(145deg,#fff,#f4fbf8);box-shadow:0 20px 55px rgba(5,150,105,.07)}}body.theme-finanzas-personales .pill{{color:#065f46;background:#dff7eb}}body.theme-finanzas-personales .open-link,body.theme-finanzas-personales .crumbs a{{color:#047857}}
+body.theme-negocios-y-autonomos{{--bg:#f4f8fb;--text:#102b3a;--muted:#5b7180;--border:#cddfea;--primary:#0f5b78;--primary-light:#e7f2f7;background:radial-gradient(circle at 10% 5%,rgba(14,116,144,.13),transparent 28rem),radial-gradient(circle at 92% 8%,rgba(245,158,11,.12),transparent 30rem),linear-gradient(180deg,#f3f8fb,#fff 58%,#f8fafb)}}body.theme-negocios-y-autonomos header{{background:rgba(248,251,253,.93);border-bottom-color:#d6e4ec}}body.theme-negocios-y-autonomos h1{{color:#123b4d}}body.theme-negocios-y-autonomos .directory-card,body.theme-negocios-y-autonomos .tool-card{{border-color:#cddfea;background:linear-gradient(145deg,#fff,#f2f7fa);box-shadow:0 20px 55px rgba(8,47,73,.07)}}body.theme-negocios-y-autonomos .pill{{color:#fff;background:linear-gradient(105deg,#0f4c66,#0e7490 62%,#d97706)}}body.theme-negocios-y-autonomos .open-link,body.theme-negocios-y-autonomos .crumbs a{{color:#0f5b78}}
 footer{{background:#fff;border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.88rem}}footer a{{color:#475569}}
 @media(max-width:700px){{.header-inner{{align-items:flex-start;flex-direction:column;padding:16px 0}}.site-nav{{gap:14px;flex-wrap:wrap}}main{{padding-top:38px}}.catalog-section-head{{align-items:flex-start;flex-direction:column}}}}
 </style>
 </head>
 <body class="{html.escape(theme_class, quote=True)}">
-<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path(all_tools_route(language))}">Todas las herramientas</a></nav></div></header>
+<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path('es/negocios')}">Negocios</a><a href="{site_path(all_tools_route(language))}">Todas las herramientas</a></nav></div></header>
 <main class="wrap"><nav class="crumbs" aria-label="Migas de pan">{breadcrumbs}</nav><h1>{html.escape(title)}</h1><p class="intro">{html.escape(description)}</p>{content_html}</main>
 <footer><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)}. Herramientas claras para decisiones rápidas. · {legal_footer()}</div></footer>
 </body></html>"""
@@ -1090,6 +1153,8 @@ def render_family(route: str, nodes: list[dict[str, Any]]) -> str:
         ("Inicio", site_path()),
         (info["label"], None),
     ])
+    platform_keys = {platform_key(node) for node in nodes}
+    family_theme = platform_theme(nodes[0]) if len(platform_keys) == 1 else "theme-default"
     return render_catalog_shell(
         language=language,
         title=info["title"],
@@ -1098,6 +1163,7 @@ def render_family(route: str, nodes: list[dict[str, Any]]) -> str:
         breadcrumbs=breadcrumbs,
         content_html=f'<div class="directory-grid">{"".join(cards)}</div>',
         page_type="family",
+        theme_class=family_theme,
     )
 
 
@@ -1129,9 +1195,14 @@ def render_platform(route: str, nodes: list[dict[str, Any]]) -> str:
         platform_key(first),
         f"Calculadoras y utilidades gratuitas para {platform}.",
     )
+    platform_title = (
+        "Herramientas para negocios y autónomos"
+        if platform_key(first) == "negocios-y-autonomos"
+        else f"Herramientas de {platform}"
+    )
     return render_catalog_shell(
         language=language,
-        title=f"Herramientas de {platform}",
+        title=platform_title,
         description=description,
         canonical=absolute_url(route),
         breadcrumbs=breadcrumbs,
@@ -1150,6 +1221,8 @@ def render_category(route: str, nodes: list[dict[str, Any]]) -> str:
     title = category_page_title(first)
     if platform_key(first) == "instagram":
         description = "Mide la interacción, compara el rendimiento y toma mejores decisiones para tu perfil o tus campañas de Instagram."
+    elif platform_key(first) == "negocios-y-autonomos":
+        description = f"Calculadoras y recursos gratuitos de {topic.lower()} para pequeños negocios, autónomos y profesionales."
     else:
         description = f"Calculadoras y utilidades gratuitas de {topic.lower()} para {platform}."
 
