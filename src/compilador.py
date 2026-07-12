@@ -25,6 +25,7 @@ SUPPORTED_OPERATIONS = {
     "multiplicacion": "*",
     "suma": "+",
     "resta": "-",
+    "potencia": "**",
 }
 
 
@@ -335,6 +336,13 @@ def validate_entities(nodes: list[dict[str, Any]]) -> None:
         if algorithm["output"] not in step_ids:
             fail(f"Output '{algorithm['output']}' desconocido en {source}")
 
+        for result in algorithm.get("resultados", []):
+            result_id = str(result.get("id", ""))
+            if result_id not in step_ids:
+                fail(f"Resultado '{result_id}' desconocido en {source}")
+            if not result.get("label"):
+                fail(f"Falta la etiqueta del resultado '{result_id}' en {source}")
+
 
 def node_route(node: dict[str, Any]) -> str:
     return "/".join([node["_language"], *node["_cluster_path"], node["id"]])
@@ -352,6 +360,10 @@ CATEGORY_LABELS = {
     "monetizacion": "Monetización",
     "analitica": "Analítica",
     "crecimiento": "Crecimiento",
+    "finanzas": "Finanzas",
+    "hipotecas": "Hipotecas",
+    "ahorro-inversion": "Ahorro e inversión",
+    "prestamos": "Préstamos",
 }
 
 SOCIAL_PLATFORMS = {"youtube", "instagram", "tiktok", "twitch"}
@@ -364,12 +376,21 @@ FAMILY_DEFINITIONS = {
             "con YouTube, Instagram y otras plataformas sociales."
         ),
     },
+    "finanzas": {
+        "label": "Finanzas",
+        "title": "Herramientas de finanzas",
+        "description": (
+            "Simuladores gratuitos para calcular hipotecas, préstamos, ahorro e "
+            "interés compuesto con resultados claros y comparables."
+        ),
+    },
 }
 PLATFORM_DESCRIPTIONS = {
     "youtube": "Calculadoras para analizar monetización, ingresos, RPM, visualizaciones y horas de reproducción en YouTube.",
     "instagram": "Herramientas para medir engagement, alcance y crecimiento de perfiles de Instagram.",
     "tiktok": "Herramientas para analizar rendimiento, crecimiento y monetización en TikTok.",
     "twitch": "Calculadoras para streamers, audiencias y monetización en Twitch.",
+    "finanzas-personales": "Simuladores para planificar hipotecas, préstamos, ahorro e inversión con cifras orientativas y transparentes.",
 }
 
 
@@ -404,7 +425,8 @@ def platform_label(node: dict[str, Any]) -> str:
 
 def platform_theme(node: dict[str, Any]) -> str:
     key = platform_key(node)
-    return f"theme-{key}" if key in SOCIAL_PLATFORMS else "theme-default"
+    supported_themes = SOCIAL_PLATFORMS | {"finanzas-personales"}
+    return f"theme-{key}" if key in supported_themes else "theme-default"
 
 
 def family_key(node: dict[str, Any]) -> str:
@@ -573,6 +595,7 @@ def build_calculator(node: dict[str, Any]) -> str:
     input_statements: list[str] = []
     for item in inputs:
         input_id = str(item["id"])
+        safe_input_id = input_id.replace("-", "_")
         js_input_id = json.dumps(input_id, ensure_ascii=False)
         js_ref = json.dumps(f"inputs.{input_id}", ensure_ascii=False)
         label = json.dumps(str(item["label"]), ensure_ascii=False)
@@ -580,22 +603,22 @@ def build_calculator(node: dict[str, Any]) -> str:
         maximum = item.get("max")
         input_statements.extend(
             [
-                f"const raw_{input_id.replace('-', '_')} = document.getElementById({js_input_id}).value.trim();",
-                f"if (raw_{input_id.replace('-', '_')} === '') return showError('Completa el campo ' + {label} + '.');",
-                f"const number_{input_id.replace('-', '_')} = Number(raw_{input_id.replace('-', '_')});",
-                f"if (!Number.isFinite(number_{input_id.replace('-', '_')})) return showError('Introduce un número válido en ' + {label} + '.');",
+                f"const raw_{safe_input_id} = document.getElementById({js_input_id}).value.trim().replace(',', '.');",
+                f"if (raw_{safe_input_id} === '') return showError('Completa el campo ' + {label} + '.');",
+                f"const number_{safe_input_id} = Number(raw_{safe_input_id});",
+                f"if (!Number.isFinite(number_{safe_input_id})) return showError('Introduce un número válido en ' + {label} + '.');",
             ]
         )
         if minimum is not None:
             input_statements.append(
-                f"if (number_{input_id.replace('-', '_')} < {repr(minimum)}) return showError('El valor de ' + {label} + ' no puede ser menor que {minimum}.');"
+                f"if (number_{safe_input_id} < {repr(minimum)}) return showError('El valor de ' + {label} + ' no puede ser menor que {minimum}.');"
             )
         if maximum is not None:
             input_statements.append(
-                f"if (number_{input_id.replace('-', '_')} > {repr(maximum)}) return showError('El valor de ' + {label} + ' no puede ser mayor que {maximum}.');"
+                f"if (number_{safe_input_id} > {repr(maximum)}) return showError('El valor de ' + {label} + ' no puede ser mayor que {maximum}.');"
             )
         input_statements.append(
-            f"values[{js_ref}] = number_{input_id.replace('-', '_')};"
+            f"values[{js_ref}] = number_{safe_input_id};"
         )
 
     operation_statements: list[str] = []
@@ -607,18 +630,40 @@ def build_calculator(node: dict[str, Any]) -> str:
             operation_statements.append(
                 f"if ({right} === 0) return showError('No es posible dividir entre cero.');"
             )
-        operation_statements.append(
-            f"values[{step_key}] = {left} {SUPPORTED_OPERATIONS[step['op']]} {right};"
-        )
+        if step["op"] == "potencia":
+            operation_statements.append(
+                f"values[{step_key}] = Math.pow({left}, {right});"
+            )
+        else:
+            operation_statements.append(
+                f"values[{step_key}] = {left} {SUPPORTED_OPERATIONS[step['op']]} {right};"
+            )
 
-    label = json.dumps(str(algorithm.get("label", "Resultado")), ensure_ascii=False)
-    unit = json.dumps(str(algorithm.get("unidad", "")), ensure_ascii=False)
-    output = json.dumps(str(algorithm["output"]), ensure_ascii=False)
+    configured_results = algorithm.get("resultados") or [
+        {
+            "id": algorithm["output"],
+            "label": algorithm.get("label", "Resultado"),
+            "formato": "numero",
+            "unidad": algorithm.get("unidad", ""),
+        }
+    ]
+    result_definitions = [
+        {
+            "id": str(item["id"]),
+            "label": str(item["label"]),
+            "format": str(item.get("formato", "numero")),
+            "unit": str(item.get("unidad", "")),
+        }
+        for item in configured_results
+    ]
+    results_json = json.dumps(result_definitions, ensure_ascii=False).replace("</", "<\\/")
+
     event_params = json.dumps(
         {
             "tool_id": str(node["id"]),
             "tool_name": str(node["meta"]["title"]),
             "platform": str(node["vectores"]["plataforma"]),
+            "family": str(node["vectores"].get("familia", "")),
         },
         ensure_ascii=False,
     )
@@ -633,6 +678,7 @@ def build_calculator(node: dict[str, Any]) -> str:
                 const values = {{}};
                 const errorBox = document.getElementById({json.dumps(error_id)});
                 const resultBox = document.getElementById({json.dumps(result_id)});
+                const resultDefinitions = {results_json};
                 const showError = (message) => {{
                     resultBox.hidden = true;
                     errorBox.textContent = message;
@@ -644,10 +690,33 @@ def build_calculator(node: dict[str, Any]) -> str:
                 errorBox.hidden = true;
                 {''.join(input_statements)}
                 {''.join(operation_statements)}
-                const result = values[{output}];
-                if (!Number.isFinite(result)) return showError('No se ha podido calcular el resultado. Revisa los valores.');
-                const formatted = new Intl.NumberFormat('es-ES', {{ maximumFractionDigits: 2 }}).format(result);
-                resultBox.textContent = {label} + ': ' + formatted + ({unit} ? ' ' + {unit} : '');
+
+                for (const item of resultDefinitions) {{
+                    if (!Number.isFinite(values[item.id])) {{
+                        return showError('No se ha podido calcular el resultado. Revisa los valores.');
+                    }}
+                }}
+
+                const grid = document.createElement('div');
+                grid.className = 'calc-result-grid';
+                for (const item of resultDefinitions) {{
+                    const card = document.createElement('div');
+                    card.className = 'calc-result-item';
+                    const label = document.createElement('span');
+                    label.className = 'calc-result-label';
+                    label.textContent = item.label;
+                    const value = document.createElement('strong');
+                    value.className = 'calc-result-value';
+                    const options = item.format === 'moneda'
+                        ? {{style:'currency', currency:'EUR', maximumFractionDigits:2}}
+                        : {{maximumFractionDigits:2}};
+                    let formatted = new Intl.NumberFormat('es-ES', options).format(values[item.id]);
+                    if (item.format !== 'moneda' && item.unit) formatted += ' ' + item.unit;
+                    value.textContent = formatted;
+                    card.append(label, value);
+                    grid.appendChild(card);
+                }}
+                resultBox.replaceChildren(grid);
                 resultBox.hidden = false;
                 if (window.clicivoTrack) {{
                     window.clicivoTrack('tool_calculated', {event_params});
@@ -741,6 +810,7 @@ def render_tool(node: dict[str, Any], template: str) -> str:
         "{{SITE_NAME}}": SITE_NAME,
         "{{HOME_URL}}": site_path(),
         "{{SOCIAL_URL}}": site_path(f"{node['_language']}/redes-sociales"),
+        "{{FINANCE_URL}}": site_path(f"{node['_language']}/finanzas"),
         "{{ALL_TOOLS_URL}}": site_path(all_tools_route(node["_language"])),
         "{{META_TITLE}}": str(node["meta"]["title"]),
         "{{META_DESCRIPTION}}": str(node["meta"]["description"]),
@@ -885,6 +955,10 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
         .platform-list {{ position:relative;z-index:1;margin:18px 0;color:#334155;font-size:.9rem;font-weight:800; }}
         .family-link {{ position:relative;z-index:1;color:var(--primary);font-weight:800;text-decoration:none; }}
         .family-redes-sociales {{ background:linear-gradient(145deg,#fff,#f7f7ff);border-color:#dfe3ff; }}
+        .family-finanzas {{ background:linear-gradient(145deg,#fff,#f2fbf7);border-color:#cfe9dc; }}
+        .family-finanzas::after {{ background:linear-gradient(135deg,rgba(5,150,105,.17),rgba(14,116,144,.12)); }}
+        .family-finanzas .family-icon {{ background:#e7f8f0;color:#047857; }}
+        .family-finanzas .family-count,.family-finanzas .family-link {{ color:#047857!important; }}
         .tools-grid {{ display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;padding-bottom:80px; }}
         .tool-card-home {{ padding:26px;border:1px solid var(--border);border-radius:20px;background:var(--surface);box-shadow:0 10px 30px rgba(15,23,42,.04); }}
         .tag {{ display:inline-block;padding:5px 9px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase; }}
@@ -893,6 +967,9 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
         .tool-card-home.platform-instagram {{ border-color:#efd2e2;background:linear-gradient(145deg,#fff,#fff7fc);box-shadow:0 14px 36px rgba(131,58,180,.08); }}
         .tool-card-home.platform-instagram .tag {{ color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4); }}
         .tool-card-home.platform-instagram .card-link {{ color:#c02675; }}
+        .tool-card-home.platform-finanzas-personales {{ border-color:#cfe9dc;background:linear-gradient(145deg,#fff,#f4fbf8);box-shadow:0 14px 36px rgba(5,150,105,.07); }}
+        .tool-card-home.platform-finanzas-personales .tag {{ color:#065f46;background:#dff7eb; }}
+        .tool-card-home.platform-finanzas-personales .card-link {{ color:#047857; }}
         .tool-card-home p {{ color:var(--muted);line-height:1.65; }}
         .card-link {{ display:inline-block;margin-top:7px;color:var(--primary);font-weight:700;text-decoration:none; }}
         footer {{ border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.9rem; }}
@@ -900,7 +977,7 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
     </style>
 </head>
 <body>
-<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path(all_tools_route())}">Todas las herramientas</a></nav></div></header>
+<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path(all_tools_route())}">Todas las herramientas</a></nav></div></header>
 <main>
     <section class="hero wrap">
         <div class="eyebrow">Herramientas gratuitas</div>
@@ -975,12 +1052,13 @@ main{{padding:56px 0 84px}}.crumbs{{font-size:.88rem;color:var(--muted);margin-b
 .directory-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}}.directory-card{{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:0 12px 36px rgba(15,23,42,.045)}}.directory-card h2{{margin:12px 0 9px;font-size:1.35rem;line-height:1.3;letter-spacing:-.025em}}.directory-card h2 a{{color:var(--text);text-decoration:none}}.directory-card p{{color:var(--muted);line-height:1.65;margin:0}}.pill{{display:inline-block;padding:5px 10px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.73rem;font-weight:800;text-transform:uppercase}}.open-link{{display:inline-block;margin-top:16px;color:var(--primary);font-size:.9rem;font-weight:800;text-decoration:none}}.subtopics{{margin-top:13px;color:#475569;font-size:.87rem;font-weight:700}}
 .catalog-section{{margin-top:48px}}.catalog-section:first-child{{margin-top:0}}.catalog-section-head{{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}}.catalog-section h2{{margin:0;font-size:1.65rem;letter-spacing:-.035em}}.catalog-section-head a{{color:var(--primary);font-weight:800;text-decoration:none}}.tools-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}}.tool-card{{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:23px}}.tool-card h3{{font-size:1.08rem;line-height:1.42;margin:12px 0 8px}}.tool-card h3 a{{color:var(--text);text-decoration:none}}.tool-card p{{color:var(--muted);font-size:.92rem;line-height:1.6;margin:0}}.tool-card.platform-instagram{{border-color:#efd2e2;background:linear-gradient(145deg,#fff,#fff8fc)}}.tool-card.platform-instagram .pill{{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}}
 body.theme-instagram{{--bg:#fff8fc;--text:#29162f;--muted:#765f7c;--border:#f0d7e5;--primary:#d62976;--primary-light:#fff0f7;background:radial-gradient(circle at 10% 5%,rgba(247,119,55,.18),transparent 26rem),radial-gradient(circle at 92% 8%,rgba(131,58,180,.15),transparent 30rem),linear-gradient(180deg,#fff8fc,#fff 55%,#faf7ff)}}body.theme-instagram header{{background:rgba(255,250,253,.9)}}body.theme-instagram h1{{background:linear-gradient(100deg,#713080,#d62976 52%,#e85d18);-webkit-background-clip:text;background-clip:text;color:transparent}}body.theme-instagram .directory-card{{border-color:#efd2e2;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(255,247,252,.94));box-shadow:0 20px 55px rgba(131,58,180,.09)}}body.theme-instagram .pill{{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}}
+body.theme-finanzas-personales{{--bg:#f5fbf8;--text:#102a23;--muted:#587067;--border:#cfe9dc;--primary:#047857;--primary-light:#e7f8f0;background:radial-gradient(circle at 10% 5%,rgba(16,185,129,.13),transparent 28rem),radial-gradient(circle at 92% 8%,rgba(14,116,144,.10),transparent 30rem),linear-gradient(180deg,#f4fbf8,#fff 58%,#f4faf8)}}body.theme-finanzas-personales header{{background:rgba(248,253,251,.92);border-bottom-color:#d5eadf}}body.theme-finanzas-personales h1{{color:#123c31}}body.theme-finanzas-personales .directory-card,body.theme-finanzas-personales .tool-card{{border-color:#cfe9dc;background:linear-gradient(145deg,#fff,#f4fbf8);box-shadow:0 20px 55px rgba(5,150,105,.07)}}body.theme-finanzas-personales .pill{{color:#065f46;background:#dff7eb}}body.theme-finanzas-personales .open-link,body.theme-finanzas-personales .crumbs a{{color:#047857}}
 footer{{background:#fff;border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.88rem}}footer a{{color:#475569}}
 @media(max-width:700px){{.header-inner{{align-items:flex-start;flex-direction:column;padding:16px 0}}.site-nav{{gap:14px;flex-wrap:wrap}}main{{padding-top:38px}}.catalog-section-head{{align-items:flex-start;flex-direction:column}}}}
 </style>
 </head>
 <body class="{html.escape(theme_class, quote=True)}">
-<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path(all_tools_route(language))}">Todas las herramientas</a></nav></div></header>
+<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path('es/finanzas')}">Finanzas</a><a href="{site_path(all_tools_route(language))}">Todas las herramientas</a></nav></div></header>
 <main class="wrap"><nav class="crumbs" aria-label="Migas de pan">{breadcrumbs}</nav><h1>{html.escape(title)}</h1><p class="intro">{html.escape(description)}</p>{content_html}</main>
 <footer><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)}. Herramientas claras para decisiones rápidas. · {legal_footer()}</div></footer>
 </body></html>"""
