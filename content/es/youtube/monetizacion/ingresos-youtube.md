@@ -45,8 +45,14 @@ calculadora:
     label: "Ingresos estimados"
 
 monetizacion:
-  cta: ""
-  afiliado_url: ""
+  proveedor: "Metricool"
+  red: "Programa directo de Metricool"
+  etiqueta: "Recomendación con enlace de afiliado"
+  titulo: "Planifica y analiza tu contenido con Metricool"
+  descripcion: "Gestiona tus publicaciones, revisa métricas y organiza tu estrategia de YouTube y otras redes sociales desde un único panel."
+  boton: "Conocer Metricool"
+  afiliado_url: "https://i.mtr.cool/clicivo"
+  aviso: "Clicivo puede recibir una comisión si contratas desde este enlace, sin coste adicional para ti."
 
 faqs:
   - q: "¿Cómo se calculan los ingresos estimados de YouTube?"

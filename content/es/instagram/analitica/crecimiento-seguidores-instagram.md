@@ -51,8 +51,14 @@ calculadora:
     label: "Crecimiento de seguidores en el periodo"
 
 monetizacion:
-  cta: ""
-  afiliado_url: ""
+  proveedor: "Metricool"
+  red: "Programa directo de Metricool"
+  etiqueta: "Recomendación con enlace de afiliado"
+  titulo: "Analiza y organiza tu estrategia de Instagram"
+  descripcion: "Programa contenido, revisa el rendimiento de tus publicaciones y gestiona tus redes sociales desde un único panel con Metricool."
+  boton: "Conocer Metricool"
+  afiliado_url: "https://i.mtr.cool/clicivo"
+  aviso: "Clicivo puede recibir una comisión si contratas desde este enlace, sin coste adicional para ti."
 
 faqs:
   - q: "¿Qué fórmula utiliza esta calculadora?"
