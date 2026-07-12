@@ -1,8 +1,10 @@
 site_name: "Clicivo"
+site_tagline: "Calcula, convierte y decide mejor."
 site_description: "Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar."
 
-site_origin: "https://unaiburguete-bot.github.io"
-base_path: "/minitools"
+site_origin: "https://clicivo.com"
+base_path: ""
+custom_domain: "clicivo.com"
 
 default_language: "es"
 content_dir: "content"
