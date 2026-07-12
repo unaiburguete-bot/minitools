@@ -219,6 +219,12 @@ def absolute_url(path: str = "") -> str:
     return f"{SITE_ORIGIN}{site_path(path)}"
 
 
+def absolute_file_url(path: str) -> str:
+    clean = path.lstrip("/")
+    prefix = BASE_PATH.rstrip("/")
+    return f"{SITE_ORIGIN}{prefix}/{clean}"
+
+
 def parse_front_matter(path: Path) -> tuple[dict[str, Any], str]:
     raw = path.read_text(encoding="utf-8")
     parts = raw.split("---", 2)
@@ -345,7 +351,40 @@ CATEGORY_LABELS = {
     "twitch": "Twitch",
     "monetizacion": "Monetización",
     "analitica": "Analítica",
+    "crecimiento": "Crecimiento",
 }
+
+SOCIAL_PLATFORMS = {"youtube", "instagram", "tiktok", "twitch"}
+FAMILY_DEFINITIONS = {
+    "redes-sociales": {
+        "label": "Redes sociales",
+        "title": "Herramientas para redes sociales",
+        "description": (
+            "Calculadoras gratuitas para creadores, agencias y marcas que trabajan "
+            "con YouTube, Instagram y otras plataformas sociales."
+        ),
+    },
+}
+PLATFORM_DESCRIPTIONS = {
+    "youtube": "Calculadoras para analizar monetización, ingresos, RPM, visualizaciones y horas de reproducción en YouTube.",
+    "instagram": "Herramientas para medir engagement, alcance y crecimiento de perfiles de Instagram.",
+    "tiktok": "Herramientas para analizar rendimiento, crecimiento y monetización en TikTok.",
+    "twitch": "Calculadoras para streamers, audiencias y monetización en Twitch.",
+}
+
+
+def slugify(value: str) -> str:
+    normalized = value.strip().lower()
+    normalized = (
+        normalized.replace("á", "a")
+        .replace("é", "e")
+        .replace("í", "i")
+        .replace("ó", "o")
+        .replace("ú", "u")
+        .replace("ü", "u")
+        .replace("ñ", "n")
+    )
+    return re.sub(r"[^a-z0-9]+", "-", normalized).strip("-") or "otros"
 
 
 def humanize_slug(value: str) -> str:
@@ -354,13 +393,53 @@ def humanize_slug(value: str) -> str:
 
 
 def platform_key(node: dict[str, Any]) -> str:
-    platform = str(node.get("vectores", {}).get("plataforma", "")).strip().lower()
-    return re.sub(r"[^a-z0-9]+", "-", platform).strip("-") or "default"
+    platform = str(node.get("vectores", {}).get("plataforma", "")).strip()
+    return slugify(platform) if platform else "otros"
+
+
+def platform_label(node: dict[str, Any]) -> str:
+    platform = str(node.get("vectores", {}).get("plataforma", "")).strip()
+    return platform or humanize_slug(platform_key(node))
 
 
 def platform_theme(node: dict[str, Any]) -> str:
     key = platform_key(node)
-    return f"theme-{key}" if key in {"youtube", "instagram", "tiktok", "twitch"} else "theme-default"
+    return f"theme-{key}" if key in SOCIAL_PLATFORMS else "theme-default"
+
+
+def family_key(node: dict[str, Any]) -> str:
+    explicit = str(node.get("vectores", {}).get("familia", "")).strip()
+    if explicit:
+        return slugify(explicit)
+    if platform_key(node) in SOCIAL_PLATFORMS:
+        return "redes-sociales"
+    return "otras-herramientas"
+
+
+def family_info(key: str) -> dict[str, str]:
+    if key in FAMILY_DEFINITIONS:
+        return FAMILY_DEFINITIONS[key]
+    label = humanize_slug(key)
+    return {
+        "label": label,
+        "title": f"Herramientas de {label.lower()}",
+        "description": f"Calculadoras y utilidades gratuitas de {label.lower()}.",
+    }
+
+
+def family_route(node: dict[str, Any]) -> str:
+    return "/".join([node["_language"], family_key(node)])
+
+
+def platform_route(node: dict[str, Any]) -> str:
+    return "/".join([node["_language"], platform_key(node)])
+
+
+def topic_name(node: dict[str, Any]) -> str:
+    topic_parts = list(node.get("_cluster_path", []))[1:]
+    if not topic_parts:
+        return "Herramientas"
+    return " · ".join(humanize_slug(item) for item in topic_parts)
 
 
 def category_name(cluster_path: list[str]) -> str:
@@ -368,6 +447,17 @@ def category_name(cluster_path: list[str]) -> str:
         return "Herramientas"
     return " · ".join(humanize_slug(item) for item in cluster_path)
 
+
+def category_page_title(node: dict[str, Any]) -> str:
+    platform = platform_label(node)
+    topic = topic_name(node)
+    if topic == "Herramientas":
+        return f"Herramientas de {platform}"
+    return f"Herramientas de {topic.lower()} de {platform}"
+
+
+def all_tools_route(language: str = "es") -> str:
+    return f"{language}/herramientas"
 
 def calculate_semantic_graph(nodes: list[dict[str, Any]]) -> None:
     for current in nodes:
@@ -568,7 +658,14 @@ def build_calculator(node: dict[str, Any]) -> str:
 
 
 def build_structured_data(node: dict[str, Any], canonical: str) -> str:
-    category_url = absolute_url(category_route(node))
+    family = family_info(family_key(node))
+    breadcrumbs = [
+        ("Inicio", absolute_url()),
+        (family["label"], absolute_url(family_route(node))),
+        (platform_label(node), absolute_url(platform_route(node))),
+        (topic_name(node), absolute_url(category_route(node))),
+        (str(node["entidad"]), canonical),
+    ]
     data = [
         {
             "@context": "https://schema.org",
@@ -590,22 +687,11 @@ def build_structured_data(node: dict[str, Any], canonical: str) -> str:
             "itemListElement": [
                 {
                     "@type": "ListItem",
-                    "position": 1,
-                    "name": "Inicio",
-                    "item": absolute_url(),
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": category_name(node["_cluster_path"]),
-                    "item": category_url,
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": node["entidad"],
-                    "item": canonical,
-                },
+                    "position": position,
+                    "name": name,
+                    "item": item,
+                }
+                for position, (name, item) in enumerate(breadcrumbs, start=1)
             ],
         },
     ]
@@ -616,7 +702,7 @@ def render_tool(node: dict[str, Any], template: str) -> str:
     route = node_route(node)
     canonical = absolute_url(route)
     og_path = f"assets/og/{node['id']}.jpg"
-    og_url = absolute_url(og_path)
+    og_url = absolute_file_url(og_path)
     related = node.get("_related", [])
     related_html = "".join(
         f'<li><a data-related-tool="{html.escape(str(item["id"]), quote=True)}" '
@@ -647,18 +733,26 @@ def render_tool(node: dict[str, Any], template: str) -> str:
     body_html = markdown.markdown(
         node["_body_md"], extensions=["extra", "sane_lists"]
     )
+    family = family_info(family_key(node))
 
     replacements = {
         "{{LANG}}": node["_language"],
         "{{THEME_CLASS}}": platform_theme(node),
         "{{SITE_NAME}}": SITE_NAME,
         "{{HOME_URL}}": site_path(),
+        "{{SOCIAL_URL}}": site_path(f"{node['_language']}/redes-sociales"),
+        "{{ALL_TOOLS_URL}}": site_path(all_tools_route(node["_language"])),
         "{{META_TITLE}}": str(node["meta"]["title"]),
         "{{META_DESCRIPTION}}": str(node["meta"]["description"]),
         "{{CANONICAL_URL}}": canonical,
         "{{OG_IMAGE_URL}}": og_url,
+        "{{FAMILY_URL}}": site_path(family_route(node)),
+        "{{FAMILY_NAME}}": family["label"],
+        "{{PLATFORM_URL}}": site_path(platform_route(node)),
+        "{{PLATFORM_NAME}}": platform_label(node),
         "{{CATEGORY_URL}}": site_path(category_route(node)),
         "{{CATEGORY_NAME}}": category_name(node["_cluster_path"]),
+        "{{TOPIC_NAME}}": topic_name(node),
         "{{TOOL_NAME}}": str(node["entidad"]),
         "{{TOOL_H1}}": str(node["vectores"]["intencion"]),
         "{{CALCULATOR_HTML}}": build_calculator(node),
@@ -682,18 +776,47 @@ def render_tool(node: dict[str, Any], template: str) -> str:
     return rendered
 
 
+def home_tool_card(node: dict[str, Any]) -> str:
+    return f"""
+    <article class="tool-card-home platform-{html.escape(platform_key(node), quote=True)}">
+        <span class="tag">{html.escape(platform_label(node))}</span>
+        <h3><a href="{html.escape(site_path(node_route(node)), quote=True)}">{html.escape(str(node['meta']['title']))}</a></h3>
+        <p>{html.escape(str(node['meta']['description']))}</p>
+        <a class="card-link" href="{html.escape(site_path(node_route(node)), quote=True)}">Abrir herramienta →</a>
+    </article>
+    """
+
+
 def render_home(nodes: list[dict[str, Any]]) -> str:
-    cards = "".join(
-        f"""
-        <article class="tool-card-home platform-{html.escape(platform_key(node), quote=True)}">
-            <span class="tag">{html.escape(str(node['vectores']['plataforma']))}</span>
-            <h2><a href="{html.escape(site_path(node_route(node)), quote=True)}">{html.escape(str(node['meta']['title']))}</a></h2>
-            <p>{html.escape(str(node['meta']['description']))}</p>
-            <a class="card-link" href="{html.escape(site_path(node_route(node)), quote=True)}">Abrir herramienta →</a>
-        </article>
-        """
-        for node in nodes
-    ) or '<p class="empty-catalog">Estamos preparando las primeras herramientas.</p>'
+    by_family: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for node in nodes:
+        by_family[family_key(node)].append(node)
+
+    family_cards: list[str] = []
+    for key, family_nodes in sorted(by_family.items()):
+        info = family_info(key)
+        route = family_route(family_nodes[0])
+        platforms = sorted({platform_label(node) for node in family_nodes})
+        platform_text = " · ".join(platforms)
+        family_cards.append(
+            f"""
+            <article class="family-card family-{html.escape(key, quote=True)}">
+                <div class="family-icon">◎</div>
+                <p class="family-count">{len(family_nodes)} herramientas</p>
+                <h2><a href="{html.escape(site_path(route), quote=True)}">{html.escape(info['title'])}</a></h2>
+                <p>{html.escape(info['description'])}</p>
+                <div class="platform-list">{html.escape(platform_text)}</div>
+                <a class="family-link" href="{html.escape(site_path(route), quote=True)}">Explorar categoría →</a>
+            </article>
+            """
+        )
+
+    featured_nodes = sorted(
+        nodes,
+        key=lambda item: (str(item.get("actualizado", "")), str(item["meta"]["title"])),
+        reverse=True,
+    )[:6]
+    featured_cards = "".join(home_tool_card(node) for node in featured_nodes)
 
     schema = json.dumps(
         {
@@ -721,11 +844,11 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
     <meta property="og:title" content="{html.escape(SITE_NAME, quote=True)} | Herramientas gratuitas">
     <meta property="og:description" content="{html.escape(SITE_DESCRIPTION, quote=True)}">
     <meta property="og:url" content="{absolute_url()}">
-    <meta property="og:image" content="{absolute_url('assets/og/clicivo-home.jpg')}">
+    <meta property="og:image" content="{absolute_file_url('assets/og/clicivo-home.jpg')}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{html.escape(SITE_NAME, quote=True)} | Herramientas gratuitas">
     <meta name="twitter:description" content="{html.escape(SITE_DESCRIPTION, quote=True)}">
-    <meta name="twitter:image" content="{absolute_url('assets/og/clicivo-home.jpg')}">
+    <meta name="twitter:image" content="{absolute_file_url('assets/og/clicivo-home.jpg')}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -735,40 +858,62 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
         :root {{ --bg:#f8fafc;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#4f46e5;--primary-light:#eef2ff; }}
         * {{ box-sizing:border-box; }}
         body {{ margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased; }}
-        .wrap {{ width:min(1080px,calc(100% - 40px));margin:0 auto; }}
-        header {{ padding:22px 0;border-bottom:1px solid var(--border);background:rgba(255,255,255,.88);backdrop-filter:blur(10px); }}
+        .wrap {{ width:min(1100px,calc(100% - 40px));margin:0 auto; }}
+        header {{ border-bottom:1px solid var(--border);background:rgba(255,255,255,.9);backdrop-filter:blur(10px); }}
+        .header-inner {{ min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px; }}
         .brand {{ color:var(--text);text-decoration:none;font-size:1.25rem;font-weight:800;letter-spacing:-.03em; }}
         .brand-mark {{ color:var(--primary); }}
+        .site-nav {{ display:flex;align-items:center;gap:20px; }}
+        .site-nav a {{ color:#475569;text-decoration:none;font-size:.9rem;font-weight:700; }}
+        .site-nav a:hover {{ color:var(--primary); }}
         .hero {{ padding:88px 0 54px;text-align:center; }}
         .eyebrow {{ color:var(--primary);font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase; }}
         h1 {{ max-width:780px;margin:14px auto 18px;font-size:clamp(2.5rem,7vw,4.8rem);line-height:1.02;letter-spacing:-.06em; }}
         .hero p {{ max-width:680px;margin:0 auto;color:var(--muted);font-size:1.15rem;line-height:1.7; }}
-        .catalog-title {{ margin:20px 0 24px;font-size:1.6rem;letter-spacing:-.03em; }}
-        .grid {{ display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;padding-bottom:80px; }}
+        .section-head {{ display:flex;justify-content:space-between;align-items:end;gap:20px;margin:20px 0 24px; }}
+        .section-head h2 {{ margin:0;font-size:1.7rem;letter-spacing:-.035em; }}
+        .section-head p {{ margin:6px 0 0;color:var(--muted); }}
+        .section-head a {{ color:var(--primary);font-weight:800;text-decoration:none;white-space:nowrap; }}
+        .family-grid {{ display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-bottom:62px; }}
+        .family-card {{ position:relative;overflow:hidden;padding:34px;border:1px solid var(--border);border-radius:26px;background:var(--surface);box-shadow:0 16px 45px rgba(15,23,42,.055); }}
+        .family-card::after {{ content:"";position:absolute;width:230px;height:230px;right:-110px;top:-120px;border-radius:50%;background:linear-gradient(135deg,rgba(79,70,229,.15),rgba(14,165,233,.12)); }}
+        .family-icon {{ position:relative;z-index:1;width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:var(--primary-light);color:var(--primary);font-size:1.35rem;font-weight:800; }}
+        .family-count {{ margin:24px 0 8px!important;color:var(--primary)!important;font-size:.78rem!important;font-weight:800;text-transform:uppercase;letter-spacing:.08em; }}
+        .family-card h2 {{ position:relative;z-index:1;margin:0 0 10px;font-size:1.7rem;line-height:1.2;letter-spacing:-.035em; }}
+        .family-card h2 a {{ color:var(--text);text-decoration:none; }}
+        .family-card p {{ position:relative;z-index:1;color:var(--muted);line-height:1.7; }}
+        .platform-list {{ position:relative;z-index:1;margin:18px 0;color:#334155;font-size:.9rem;font-weight:800; }}
+        .family-link {{ position:relative;z-index:1;color:var(--primary);font-weight:800;text-decoration:none; }}
+        .family-redes-sociales {{ background:linear-gradient(145deg,#fff,#f7f7ff);border-color:#dfe3ff; }}
+        .tools-grid {{ display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;padding-bottom:80px; }}
         .tool-card-home {{ padding:26px;border:1px solid var(--border);border-radius:20px;background:var(--surface);box-shadow:0 10px 30px rgba(15,23,42,.04); }}
         .tag {{ display:inline-block;padding:5px 9px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase; }}
-        .tool-card-home h2 {{ margin:16px 0 9px;font-size:1.28rem;line-height:1.35;letter-spacing:-.025em; }}
-        .tool-card-home h2 a {{ color:var(--text);text-decoration:none; }}
+        .tool-card-home h3 {{ margin:16px 0 9px;font-size:1.22rem;line-height:1.38;letter-spacing:-.025em; }}
+        .tool-card-home h3 a {{ color:var(--text);text-decoration:none; }}
         .tool-card-home.platform-instagram {{ border-color:#efd2e2;background:linear-gradient(145deg,#fff,#fff7fc);box-shadow:0 14px 36px rgba(131,58,180,.08); }}
         .tool-card-home.platform-instagram .tag {{ color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4); }}
         .tool-card-home.platform-instagram .card-link {{ color:#c02675; }}
-
         .tool-card-home p {{ color:var(--muted);line-height:1.65; }}
         .card-link {{ display:inline-block;margin-top:7px;color:var(--primary);font-weight:700;text-decoration:none; }}
         footer {{ border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.9rem; }}
+        @media(max-width:700px){{.header-inner{{align-items:flex-start;flex-direction:column;padding:16px 0}}.site-nav{{gap:14px;flex-wrap:wrap}}.hero{{padding-top:62px}}.section-head{{align-items:flex-start;flex-direction:column}}}}
     </style>
 </head>
 <body>
-<header><div class="wrap"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a></div></header>
+<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path(all_tools_route())}">Todas las herramientas</a></nav></div></header>
 <main>
     <section class="hero wrap">
         <div class="eyebrow">Herramientas gratuitas</div>
         <h1>{html.escape(SITE_TAGLINE)}</h1>
         <p>{html.escape(SITE_DESCRIPTION)} Sin instalaciones, sin registros y con resultados inmediatos.</p>
     </section>
-    <section class="wrap" aria-labelledby="catalog-title">
-        <h2 class="catalog-title" id="catalog-title">Herramientas disponibles</h2>
-        <div class="grid">{cards}</div>
+    <section class="wrap" aria-labelledby="families-title">
+        <div class="section-head"><div><h2 id="families-title">Explora por categoría</h2><p>Encuentra cada herramienta dentro de un área clara y fácil de recorrer.</p></div><a href="{site_path(all_tools_route())}">Ver todas →</a></div>
+        <div class="family-grid">{''.join(family_cards)}</div>
+    </section>
+    <section class="wrap" aria-labelledby="featured-title">
+        <div class="section-head"><div><h2 id="featured-title">Herramientas destacadas</h2><p>Accesos rápidos a algunas de las calculadoras disponibles.</p></div><a href="{site_path(all_tools_route())}">Catálogo completo →</a></div>
+        <div class="tools-grid">{featured_cards}</div>
     </section>
 </main>
 <footer><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)}. Herramientas claras para decisiones rápidas. · {legal_footer()}</div></footer>
@@ -776,63 +921,224 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
 </html>"""
 
 
-def render_category(route: str, nodes: list[dict[str, Any]]) -> str:
-    parts = route.split("/")
-    language = parts[0]
-    cluster_parts = parts[1:]
-    title = category_name(cluster_parts)
-    theme_class = platform_theme(nodes[0]) if nodes else "theme-default"
-    is_instagram = theme_class == "theme-instagram"
-    intro = (
-        "Mide la interacción, compara el rendimiento y toma mejores decisiones para tu perfil o tus campañas de Instagram."
-        if is_instagram
-        else f"Calculadoras y utilidades gratuitas para resolver tareas de {title.lower()}."
+def catalog_breadcrumbs(items: list[tuple[str, str | None]]) -> str:
+    parts: list[str] = []
+    for label, url in items:
+        if url:
+            parts.append(f'<a href="{html.escape(url, quote=True)}">{html.escape(label)}</a>')
+        else:
+            parts.append(f'<span>{html.escape(label)}</span>')
+    return " › ".join(parts)
+
+
+def render_catalog_shell(
+    *,
+    language: str,
+    title: str,
+    description: str,
+    canonical: str,
+    breadcrumbs: str,
+    content_html: str,
+    page_type: str,
+    theme_class: str = "theme-default",
+) -> str:
+    schema = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": title,
+            "url": canonical,
+            "description": description,
+            "inLanguage": language,
+        },
+        ensure_ascii=False,
+        separators=(",", ":"),
     )
-    cards = "".join(
-        f'<article><span class="platform-pill">{html.escape(str(node["vectores"]["plataforma"]))}</span>'
-        f'<h2><a href="{html.escape(site_path(node_route(node)), quote=True)}">{html.escape(str(node["meta"]["title"]))}</a></h2>'
-        f'<p>{html.escape(str(node["meta"]["description"]))}</p>'
-        f'<a class="open-link" href="{html.escape(site_path(node_route(node)), quote=True)}">Abrir herramienta →</a></article>'
-        for node in nodes
-    )
-    canonical = absolute_url(route)
-    theme_css = ""
-    if is_instagram:
-        theme_css = """
-body.theme-instagram{background:radial-gradient(circle at 10% 5%,rgba(247,119,55,.18),transparent 26rem),radial-gradient(circle at 92% 8%,rgba(131,58,180,.15),transparent 30rem),linear-gradient(180deg,#fff8fc,#fff 55%,#faf7ff);color:#29162f}
-body.theme-instagram header{background:rgba(255,250,253,.9);border-bottom-color:#f1d8e5;backdrop-filter:blur(10px)}
-body.theme-instagram header a{color:#29162f}
-body.theme-instagram .crumbs a{color:#c02675}
-body.theme-instagram h1{background:linear-gradient(100deg,#713080,#d62976 52%,#e85d18);-webkit-background-clip:text;background-clip:text;color:transparent}
-body.theme-instagram .intro{max-width:720px;color:#765f7c}
-body.theme-instagram .grid{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
-body.theme-instagram article{position:relative;overflow:hidden;border-color:#efd2e2;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(255,247,252,.94));box-shadow:0 20px 55px rgba(131,58,180,.09);transition:transform .2s ease,box-shadow .2s ease}
-body.theme-instagram article:hover{transform:translateY(-3px);box-shadow:0 26px 70px rgba(131,58,180,.13)}
-body.theme-instagram article::after{content:"";position:absolute;width:105px;height:105px;right:-45px;top:-50px;border-radius:50%;background:linear-gradient(135deg,rgba(247,119,55,.27),rgba(214,41,118,.21),rgba(131,58,180,.20))}
-body.theme-instagram article a{color:#35163d}
-body.theme-instagram article p{color:#765f7c}
-body.theme-instagram .platform-pill{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}
-body.theme-instagram .open-link{color:#c02675}
-body.theme-instagram footer{background:rgba(255,250,253,.9)!important;border-top-color:#f1d8e5!important}
-"""
     return f"""<!doctype html>
 <html lang="{html.escape(language)}">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)} | {html.escape(SITE_NAME)}</title>
-<meta name="description" content="Herramientas gratuitas de {html.escape(title)} en {html.escape(SITE_NAME)}.">
+<meta name="description" content="{html.escape(description, quote=True)}">
 <link rel="canonical" href="{canonical}">
+<meta property="og:type" content="website"><meta property="og:site_name" content="{html.escape(SITE_NAME, quote=True)}">
+<meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-{analytics_snippet("category")}
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{schema}</script>
+{analytics_snippet(page_type)}
 <style>
-*{{box-sizing:border-box}}body{{margin:0;background:#f8fafc;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif}}.wrap{{width:min(960px,calc(100% - 40px));margin:0 auto}}header{{background:#fff;border-bottom:1px solid #e2e8f0;padding:20px 0}}header a{{color:#0f172a;text-decoration:none;font-weight:800}}main{{padding:64px 0 84px}}.crumbs{{font-size:.9rem;color:#64748b;margin-bottom:20px}}.crumbs a{{color:#4f46e5;text-decoration:none}}h1{{font-size:clamp(2.2rem,6vw,3.8rem);letter-spacing:-.05em;margin:0 0 14px}}.intro{{color:#64748b;font-size:1.1rem;line-height:1.7;margin-bottom:36px}}.grid{{display:grid;gap:20px}}article{{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:26px}}article h2{{margin:13px 0 8px;font-size:1.25rem;line-height:1.35}}article a{{color:#0f172a;text-decoration:none}}article p{{color:#64748b;margin:0;line-height:1.6}}.platform-pill{{display:inline-block;padding:5px 9px;border-radius:999px;background:#eef2ff;color:#4f46e5;font-size:.73rem;font-weight:800;text-transform:uppercase}}.open-link{{display:inline-block;margin-top:14px;color:#4f46e5;font-weight:800;font-size:.9rem}}
-{theme_css}
+:root{{--bg:#f8fafc;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#4f46e5;--primary-light:#eef2ff}}
+*{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}}.wrap{{width:min(1040px,calc(100% - 40px));margin:0 auto}}
+header{{border-bottom:1px solid var(--border);background:rgba(255,255,255,.9);backdrop-filter:blur(10px)}}.header-inner{{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px}}.brand{{color:var(--text);text-decoration:none;font-size:1.2rem;font-weight:800;letter-spacing:-.03em}}.brand-mark{{color:var(--primary)}}.site-nav{{display:flex;gap:20px;align-items:center}}.site-nav a{{color:#475569;text-decoration:none;font-size:.9rem;font-weight:700}}.site-nav a:hover{{color:var(--primary)}}
+main{{padding:56px 0 84px}}.crumbs{{font-size:.88rem;color:var(--muted);margin-bottom:22px}}.crumbs a{{color:var(--primary);text-decoration:none;font-weight:700}}h1{{max-width:850px;font-size:clamp(2.25rem,6vw,4rem);line-height:1.05;letter-spacing:-.055em;margin:0 0 16px}}.intro{{max-width:780px;color:var(--muted);font-size:1.08rem;line-height:1.75;margin:0 0 38px}}
+.directory-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}}.directory-card{{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:0 12px 36px rgba(15,23,42,.045)}}.directory-card h2{{margin:12px 0 9px;font-size:1.35rem;line-height:1.3;letter-spacing:-.025em}}.directory-card h2 a{{color:var(--text);text-decoration:none}}.directory-card p{{color:var(--muted);line-height:1.65;margin:0}}.pill{{display:inline-block;padding:5px 10px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.73rem;font-weight:800;text-transform:uppercase}}.open-link{{display:inline-block;margin-top:16px;color:var(--primary);font-size:.9rem;font-weight:800;text-decoration:none}}.subtopics{{margin-top:13px;color:#475569;font-size:.87rem;font-weight:700}}
+.catalog-section{{margin-top:48px}}.catalog-section:first-child{{margin-top:0}}.catalog-section-head{{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}}.catalog-section h2{{margin:0;font-size:1.65rem;letter-spacing:-.035em}}.catalog-section-head a{{color:var(--primary);font-weight:800;text-decoration:none}}.tools-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}}.tool-card{{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:23px}}.tool-card h3{{font-size:1.08rem;line-height:1.42;margin:12px 0 8px}}.tool-card h3 a{{color:var(--text);text-decoration:none}}.tool-card p{{color:var(--muted);font-size:.92rem;line-height:1.6;margin:0}}.tool-card.platform-instagram{{border-color:#efd2e2;background:linear-gradient(145deg,#fff,#fff8fc)}}.tool-card.platform-instagram .pill{{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}}
+body.theme-instagram{{--bg:#fff8fc;--text:#29162f;--muted:#765f7c;--border:#f0d7e5;--primary:#d62976;--primary-light:#fff0f7;background:radial-gradient(circle at 10% 5%,rgba(247,119,55,.18),transparent 26rem),radial-gradient(circle at 92% 8%,rgba(131,58,180,.15),transparent 30rem),linear-gradient(180deg,#fff8fc,#fff 55%,#faf7ff)}}body.theme-instagram header{{background:rgba(255,250,253,.9)}}body.theme-instagram h1{{background:linear-gradient(100deg,#713080,#d62976 52%,#e85d18);-webkit-background-clip:text;background-clip:text;color:transparent}}body.theme-instagram .directory-card{{border-color:#efd2e2;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(255,247,252,.94));box-shadow:0 20px 55px rgba(131,58,180,.09)}}body.theme-instagram .pill{{color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4)}}
+footer{{background:#fff;border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.88rem}}footer a{{color:#475569}}
+@media(max-width:700px){{.header-inner{{align-items:flex-start;flex-direction:column;padding:16px 0}}.site-nav{{gap:14px;flex-wrap:wrap}}main{{padding-top:38px}}.catalog-section-head{{align-items:flex-start;flex-direction:column}}}}
 </style>
 </head>
-<body class="{theme_class}"><header><div class="wrap"><a href="{site_path()}">◆ {html.escape(SITE_NAME)}</a></div></header>
-<main class="wrap"><div class="crumbs"><a href="{site_path()}">Inicio</a> › {html.escape(title)}</div><h1>{html.escape(title)}</h1><p class="intro">{html.escape(intro)}</p><div class="grid">{cards}</div></main><footer style="background:#fff;border-top:1px solid #e2e8f0;padding:28px 0;color:#64748b;font-size:.88rem"><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)} · {legal_footer()}</div></footer></body></html>"""
+<body class="{html.escape(theme_class, quote=True)}">
+<header><div class="wrap header-inner"><a class="brand" href="{site_path()}"><span class="brand-mark">◆</span> {html.escape(SITE_NAME)}</a><nav class="site-nav" aria-label="Navegación principal"><a href="{site_path('es/redes-sociales')}">Redes sociales</a><a href="{site_path(all_tools_route(language))}">Todas las herramientas</a></nav></div></header>
+<main class="wrap"><nav class="crumbs" aria-label="Migas de pan">{breadcrumbs}</nav><h1>{html.escape(title)}</h1><p class="intro">{html.escape(description)}</p>{content_html}</main>
+<footer><div class="wrap">© {date.today().year} {html.escape(SITE_NAME)}. Herramientas claras para decisiones rápidas. · {legal_footer()}</div></footer>
+</body></html>"""
 
+
+def render_family(route: str, nodes: list[dict[str, Any]]) -> str:
+    language, key = route.split("/", 1)
+    info = family_info(key)
+    by_platform: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for node in nodes:
+        by_platform[platform_key(node)].append(node)
+
+    cards: list[str] = []
+    for key_platform, platform_nodes in sorted(by_platform.items()):
+        first = platform_nodes[0]
+        topics = sorted({topic_name(node) for node in platform_nodes})
+        description = PLATFORM_DESCRIPTIONS.get(
+            key_platform,
+            f"Herramientas gratuitas para {platform_label(first)}.",
+        )
+        cards.append(
+            f'<article class="directory-card"><span class="pill">{len(platform_nodes)} herramientas</span>'
+            f'<h2><a href="{html.escape(site_path(platform_route(first)), quote=True)}">{html.escape(platform_label(first))}</a></h2>'
+            f'<p>{html.escape(description)}</p><div class="subtopics">{" · ".join(html.escape(topic) for topic in topics)}</div>'
+            f'<a class="open-link" href="{html.escape(site_path(platform_route(first)), quote=True)}">Ver herramientas de {html.escape(platform_label(first))} →</a></article>'
+        )
+
+    breadcrumbs = catalog_breadcrumbs([
+        ("Inicio", site_path()),
+        (info["label"], None),
+    ])
+    return render_catalog_shell(
+        language=language,
+        title=info["title"],
+        description=info["description"],
+        canonical=absolute_url(route),
+        breadcrumbs=breadcrumbs,
+        content_html=f'<div class="directory-grid">{"".join(cards)}</div>',
+        page_type="family",
+    )
+
+
+def render_platform(route: str, nodes: list[dict[str, Any]]) -> str:
+    language, _ = route.split("/", 1)
+    first = nodes[0]
+    family = family_info(family_key(first))
+    platform = platform_label(first)
+    by_category: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for node in nodes:
+        by_category[category_route(node)].append(node)
+
+    cards: list[str] = []
+    for category, category_nodes in sorted(by_category.items()):
+        topic = topic_name(category_nodes[0])
+        cards.append(
+            f'<article class="directory-card"><span class="pill">{len(category_nodes)} herramientas</span>'
+            f'<h2><a href="{html.escape(site_path(category), quote=True)}">{html.escape(topic)}</a></h2>'
+            f'<p>Calculadoras y recursos de {html.escape(topic.lower())} para {html.escape(platform)}.</p>'
+            f'<a class="open-link" href="{html.escape(site_path(category), quote=True)}">Explorar {html.escape(topic.lower())} →</a></article>'
+        )
+
+    breadcrumbs = catalog_breadcrumbs([
+        ("Inicio", site_path()),
+        (family["label"], site_path(family_route(first))),
+        (platform, None),
+    ])
+    description = PLATFORM_DESCRIPTIONS.get(
+        platform_key(first),
+        f"Calculadoras y utilidades gratuitas para {platform}.",
+    )
+    return render_catalog_shell(
+        language=language,
+        title=f"Herramientas de {platform}",
+        description=description,
+        canonical=absolute_url(route),
+        breadcrumbs=breadcrumbs,
+        content_html=f'<div class="directory-grid">{"".join(cards)}</div>',
+        page_type="platform",
+        theme_class=platform_theme(first),
+    )
+
+
+def render_category(route: str, nodes: list[dict[str, Any]]) -> str:
+    language = route.split("/", 1)[0]
+    first = nodes[0]
+    family = family_info(family_key(first))
+    platform = platform_label(first)
+    topic = topic_name(first)
+    title = category_page_title(first)
+    if platform_key(first) == "instagram":
+        description = "Mide la interacción, compara el rendimiento y toma mejores decisiones para tu perfil o tus campañas de Instagram."
+    else:
+        description = f"Calculadoras y utilidades gratuitas de {topic.lower()} para {platform}."
+
+    cards = "".join(
+        f'<article class="tool-card platform-{html.escape(platform_key(node), quote=True)}"><span class="pill">{html.escape(platform_label(node))}</span>'
+        f'<h3><a href="{html.escape(site_path(node_route(node)), quote=True)}">{html.escape(str(node["meta"]["title"]))}</a></h3>'
+        f'<p>{html.escape(str(node["meta"]["description"]))}</p>'
+        f'<a class="open-link" href="{html.escape(site_path(node_route(node)), quote=True)}">Abrir herramienta →</a></article>'
+        for node in nodes
+    )
+    breadcrumbs = catalog_breadcrumbs([
+        ("Inicio", site_path()),
+        (family["label"], site_path(family_route(first))),
+        (platform, site_path(platform_route(first))),
+        (topic, None),
+    ])
+    return render_catalog_shell(
+        language=language,
+        title=title,
+        description=description,
+        canonical=absolute_url(route),
+        breadcrumbs=breadcrumbs,
+        content_html=f'<div class="tools-grid">{cards}</div>',
+        page_type="category",
+        theme_class=platform_theme(first),
+    )
+
+
+def render_all_tools(nodes: list[dict[str, Any]], language: str = "es") -> str:
+    language_nodes = [node for node in nodes if node["_language"] == language]
+    by_family_platform: dict[str, dict[str, list[dict[str, Any]]]] = defaultdict(lambda: defaultdict(list))
+    for node in language_nodes:
+        by_family_platform[family_key(node)][platform_key(node)].append(node)
+
+    sections: list[str] = []
+    for family_key_value, platforms in sorted(by_family_platform.items()):
+        family = family_info(family_key_value)
+        platform_blocks: list[str] = []
+        for platform_key_value, platform_nodes in sorted(platforms.items()):
+            first = platform_nodes[0]
+            tool_cards = "".join(
+                f'<article class="tool-card platform-{html.escape(platform_key(node), quote=True)}"><span class="pill">{html.escape(topic_name(node))}</span>'
+                f'<h3><a href="{html.escape(site_path(node_route(node)), quote=True)}">{html.escape(str(node["meta"]["title"]))}</a></h3>'
+                f'<p>{html.escape(str(node["meta"]["description"]))}</p></article>'
+                for node in sorted(platform_nodes, key=lambda item: str(item["meta"]["title"]))
+            )
+            platform_blocks.append(
+                f'<section class="catalog-section"><div class="catalog-section-head"><h2>{html.escape(platform_label(first))}</h2>'
+                f'<a href="{html.escape(site_path(platform_route(first)), quote=True)}">Ver sección →</a></div><div class="tools-grid">{tool_cards}</div></section>'
+            )
+        sections.append(
+            f'<section aria-labelledby="family-{html.escape(family_key_value, quote=True)}"><span class="pill">{html.escape(family["label"])}</span>{"".join(platform_blocks)}</section>'
+        )
+
+    breadcrumbs = catalog_breadcrumbs([
+        ("Inicio", site_path()),
+        ("Todas las herramientas", None),
+    ])
+    return render_catalog_shell(
+        language=language,
+        title="Todas las herramientas",
+        description=f"Explora las {len(language_nodes)} calculadoras y utilidades disponibles en Clicivo, organizadas por categoría y plataforma.",
+        canonical=absolute_url(all_tools_route(language)),
+        breadcrumbs=breadcrumbs,
+        content_html="".join(sections),
+        page_type="all_tools",
+    )
 
 def legal_footer() -> str:
     return (
@@ -942,6 +1248,8 @@ def compile_site() -> None:
     write_text(OUTPUT_DIR / "index.html", render_home(nodes))
 
     categories: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    platforms: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    families: dict[str, list[dict[str, Any]]] = defaultdict(list)
 
     for node in nodes:
         route = node_route(node)
@@ -952,10 +1260,26 @@ def compile_site() -> None:
         )
         sitemap_entries.append((absolute_url(route), str(node.get("actualizado", "")) or None))
         categories[category_route(node)].append(node)
+        platforms[platform_route(node)].append(node)
+        families[family_route(node)].append(node)
 
     for route, category_nodes in sorted(categories.items()):
         write_text(OUTPUT_DIR / route / "index.html", render_category(route, category_nodes))
         sitemap_entries.append((absolute_url(route), None))
+
+    for route, platform_nodes in sorted(platforms.items()):
+        write_text(OUTPUT_DIR / route / "index.html", render_platform(route, platform_nodes))
+        sitemap_entries.append((absolute_url(route), None))
+
+    for route, family_nodes in sorted(families.items()):
+        write_text(OUTPUT_DIR / route / "index.html", render_family(route, family_nodes))
+        sitemap_entries.append((absolute_url(route), None))
+
+    languages = sorted({str(node["_language"]) for node in nodes}) or [str(CONFIG.get("default_language", "es"))]
+    for language in languages:
+        tools_route = all_tools_route(language)
+        write_text(OUTPUT_DIR / tools_route / "index.html", render_all_tools(nodes, language))
+        sitemap_entries.append((absolute_url(tools_route), None))
 
     for slug, (title, body_html, description) in legal_pages().items():
         write_text(OUTPUT_DIR / slug / "index.html", render_legal_page(slug, title, body_html, description))
@@ -965,7 +1289,11 @@ def compile_site() -> None:
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
+    seen_urls: set[str] = set()
     for url, last_modified in sitemap_entries:
+        if url in seen_urls:
+            continue
+        seen_urls.add(url)
         sitemap_lines.append("  <url>")
         sitemap_lines.append(f"    <loc>{xml_escape(url)}</loc>")
         if last_modified:
@@ -976,7 +1304,7 @@ def compile_site() -> None:
 
     write_text(
         OUTPUT_DIR / "robots.txt",
-        f"User-agent: *\nAllow: /\n\nSitemap: {absolute_url('sitemap.xml')}\n",
+        f"User-agent: *\nAllow: /\n\nSitemap: {SITE_ORIGIN}{BASE_PATH}/sitemap.xml\n",
     )
     write_text(OUTPUT_DIR / "CNAME", CUSTOM_DOMAIN + "\n")
     write_text(OUTPUT_DIR / ".nojekyll", "")
@@ -987,7 +1315,8 @@ def compile_site() -> None:
 
     print(
         f"🚀 Clicivo compilado: {len(nodes)} herramienta(s), "
-        f"{len(categories)} categoría(s) y {len(sitemap_entries)} URL(s) en sitemap."
+        f"{len(categories)} categoría(s), {len(platforms)} plataforma(s), "
+        f"{len(families)} familia(s) y {len(seen_urls)} URL(s) en sitemap."
     )
 
 
