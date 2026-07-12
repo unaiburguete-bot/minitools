@@ -3,23 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Calculadora de RPM de YouTube Exacto (2026) | Clicivo</title>
-    <meta name="description" content="Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática.">
-    <link rel="canonical" href="https://clicivo.com/es/youtube/monetizacion/rpm-youtube/">
+    <title>Calculadora de ingresos de YouTube por visitas y RPM | Clicivo</title>
+    <meta name="description" content="Estima cuánto dinero puede generar un canal de YouTube introduciendo sus visualizaciones y el RPM real o previsto.">
+    <link rel="canonical" href="https://clicivo.com/es/youtube/monetizacion/ingresos-youtube/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Clicivo">
-    <meta property="og:title" content="Calculadora de RPM de YouTube Exacto (2026)">
-    <meta property="og:description" content="Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática.">
-    <meta property="og:url" content="https://clicivo.com/es/youtube/monetizacion/rpm-youtube/">
-    <meta property="og:image" content="https://clicivo.com/assets/og/rpm-youtube.jpg/">
+    <meta property="og:title" content="Calculadora de ingresos de YouTube por visitas y RPM">
+    <meta property="og:description" content="Estima cuánto dinero puede generar un canal de YouTube introduciendo sus visualizaciones y el RPM real o previsto.">
+    <meta property="og:url" content="https://clicivo.com/es/youtube/monetizacion/ingresos-youtube/">
+    <meta property="og:image" content="https://clicivo.com/assets/og/ingresos-youtube.jpg/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Calculadora de RPM de YouTube Exacto (2026)">
-    <meta name="twitter:description" content="Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática.">
-    <meta name="twitter:image" content="https://clicivo.com/assets/og/rpm-youtube.jpg/">
+    <meta name="twitter:title" content="Calculadora de ingresos de YouTube por visitas y RPM">
+    <meta name="twitter:description" content="Estima cuánto dinero puede generar un canal de YouTube introduciendo sus visualizaciones y el RPM real o previsto.">
+    <meta name="twitter:image" content="https://clicivo.com/assets/og/ingresos-youtube.jpg/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Calculadora de RPM de YouTube Exacto (2026)","description":"Calcula cuánto dinero genera tu canal de YouTube según tu RPM y visitas de forma automática.","url":"https://clicivo.com/es/youtube/monetizacion/rpm-youtube/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://clicivo.com/"},{"@type":"ListItem","position":2,"name":"Youtube · Monetizacion","item":"https://clicivo.com/es/youtube/monetizacion/"},{"@type":"ListItem","position":3,"name":"Revenue Per Mille","item":"https://clicivo.com/es/youtube/monetizacion/rpm-youtube/"}]}]</script>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Calculadora de ingresos de YouTube por visitas y RPM","description":"Estima cuánto dinero puede generar un canal de YouTube introduciendo sus visualizaciones y el RPM real o previsto.","url":"https://clicivo.com/es/youtube/monetizacion/ingresos-youtube/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://clicivo.com/"},{"@type":"ListItem","position":2,"name":"Youtube · Monetizacion","item":"https://clicivo.com/es/youtube/monetizacion/"},{"@type":"ListItem","position":3,"name":"Ingresos estimados de YouTube","item":"https://clicivo.com/es/youtube/monetizacion/ingresos-youtube/"}]}]</script>
     <style>
         :root {
             --bg:#f8fafc;--surface:#fff;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;
@@ -51,32 +51,32 @@
 <nav class="header-nav"><div class="nav-container"><a href="/"><span class="brand-mark">◆</span> Clicivo</a></div></nav>
 <div class="main-layout">
     <main>
-        <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> › <a href="/es/youtube/monetizacion/">Youtube · Monetizacion</a> › <span>Revenue Per Mille</span></nav>
+        <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> › <a href="/es/youtube/monetizacion/">Youtube · Monetizacion</a> › <span>Ingresos estimados de YouTube</span></nav>
         <section class="tool-card">
             <span class="free-badge">Herramienta gratuita</span>
-            <h1>¿Cuánto dinero paga YouTube por tus visitas? Calcular RPM Exacto</h1>
+            <h1>Calcular ingresos estimados de YouTube según visitas y RPM</h1>
             <div class="tool-ui-box">
-        <label for="visitas">Número de Visitas Totales</label><input type="number" id="visitas" placeholder="Ej. 100000" inputmode="decimal" min="0" step="1"><label for="rpm">Tu RPM Estimado (€)</label><input type="number" id="rpm" placeholder="Ej. 4.25" inputmode="decimal" min="0" step="0.01">
-        <button type="button" onclick="calculate_rpm_youtube()" class="calc-btn">Calcular ahora</button>
-        <p id="error_rpm-youtube" class="calc-error" role="alert" hidden></p>
-        <div id="result_rpm-youtube" class="calc-result-box" role="status" aria-live="polite" hidden></div>
+        <label for="visitas">Número de visualizaciones</label><input type="number" id="visitas" placeholder="Ej. 100000" inputmode="decimal" min="0" step="1"><label for="rpm">RPM estimado (€)</label><input type="number" id="rpm" placeholder="Ej. 4.25" inputmode="decimal" min="0" step="0.01">
+        <button type="button" onclick="calculate_ingresos_youtube()" class="calc-btn">Calcular ahora</button>
+        <p id="error_ingresos-youtube" class="calc-error" role="alert" hidden></p>
+        <div id="result_ingresos-youtube" class="calc-result-box" role="status" aria-live="polite" hidden></div>
         <script>
-            function calculate_rpm_youtube() {
+            function calculate_ingresos_youtube() {
                 const values = {};
-                const errorBox = document.getElementById("error_rpm-youtube");
-                const resultBox = document.getElementById("result_rpm-youtube");
+                const errorBox = document.getElementById("error_ingresos-youtube");
+                const resultBox = document.getElementById("result_ingresos-youtube");
                 const showError = (message) => {
                     resultBox.hidden = true;
                     errorBox.textContent = message;
                     errorBox.hidden = false;
                 };
                 errorBox.hidden = true;
-                const raw_visitas = document.getElementById("visitas").value.trim();if (raw_visitas === '') return showError('Completa el campo ' + "Número de Visitas Totales" + '.');const number_visitas = Number(raw_visitas);if (!Number.isFinite(number_visitas)) return showError('Introduce un número válido en ' + "Número de Visitas Totales" + '.');if (number_visitas < 0) return showError('El valor de ' + "Número de Visitas Totales" + ' no puede ser menor que 0.');values["inputs.visitas"] = number_visitas;const raw_rpm = document.getElementById("rpm").value.trim();if (raw_rpm === '') return showError('Completa el campo ' + "Tu RPM Estimado (€)" + '.');const number_rpm = Number(raw_rpm);if (!Number.isFinite(number_rpm)) return showError('Introduce un número válido en ' + "Tu RPM Estimado (€)" + '.');if (number_rpm < 0) return showError('El valor de ' + "Tu RPM Estimado (€)" + ' no puede ser menor que 0.');values["inputs.rpm"] = number_rpm;
-                if (1000 === 0) return showError('No es posible dividir entre cero.');values["bloques_mil"] = values["inputs.visitas"] / 1000;values["ingresos_totales"] = values["bloques_mil"] * values["inputs.rpm"];
-                const result = values["ingresos_totales"];
+                const raw_visitas = document.getElementById("visitas").value.trim();if (raw_visitas === '') return showError('Completa el campo ' + "Número de visualizaciones" + '.');const number_visitas = Number(raw_visitas);if (!Number.isFinite(number_visitas)) return showError('Introduce un número válido en ' + "Número de visualizaciones" + '.');if (number_visitas < 0) return showError('El valor de ' + "Número de visualizaciones" + ' no puede ser menor que 0.');values["inputs.visitas"] = number_visitas;const raw_rpm = document.getElementById("rpm").value.trim();if (raw_rpm === '') return showError('Completa el campo ' + "RPM estimado (€)" + '.');const number_rpm = Number(raw_rpm);if (!Number.isFinite(number_rpm)) return showError('Introduce un número válido en ' + "RPM estimado (€)" + '.');if (number_rpm < 0) return showError('El valor de ' + "RPM estimado (€)" + ' no puede ser menor que 0.');values["inputs.rpm"] = number_rpm;
+                if (1000 === 0) return showError('No es posible dividir entre cero.');values["bloques_mil"] = values["inputs.visitas"] / 1000;values["ingresos_estimados"] = values["bloques_mil"] * values["inputs.rpm"];
+                const result = values["ingresos_estimados"];
                 if (!Number.isFinite(result)) return showError('No se ha podido calcular el resultado. Revisa los valores.');
                 const formatted = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 }).format(result);
-                resultBox.textContent = "Ingresos Totales Estimados" + ': ' + formatted + ("€" ? ' ' + "€" : '');
+                resultBox.textContent = "Ingresos estimados" + ': ' + formatted + ("€" ? ' ' + "€" : '');
                 resultBox.hidden = false;
             }
         </script>
@@ -84,18 +84,25 @@
         </section>
         
         <article class="seo-article">
-            <h1>¿Cuánto paga YouTube realmente? Guía definitiva sobre el RPM</h1>
-<p>El <strong>RPM</strong> (Revenue Per Mille) es la métrica más honesta y transparente que existe para un creador de contenido. A diferencia del CPM, el RPM calcula el dinero real que va a parar a tu bolsillo tras las comisiones de la plataforma.</p>
-<h2>Ejemplos prácticos de cálculo en escenarios reales</h2>
-<p>El RPM cambia según el país de la audiencia, la temática, la época del año, la duración de los vídeos y la mezcla de ingresos. Para obtener una proyección útil, introduce el RPM real que aparece en YouTube Analytics y compara periodos equivalentes.</p>
-<h2>Errores críticos al analizar tus métricas</h2>
-<p>El fallo más común de los principiantes es multiplicar sus visitas totales por el CPM de los vídeos. Recuerda que no todas las visualizaciones generan publicidad y que el reparto de ingresos depende del producto y del formato. Para proyectar el negocio, utiliza el RPM real de tu canal y explica siempre que el resultado es una estimación.</p>
-            <p class="reviewed">Última revisión: 2026-07-11</p>
+            <h1>Calculadora de ingresos de YouTube</h1>
+<p>Esta calculadora estima cuánto podría generar un canal de YouTube a partir de sus visualizaciones y de un RPM conocido o previsto.</p>
+<p><strong>Ingresos estimados = visualizaciones ÷ 1.000 × RPM</strong></p>
+<h2>Ejemplo práctico</h2>
+<p>100.000 visualizaciones con un RPM de 4,25 €:</p>
+<p><strong>100.000 ÷ 1.000 × 4,25 = 425 €</strong></p>
+<h2>Qué RPM debes introducir</h2>
+<p>Utiliza preferentemente el RPM que aparece en YouTube Analytics durante un periodo similar.</p>
+<h2>Diferencia entre RPM y CPM</h2>
+<p>El CPM representa el importe pagado por los anunciantes por cada 1.000 impresiones publicitarias.</p>
+<p>El RPM representa los ingresos reales obtenidos por el creador por cada 1.000 visualizaciones.</p>
+<h2>Limitaciones</h2>
+<p>El resultado es una estimación. Los ingresos pueden variar según el país, la temática, la época del año, la duración de los vídeos y el porcentaje de visualizaciones monetizadas.</p>
+            <p class="reviewed">Última revisión: 2026-07-12</p>
             <h2 class="faq-heading">Preguntas frecuentes</h2>
-            <div class="faq-item"><h3>¿Cuál es la diferencia entre CPM y RPM?</h3><p>El CPM es el coste que pagan los anunciantes por cada 1.000 impresiones de anuncios, mientras que el RPM son tus ingresos netos reales por cada 1.000 visitas tras la comisión de YouTube.</p></div><div class="faq-item"><h3>¿Cómo puedo subir mi RPM?</h3><p>El RPM varía según la audiencia, la temática, la estacionalidad, el formato publicitario y otras fuentes de ingresos. Compáralo por periodos equivalentes y revisa los datos reales de YouTube Analytics.</p></div>
+            <div class="faq-item"><h3>¿Cómo se calculan los ingresos estimados de YouTube?</h3><p>Se dividen las visualizaciones entre 1.000 y se multiplica el resultado por el RPM del canal.</p></div><div class="faq-item"><h3>¿El resultado coincide exactamente con lo que paga YouTube?</h3><p>No necesariamente. Es una estimación basada en el RPM introducido.</p></div>
         </article>
     </main>
-    <aside><section class="sidebar-box"><h2>Herramientas relacionadas</h2><ul class="sidebar-link-list"><li><a href="/es/youtube/monetizacion/ingresos-youtube/">Calculadora de ingresos de YouTube por visitas y RPM</a></li></ul></section></aside>
+    <aside><section class="sidebar-box"><h2>Herramientas relacionadas</h2><ul class="sidebar-link-list"><li><a href="/es/youtube/monetizacion/rpm-youtube/">Calculadora de RPM de YouTube Exacto (2026)</a></li></ul></section></aside>
 </div>
 <footer>© 2026 Clicivo. Herramientas claras para decisiones rápidas.</footer>
 </body>
