@@ -5,6 +5,7 @@ site_description: "Calculadoras y herramientas web gratuitas, rápidas y fácile
 site_origin: "https://clicivo.com"
 base_path: ""
 custom_domain: "clicivo.com"
+analytics_measurement_id: "G-B3DXJWJHYG"
 
 default_language: "es"
 content_dir: "content"

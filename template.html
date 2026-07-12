@@ -20,6 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="application/ld+json">{{STRUCTURED_DATA}}</script>
+    {{ANALYTICS_SNIPPET}}
     <style>
         :root {
             --bg:#f8fafc;--surface:#fff;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;
@@ -47,7 +48,7 @@
         @media(max-width:560px){.header-nav{padding:14px 18px}.main-layout{padding:0 16px}.tool-card,.seo-article{padding:24px;border-radius:18px}.tool-ui-box{padding:18px}}
     </style>
 </head>
-<body>
+<body data-tool-id="{{TOOL_ID}}">
 <nav class="header-nav"><div class="nav-container"><a href="{{HOME_URL}}"><span class="brand-mark">◆</span> {{SITE_NAME}}</a></div></nav>
 <div class="main-layout">
     <main>

@@ -76,7 +76,67 @@ SITE_NAME = str(CONFIG["site_name"])
 SITE_TAGLINE = str(CONFIG.get("site_tagline", CONFIG["site_description"]))
 SITE_DESCRIPTION = str(CONFIG["site_description"])
 CUSTOM_DOMAIN = str(CONFIG["custom_domain"])
+ANALYTICS_MEASUREMENT_ID = str(CONFIG.get("analytics_measurement_id", "")).strip()
 
+if ANALYTICS_MEASUREMENT_ID and not re.fullmatch(r"G-[A-Z0-9]+", ANALYTICS_MEASUREMENT_ID):
+    fail("analytics_measurement_id debe tener un formato como G-XXXXXXXXXX")
+
+
+
+def analytics_snippet(page_type: str, node: dict[str, Any] | None = None) -> str:
+    if not ANALYTICS_MEASUREMENT_ID:
+        return ""
+
+    page_params: dict[str, Any] = {"page_type": page_type}
+    if node is not None:
+        page_params.update(
+            {
+                "tool_id": str(node["id"]),
+                "tool_name": str(node["meta"]["title"]),
+                "platform": str(node["vectores"]["plataforma"]),
+            }
+        )
+
+    params_json = json.dumps(page_params, ensure_ascii=False).replace("</", "<\\/")
+    measurement_id = json.dumps(ANALYTICS_MEASUREMENT_ID)
+    tool_view = (
+        f"window.clicivoTrack('tool_view', {params_json});"
+        if node is not None
+        else ""
+    )
+
+    return f"""
+<script async src="https://www.googletagmanager.com/gtag/js?id={html.escape(ANALYTICS_MEASUREMENT_ID, quote=True)}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){{dataLayer.push(arguments);}}
+gtag('js', new Date());
+gtag('config', {measurement_id});
+window.clicivoTrack = function(eventName, parameters) {{
+    gtag('event', eventName, parameters || {{}});
+}};
+document.addEventListener('DOMContentLoaded', function() {{
+    {tool_view}
+}});
+document.addEventListener('click', function(event) {{
+    const related = event.target.closest('[data-related-tool]');
+    if (related) {{
+        window.clicivoTrack('related_tool_clicked', {{
+            source_tool_id: document.body.dataset.toolId || '',
+            destination_tool_id: related.dataset.relatedTool || '',
+            link_url: related.href
+        }});
+    }}
+    const affiliate = event.target.closest('[data-affiliate-link]');
+    if (affiliate) {{
+        window.clicivoTrack('affiliate_clicked', {{
+            tool_id: document.body.dataset.toolId || '',
+            link_url: affiliate.href
+        }});
+    }}
+}});
+</script>
+"""
 
 def site_path(path: str = "") -> str:
     clean = path.strip("/")
@@ -238,6 +298,7 @@ def calculate_semantic_graph(nodes: list[dict[str, Any]]) -> None:
             if score:
                 related.append(
                     {
+                        "id": candidate["id"],
                         "title": candidate["meta"]["title"],
                         "url": site_path(node_route(candidate)),
                         "score": score,
@@ -373,6 +434,14 @@ def build_calculator(node: dict[str, Any]) -> str:
     label = json.dumps(str(algorithm.get("label", "Resultado")), ensure_ascii=False)
     unit = json.dumps(str(algorithm.get("unidad", "")), ensure_ascii=False)
     output = json.dumps(str(algorithm["output"]), ensure_ascii=False)
+    event_params = json.dumps(
+        {
+            "tool_id": str(node["id"]),
+            "tool_name": str(node["meta"]["title"]),
+            "platform": str(node["vectores"]["plataforma"]),
+        },
+        ensure_ascii=False,
+    )
 
     return f"""
         {''.join(input_html)}
@@ -388,6 +457,9 @@ def build_calculator(node: dict[str, Any]) -> str:
                     resultBox.hidden = true;
                     errorBox.textContent = message;
                     errorBox.hidden = false;
+                    if (window.clicivoTrack) {{
+                        window.clicivoTrack('calculation_error', {{...{event_params}, error_message: message}});
+                    }}
                 }};
                 errorBox.hidden = true;
                 {''.join(input_statements)}
@@ -397,6 +469,9 @@ def build_calculator(node: dict[str, Any]) -> str:
                 const formatted = new Intl.NumberFormat('es-ES', {{ maximumFractionDigits: 2 }}).format(result);
                 resultBox.textContent = {label} + ': ' + formatted + ({unit} ? ' ' + {unit} : '');
                 resultBox.hidden = false;
+                if (window.clicivoTrack) {{
+                    window.clicivoTrack('tool_calculated', {event_params});
+                }}
             }}
         </script>
     """
@@ -454,7 +529,8 @@ def render_tool(node: dict[str, Any], template: str) -> str:
     og_url = absolute_url(og_path)
     related = node.get("_related", [])
     related_html = "".join(
-        f'<li><a href="{html.escape(item["url"], quote=True)}">{html.escape(str(item["title"]))}</a></li>'
+        f'<li><a data-related-tool="{html.escape(str(item["id"]), quote=True)}" '
+        f'href="{html.escape(item["url"], quote=True)}">{html.escape(str(item["title"]))}</a></li>'
         for item in related
     ) or '<li class="empty-state">Añadiremos herramientas relacionadas próximamente.</li>'
 
@@ -470,7 +546,7 @@ def render_tool(node: dict[str, Any], template: str) -> str:
         monetization_html = (
             '<div class="monetization-bar">'
             f'<p>{html.escape(str(monetization.get("cta", "")))}</p>'
-            f'<a href="{html.escape(affiliate_url, quote=True)}" target="_blank" '
+            f'<a data-affiliate-link href="{html.escape(affiliate_url, quote=True)}" target="_blank" '
             'rel="sponsored noopener noreferrer nofollow">Ver recurso recomendado →</a>'
             "</div>"
         )
@@ -501,6 +577,8 @@ def render_tool(node: dict[str, Any], template: str) -> str:
         "{{RELATED_HTML}}": related_html,
         "{{LAST_UPDATED}}": updated,
         "{{STRUCTURED_DATA}}": build_structured_data(node, canonical),
+        "{{ANALYTICS_SNIPPET}}": analytics_snippet("tool", node),
+        "{{TOOL_ID}}": str(node["id"]),
         "{{CURRENT_YEAR}}": str(date.today().year),
     }
 
@@ -558,6 +636,7 @@ def render_home(nodes: list[dict[str, Any]]) -> str:
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="application/ld+json">{schema}</script>
+    {analytics_snippet("home")}
     <style>
         :root {{ --bg:#f8fafc;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#4f46e5;--primary-light:#eef2ff; }}
         * {{ box-sizing:border-box; }}
@@ -619,6 +698,7 @@ def render_category(route: str, nodes: list[dict[str, Any]]) -> str:
 <link rel="canonical" href="{canonical}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+{analytics_snippet("category")}
 <style>
 *{{box-sizing:border-box}}body{{margin:0;background:#f8fafc;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif}}.wrap{{width:min(900px,calc(100% - 40px));margin:0 auto}}header{{background:#fff;border-bottom:1px solid #e2e8f0;padding:20px 0}}header a{{color:#0f172a;text-decoration:none;font-weight:800}}main{{padding:60px 0 80px}}.crumbs{{font-size:.9rem;color:#64748b;margin-bottom:20px}}.crumbs a{{color:#4f46e5;text-decoration:none}}h1{{font-size:clamp(2.2rem,6vw,3.8rem);letter-spacing:-.05em;margin:0 0 14px}}.intro{{color:#64748b;font-size:1.1rem;margin-bottom:34px}}.grid{{display:grid;gap:18px}}article{{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:24px}}article h2{{margin:0 0 8px;font-size:1.25rem}}article a{{color:#0f172a;text-decoration:none}}article p{{color:#64748b;margin:0;line-height:1.6}}
 </style>
