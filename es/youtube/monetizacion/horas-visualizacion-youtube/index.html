@@ -136,7 +136,7 @@
         .tool-card{border-radius:24px;padding:36px;margin-bottom:30px}.tool-card h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.045em;margin-bottom:10px;line-height:1.15}.free-badge{display:inline-block;margin-bottom:18px;padding:5px 10px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase}
         .tool-ui-box{background:#fbfdff;border:1px solid #eef2f7;border-radius:16px;padding:24px;margin-top:24px}.tool-ui-box label{display:block;margin-top:15px;font-size:.9rem;font-weight:700;color:#334155}.tool-ui-box label:first-child{margin-top:0}.tool-ui-box input{width:100%;padding:13px 15px;margin-top:7px;border:1px solid var(--border);border-radius:10px;font:inherit;color:var(--text);background:#fff}.tool-ui-box input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-light)}
         .calc-btn{width:100%;background:var(--primary);color:#fff;border:0;padding:14px;font-weight:800;font-size:1rem;margin-top:24px;border-radius:10px;cursor:pointer;font-family:inherit;box-shadow:0 7px 18px rgba(79,70,229,.2)}.calc-btn:hover{background:var(--primary-hover);transform:translateY(-1px)}
-        .calc-result-box,.calc-error{margin-top:18px;padding:16px;border-radius:10px;text-align:center;font-weight:700}.calc-result-box{background:var(--success-bg);border:1px solid var(--success-border);color:var(--success-text)}.calc-error{background:var(--error-bg);border:1px solid var(--error-border);color:var(--error-text)}
+        .calc-result-box,.calc-error{margin-top:18px;padding:16px;border-radius:12px;font-weight:700}.calc-result-box{background:var(--success-bg);border:1px solid var(--success-border);color:var(--success-text)}.calc-error{background:var(--error-bg);border:1px solid var(--error-border);color:var(--error-text);text-align:center}.calc-result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.calc-result-item{display:flex;flex-direction:column;gap:5px;padding:14px;border-radius:10px;background:rgba(255,255,255,.72);border:1px solid currentColor}.calc-result-label{font-size:.78rem;line-height:1.35;opacity:.78;text-transform:uppercase;letter-spacing:.045em}.calc-result-value{font-size:1.25rem;line-height:1.25}
         .monetization-bar{background:linear-gradient(135deg,var(--primary-light),#f5f3ff);border:1px solid rgba(79,70,229,.16);padding:24px;border-radius:18px;text-align:center;margin:30px 0}.monetization-bar p{font-weight:700;color:#4338ca;margin-bottom:12px}.monetization-bar a{background:var(--text);color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:800;font-size:.9rem;display:inline-block}
         .seo-article{border-radius:24px;padding:40px}.seo-article h1,.seo-article h2,.seo-article h3{color:#1e293b;letter-spacing:-.025em}.seo-article h1{font-size:1.8rem;margin-bottom:18px}.seo-article h2{font-size:1.45rem;margin:30px 0 12px}.seo-article h3{font-size:1.15rem;margin:22px 0 8px}.seo-article p{color:#475569;margin-bottom:16px;font-size:1.03rem}.seo-article ul,.seo-article ol{margin:0 0 18px 22px;color:#475569}
         .reviewed{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.86rem}.faq-heading{margin-top:42px!important;border-top:1px solid var(--border);padding-top:30px}.faq-item{border-bottom:1px solid var(--border);padding:20px 0}.faq-item:last-child{border-bottom:0}.faq-item h3{font-size:1.05rem;margin-bottom:7px}.faq-item p{font-size:.95rem;margin:0}
@@ -198,13 +198,52 @@
         body.theme-instagram .sidebar-link-list a:hover{color:#c02675}
         body.theme-instagram footer{background:rgba(255,250,253,.9);border-top-color:#f1d8e5}
 
+
+        /* CLICIVO FINANCE THEME */
+        body.theme-finanzas-personales{
+            --bg:#f4fbf8;--surface:#fff;--border:#cfe9dc;--text:#102a23;--muted:#587067;
+            --primary:#047857;--primary-hover:#065f46;--primary-light:#e7f8f0;
+            --success-bg:#ecfdf5;--success-border:#a7f3d0;--success-text:#065f46;
+            background:
+                radial-gradient(circle at 8% 5%,rgba(16,185,129,.13),transparent 29rem),
+                radial-gradient(circle at 94% 10%,rgba(14,116,144,.10),transparent 31rem),
+                linear-gradient(180deg,#f4fbf8 0%,#fff 54%,#f5faf8 100%);
+        }
+        body.theme-finanzas-personales .header-nav{background:rgba(248,253,251,.92);border-bottom-color:#d5eadf}
+        body.theme-finanzas-personales .brand-mark{color:#047857}
+        body.theme-finanzas-personales .breadcrumbs a{color:#047857}
+        body.theme-finanzas-personales .tool-card{
+            position:relative;overflow:hidden;border-color:#cfe9dc;
+            background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(244,251,248,.96));
+            box-shadow:0 24px 70px rgba(5,150,105,.075)
+        }
+        body.theme-finanzas-personales .tool-card::before{
+            content:"";position:absolute;width:245px;height:245px;right:-105px;top:-125px;border-radius:50%;
+            background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(14,116,144,.13));
+            pointer-events:none
+        }
+        body.theme-finanzas-personales .free-badge{
+            position:relative;color:#065f46;background:#dff7eb;box-shadow:0 8px 22px rgba(5,150,105,.10)
+        }
+        body.theme-finanzas-personales .tool-card h1{position:relative;max-width:840px;color:#123c31}
+        body.theme-finanzas-personales .tool-ui-box{position:relative;background:rgba(255,255,255,.86);border-color:#d7ece1}
+        body.theme-finanzas-personales .tool-ui-box label{color:#294b42}
+        body.theme-finanzas-personales .tool-ui-box input{border-color:#cfe4d9;background:#fbfffd}
+        body.theme-finanzas-personales .tool-ui-box input:focus{border-color:#059669;box-shadow:0 0 0 4px rgba(5,150,105,.11)}
+        body.theme-finanzas-personales .calc-btn{background:linear-gradient(105deg,#047857,#059669 56%,#0e7490);box-shadow:0 12px 28px rgba(5,150,105,.20)}
+        body.theme-finanzas-personales .calc-btn:hover{background:linear-gradient(105deg,#065f46,#047857 56%,#155e75)}
+        body.theme-finanzas-personales .seo-article,body.theme-finanzas-personales .sidebar-box{border-color:#d5eadf;box-shadow:0 18px 50px rgba(5,150,105,.055)}
+        body.theme-finanzas-personales .seo-article h1,body.theme-finanzas-personales .seo-article h2,body.theme-finanzas-personales .seo-article h3{color:#173c32}
+        body.theme-finanzas-personales .sidebar-link-list a:hover{color:#047857}
+        body.theme-finanzas-personales footer{background:rgba(248,253,251,.92);border-top-color:#d5eadf}
+
         @media(max-width:900px){.main-layout{grid-template-columns:1fr;gap:30px;margin:24px auto}.sidebar-box{position:static}}
         @media(max-width:700px){.nav-container{align-items:flex-start;flex-direction:column}.nav-links{gap:13px;flex-wrap:wrap}}
         @media(max-width:560px){.header-nav{padding:14px 18px}.main-layout{padding:0 16px}.tool-card,.seo-article{padding:24px;border-radius:18px}.tool-ui-box{padding:18px}}
     </style>
 </head>
 <body class="theme-youtube" data-tool-id="horas-visualizacion-youtube">
-<nav class="header-nav"><div class="nav-container"><a class="nav-brand" href="/"><span class="brand-mark">◆</span> Clicivo</a><div class="nav-links"><a href="/es/redes-sociales/">Redes sociales</a><a href="/es/herramientas/">Todas las herramientas</a></div></div></nav>
+<nav class="header-nav"><div class="nav-container"><a class="nav-brand" href="/"><span class="brand-mark">◆</span> Clicivo</a><div class="nav-links"><a href="/es/redes-sociales/">Redes sociales</a><a href="/es/finanzas/">Finanzas</a><a href="/es/herramientas/">Todas las herramientas</a></div></div></nav>
 <div class="main-layout">
     <main>
         <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> › <a href="/es/redes-sociales/">Redes sociales</a> › <a href="/es/youtube/">YouTube</a> › <a href="/es/youtube/monetizacion/">Monetización</a> › <span>Horas de visualización de YouTube</span></nav>
@@ -221,24 +260,48 @@
                 const values = {};
                 const errorBox = document.getElementById("error_horas-visualizacion-youtube");
                 const resultBox = document.getElementById("result_horas-visualizacion-youtube");
+                const resultDefinitions = [{"id": "horas_visualizacion", "label": "Horas de visualización estimadas", "format": "numero", "unit": " horas"}];
                 const showError = (message) => {
                     resultBox.hidden = true;
                     errorBox.textContent = message;
                     errorBox.hidden = false;
                     if (window.clicivoTrack) {
-                        window.clicivoTrack('calculation_error', {...{"tool_id": "horas-visualizacion-youtube", "tool_name": "Calculadora de horas de visualización de YouTube para monetización", "platform": "YouTube"}, error_message: message});
+                        window.clicivoTrack('calculation_error', {...{"tool_id": "horas-visualizacion-youtube", "tool_name": "Calculadora de horas de visualización de YouTube para monetización", "platform": "YouTube", "family": ""}, error_message: message});
                     }
                 };
                 errorBox.hidden = true;
-                const raw_visualizaciones = document.getElementById("visualizaciones").value.trim();if (raw_visualizaciones === '') return showError('Completa el campo ' + "Número de visualizaciones" + '.');const number_visualizaciones = Number(raw_visualizaciones);if (!Number.isFinite(number_visualizaciones)) return showError('Introduce un número válido en ' + "Número de visualizaciones" + '.');if (number_visualizaciones < 0) return showError('El valor de ' + "Número de visualizaciones" + ' no puede ser menor que 0.');values["inputs.visualizaciones"] = number_visualizaciones;const raw_duracion_minutos = document.getElementById("duracion_minutos").value.trim();if (raw_duracion_minutos === '') return showError('Completa el campo ' + "Duración del vídeo (minutos)" + '.');const number_duracion_minutos = Number(raw_duracion_minutos);if (!Number.isFinite(number_duracion_minutos)) return showError('Introduce un número válido en ' + "Duración del vídeo (minutos)" + '.');if (number_duracion_minutos < 0.01) return showError('El valor de ' + "Duración del vídeo (minutos)" + ' no puede ser menor que 0.01.');values["inputs.duracion_minutos"] = number_duracion_minutos;const raw_porcentaje_visto = document.getElementById("porcentaje_visto").value.trim();if (raw_porcentaje_visto === '') return showError('Completa el campo ' + "Porcentaje medio visualizado" + '.');const number_porcentaje_visto = Number(raw_porcentaje_visto);if (!Number.isFinite(number_porcentaje_visto)) return showError('Introduce un número válido en ' + "Porcentaje medio visualizado" + '.');if (number_porcentaje_visto < 0) return showError('El valor de ' + "Porcentaje medio visualizado" + ' no puede ser menor que 0.');if (number_porcentaje_visto > 100) return showError('El valor de ' + "Porcentaje medio visualizado" + ' no puede ser mayor que 100.');values["inputs.porcentaje_visto"] = number_porcentaje_visto;
+                const raw_visualizaciones = document.getElementById("visualizaciones").value.trim().replace(',', '.');if (raw_visualizaciones === '') return showError('Completa el campo ' + "Número de visualizaciones" + '.');const number_visualizaciones = Number(raw_visualizaciones);if (!Number.isFinite(number_visualizaciones)) return showError('Introduce un número válido en ' + "Número de visualizaciones" + '.');if (number_visualizaciones < 0) return showError('El valor de ' + "Número de visualizaciones" + ' no puede ser menor que 0.');values["inputs.visualizaciones"] = number_visualizaciones;const raw_duracion_minutos = document.getElementById("duracion_minutos").value.trim().replace(',', '.');if (raw_duracion_minutos === '') return showError('Completa el campo ' + "Duración del vídeo (minutos)" + '.');const number_duracion_minutos = Number(raw_duracion_minutos);if (!Number.isFinite(number_duracion_minutos)) return showError('Introduce un número válido en ' + "Duración del vídeo (minutos)" + '.');if (number_duracion_minutos < 0.01) return showError('El valor de ' + "Duración del vídeo (minutos)" + ' no puede ser menor que 0.01.');values["inputs.duracion_minutos"] = number_duracion_minutos;const raw_porcentaje_visto = document.getElementById("porcentaje_visto").value.trim().replace(',', '.');if (raw_porcentaje_visto === '') return showError('Completa el campo ' + "Porcentaje medio visualizado" + '.');const number_porcentaje_visto = Number(raw_porcentaje_visto);if (!Number.isFinite(number_porcentaje_visto)) return showError('Introduce un número válido en ' + "Porcentaje medio visualizado" + '.');if (number_porcentaje_visto < 0) return showError('El valor de ' + "Porcentaje medio visualizado" + ' no puede ser menor que 0.');if (number_porcentaje_visto > 100) return showError('El valor de ' + "Porcentaje medio visualizado" + ' no puede ser mayor que 100.');values["inputs.porcentaje_visto"] = number_porcentaje_visto;
                 values["minutos_potenciales"] = values["inputs.visualizaciones"] * values["inputs.duracion_minutos"];if (100 === 0) return showError('No es posible dividir entre cero.');values["retencion_decimal"] = values["inputs.porcentaje_visto"] / 100;values["minutos_visualizados"] = values["minutos_potenciales"] * values["retencion_decimal"];if (60 === 0) return showError('No es posible dividir entre cero.');values["horas_visualizacion"] = values["minutos_visualizados"] / 60;
-                const result = values["horas_visualizacion"];
-                if (!Number.isFinite(result)) return showError('No se ha podido calcular el resultado. Revisa los valores.');
-                const formatted = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 }).format(result);
-                resultBox.textContent = "Horas de visualización estimadas" + ': ' + formatted + (" horas" ? ' ' + " horas" : '');
+
+                for (const item of resultDefinitions) {
+                    if (!Number.isFinite(values[item.id])) {
+                        return showError('No se ha podido calcular el resultado. Revisa los valores.');
+                    }
+                }
+
+                const grid = document.createElement('div');
+                grid.className = 'calc-result-grid';
+                for (const item of resultDefinitions) {
+                    const card = document.createElement('div');
+                    card.className = 'calc-result-item';
+                    const label = document.createElement('span');
+                    label.className = 'calc-result-label';
+                    label.textContent = item.label;
+                    const value = document.createElement('strong');
+                    value.className = 'calc-result-value';
+                    const options = item.format === 'moneda'
+                        ? {style:'currency', currency:'EUR', maximumFractionDigits:2}
+                        : {maximumFractionDigits:2};
+                    let formatted = new Intl.NumberFormat('es-ES', options).format(values[item.id]);
+                    if (item.format !== 'moneda' && item.unit) formatted += ' ' + item.unit;
+                    value.textContent = formatted;
+                    card.append(label, value);
+                    grid.appendChild(card);
+                }
+                resultBox.replaceChildren(grid);
                 resultBox.hidden = false;
                 if (window.clicivoTrack) {
-                    window.clicivoTrack('tool_calculated', {"tool_id": "horas-visualizacion-youtube", "tool_name": "Calculadora de horas de visualización de YouTube para monetización", "platform": "YouTube"});
+                    window.clicivoTrack('tool_calculated', {"tool_id": "horas-visualizacion-youtube", "tool_name": "Calculadora de horas de visualización de YouTube para monetización", "platform": "YouTube", "family": ""});
                 }
             }
         </script>

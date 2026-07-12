@@ -150,6 +150,10 @@
         .platform-list { position:relative;z-index:1;margin:18px 0;color:#334155;font-size:.9rem;font-weight:800; }
         .family-link { position:relative;z-index:1;color:var(--primary);font-weight:800;text-decoration:none; }
         .family-redes-sociales { background:linear-gradient(145deg,#fff,#f7f7ff);border-color:#dfe3ff; }
+        .family-finanzas { background:linear-gradient(145deg,#fff,#f2fbf7);border-color:#cfe9dc; }
+        .family-finanzas::after { background:linear-gradient(135deg,rgba(5,150,105,.17),rgba(14,116,144,.12)); }
+        .family-finanzas .family-icon { background:#e7f8f0;color:#047857; }
+        .family-finanzas .family-count,.family-finanzas .family-link { color:#047857!important; }
         .tools-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;padding-bottom:80px; }
         .tool-card-home { padding:26px;border:1px solid var(--border);border-radius:20px;background:var(--surface);box-shadow:0 10px 30px rgba(15,23,42,.04); }
         .tag { display:inline-block;padding:5px 9px;border-radius:999px;background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase; }
@@ -158,6 +162,9 @@
         .tool-card-home.platform-instagram { border-color:#efd2e2;background:linear-gradient(145deg,#fff,#fff7fc);box-shadow:0 14px 36px rgba(131,58,180,.08); }
         .tool-card-home.platform-instagram .tag { color:#fff;background:linear-gradient(100deg,#f77737,#d62976,#833ab4); }
         .tool-card-home.platform-instagram .card-link { color:#c02675; }
+        .tool-card-home.platform-finanzas-personales { border-color:#cfe9dc;background:linear-gradient(145deg,#fff,#f4fbf8);box-shadow:0 14px 36px rgba(5,150,105,.07); }
+        .tool-card-home.platform-finanzas-personales .tag { color:#065f46;background:#dff7eb; }
+        .tool-card-home.platform-finanzas-personales .card-link { color:#047857; }
         .tool-card-home p { color:var(--muted);line-height:1.65; }
         .card-link { display:inline-block;margin-top:7px;color:var(--primary);font-weight:700;text-decoration:none; }
         footer { border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.9rem; }
@@ -165,7 +172,7 @@
     </style>
 </head>
 <body>
-<header><div class="wrap header-inner"><a class="brand" href="/"><span class="brand-mark">◆</span> Clicivo</a><nav class="site-nav" aria-label="Navegación principal"><a href="/es/redes-sociales/">Redes sociales</a><a href="/es/herramientas/">Todas las herramientas</a></nav></div></header>
+<header><div class="wrap header-inner"><a class="brand" href="/"><span class="brand-mark">◆</span> Clicivo</a><nav class="site-nav" aria-label="Navegación principal"><a href="/es/redes-sociales/">Redes sociales</a><a href="/es/finanzas/">Finanzas</a><a href="/es/herramientas/">Todas las herramientas</a></nav></div></header>
 <main>
     <section class="hero wrap">
         <div class="eyebrow">Herramientas gratuitas</div>
@@ -175,6 +182,15 @@
     <section class="wrap" aria-labelledby="families-title">
         <div class="section-head"><div><h2 id="families-title">Explora por categoría</h2><p>Encuentra cada herramienta dentro de un área clara y fácil de recorrer.</p></div><a href="/es/herramientas/">Ver todas →</a></div>
         <div class="family-grid">
+            <article class="family-card family-finanzas">
+                <div class="family-icon">◎</div>
+                <p class="family-count">3 herramientas</p>
+                <h2><a href="/es/finanzas/">Herramientas de finanzas</a></h2>
+                <p>Simuladores gratuitos para calcular hipotecas, préstamos, ahorro e interés compuesto con resultados claros y comparables.</p>
+                <div class="platform-list">Finanzas personales</div>
+                <a class="family-link" href="/es/finanzas/">Explorar categoría →</a>
+            </article>
+            
             <article class="family-card family-redes-sociales">
                 <div class="family-icon">◎</div>
                 <p class="family-count">9 herramientas</p>
@@ -193,6 +209,20 @@
         <h3><a href="/es/youtube/monetizacion/visualizaciones-objetivo-youtube/">Calculadora de visualizaciones necesarias para ganar dinero en YouTube</a></h3>
         <p>Calcula cuántas visualizaciones necesita un canal de YouTube para alcanzar unos ingresos objetivo según su RPM.</p>
         <a class="card-link" href="/es/youtube/monetizacion/visualizaciones-objetivo-youtube/">Abrir herramienta →</a>
+    </article>
+    
+    <article class="tool-card-home platform-finanzas-personales">
+        <span class="tag">Finanzas personales</span>
+        <h3><a href="/es/finanzas/prestamos/calculadora-prestamo-personal/">Calculadora de préstamo personal: cuota y coste total</a></h3>
+        <p>Calcula la cuota mensual, los intereses, la comisión de apertura y el coste total estimado de un préstamo personal.</p>
+        <a class="card-link" href="/es/finanzas/prestamos/calculadora-prestamo-personal/">Abrir herramienta →</a>
+    </article>
+    
+    <article class="tool-card-home platform-finanzas-personales">
+        <span class="tag">Finanzas personales</span>
+        <h3><a href="/es/finanzas/ahorro-inversion/calculadora-interes-compuesto/">Calculadora de interés compuesto con aportaciones</a></h3>
+        <p>Calcula el capital final, las aportaciones acumuladas y los intereses generados con aportaciones mensuales e interés compuesto.</p>
+        <a class="card-link" href="/es/finanzas/ahorro-inversion/calculadora-interes-compuesto/">Abrir herramienta →</a>
     </article>
     
     <article class="tool-card-home platform-youtube">
@@ -214,20 +244,6 @@
         <h3><a href="/es/youtube/monetizacion/ingresos-youtube-shorts/">Calculadora de ingresos de YouTube Shorts por RPM</a></h3>
         <p>Estima cuánto dinero pueden generar tus YouTube Shorts introduciendo las visualizaciones con interacción y el RPM real o previsto.</p>
         <a class="card-link" href="/es/youtube/monetizacion/ingresos-youtube-shorts/">Abrir herramienta →</a>
-    </article>
-    
-    <article class="tool-card-home platform-youtube">
-        <span class="tag">YouTube</span>
-        <h3><a href="/es/youtube/monetizacion/horas-visualizacion-youtube/">Calculadora de horas de visualización de YouTube para monetización</a></h3>
-        <p>Calcula cuántas horas de visualización puede generar un vídeo de YouTube según sus visitas, duración y porcentaje medio visto.</p>
-        <a class="card-link" href="/es/youtube/monetizacion/horas-visualizacion-youtube/">Abrir herramienta →</a>
-    </article>
-    
-    <article class="tool-card-home platform-instagram">
-        <span class="tag">Instagram</span>
-        <h3><a href="/es/instagram/analitica/engagement-instagram-seguidores/">Calculadora de engagement de Instagram por seguidores</a></h3>
-        <p>Calcula el engagement de una cuenta de Instagram usando seguidores, media de Me gusta y comentarios de publicaciones comparables.</p>
-        <a class="card-link" href="/es/instagram/analitica/engagement-instagram-seguidores/">Abrir herramienta →</a>
     </article>
     </div>
     </section>
