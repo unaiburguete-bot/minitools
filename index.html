@@ -21,35 +21,102 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Clicivo","url":"https://clicivo.com/","description":"Calculadoras y herramientas web gratuitas, rápidas y fáciles de usar.","inLanguage":"es"}</script>
     
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B3DXJWJHYG"></script>
+<style>
+.cookie-banner{position:fixed;left:20px;right:20px;bottom:20px;z-index:9999;max-width:760px;margin:auto;background:#fff;border:1px solid #cbd5e1;border-radius:18px;box-shadow:0 22px 70px rgba(15,23,42,.22);padding:22px;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+.cookie-banner[hidden]{display:none}
+.cookie-banner h2{font-size:1.1rem;margin:0 0 8px}
+.cookie-banner p{font-size:.92rem;line-height:1.55;color:#475569;margin:0 0 16px}
+.cookie-banner a{color:#4f46e5}
+.cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-actions button{flex:1;min-width:140px;border:1px solid #4f46e5;border-radius:10px;padding:11px 15px;font:inherit;font-weight:800;cursor:pointer}
+.cookie-accept{background:#4f46e5;color:#fff}
+.cookie-reject{background:#fff;color:#4338ca}
+.cookie-settings-link{background:none!important;border:0!important;color:#475569!important;text-decoration:underline;min-width:auto!important;flex:0 0 auto!important}
+.cookie-preferences{position:fixed;left:16px;bottom:16px;z-index:9998;border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:999px;padding:9px 13px;font:600 .82rem 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 20px rgba(15,23,42,.12)}
+@media(max-width:560px){.cookie-banner{left:12px;right:12px;bottom:12px;padding:18px}.cookie-actions{display:grid}.cookie-actions button{width:100%}}
+</style>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', "G-B3DXJWJHYG");
-window.clicivoTrack = function(eventName, parameters) {
-    gtag('event', eventName, parameters || {});
-};
-document.addEventListener('DOMContentLoaded', function() {
-    
-});
-document.addEventListener('click', function(event) {
-    const related = event.target.closest('[data-related-tool]');
-    if (related) {
-        window.clicivoTrack('related_tool_clicked', {
-            source_tool_id: document.body.dataset.toolId || '',
-            destination_tool_id: related.dataset.relatedTool || '',
-            link_url: related.href
-        });
+(function(){
+    const measurementId = "G-B3DXJWJHYG";
+    const pageParams = {"page_type": "home"};
+    const storageKey = 'clicivo_cookie_consent';
+    const cookiePolicyUrl = "/politica-cookies/";
+    let analyticsLoaded = false;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){dataLayer.push(arguments);};
+    gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+    });
+
+    function loadAnalytics() {
+        if (analyticsLoaded) return;
+        analyticsLoaded = true;
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+        document.head.appendChild(script);
+        gtag('js', new Date());
+        gtag('config', measurementId, { anonymize_ip: true });
+        window.clicivoTrack = function(eventName, parameters) {
+            gtag('event', eventName, parameters || {});
+        };
+        if (pageParams.tool_id) window.clicivoTrack('tool_view', pageParams);
     }
-    const affiliate = event.target.closest('[data-affiliate-link]');
-    if (affiliate) {
-        window.clicivoTrack('affiliate_clicked', {
-            tool_id: document.body.dataset.toolId || '',
-            link_url: affiliate.href
-        });
+
+    window.clicivoTrack = function() {};
+
+    function setConsent(value) {
+        localStorage.setItem(storageKey, value);
+        const banner = document.getElementById('clicivo-cookie-banner');
+        if (banner) banner.hidden = true;
+        if (value === 'accepted') loadAnalytics();
+        else gtag('consent', 'update', { analytics_storage: 'denied' });
     }
-});
+
+    function showBanner() {
+        const banner = document.getElementById('clicivo-cookie-banner');
+        if (banner) banner.hidden = false;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.insertAdjacentHTML('beforeend',
+            '<div id="clicivo-cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="clicivo-cookie-title" hidden>' +
+            '<h2 id="clicivo-cookie-title">Tu privacidad en Clicivo</h2>' +
+            '<p>Usamos cookies analíticas de Google Analytics para saber qué herramientas resultan útiles y mejorar la web. Puedes aceptar o rechazar estas cookies. Las necesarias para guardar tu elección no requieren consentimiento. <a href="' + cookiePolicyUrl + '">Más información</a>.</p>' +
+            '<div class="cookie-actions"><button type="button" id="clicivo-cookie-accept" class="cookie-accept">Aceptar analítica</button><button type="button" id="clicivo-cookie-reject" class="cookie-reject">Rechazar</button></div></div>' +
+            '<button type="button" id="clicivo-cookie-settings" class="cookie-preferences">Configurar cookies</button>'
+        );
+        const choice = localStorage.getItem(storageKey);
+        if (choice === 'accepted') loadAnalytics();
+        else if (choice !== 'rejected') showBanner();
+
+        document.getElementById('clicivo-cookie-accept')?.addEventListener('click', () => setConsent('accepted'));
+        document.getElementById('clicivo-cookie-reject')?.addEventListener('click', () => setConsent('rejected'));
+        document.getElementById('clicivo-cookie-settings')?.addEventListener('click', showBanner);
+
+        document.addEventListener('click', function(event) {
+            const related = event.target.closest('[data-related-tool]');
+            if (related) window.clicivoTrack('related_tool_clicked', {
+                source_tool_id: document.body.dataset.toolId || '',
+                destination_tool_id: related.dataset.relatedTool || '',
+                link_url: related.href
+            });
+            const affiliate = event.target.closest('[data-affiliate-link]');
+            if (affiliate) window.clicivoTrack('affiliate_clicked', {
+                tool_id: document.body.dataset.toolId || '',
+                link_url: affiliate.href
+            });
+        });
+    });
+})();
 </script>
 
     <style>
@@ -130,6 +197,6 @@ document.addEventListener('click', function(event) {
         </div>
     </section>
 </main>
-<footer><div class="wrap">© 2026 Clicivo. Herramientas claras para decisiones rápidas.</div></footer>
+<footer><div class="wrap">© 2026 Clicivo. Herramientas claras para decisiones rápidas. · <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a> · <a href="/politica-cookies/">Cookies</a></div></footer>
 </body>
 </html>

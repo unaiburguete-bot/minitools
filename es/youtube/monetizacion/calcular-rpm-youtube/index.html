@@ -21,35 +21,102 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Calculadora de RPM de YouTube con ingresos y visualizaciones","description":"Calcula el RPM real de un canal de YouTube introduciendo los ingresos obtenidos y el número de visualizaciones.","url":"https://clicivo.com/es/youtube/monetizacion/calcular-rpm-youtube/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://clicivo.com/"},{"@type":"ListItem","position":2,"name":"Youtube · Monetizacion","item":"https://clicivo.com/es/youtube/monetizacion/"},{"@type":"ListItem","position":3,"name":"RPM real de YouTube","item":"https://clicivo.com/es/youtube/monetizacion/calcular-rpm-youtube/"}]}]</script>
     
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B3DXJWJHYG"></script>
+<style>
+.cookie-banner{position:fixed;left:20px;right:20px;bottom:20px;z-index:9999;max-width:760px;margin:auto;background:#fff;border:1px solid #cbd5e1;border-radius:18px;box-shadow:0 22px 70px rgba(15,23,42,.22);padding:22px;color:#0f172a;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+.cookie-banner[hidden]{display:none}
+.cookie-banner h2{font-size:1.1rem;margin:0 0 8px}
+.cookie-banner p{font-size:.92rem;line-height:1.55;color:#475569;margin:0 0 16px}
+.cookie-banner a{color:#4f46e5}
+.cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-actions button{flex:1;min-width:140px;border:1px solid #4f46e5;border-radius:10px;padding:11px 15px;font:inherit;font-weight:800;cursor:pointer}
+.cookie-accept{background:#4f46e5;color:#fff}
+.cookie-reject{background:#fff;color:#4338ca}
+.cookie-settings-link{background:none!important;border:0!important;color:#475569!important;text-decoration:underline;min-width:auto!important;flex:0 0 auto!important}
+.cookie-preferences{position:fixed;left:16px;bottom:16px;z-index:9998;border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:999px;padding:9px 13px;font:600 .82rem 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 20px rgba(15,23,42,.12)}
+@media(max-width:560px){.cookie-banner{left:12px;right:12px;bottom:12px;padding:18px}.cookie-actions{display:grid}.cookie-actions button{width:100%}}
+</style>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', "G-B3DXJWJHYG");
-window.clicivoTrack = function(eventName, parameters) {
-    gtag('event', eventName, parameters || {});
-};
-document.addEventListener('DOMContentLoaded', function() {
-    window.clicivoTrack('tool_view', {"page_type": "tool", "tool_id": "calcular-rpm-youtube", "tool_name": "Calculadora de RPM de YouTube con ingresos y visualizaciones", "platform": "YouTube"});
-});
-document.addEventListener('click', function(event) {
-    const related = event.target.closest('[data-related-tool]');
-    if (related) {
-        window.clicivoTrack('related_tool_clicked', {
-            source_tool_id: document.body.dataset.toolId || '',
-            destination_tool_id: related.dataset.relatedTool || '',
-            link_url: related.href
-        });
+(function(){
+    const measurementId = "G-B3DXJWJHYG";
+    const pageParams = {"page_type": "tool", "tool_id": "calcular-rpm-youtube", "tool_name": "Calculadora de RPM de YouTube con ingresos y visualizaciones", "platform": "YouTube"};
+    const storageKey = 'clicivo_cookie_consent';
+    const cookiePolicyUrl = "/politica-cookies/";
+    let analyticsLoaded = false;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){dataLayer.push(arguments);};
+    gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+    });
+
+    function loadAnalytics() {
+        if (analyticsLoaded) return;
+        analyticsLoaded = true;
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+        document.head.appendChild(script);
+        gtag('js', new Date());
+        gtag('config', measurementId, { anonymize_ip: true });
+        window.clicivoTrack = function(eventName, parameters) {
+            gtag('event', eventName, parameters || {});
+        };
+        if (pageParams.tool_id) window.clicivoTrack('tool_view', pageParams);
     }
-    const affiliate = event.target.closest('[data-affiliate-link]');
-    if (affiliate) {
-        window.clicivoTrack('affiliate_clicked', {
-            tool_id: document.body.dataset.toolId || '',
-            link_url: affiliate.href
-        });
+
+    window.clicivoTrack = function() {};
+
+    function setConsent(value) {
+        localStorage.setItem(storageKey, value);
+        const banner = document.getElementById('clicivo-cookie-banner');
+        if (banner) banner.hidden = true;
+        if (value === 'accepted') loadAnalytics();
+        else gtag('consent', 'update', { analytics_storage: 'denied' });
     }
-});
+
+    function showBanner() {
+        const banner = document.getElementById('clicivo-cookie-banner');
+        if (banner) banner.hidden = false;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.insertAdjacentHTML('beforeend',
+            '<div id="clicivo-cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="clicivo-cookie-title" hidden>' +
+            '<h2 id="clicivo-cookie-title">Tu privacidad en Clicivo</h2>' +
+            '<p>Usamos cookies analíticas de Google Analytics para saber qué herramientas resultan útiles y mejorar la web. Puedes aceptar o rechazar estas cookies. Las necesarias para guardar tu elección no requieren consentimiento. <a href="' + cookiePolicyUrl + '">Más información</a>.</p>' +
+            '<div class="cookie-actions"><button type="button" id="clicivo-cookie-accept" class="cookie-accept">Aceptar analítica</button><button type="button" id="clicivo-cookie-reject" class="cookie-reject">Rechazar</button></div></div>' +
+            '<button type="button" id="clicivo-cookie-settings" class="cookie-preferences">Configurar cookies</button>'
+        );
+        const choice = localStorage.getItem(storageKey);
+        if (choice === 'accepted') loadAnalytics();
+        else if (choice !== 'rejected') showBanner();
+
+        document.getElementById('clicivo-cookie-accept')?.addEventListener('click', () => setConsent('accepted'));
+        document.getElementById('clicivo-cookie-reject')?.addEventListener('click', () => setConsent('rejected'));
+        document.getElementById('clicivo-cookie-settings')?.addEventListener('click', showBanner);
+
+        document.addEventListener('click', function(event) {
+            const related = event.target.closest('[data-related-tool]');
+            if (related) window.clicivoTrack('related_tool_clicked', {
+                source_tool_id: document.body.dataset.toolId || '',
+                destination_tool_id: related.dataset.relatedTool || '',
+                link_url: related.href
+            });
+            const affiliate = event.target.closest('[data-affiliate-link]');
+            if (affiliate) window.clicivoTrack('affiliate_clicked', {
+                tool_id: document.body.dataset.toolId || '',
+                link_url: affiliate.href
+            });
+        });
+    });
+})();
 </script>
 
     <style>
@@ -74,7 +141,7 @@ document.addEventListener('click', function(event) {
         .seo-article{border-radius:24px;padding:40px}.seo-article h1,.seo-article h2,.seo-article h3{color:#1e293b;letter-spacing:-.025em}.seo-article h1{font-size:1.8rem;margin-bottom:18px}.seo-article h2{font-size:1.45rem;margin:30px 0 12px}.seo-article h3{font-size:1.15rem;margin:22px 0 8px}.seo-article p{color:#475569;margin-bottom:16px;font-size:1.03rem}.seo-article ul,.seo-article ol{margin:0 0 18px 22px;color:#475569}
         .reviewed{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.86rem}.faq-heading{margin-top:42px!important;border-top:1px solid var(--border);padding-top:30px}.faq-item{border-bottom:1px solid var(--border);padding:20px 0}.faq-item:last-child{border-bottom:0}.faq-item h3{font-size:1.05rem;margin-bottom:7px}.faq-item p{font-size:.95rem;margin:0}
         .sidebar-box{border-radius:20px;padding:24px;position:sticky;top:94px}.sidebar-box h2{font-size:1rem;margin-bottom:16px}.sidebar-link-list{list-style:none}.sidebar-link-list li{margin-bottom:12px}.sidebar-link-list a{color:var(--muted);text-decoration:none;font-size:.94rem;font-weight:600}.sidebar-link-list a:hover{color:var(--primary)}.empty-state{color:var(--muted);font-size:.9rem}
-        footer{text-align:center;padding:30px;color:var(--muted);font-size:.88rem;font-weight:500;border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+        footer{text-align:center;padding:30px;color:var(--muted);font-size:.88rem;font-weight:500;border-top:1px solid var(--border);background:var(--surface);margin-top:60px}footer a{color:var(--muted)}
         @media(max-width:900px){.main-layout{grid-template-columns:1fr;gap:30px;margin:24px auto}.sidebar-box{position:static}}
         @media(max-width:560px){.header-nav{padding:14px 18px}.main-layout{padding:0 16px}.tool-card,.seo-article{padding:24px;border-radius:18px}.tool-ui-box{padding:18px}}
     </style>
@@ -159,6 +226,6 @@ document.addEventListener('click', function(event) {
     </main>
     <aside><section class="sidebar-box"><h2>Herramientas relacionadas</h2><ul class="sidebar-link-list"><li><a data-related-tool="horas-visualizacion-youtube" href="/es/youtube/monetizacion/horas-visualizacion-youtube/">Calculadora de horas de visualización de YouTube para monetización</a></li><li><a data-related-tool="ingresos-youtube-shorts" href="/es/youtube/monetizacion/ingresos-youtube-shorts/">Calculadora de ingresos de YouTube Shorts por RPM</a></li><li><a data-related-tool="ingresos-youtube" href="/es/youtube/monetizacion/ingresos-youtube/">Calculadora de ingresos de YouTube por visitas y RPM</a></li><li><a data-related-tool="rpm-youtube" href="/es/youtube/monetizacion/rpm-youtube/">Calculadora de ingresos mensuales de YouTube con RPM</a></li><li><a data-related-tool="visualizaciones-objetivo-youtube" href="/es/youtube/monetizacion/visualizaciones-objetivo-youtube/">Calculadora de visualizaciones necesarias para ganar dinero en YouTube</a></li></ul></section></aside>
 </div>
-<footer>© 2026 Clicivo. Herramientas claras para decisiones rápidas.</footer>
+<footer>© 2026 Clicivo. Herramientas claras para decisiones rápidas. · <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a> · <a href="/politica-cookies/">Cookies</a></footer>
 </body>
 </html>
