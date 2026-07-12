@@ -1,0 +1,44 @@
+name: Validar y desplegar Clicivo
+
+on:
+  push:
+    branches:
+      - main
+      - reestructuracion-seo
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install Pillow markdown pyyaml pytest
+
+      - name: Compilar Clicivo
+        run: python src/compilador.py
+
+      - name: Ejecutar pruebas
+        run: pytest -q
+
+      - name: Desplegar en GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: public
+          branch: gh-pages
