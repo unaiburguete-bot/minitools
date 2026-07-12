@@ -100,10 +100,17 @@
                 link_url: related.href
             });
             const affiliate = event.target.closest('[data-affiliate-link]');
-            if (affiliate) window.clicivoTrack('affiliate_clicked', {
-                tool_id: document.body.dataset.toolId || '',
-                link_url: affiliate.href
-            });
+            if (affiliate) {
+                let destinationDomain = '';
+                try { destinationDomain = new URL(affiliate.href).hostname; } catch (error) {}
+                window.clicivoTrack('affiliate_click', {
+                    tool_id: document.body.dataset.toolId || '',
+                    affiliate_provider: affiliate.dataset.affiliateProvider || '',
+                    affiliate_network: affiliate.dataset.affiliateNetwork || '',
+                    placement: affiliate.dataset.affiliatePlacement || 'after_calculator',
+                    destination_domain: destinationDomain
+                });
+            }
         });
     });
 })();

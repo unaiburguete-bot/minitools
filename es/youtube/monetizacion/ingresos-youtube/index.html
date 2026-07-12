@@ -110,10 +110,17 @@
                 link_url: related.href
             });
             const affiliate = event.target.closest('[data-affiliate-link]');
-            if (affiliate) window.clicivoTrack('affiliate_clicked', {
-                tool_id: document.body.dataset.toolId || '',
-                link_url: affiliate.href
-            });
+            if (affiliate) {
+                let destinationDomain = '';
+                try { destinationDomain = new URL(affiliate.href).hostname; } catch (error) {}
+                window.clicivoTrack('affiliate_click', {
+                    tool_id: document.body.dataset.toolId || '',
+                    affiliate_provider: affiliate.dataset.affiliateProvider || '',
+                    affiliate_network: affiliate.dataset.affiliateNetwork || '',
+                    placement: affiliate.dataset.affiliatePlacement || 'after_calculator',
+                    destination_domain: destinationDomain
+                });
+            }
         });
     });
 })();
@@ -137,7 +144,14 @@
         .tool-ui-box{background:#fbfdff;border:1px solid #eef2f7;border-radius:16px;padding:24px;margin-top:24px}.tool-ui-box label{display:block;margin-top:15px;font-size:.9rem;font-weight:700;color:#334155}.tool-ui-box label:first-child{margin-top:0}.tool-ui-box input,.tool-ui-box select{width:100%;padding:13px 15px;margin-top:7px;border:1px solid var(--border);border-radius:10px;font:inherit;color:var(--text);background:#fff}.tool-ui-box input:focus,.tool-ui-box select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-light)}
         .calc-btn{width:100%;background:var(--primary);color:#fff;border:0;padding:14px;font-weight:800;font-size:1rem;margin-top:24px;border-radius:10px;cursor:pointer;font-family:inherit;box-shadow:0 7px 18px rgba(79,70,229,.2)}.calc-btn:hover{background:var(--primary-hover);transform:translateY(-1px)}
         .calc-result-box,.calc-error{margin-top:18px;padding:16px;border-radius:12px;font-weight:700}.calc-result-box{background:var(--success-bg);border:1px solid var(--success-border);color:var(--success-text)}.calc-error{background:var(--error-bg);border:1px solid var(--error-border);color:var(--error-text);text-align:center}.calc-result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.calc-result-item{display:flex;flex-direction:column;gap:5px;padding:14px;border-radius:10px;background:rgba(255,255,255,.72);border:1px solid currentColor}.calc-result-label{font-size:.78rem;line-height:1.35;opacity:.78;text-transform:uppercase;letter-spacing:.045em}.calc-result-value{font-size:1.25rem;line-height:1.25}
-        .monetization-bar{background:linear-gradient(135deg,var(--primary-light),#f5f3ff);border:1px solid rgba(79,70,229,.16);padding:24px;border-radius:18px;text-align:center;margin:30px 0}.monetization-bar p{font-weight:700;color:#4338ca;margin-bottom:12px}.monetization-bar a{background:var(--text);color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:800;font-size:.9rem;display:inline-block}
+        /* CLICIVO AFFILIATE BLOCK */
+        .affiliate-card{position:relative;overflow:hidden;margin:30px 0;padding:26px;border:1px solid var(--border);border-left:5px solid var(--primary);border-radius:20px;background:linear-gradient(135deg,var(--primary-light),rgba(255,255,255,.96) 72%);box-shadow:0 16px 45px rgba(15,23,42,.055)}
+        .affiliate-card::after{content:"";position:absolute;width:160px;height:160px;right:-85px;top:-95px;border-radius:50%;background:var(--primary);opacity:.06;pointer-events:none}
+        .affiliate-label{display:inline-flex;align-items:center;margin:0 0 14px;padding:6px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--primary);font-size:.7rem;font-weight:900;letter-spacing:.065em;text-transform:uppercase}
+        .affiliate-main{position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px}.affiliate-copy{max-width:700px}.affiliate-provider{margin:0 0 4px;color:var(--muted);font-size:.8rem;font-weight:800}.affiliate-copy h2{margin:0 0 8px;color:var(--text);font-size:1.3rem;letter-spacing:-.025em}.affiliate-copy>p:last-child{margin:0;color:var(--muted);line-height:1.6}
+        .affiliate-button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:12px 18px;border-radius:10px;background:var(--text);color:#fff;text-decoration:none;font-size:.9rem;font-weight:850;box-shadow:0 8px 20px rgba(15,23,42,.15);transition:transform .18s ease,box-shadow .18s ease}.affiliate-button:hover{transform:translateY(-1px);box-shadow:0 11px 24px rgba(15,23,42,.2)}
+        .affiliate-disclosure{position:relative;margin:18px 0 0;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:.75rem;line-height:1.55}
+        @media(max-width:700px){.affiliate-card{padding:22px}.affiliate-main{align-items:stretch;flex-direction:column;gap:18px}.affiliate-button{width:100%}}
         .seo-article{border-radius:24px;padding:40px}.seo-article h1,.seo-article h2,.seo-article h3{color:#1e293b;letter-spacing:-.025em}.seo-article h1{font-size:1.8rem;margin-bottom:18px}.seo-article h2{font-size:1.45rem;margin:30px 0 12px}.seo-article h3{font-size:1.15rem;margin:22px 0 8px}.seo-article p{color:#475569;margin-bottom:16px;font-size:1.03rem}.seo-article ul,.seo-article ol{margin:0 0 18px 22px;color:#475569}
         .reviewed{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.86rem}.faq-heading{margin-top:42px!important;border-top:1px solid var(--border);padding-top:30px}.faq-item{border-bottom:1px solid var(--border);padding:20px 0}.faq-item:last-child{border-bottom:0}.faq-item h3{font-size:1.05rem;margin-bottom:7px}.faq-item p{font-size:.95rem;margin:0}
         .sidebar-box{border-radius:20px;padding:24px;position:sticky;top:94px}.sidebar-box h2{font-size:1rem;margin-bottom:16px}.sidebar-link-list{list-style:none}.sidebar-link-list li{margin-bottom:12px}.sidebar-link-list a{color:var(--muted);text-decoration:none;font-size:.94rem;font-weight:600}.sidebar-link-list a:hover{color:var(--primary)}.empty-state{color:var(--muted);font-size:.9rem}
