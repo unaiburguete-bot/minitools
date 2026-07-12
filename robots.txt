@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://clicivo.com/sitemap.xml/
+Sitemap: https://clicivo.com/sitemap.xml
