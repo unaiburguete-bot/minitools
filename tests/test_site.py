@@ -103,6 +103,10 @@ def test_forbidden_personal_name_removed_everywhere():
     forbidden = re.compile("|".join(terms), re.I)
     hits = []
     for path in ROOT.rglob("*"):
+        # .git contiene metadatos locales del repositorio (URL remota, FETCH_HEAD, etc.)
+        # y no forma parte de los archivos publicados en Clicivo.
+        if ".git" in path.parts:
+            continue
         if path.is_file() and path.suffix.lower() not in {".png", ".jpg", ".jpeg", ".zip", ".pyc"}:
             text = path.read_text(encoding="utf-8", errors="ignore")
             if forbidden.search(text):
