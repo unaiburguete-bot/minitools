@@ -1,0 +1,12 @@
+CLICIVO · ENTREGA 22/07/2026
+
+1. Descomprime el ZIP.
+2. Entra en el repositorio de Clicivo en GitHub.
+3. Sube TODO el contenido de esta carpeta a la raíz del repositorio y acepta sobrescribir los archivos existentes.
+4. Es importante conservar las carpetas .github, config, content, src, tests y public.
+5. Haz el commit en la rama main.
+6. En Settings > Pages, comprueba que Source esté configurado como “GitHub Actions”.
+7. Espera a que la acción “Build and deploy Clicivo” termine en verde.
+8. Abre https://clicivo.com/ y fuerza una recarga con Ctrl+F5.
+
+La carpeta public ya está compilada. El workflow también vuelve a compilarla y ejecuta las pruebas automáticamente.

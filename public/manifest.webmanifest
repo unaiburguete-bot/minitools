@@ -1,0 +1,21 @@
+{
+  "name": "Clicivo",
+  "short_name": "Clicivo",
+  "description": "Calculadoras y herramientas online gratuitas, rápidas y fáciles de usar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f8fc",
+  "theme_color": "#2657d8",
+  "icons": [
+    {
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ]
+}

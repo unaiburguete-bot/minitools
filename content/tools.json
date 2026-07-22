@@ -1,0 +1,1120 @@
+[
+  {
+    "id": "instagram-growth",
+    "path": "/es/instagram/analitica/crecimiento-seguidores-instagram/",
+    "title": "Calculadora de crecimiento de seguidores de Instagram",
+    "short_title": "Crecimiento de seguidores",
+    "category": "Redes sociales",
+    "cluster": "Instagram",
+    "description": "Calcula cuánto ha crecido una cuenta de Instagram entre dos periodos y obtén el aumento absoluto, el porcentaje, el ritmo diario y una proyección mensual orientativa.",
+    "formula": "Crecimiento (%) = (seguidores finales − seguidores iniciales) ÷ seguidores iniciales × 100.",
+    "example": "Si una cuenta pasa de 8.000 a 8.640 seguidores en 30 días, crece 640 seguidores y un 8 %.",
+    "faqs": [
+      [
+        "¿Sirve para comparar periodos distintos?",
+        "Sí. Introduce también el número de días para obtener un ritmo diario comparable."
+      ],
+      [
+        "¿La proyección mensual es una predicción?",
+        "No. Mantiene el ritmo observado y solo sirve como escenario de referencia."
+      ],
+      [
+        "¿Clicivo accede a mi cuenta?",
+        "No. Todos los datos se introducen manualmente y el cálculo ocurre en tu navegador."
+      ]
+    ],
+    "sources": [
+      [
+        "Instagram Insights",
+        "https://help.instagram.com/1533933820244654"
+      ]
+    ],
+    "keywords": [
+      "evolución seguidores instagram",
+      "analítica instagram",
+      "crecimiento instagram"
+    ],
+    "new": false,
+    "accent": "pink",
+    "notes": []
+  },
+  {
+    "id": "instagram-engagement-followers",
+    "path": "/es/instagram/analitica/engagement-instagram-seguidores/",
+    "title": "Calculadora de engagement de Instagram por seguidores",
+    "short_title": "Engagement por seguidores",
+    "category": "Redes sociales",
+    "cluster": "Instagram",
+    "description": "Mide la interacción media de una publicación respecto al número de seguidores sumando me gusta, comentarios, guardados y compartidos.",
+    "formula": "Engagement (%) = interacciones totales ÷ seguidores × 100.",
+    "example": "Con 1.200 interacciones y 40.000 seguidores, el engagement por seguidores es del 3 %.",
+    "faqs": [
+      [
+        "¿Qué interacciones debo sumar?",
+        "Usa las métricas disponibles para el mismo contenido: me gusta, comentarios, guardados y compartidos."
+      ],
+      [
+        "¿Puedo usar promedios?",
+        "Sí. Para comparar cuentas, usa la media de varias publicaciones equivalentes."
+      ],
+      [
+        "¿Existe un porcentaje bueno universal?",
+        "No. Depende del tamaño, el sector, el formato y la audiencia; compara periodos equivalentes."
+      ]
+    ],
+    "sources": [
+      [
+        "Instagram Insights",
+        "https://help.instagram.com/1533933820244654"
+      ]
+    ],
+    "keywords": [
+      "medir engagement instagram online",
+      "engagement instagram seguidores",
+      "calculadora engagement instagram"
+    ],
+    "new": false,
+    "accent": "pink",
+    "notes": []
+  },
+  {
+    "id": "instagram-engagement-reach",
+    "path": "/es/instagram/analitica/engagement-instagram-alcance/",
+    "title": "Calculadora de engagement de Instagram por alcance",
+    "short_title": "Engagement por alcance",
+    "category": "Redes sociales",
+    "cluster": "Instagram",
+    "description": "Calcula qué porcentaje de las cuentas alcanzadas interactuó con una publicación o reel de Instagram.",
+    "formula": "Engagement por alcance (%) = interacciones totales ÷ alcance × 100.",
+    "example": "Si una publicación alcanza 25.000 cuentas y consigue 1.500 interacciones, la tasa es del 6 %.",
+    "faqs": [
+      [
+        "¿Por qué usar alcance en vez de seguidores?",
+        "El alcance aproxima cuántas cuentas pudieron ver el contenido, por lo que resulta útil para analizar una pieza concreta."
+      ],
+      [
+        "¿Debo usar impresiones o alcance?",
+        "Esta herramienta utiliza alcance, es decir, cuentas únicas alcanzadas."
+      ],
+      [
+        "¿Se guardan mis datos?",
+        "No. El cálculo se realiza localmente."
+      ]
+    ],
+    "sources": [
+      [
+        "Instagram Insights",
+        "https://help.instagram.com/1533933820244654"
+      ]
+    ],
+    "keywords": [
+      "engagement instagram alcance",
+      "tasa interacción instagram",
+      "analítica reels"
+    ],
+    "new": false,
+    "accent": "pink",
+    "notes": []
+  },
+  {
+    "id": "instagram-fonts",
+    "path": "/es/instagram/texto/generador-letras-instagram/",
+    "title": "Generador de letras para Instagram: negrita, cursiva y más",
+    "short_title": "Letras para Instagram",
+    "category": "Redes sociales",
+    "cluster": "Instagram",
+    "description": "Convierte un texto en estilos Unicode visuales para copiar y pegar en la biografía, publicaciones o comentarios: negrita, cursiva, monoespaciada y más.",
+    "formula": "La herramienta sustituye letras compatibles por caracteres Unicode equivalentes; no aplica formato HTML.",
+    "example": "Escribe “Nueva colección” y copia una versión como “𝗡𝘂𝗲𝘃𝗮 𝗰𝗼𝗹𝗲𝗰𝗰𝗶ó𝗻”.",
+    "faqs": [
+      [
+        "¿Instagram permite negrita real?",
+        "Instagram no ofrece un botón general de negrita; estos estilos usan caracteres Unicode que se parecen a letras formateadas."
+      ],
+      [
+        "¿Funcionan todos los acentos?",
+        "Los caracteres sin equivalente Unicode se conservan, por eso algunos acentos pueden mantener su forma normal."
+      ],
+      [
+        "¿Conviene transformar todo el texto?",
+        "Es mejor reservarlo para títulos o palabras cortas por legibilidad y accesibilidad."
+      ]
+    ],
+    "sources": [
+      [
+        "Unicode Mathematical Alphanumeric Symbols",
+        "https://www.unicode.org/charts/PDF/U1D400.pdf"
+      ]
+    ],
+    "keywords": [
+      "negrita instagram",
+      "letras bonitas instagram",
+      "fuentes instagram",
+      "cursiva instagram"
+    ],
+    "new": true,
+    "accent": "pink",
+    "notes": [
+      "Usa estilos especiales con moderación: algunos lectores de pantalla pueden pronunciarlos de forma distinta."
+    ],
+    "seo_title": "Letras en negrita para Instagram: copiar y pegar"
+  },
+  {
+    "id": "instagram-counter",
+    "path": "/es/instagram/texto/contador-caracteres-instagram/",
+    "title": "Contador de caracteres para Instagram",
+    "short_title": "Contador de caracteres",
+    "category": "Redes sociales",
+    "cluster": "Instagram",
+    "description": "Cuenta caracteres, palabras, líneas y espacios mientras redactas tu biografía o publicación de Instagram, con referencias rápidas configurables.",
+    "formula": "Caracteres = longitud total del texto, incluyendo espacios y saltos de línea.",
+    "example": "Pega una biografía y comprueba al instante cuánto espacio ocupa antes de publicarla.",
+    "faqs": [
+      [
+        "¿Los espacios cuentan?",
+        "Sí. El contador principal incluye espacios y saltos de línea."
+      ],
+      [
+        "¿Los límites pueden cambiar?",
+        "Sí. Los valores predefinidos son referencias prácticas; confirma siempre el límite que muestre la aplicación."
+      ],
+      [
+        "¿Puedo usar un límite personalizado?",
+        "Sí. Selecciona la opción personalizada e introduce cualquier máximo."
+      ]
+    ],
+    "sources": [
+      [
+        "Centro de ayuda de Instagram",
+        "https://help.instagram.com/"
+      ]
+    ],
+    "keywords": [
+      "contador caracteres instagram",
+      "caracteres bio instagram",
+      "longitud caption instagram"
+    ],
+    "new": true,
+    "accent": "pink",
+    "notes": []
+  },
+  {
+    "id": "instagram-spaces",
+    "path": "/es/instagram/texto/generador-espacios-instagram/",
+    "title": "Generador de espacios y saltos de línea para Instagram",
+    "short_title": "Espacios para Instagram",
+    "category": "Redes sociales",
+    "cluster": "Instagram",
+    "description": "Limpia el texto, conserva párrafos vacíos mediante un carácter invisible y genera una versión lista para copiar en Instagram.",
+    "formula": "Las líneas vacías se sustituyen por un carácter Unicode invisible para ayudar a conservar la separación visual.",
+    "example": "Escribe tres párrafos separados por líneas vacías y copia el texto formateado con un clic.",
+    "faqs": [
+      [
+        "¿Qué carácter invisible utiliza?",
+        "La herramienta usa un espacio braille en blanco para conservar líneas que de otro modo podrían desaparecer."
+      ],
+      [
+        "¿Se ve el carácter al publicar?",
+        "Normalmente no; puede comportarse de forma distinta según la app, el sistema y sus actualizaciones."
+      ],
+      [
+        "¿Puedo eliminar espacios sobrantes?",
+        "Sí. La herramienta recorta espacios al inicio y al final de cada línea."
+      ]
+    ],
+    "sources": [
+      [
+        "Unicode Braille Patterns",
+        "https://www.unicode.org/charts/PDF/U2800.pdf"
+      ]
+    ],
+    "keywords": [
+      "espacios instagram",
+      "saltos de linea instagram",
+      "texto instagram copiar pegar"
+    ],
+    "new": true,
+    "accent": "pink",
+    "notes": []
+  },
+  {
+    "id": "tiktok-engagement",
+    "path": "/es/tiktok/analitica/calculadora-engagement-tiktok/",
+    "title": "Calculadora de engagement de TikTok",
+    "short_title": "Engagement de TikTok",
+    "category": "Redes sociales",
+    "cluster": "TikTok",
+    "description": "Calcula la tasa de interacción de un vídeo de TikTok respecto a sus visualizaciones o respecto a los seguidores de la cuenta.",
+    "formula": "Engagement (%) = (me gusta + comentarios + compartidos + guardados) ÷ base elegida × 100.",
+    "example": "Con 12.000 interacciones y 300.000 visualizaciones, el engagement por visualizaciones es del 4 %.",
+    "faqs": [
+      [
+        "¿Qué base es mejor?",
+        "Por visualizaciones analiza una pieza concreta; por seguidores ayuda a comparar el rendimiento frente al tamaño de la cuenta."
+      ],
+      [
+        "¿Debo incluir guardados?",
+        "Inclúyelos si TikTok Analytics los ofrece para el mismo vídeo y mantén el mismo criterio al comparar."
+      ],
+      [
+        "¿Existe una tasa ideal?",
+        "No hay un umbral universal; compárala con tu histórico y con contenidos similares."
+      ]
+    ],
+    "sources": [
+      [
+        "TikTok Analytics",
+        "https://support.tiktok.com/en/business-and-creator/creator-and-business-accounts/analytics"
+      ]
+    ],
+    "keywords": [
+      "calculadora engagement tiktok",
+      "tasa interacción tiktok",
+      "analítica tiktok"
+    ],
+    "new": true,
+    "accent": "black",
+    "notes": []
+  },
+  {
+    "id": "tiktok-income",
+    "path": "/es/tiktok/monetizacion/calculadora-ingresos-tiktok/",
+    "title": "Calculadora de ingresos de TikTok por RPM",
+    "short_title": "Ingresos de TikTok",
+    "category": "Redes sociales",
+    "cluster": "TikTok",
+    "description": "Estima recompensas a partir de las visualizaciones cualificadas y del RPM real o hipotético que introduzcas.",
+    "formula": "Ingresos estimados = visualizaciones cualificadas ÷ 1.000 × RPM.",
+    "example": "Con 500.000 visualizaciones cualificadas y un RPM introducido de 0,50 €, el escenario sería de 250 €.",
+    "faqs": [
+      [
+        "¿Clicivo fija un RPM medio?",
+        "No. El RPM varía y debes introducir el dato de tu panel o un escenario propio."
+      ],
+      [
+        "¿Todas las visualizaciones generan recompensas?",
+        "No necesariamente. TikTok utiliza visualizaciones cualificadas y criterios del programa aplicable."
+      ],
+      [
+        "¿El resultado está garantizado?",
+        "No. Es una estimación matemática, no una promesa de ingresos."
+      ]
+    ],
+    "sources": [
+      [
+        "TikTok Creator Rewards: cómo funcionan las recompensas",
+        "https://support.tiktok.com/en/business-and-creator/creator-rewards-program/how-rewards-work"
+      ]
+    ],
+    "keywords": [
+      "calculadora ingresos tiktok",
+      "cuanto paga tiktok",
+      "rpm tiktok"
+    ],
+    "new": true,
+    "accent": "black",
+    "notes": [
+      "TikTok calcula recompensas con visualizaciones cualificadas y RPM; el resultado depende de los datos que introduzcas."
+    ]
+  },
+  {
+    "id": "youtube-rpm-revenue",
+    "path": "/es/youtube/monetizacion/calcular-rpm-youtube/",
+    "title": "Calculadora de RPM de YouTube con ingresos y visualizaciones",
+    "short_title": "Calcular RPM de YouTube",
+    "category": "Redes sociales",
+    "cluster": "YouTube",
+    "description": "Obtén el RPM real de un canal o periodo a partir de los ingresos totales y las visualizaciones registradas.",
+    "formula": "RPM = ingresos ÷ visualizaciones × 1.000.",
+    "example": "425 € de ingresos con 100.000 visualizaciones equivalen a un RPM de 4,25 €.",
+    "faqs": [
+      [
+        "¿Qué ingresos debo introducir?",
+        "Usa los ingresos del mismo periodo y conjunto de vídeos que las visualizaciones."
+      ],
+      [
+        "¿RPM y CPM son iguales?",
+        "No. El RPM refleja ingresos por mil visualizaciones después del reparto y puede incluir varias fuentes."
+      ],
+      [
+        "¿Puedo mezclar Shorts y vídeos largos?",
+        "Es preferible analizarlos por separado porque sus modelos y rendimientos difieren."
+      ]
+    ],
+    "sources": [
+      [
+        "YouTube Help: RPM",
+        "https://support.google.com/youtube/answer/9314357?hl=es"
+      ]
+    ],
+    "keywords": [
+      "calcular rpm youtube",
+      "rpm youtube calculadora",
+      "ingresos por mil vistas"
+    ],
+    "new": false,
+    "accent": "red",
+    "notes": [],
+    "seo_title": "Calcular RPM de YouTube online"
+  },
+  {
+    "id": "youtube-watch-hours",
+    "path": "/es/youtube/monetizacion/horas-visualizacion-youtube/",
+    "title": "Calculadora de horas de visualización de YouTube",
+    "short_title": "Horas de visualización",
+    "category": "Redes sociales",
+    "cluster": "YouTube",
+    "description": "Estima las horas generadas por un vídeo o conjunto de vídeos usando visualizaciones, duración y porcentaje medio visto.",
+    "formula": "Horas = visualizaciones × duración en minutos × retención ÷ 100 ÷ 60.",
+    "example": "10.000 visualizaciones de un vídeo de 8 minutos al 50 % producen unas 666,67 horas.",
+    "faqs": [
+      [
+        "¿Las horas de Shorts cuentan para las 4.000 horas?",
+        "Las horas del feed de Shorts no cuentan para ese requisito de horas públicas."
+      ],
+      [
+        "¿La retención debe ser exacta?",
+        "Usa el porcentaje medio visto de YouTube Analytics para una estimación más útil."
+      ],
+      [
+        "¿YouTube puede excluir horas?",
+        "Sí. Solo cuentan las horas públicas válidas según las reglas vigentes del programa."
+      ]
+    ],
+    "sources": [
+      [
+        "Programa para Partners de YouTube",
+        "https://support.google.com/youtube/answer/72851?hl=es"
+      ]
+    ],
+    "keywords": [
+      "horas visualizacion youtube",
+      "4000 horas youtube",
+      "calculadora retención youtube"
+    ],
+    "new": false,
+    "accent": "red",
+    "notes": []
+  },
+  {
+    "id": "youtube-shorts-income",
+    "path": "/es/youtube/monetizacion/ingresos-youtube-shorts/",
+    "title": "Calculadora de ingresos de YouTube Shorts",
+    "short_title": "Ingresos de Shorts",
+    "category": "Redes sociales",
+    "cluster": "YouTube",
+    "description": "Estima los ingresos de Shorts a partir de las visualizaciones con interacción y un RPM de Shorts introducido por ti.",
+    "formula": "Ingresos = visualizaciones con interacción ÷ 1.000 × RPM de Shorts.",
+    "example": "Un millón de visualizaciones con un RPM introducido de 0,08 € produciría un escenario de 80 €.",
+    "faqs": [
+      [
+        "¿Dónde encuentro el RPM?",
+        "En YouTube Studio, dentro de Analytics e Ingresos, filtrando por Shorts."
+      ],
+      [
+        "¿Por qué debo introducirlo?",
+        "El RPM real varía por canal, audiencia y periodo; usar tu dato evita presentar una media universal engañosa."
+      ],
+      [
+        "¿El resultado es definitivo?",
+        "No. Es una estimación basada en el RPM introducido."
+      ]
+    ],
+    "sources": [
+      [
+        "Políticas de monetización de Shorts",
+        "https://support.google.com/youtube/answer/12504220?hl=es"
+      ],
+      [
+        "YouTube Help: RPM",
+        "https://support.google.com/youtube/answer/9314357?hl=es"
+      ]
+    ],
+    "keywords": [
+      "ingresos youtube shorts",
+      "calculadora shorts",
+      "rpm shorts"
+    ],
+    "new": false,
+    "accent": "red",
+    "notes": []
+  },
+  {
+    "id": "youtube-income",
+    "path": "/es/youtube/monetizacion/ingresos-youtube/",
+    "title": "Calculadora de ingresos de YouTube",
+    "short_title": "Ingresos de YouTube",
+    "category": "Redes sociales",
+    "cluster": "YouTube",
+    "description": "Calcula escenarios de ingresos mensuales y anuales usando visualizaciones y RPM, con comparación entre tres hipótesis.",
+    "formula": "Ingresos = visualizaciones ÷ 1.000 × RPM.",
+    "example": "250.000 visualizaciones con un RPM de 3,50 € equivalen a un escenario de 875 €.",
+    "faqs": [
+      [
+        "¿Es mejor usar CPM o RPM?",
+        "Para estimar lo que recibe el creador suele ser más directo usar RPM."
+      ],
+      [
+        "¿Incluye patrocinios?",
+        "No, salvo que ajustes manualmente el RPM para construir un escenario propio."
+      ],
+      [
+        "¿Puedo calcular un año?",
+        "Sí. Indica cuántos meses representa el volumen de visualizaciones o usa la proyección anual."
+      ]
+    ],
+    "sources": [
+      [
+        "YouTube Help: RPM",
+        "https://support.google.com/youtube/answer/9314357?hl=es"
+      ]
+    ],
+    "keywords": [
+      "calculadora ingresos youtube",
+      "cuanto paga youtube",
+      "ganancias youtube"
+    ],
+    "new": false,
+    "accent": "red",
+    "notes": []
+  },
+  {
+    "id": "youtube-rpm-monthly",
+    "path": "/es/youtube/monetizacion/rpm-youtube/",
+    "title": "Calculadora RPM YouTube: ingresos por vistas y periodo",
+    "short_title": "RPM e ingresos mensuales",
+    "category": "Redes sociales",
+    "cluster": "YouTube",
+    "description": "Proyecta ingresos a partir de visualizaciones diarias, días del periodo y RPM, mostrando también escenarios prudente y optimista.",
+    "formula": "Ingresos del periodo = visualizaciones diarias × días ÷ 1.000 × RPM.",
+    "example": "5.000 vistas diarias durante 30 días con RPM de 4 € producen un escenario de 600 €.",
+    "faqs": [
+      [
+        "¿Qué periodo conviene usar?",
+        "Compara meses completos o periodos equivalentes para evitar estacionalidad engañosa."
+      ],
+      [
+        "¿El RPM cambia?",
+        "Sí. Puede variar por audiencia, anuncios, temática, formato y temporada."
+      ],
+      [
+        "¿Se procesan mis datos fuera del navegador?",
+        "No."
+      ]
+    ],
+    "sources": [
+      [
+        "YouTube Help: RPM",
+        "https://support.google.com/youtube/answer/9314357?hl=es"
+      ]
+    ],
+    "keywords": [
+      "rpm youtube",
+      "calculadora monetización youtube",
+      "ingresos mensuales youtube"
+    ],
+    "new": false,
+    "accent": "red",
+    "notes": []
+  },
+  {
+    "id": "youtube-views-goal",
+    "path": "/es/youtube/monetizacion/visualizaciones-objetivo-youtube/",
+    "title": "Calculadora de visualizaciones necesarias para ganar una cantidad en YouTube",
+    "short_title": "Visualizaciones objetivo",
+    "category": "Redes sociales",
+    "cluster": "YouTube",
+    "description": "Calcula cuántas visualizaciones aproximadas necesitarías para alcanzar un objetivo de ingresos con un RPM determinado.",
+    "formula": "Visualizaciones necesarias = objetivo de ingresos ÷ RPM × 1.000.",
+    "example": "Para alcanzar 1.000 € con RPM de 4 € se necesitarían unas 250.000 visualizaciones.",
+    "faqs": [
+      [
+        "¿Es una predicción?",
+        "No. Es una equivalencia matemática basada en un RPM que puede cambiar."
+      ],
+      [
+        "¿Puedo introducir mi RPM real?",
+        "Sí. Es la forma más útil de usar la calculadora."
+      ],
+      [
+        "¿Incluye YouTube Premium?",
+        "El RPM de Studio puede integrar varias fuentes; depende del dato que introduzcas."
+      ]
+    ],
+    "sources": [
+      [
+        "YouTube Help: RPM",
+        "https://support.google.com/youtube/answer/9314357?hl=es"
+      ]
+    ],
+    "keywords": [
+      "vistas necesarias youtube",
+      "objetivo ingresos youtube",
+      "visualizaciones para ganar dinero"
+    ],
+    "new": false,
+    "accent": "red",
+    "notes": [],
+    "seo_title": "Vistas necesarias para ganar dinero en YouTube"
+  },
+  {
+    "id": "compound-interest",
+    "path": "/es/finanzas/ahorro-inversion/calculadora-interes-compuesto/",
+    "title": "Calculadora de interés compuesto con aportaciones mensuales",
+    "short_title": "Interés compuesto",
+    "category": "Finanzas",
+    "cluster": "Ahorro e inversión",
+    "description": "Simula la evolución de un capital con aportaciones mensuales, rentabilidad, comisiones e inflación, y consulta el resultado año a año.",
+    "formula": "Se capitaliza mensualmente el saldo y se añade cada aportación al final del mes.",
+    "example": "10.000 € iniciales más 200 € al mes durante 15 años al 6 % generan un escenario compuesto, no una rentabilidad garantizada.",
+    "faqs": [
+      [
+        "¿La rentabilidad está garantizada?",
+        "No. La tasa introducida es una hipótesis constante para comparar escenarios."
+      ],
+      [
+        "¿Cómo se aplican las comisiones?",
+        "La herramienta resta la comisión anual de la rentabilidad bruta antes de capitalizar."
+      ],
+      [
+        "¿Qué muestra el valor real?",
+        "Descuenta la inflación introducida para aproximar poder adquisitivo futuro."
+      ]
+    ],
+    "sources": [
+      [
+        "Banco de España: educación financiera",
+        "https://www.bde.es/wbe/es/areas-actuacion/educacion-financiera/"
+      ]
+    ],
+    "keywords": [
+      "calculadora interes compuesto",
+      "interes compuesto calculadora mensual",
+      "aportaciones mensuales"
+    ],
+    "new": false,
+    "accent": "green",
+    "notes": [],
+    "seo_title": "Calculadora de interés compuesto mensual"
+  },
+  {
+    "id": "mortgage",
+    "path": "/es/finanzas/hipotecas/calculadora-hipoteca/",
+    "title": "Calculadora de hipoteca: cuota, intereses y amortización",
+    "short_title": "Calculadora de hipoteca",
+    "category": "Finanzas",
+    "cluster": "Hipotecas",
+    "description": "Calcula la cuota mensual de una hipoteca a tipo fijo mediante el sistema francés y consulta coste total, intereses y primeras cuotas.",
+    "formula": "Cuota = capital × i ÷ (1 − (1 + i)^−n), con i mensual y n cuotas.",
+    "example": "Una hipoteca de 200.000 € a 25 años y un tipo nominal del 3 % produce una cuota constante antes de gastos y cambios contractuales.",
+    "faqs": [
+      [
+        "¿Incluye seguros e impuestos?",
+        "No. Puedes añadir gastos iniciales, pero la cuota se calcula solo con capital, tipo y plazo."
+      ],
+      [
+        "¿Sirve para hipoteca variable?",
+        "Solo como escenario si introduces un tipo concreto; una variable puede cambiar en futuras revisiones."
+      ],
+      [
+        "¿Por qué baja el interés con el tiempo?",
+        "En el sistema francés la cuota es estable, pero al reducirse el capital pendiente disminuye la parte de intereses."
+      ]
+    ],
+    "sources": [
+      [
+        "Banco de España: cálculo de cuota hipotecaria",
+        "https://clientebancario.bde.es/pcb/es/menu-horizontal/productosservici/financiacion/hipotecas/guia-textual/primerospasos/Como_se_calcula_31d0517c2d15421.html"
+      ]
+    ],
+    "keywords": [
+      "simulador hipoteca por meses",
+      "calculadora cuota hipoteca",
+      "tabla amortización"
+    ],
+    "new": false,
+    "accent": "green",
+    "notes": [],
+    "seo_title": "Calculadora de hipoteca y cuota mensual"
+  },
+  {
+    "id": "personal-loan",
+    "path": "/es/finanzas/prestamos/calculadora-prestamo-personal/",
+    "title": "Calculadora de préstamo personal: cuota e intereses",
+    "short_title": "Préstamo personal",
+    "category": "Finanzas",
+    "cluster": "Préstamos",
+    "description": "Estima la cuota, los intereses totales y el coste con comisión de apertura de un préstamo personal a tipo fijo.",
+    "formula": "La cuota se calcula con el sistema de amortización francés usando tipo mensual y número de pagos.",
+    "example": "Un préstamo de 15.000 € a cinco años puede compararse con distintas tasas y comisiones antes de decidir.",
+    "faqs": [
+      [
+        "¿La TIN incluye comisiones?",
+        "No. La comisión se muestra por separado; para comparar ofertas consulta también la TAE oficial."
+      ],
+      [
+        "¿Puedo introducir meses?",
+        "El plazo se expresa en años y la herramienta lo convierte en cuotas mensuales."
+      ],
+      [
+        "¿Es una oferta bancaria?",
+        "No. Es un simulador independiente y orientativo."
+      ]
+    ],
+    "sources": [
+      [
+        "Banco de España: préstamos",
+        "https://clientebancario.bde.es/pcb/es/menu-horizontal/productosservici/financiacion/prestamos/"
+      ]
+    ],
+    "keywords": [
+      "calculadora prestamo personal",
+      "cuota prestamo",
+      "intereses prestamo"
+    ],
+    "new": false,
+    "accent": "green",
+    "notes": []
+  },
+  {
+    "id": "monthly-savings",
+    "path": "/es/finanzas/ahorro-inversion/calculadora-ahorro-mensual/",
+    "title": "Calculadora de ahorro mensual para alcanzar una meta",
+    "short_title": "Ahorro mensual",
+    "category": "Finanzas",
+    "cluster": "Ahorro e inversión",
+    "description": "Calcula cuánto deberías aportar cada mes para alcanzar un objetivo en una fecha determinada, con o sin rentabilidad estimada.",
+    "formula": "La aportación se obtiene despejando el valor futuro de una anualidad mensual y restando el crecimiento del ahorro inicial.",
+    "example": "Para reunir 20.000 € en 48 meses partiendo de 2.000 €, la herramienta calcula la aportación mensual necesaria.",
+    "faqs": [
+      [
+        "¿Puedo usar rentabilidad cero?",
+        "Sí. Así obtendrás un plan de ahorro sin suponer intereses."
+      ],
+      [
+        "¿Qué ocurre si ya tengo más que el objetivo?",
+        "La aportación necesaria será cero y se mostrará el margen existente."
+      ],
+      [
+        "¿La rentabilidad es segura?",
+        "No. Si la incluyes, funciona como hipótesis para escenarios de inversión."
+      ]
+    ],
+    "sources": [
+      [
+        "Banco de España: educación financiera",
+        "https://www.bde.es/wbe/es/areas-actuacion/educacion-financiera/"
+      ]
+    ],
+    "keywords": [
+      "calculadora ahorro mensual",
+      "cuanto ahorrar al mes",
+      "objetivo ahorro"
+    ],
+    "new": true,
+    "accent": "green",
+    "notes": []
+  },
+  {
+    "id": "index-funds",
+    "path": "/es/finanzas/ahorro-inversion/simulador-fondos-indexados/",
+    "title": "Simulador de fondos indexados con comisiones e inflación",
+    "short_title": "Fondos indexados",
+    "category": "Finanzas",
+    "cluster": "Ahorro e inversión",
+    "description": "Compara la evolución estimada de aportaciones a un fondo indexado con y sin comisión, y muestra el valor real tras inflación.",
+    "formula": "Se usa capitalización mensual con rentabilidad bruta menos comisión anual; el valor real descuenta la inflación.",
+    "example": "Compara 20 años de aportaciones de 250 € al mes y observa cómo una diferencia pequeña de comisiones se acumula.",
+    "faqs": [
+      [
+        "¿Predice el rendimiento de un fondo?",
+        "No. Usa una rentabilidad constante hipotética para estudiar sensibilidad."
+      ],
+      [
+        "¿Qué significa impacto de comisiones?",
+        "Es la diferencia entre el escenario sin comisión y el escenario con la comisión introducida."
+      ],
+      [
+        "¿Incluye impuestos?",
+        "No. La fiscalidad depende del producto, país y situación personal."
+      ]
+    ],
+    "sources": [
+      [
+        "CNMV: fondos de inversión",
+        "https://www.cnmv.es/Portal/Inversor/Fondos-Inversion.aspx"
+      ]
+    ],
+    "keywords": [
+      "calculadora fondos indexados",
+      "simulador fondos indexados",
+      "comisiones fondos"
+    ],
+    "new": true,
+    "accent": "green",
+    "notes": [],
+    "seo_title": "Simulador de fondos indexados y comisiones"
+  },
+  {
+    "id": "mortgage-prepayment",
+    "path": "/es/finanzas/hipotecas/amortizacion-anticipada-hipoteca/",
+    "title": "Calculadora de amortización anticipada de hipoteca",
+    "short_title": "Amortizar hipoteca",
+    "category": "Finanzas",
+    "cluster": "Hipotecas",
+    "description": "Compara qué ocurre al amortizar capital: reducir cuota manteniendo plazo o reducir plazo manteniendo una cuota equivalente.",
+    "formula": "La herramienta simula mes a mes el préstamo actual y los dos escenarios tras aplicar la amortización extraordinaria.",
+    "example": "Introduce 10.000 € de amortización y compara meses ahorrados, nueva cuota, intereses y posible comisión.",
+    "faqs": [
+      [
+        "¿Es mejor reducir cuota o plazo?",
+        "Depende de tu objetivo. Reducir plazo suele recortar más intereses; reducir cuota mejora liquidez mensual."
+      ],
+      [
+        "¿Incluye comisión?",
+        "Sí, si introduces el porcentaje previsto en tu contrato."
+      ],
+      [
+        "¿Coincidirá exactamente con el banco?",
+        "Puede haber diferencias por fechas de liquidación, redondeos, tipo variable y condiciones contractuales."
+      ]
+    ],
+    "sources": [
+      [
+        "Banco de España: amortización anticipada",
+        "https://clientebancario.bde.es/pcb/es/menu-horizontal/productosservici/financiacion/hipotecas/guia-textual/vida-hipoteca/Amortizacion_anticipada.html"
+      ]
+    ],
+    "keywords": [
+      "amortizacion anticipada hipoteca",
+      "reducir cuota o plazo",
+      "calculadora amortizar hipoteca"
+    ],
+    "new": true,
+    "accent": "green",
+    "notes": []
+  },
+  {
+    "id": "freelance-rate",
+    "path": "/es/negocios/autonomos/calculadora-tarifa-hora/",
+    "title": "Calculadora de tarifa por hora para autónomos",
+    "short_title": "Tarifa por hora",
+    "category": "Negocios",
+    "cluster": "Autónomos",
+    "description": "Calcula una tarifa mínima por hora y por día a partir de ingresos netos deseados, gastos, impuestos, horas facturables y semanas de descanso.",
+    "formula": "Facturación necesaria = (neto deseado + gastos) ÷ (1 − tasa reservada); tarifa = facturación ÷ horas facturables.",
+    "example": "Si quieres 2.000 € netos, tienes 600 € de gastos y solo 80 horas facturables, la tarifa debe cubrir también reservas y margen.",
+    "faqs": [
+      [
+        "¿Por qué no uso todas mis horas de trabajo?",
+        "Gestión, ventas, administración y formación suelen ser horas no facturables."
+      ],
+      [
+        "¿La tasa de impuestos es exacta?",
+        "No. Es una reserva editable; consulta tu caso con asesoría profesional."
+      ],
+      [
+        "¿Incluye vacaciones?",
+        "Sí. Las semanas no trabajadas reducen las horas facturables anuales."
+      ]
+    ],
+    "sources": [
+      [
+        "Agencia Tributaria: autónomos",
+        "https://sede.agenciatributaria.gob.es/Sede/empresarios-profesionales.html"
+      ]
+    ],
+    "keywords": [
+      "calculadora tarifa hora autonomo",
+      "precio hora freelance",
+      "tarifa profesional"
+    ],
+    "new": false,
+    "accent": "orange",
+    "notes": []
+  },
+  {
+    "id": "profit-margin",
+    "path": "/es/negocios/precios/calculadora-margen-beneficio/",
+    "title": "Calculadora de margen de beneficio y markup",
+    "short_title": "Margen de beneficio",
+    "category": "Negocios",
+    "cluster": "Precios",
+    "description": "Calcula beneficio unitario, margen sobre ventas, recargo sobre coste y el precio necesario para alcanzar un margen objetivo.",
+    "formula": "Margen = (precio − coste) ÷ precio × 100; markup = (precio − coste) ÷ coste × 100.",
+    "example": "Un producto con coste 60 € y precio 100 € tiene 40 % de margen y 66,67 % de markup.",
+    "faqs": [
+      [
+        "¿Margen y markup son lo mismo?",
+        "No. El margen divide el beneficio entre el precio; el markup lo divide entre el coste."
+      ],
+      [
+        "¿Debo usar precios con IVA?",
+        "Compara coste y precio bajo el mismo criterio, preferiblemente sin impuestos repercutidos."
+      ],
+      [
+        "¿Puedo calcular un precio objetivo?",
+        "Sí. Introduce el margen deseado y la herramienta despeja el precio."
+      ]
+    ],
+    "sources": [
+      [
+        "Agencia Tributaria: IVA",
+        "https://sede.agenciatributaria.gob.es/Sede/iva.html"
+      ]
+    ],
+    "keywords": [
+      "calculo margen beneficio",
+      "calculadora markup",
+      "precio con margen"
+    ],
+    "new": false,
+    "accent": "orange",
+    "notes": []
+  },
+  {
+    "id": "break-even",
+    "path": "/es/negocios/rentabilidad/simulador-punto-equilibrio/",
+    "title": "Simulador de punto de equilibrio de un negocio",
+    "short_title": "Punto de equilibrio",
+    "category": "Negocios",
+    "cluster": "Rentabilidad",
+    "description": "Calcula cuántas unidades o ventas necesitas para cubrir costes fijos y variables, y prueba un volumen previsto.",
+    "formula": "Unidades de equilibrio = costes fijos ÷ (precio unitario − coste variable unitario).",
+    "example": "Con 3.000 € de costes fijos y 30 € de margen de contribución necesitas vender 100 unidades.",
+    "faqs": [
+      [
+        "¿Qué es el margen de contribución?",
+        "Es el precio menos el coste variable unitario disponible para cubrir costes fijos."
+      ],
+      [
+        "¿Qué ocurre si el precio no cubre el coste variable?",
+        "No existe punto de equilibrio positivo; cada venta aumenta la pérdida."
+      ],
+      [
+        "¿Puedo usar servicios?",
+        "Sí. Trata cada servicio o proyecto como una unidad comparable."
+      ]
+    ],
+    "sources": [
+      [
+        "Cámara de Comercio de España",
+        "https://www.camara.es/"
+      ]
+    ],
+    "keywords": [
+      "simulador punto equilibrio",
+      "break even calculadora",
+      "umbral rentabilidad"
+    ],
+    "new": false,
+    "accent": "orange",
+    "notes": []
+  },
+  {
+    "id": "dismissal-compensation",
+    "path": "/es/empleo/extincion-contrato/calculadora-indemnizacion-despido/",
+    "title": "Calculadora de indemnización por despido en España",
+    "short_title": "Indemnización por despido",
+    "category": "Empleo",
+    "cluster": "Extinción de contrato",
+    "description": "Estima días indemnizatorios e importe para despido objetivo o improcedente a partir de salario anual y antigüedad, incluyendo el tramo transitorio anterior a 2012.",
+    "formula": "Importe = salario diario × días por año × antigüedad, aplicando los topes legales del supuesto elegido.",
+    "example": "Un salario anual de 30.000 € y cinco años completos genera resultados distintos según se trate de 20 o 33 días por año.",
+    "faqs": [
+      [
+        "¿Incluye el finiquito?",
+        "No. La indemnización y el finiquito son conceptos distintos; usa también la calculadora de finiquito."
+      ],
+      [
+        "¿Qué ocurre con contratos anteriores a febrero de 2012?",
+        "Para improcedente se calcula un tramo anterior a la reforma y otro posterior, con reglas de tope simplificadas según la disposición transitoria."
+      ],
+      [
+        "¿Es un cálculo vinculante?",
+        "No. Fechas, salario regulador, convenio y circunstancias pueden alterar el resultado; busca asesoramiento profesional."
+      ]
+    ],
+    "sources": [
+      [
+        "Estatuto de los Trabajadores consolidado",
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+      ]
+    ],
+    "keywords": [
+      "calculadora indemnizacion despido",
+      "calcular indemnizacion por despido",
+      "20 dias por año"
+    ],
+    "new": false,
+    "accent": "purple",
+    "notes": [
+      "Estimación informativa. No sustituye asesoramiento laboral ni una liquidación profesional."
+    ]
+  },
+  {
+    "id": "severance",
+    "path": "/es/empleo/liquidacion-laboral/calculadora-finiquito/",
+    "title": "Calculadora de finiquito: salario, pagas y vacaciones",
+    "short_title": "Calculadora de finiquito",
+    "category": "Empleo",
+    "cluster": "Liquidación laboral",
+    "description": "Suma salario pendiente, pagas extraordinarias, vacaciones devengadas y otros conceptos, y descuenta anticipos o deducciones.",
+    "formula": "Finiquito bruto estimado = conceptos pendientes + vacaciones + pagas + otros importes − deducciones.",
+    "example": "Introduce salario mensual, días pendientes y vacaciones no disfrutadas para obtener un desglose editable.",
+    "faqs": [
+      [
+        "¿Finiquito e indemnización son lo mismo?",
+        "No. El finiquito liquida cantidades pendientes; la indemnización depende de la causa de extinción."
+      ],
+      [
+        "¿Cómo valora las vacaciones?",
+        "Usa salario mensual ÷ 30 × días pendientes como aproximación."
+      ],
+      [
+        "¿Incluye retenciones?",
+        "Muestra una estimación bruta; nómina, cotización e IRPF pueden variar."
+      ]
+    ],
+    "sources": [
+      [
+        "Estatuto de los Trabajadores consolidado",
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+      ]
+    ],
+    "keywords": [
+      "calculadora finiquito",
+      "liquidacion de contrato",
+      "calcular liquidacion"
+    ],
+    "new": false,
+    "accent": "purple",
+    "notes": [
+      "Estimación bruta orientativa; revisa nóminas, convenio y documento de liquidación."
+    ]
+  },
+  {
+    "id": "net-salary",
+    "path": "/es/empleo/salarios/calculadora-sueldo-neto/",
+    "title": "Calculadora de sueldo neto desde salario bruto",
+    "short_title": "Sueldo neto",
+    "category": "Empleo",
+    "cluster": "Salarios",
+    "description": "Convierte un salario bruto anual en un neto estimado usando porcentajes editables de IRPF, cotización y otras deducciones.",
+    "formula": "Neto anual = bruto anual − IRPF estimado − cotización estimada − otras deducciones.",
+    "example": "Con 30.000 € brutos, puedes comparar 12 y 14 pagas y ajustar los porcentajes a tu nómina.",
+    "faqs": [
+      [
+        "¿Por qué debo ajustar el IRPF?",
+        "La retención depende de circunstancias personales y laborales; no existe un porcentaje universal."
+      ],
+      [
+        "¿Calcula una nómina oficial?",
+        "No. Es un escenario editable y simplificado."
+      ],
+      [
+        "¿12 y 14 pagas cambian el neto anual?",
+        "No por sí solas; cambian el importe de cada paga y la distribución anual."
+      ]
+    ],
+    "sources": [
+      [
+        "Agencia Tributaria: retenciones",
+        "https://sede.agenciatributaria.gob.es/Sede/retenciones-ingresos-cuenta-pagos-cuenta.html"
+      ]
+    ],
+    "keywords": [
+      "calcular sueldo bruto neto",
+      "calculadora sueldo neto",
+      "salario neto mensual"
+    ],
+    "new": false,
+    "accent": "purple",
+    "notes": [
+      "Los porcentajes son editables y no sustituyen una nómina real ni el cálculo de la Agencia Tributaria."
+    ]
+  },
+  {
+    "id": "vacation-days",
+    "path": "/es/empleo/vacaciones/calculadora-vacaciones/",
+    "title": "Calculadora de días de vacaciones generados y pendientes",
+    "short_title": "Días de vacaciones",
+    "category": "Empleo",
+    "cluster": "Vacaciones",
+    "description": "Calcula vacaciones devengadas de forma proporcional entre dos fechas y resta los días ya disfrutados.",
+    "formula": "Vacaciones generadas = días anuales pactados × días trabajados ÷ días del año.",
+    "example": "Con 30 días naturales anuales y seis meses trabajados se generan aproximadamente 15 días.",
+    "faqs": [
+      [
+        "¿El mínimo general son 30 días naturales?",
+        "El Estatuto de los Trabajadores establece que la duración no puede ser inferior a 30 días naturales, sin perjuicio de mejoras de convenio."
+      ],
+      [
+        "¿Puedo calcular días laborables?",
+        "Sí. Introduce la cifra anual que utilice tu convenio o empresa, por ejemplo 22 días laborables."
+      ],
+      [
+        "¿Redondea el resultado?",
+        "Muestra decimales y una referencia redondeada; la regla aplicada puede depender de convenio o acuerdo."
+      ]
+    ],
+    "sources": [
+      [
+        "Estatuto de los Trabajadores, artículo 38",
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+      ]
+    ],
+    "keywords": [
+      "calculadora vacaciones",
+      "dias vacaciones generados",
+      "vacaciones pendientes"
+    ],
+    "new": true,
+    "accent": "purple",
+    "notes": [
+      "El convenio colectivo o contrato puede mejorar el número de días y establecer reglas propias."
+    ],
+    "seo_title": "Calculadora de vacaciones generadas"
+  },
+  {
+    "id": "employer-cost",
+    "path": "/es/empleo/coste-empresa/calculadora-coste-empresa-trabajador/",
+    "title": "Calculadora de coste de empresa por trabajador",
+    "short_title": "Coste empresa trabajador",
+    "category": "Empleo",
+    "cluster": "Coste de empresa",
+    "description": "Estima el coste anual y mensual para la empresa sumando salario bruto, cotización empresarial editable y otros costes laborales.",
+    "formula": "Coste total = salario bruto + salario bruto × porcentaje empresarial + otros costes anuales.",
+    "example": "Con 30.000 € brutos y una hipótesis empresarial del 31 %, las cotizaciones estimadas serían 9.300 € antes de otros costes.",
+    "faqs": [
+      [
+        "¿El porcentaje por defecto es oficial?",
+        "No. Es una hipótesis editable; la cotización real depende de contingencias, contrato, actividad, bonificaciones y topes."
+      ],
+      [
+        "¿Incluye equipo y formación?",
+        "Puedes introducirlos en otros costes anuales."
+      ],
+      [
+        "¿Sirve para presupuestar una contratación?",
+        "Sirve como primera aproximación, pero confirma el coste con nóminas o asesoría laboral."
+      ]
+    ],
+    "sources": [
+      [
+        "Seguridad Social: cotización",
+        "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/CotizacionRecaudacionTrabajadores"
+      ]
+    ],
+    "keywords": [
+      "coste empresa trabajador",
+      "calculadora coste laboral",
+      "cuanto cuesta contratar trabajador"
+    ],
+    "new": true,
+    "accent": "purple",
+    "notes": [
+      "La tasa empresarial es editable y orientativa; no representa una cotización universal."
+    ]
+  }
+]

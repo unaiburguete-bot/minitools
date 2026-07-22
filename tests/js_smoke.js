@@ -1,0 +1,18 @@
+'use strict';
+global.window = global;
+global.document = {querySelector:()=>null,querySelectorAll:()=>[],addEventListener:()=>{},head:{appendChild:()=>{}},body:{appendChild:()=>{}}};
+global.localStorage = {getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
+global.location = {search:'',pathname:'/',hostname:'localhost'};
+Object.defineProperty(global, 'navigator', {value:{clipboard:{writeText:async()=>{}}}, configurable:true});
+require('../public/assets/site.js');
+const t = global.ClicivoDebug;
+if (!t) throw new Error('Debug helpers were not exposed.');
+const compound = t.calculate('compound-interest',{initial:10000,monthly:200,rate:6,fee:.3,inflation:2,years:15});
+if (!compound.includes('Capital final estimado')) throw new Error('Compound interest smoke test failed.');
+const mortgage = t.calculate('mortgage',{principal:200000,rate:3,years:25,fees:0});
+if (!mortgage.includes('Cuota mensual estimada')) throw new Error('Mortgage smoke test failed.');
+const vacation = t.calculate('vacation-days',{start:'2026-01-01',end:'2026-07-22',annual:30,taken:5});
+if (!vacation.includes('Vacaciones pendientes estimadas')) throw new Error('Vacation smoke test failed.');
+const formatted = t.formatInstagramText('Uno\n\nDos');
+if (!formatted.includes('\u2800')) throw new Error('Instagram spacing smoke test failed.');
+console.log('JavaScript smoke tests passed.');
