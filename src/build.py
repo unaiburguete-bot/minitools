@@ -256,6 +256,7 @@ def head(title: str, description: str, route: str, ld=None, image: str = "/asset
         "<!doctype html><html lang=\"es\"><head>",
         '<meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
+        f'<meta name="google-adsense-account" content="{esc(SITE["adsense_account_id"])}">',
         f"<title>{esc(full_title)}</title>",
         f'<meta name="description" content="{esc(description[:158])}">',
         f'<link rel="canonical" href="{esc(url)}">',
@@ -552,6 +553,7 @@ def main():
     sitemap.append('</urlset>')
     (PUBLIC/'sitemap.xml').write_text('\n'.join(sitemap),encoding='utf-8')
     (PUBLIC/'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {ORIGIN}/sitemap.xml\n',encoding='utf-8')
+    (PUBLIC/'ads.txt').write_text(f'google.com, {SITE["adsense_publisher_id"]}, DIRECT, f08c47fec0942fa0\n',encoding='utf-8')
     (PUBLIC/'CNAME').write_text('clicivo.com\n',encoding='utf-8')
     (PUBLIC/'.nojekyll').write_text('',encoding='utf-8')
     manifest={"name":"Clicivo","short_name":"Clicivo","description":SITE['site_description'],"start_url":"/","display":"standalone","background_color":"#f6f8fc","theme_color":"#2657d8","icons":[{"src":"/assets/apple-touch-icon.png","sizes":"180x180","type":"image/png"},{"src":"/assets/favicon-48.png","sizes":"48x48","type":"image/png"}]}
