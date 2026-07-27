@@ -1,28 +1,29 @@
 # Clicivo
 
-Sitio estático de calculadoras y herramientas gratuitas. Esta entrega mantiene las 18 URLs de herramientas existentes, incorpora 10 herramientas nuevas, reconstruye el catálogo, añade la identidad visual de Clicivo y mejora SEO, accesibilidad, rendimiento y enlazado interno.
+Generador estático de herramientas online para GitHub Pages.
+
+## Contenido de esta entrega
+
+- 43 herramientas.
+- 15 nuevas herramientas de PDF, imágenes, texto y QR.
+- Mejoras prioritarias de YouTube, Instagram y empleo basadas en Search Console.
+- 88 URL indexables.
+- AdSense, `ads.txt`, Consent Mode y páginas de confianza preparados.
+- Pruebas automáticas de rutas, SEO, enlaces y cálculos.
+
+## Construir y probar
+
+```bash
+python -m pip install -r requirements.txt
+python src/build.py
+pytest -q
+node --check public/assets/site.js
+node --check public/assets/advanced-tools.js
+node tests/js_smoke.js
+```
 
 ## Publicación
 
-1. Instala dependencias: `pip install -r requirements.txt`
-2. Compila: `python src/build.py`
-3. Comprueba: `pytest -q`
-4. Publica la carpeta `public/` mediante GitHub Pages.
+El workflow `.github/workflows/deploy.yml` construye, prueba y publica `public` en GitHub Pages.
 
-El workflow incluido realiza estos pasos al hacer push a `main`.
-
-## Estructura
-
-- `content/tools.json`: definición de herramientas, textos, preguntas y fuentes.
-- `config/site.json`: marca, dominio, Analytics y contacto.
-- `src/build.py`: generador estático.
-- `public/`: web lista para publicar.
-- `tests/`: comprobaciones de enlaces, metadatos, sitemap y contenido.
-
-## Privacidad y analítica
-
-Google Analytics solo se activa después de aceptar las cookies analíticas. Los cálculos se ejecutan en el navegador y no se envían a Clicivo.
-
-## Revisión legal
-
-Se ha eliminado de toda la entrega el nombre personal indicado. Antes de publicar, conviene que la persona responsable del sitio revise el aviso legal y complete cualquier dato identificativo que resulte obligatorio en su caso.
+Consulta `SUBIR_A_GITHUB.txt` y `CHECKLIST_PUBLICACION.md`.

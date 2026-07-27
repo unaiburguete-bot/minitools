@@ -9,6 +9,7 @@
   const number = (v) => nf.format(Number.isFinite(v) ? v : 0);
   const integer = (v) => n0.format(Number.isFinite(v) ? v : 0);
   const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+  const ADVANCED_IDS = new Set(['pdf-merge','pdf-split','pdf-organize','images-to-pdf','pdf-to-jpg','image-compress','image-resize','image-convert','image-crop','remove-exif','word-counter','case-converter','text-diff','qr-generator','wifi-qr']);
 
   const menuButton = document.querySelector('.menu-button');
   const nav = document.querySelector('.nav');
@@ -47,37 +48,32 @@
     if (q && search) { search.value = q; apply(); }
   }
 
-  function initCookies() {
-    const banner = document.querySelector('.cookie-banner');
-    if (!banner) return;
-    const key = 'clicivo-cookie-choice';
-    const measurementId = 'G-B3DXJWJHYG';
-    const loadAnalytics = () => {
-      if (window.gtag) return;
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function(){ dataLayer.push(arguments); };
-      window.gtag('js', new Date());
-      window.gtag('config', measurementId, { anonymize_ip: true });
-      const s = document.createElement('script');
-      s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-      document.head.appendChild(s);
-    };
-    const apply = choice => {
-      banner.classList.remove('show');
-      if (choice === 'accept') loadAnalytics();
-    };
-    const choice = localStorage.getItem(key);
-    if (!choice) banner.classList.add('show'); else apply(choice);
-    banner.querySelectorAll('[data-cookie]').forEach(btn => btn.addEventListener('click', () => {
-      const value = btn.dataset.cookie;
-      localStorage.setItem(key, value); apply(value);
-    }));
-    document.querySelectorAll('.js-cookie-settings').forEach(btn => btn.addEventListener('click', () => {
-      localStorage.removeItem(key); banner.classList.add('show');
-    }));
-    document.addEventListener('click', e => {
-      const link = e.target.closest('[data-affiliate]');
-      if (link && window.gtag) window.gtag('event', 'affiliate_click', { affiliate: link.dataset.affiliate, page_path: location.pathname });
+  const track = (event, details = {}) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', event, { page_path: location.pathname, ...details });
+    }
+  };
+
+  function initAnalyticsInteractions() {
+    document.addEventListener('click', event => {
+      const affiliate = event.target.closest('[data-affiliate]');
+      if (affiliate) track('affiliate_click', { affiliate: affiliate.dataset.affiliate });
+      const related = event.target.closest('[data-related-tool]');
+      if (related) track('related_tool_click', { target_tool: related.dataset.relatedTool });
+      const card = event.target.closest('[data-tool-card]');
+      if (card) track('tool_card_click', { target_tool: card.dataset.toolCard });
+    });
+    const search = document.querySelector('.catalog-search');
+    let timer = null;
+    search?.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const term = search.value.trim();
+        if (term.length >= 2) track('catalog_search', { search_term: term.slice(0, 80) });
+      }, 700);
+    });
+    document.querySelectorAll('.filter[data-filter]').forEach(button => {
+      button.addEventListener('click', () => track('catalog_filter', { filter_name: button.dataset.filter }));
     });
   }
 
@@ -95,7 +91,8 @@
   function formValues(form) {
     const data = {};
     new FormData(form).forEach((value, key) => { data[key] = value; });
-    form.querySelectorAll('input[type="number"]').forEach(el => { data[el.name] = Number(el.value); });
+    form.querySelectorAll('input[type="number"], input[type="range"]').forEach(el => { data[el.name] = Number(el.value); });
+    form.querySelectorAll('input[type="checkbox"]').forEach(el => { data[el.name] = el.checked; });
     return data;
   }
 
@@ -144,13 +141,15 @@
     return { months: m, payment: scheduled, interest: totalInterest, rows, balance };
   }
 
-  function simulateCompound(initial, monthly, annualRate, years) {
+  function simulateCompound(initial, monthly, annualRate, years, timing = 'end') {
     const months = Math.round(years * 12);
     if (annualRate <= -100) throw new Error('La rentabilidad neta debe ser superior a −100 %.');
     const r = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
     let balance = initial; const yearly = [initial];
     for (let m = 1; m <= months; m++) {
-      balance *= 1 + r; balance += monthly;
+      if (timing === 'beginning') balance += monthly;
+      balance *= 1 + r;
+      if (timing !== 'beginning') balance += monthly;
       if (m % 12 === 0) yearly.push(balance);
     }
     return { balance, yearly };
@@ -172,8 +171,29 @@
     switch (id) {
       case 'instagram-growth': {
         if (v.initial <= 0) throw new Error('Los seguidores iniciales deben ser mayores que cero.');
+        if (v.days <= 0) throw new Error('El periodo debe ser mayor que cero.');
         const change = v.final - v.initial, growth = change / v.initial * 100, daily = change / v.days;
-        return result('Crecimiento del periodo', pct(growth), [item('Cambio absoluto', `${change >= 0 ? '+' : ''}${integer(change)}`), item('Ritmo diario', `${number(daily)} seguidores`), item('Proyección 30 días', `${daily >= 0 ? '+' : ''}${integer(daily * 30)}`), item('Seguidores finales', integer(v.final))], 'La proyección mantiene el ritmo observado; no es una predicción.');
+        const remaining = Math.max(0, Number(v.target || 0) - v.final);
+        const daysToTarget = daily > 0 && remaining > 0 ? Math.ceil(remaining / daily) : 0;
+        let targetValue = 'Sin estimación';
+        if (remaining <= 0 && v.target > 0) targetValue = 'Objetivo alcanzado';
+        else if (daysToTarget) {
+          const date = new Date(); date.setDate(date.getDate() + daysToTarget);
+          targetValue = date.toLocaleDateString('es-ES', { day:'2-digit', month:'short', year:'numeric' });
+        }
+        const rows = [
+          ['7 días', `${daily >= 0 ? '+' : ''}${integer(daily * 7)}`, integer(v.final + daily * 7)],
+          ['30 días', `${daily >= 0 ? '+' : ''}${integer(daily * 30)}`, integer(v.final + daily * 30)],
+          ['90 días', `${daily >= 0 ? '+' : ''}${integer(daily * 90)}`, integer(v.final + daily * 90)],
+        ];
+        return result('Crecimiento del periodo', pct(growth), [
+          item('Cambio neto', `${change >= 0 ? '+' : ''}${integer(change)}`),
+          item('Ritmo diario', `${number(daily)} seguidores`),
+          item('Ritmo semanal', `${daily >= 0 ? '+' : ''}${integer(daily * 7)}`),
+          item('Ritmo cada 30 días', `${daily >= 0 ? '+' : ''}${integer(daily * 30)}`),
+          item('Fecha orientativa del objetivo', targetValue),
+          item('Días estimados al objetivo', daysToTarget ? integer(daysToTarget) : '—')
+        ], 'La proyección mantiene exactamente el ritmo observado; no contempla campañas, estacionalidad ni pérdidas futuras.', table(['Horizonte','Cambio proyectado','Seguidores estimados'], rows));
       }
       case 'instagram-engagement-followers': {
         if (v.followers <= 0) throw new Error('Los seguidores deben ser mayores que cero.');
@@ -198,7 +218,15 @@
       case 'youtube-rpm-revenue': {
         if (v.views <= 0) throw new Error('Las visualizaciones deben ser mayores que cero.');
         const rpm = v.revenue / v.views * 1000;
-        return result('RPM calculado', money(rpm), [item('Ingresos', money(v.revenue)), item('Visualizaciones', integer(v.views)), item('Ingreso por visualización', money(v.revenue / v.views)), item('Ingresos por 100.000 vistas', money(rpm * 100))], 'Usa ingresos y visualizaciones del mismo periodo.');
+        const targetIncome = v.targetViews / 1000 * rpm;
+        return result('RPM calculado', money(rpm), [
+          item('Ingresos del periodo', money(v.revenue)),
+          item('Visualizaciones del periodo', integer(v.views)),
+          item('Ingreso por visualización', money(v.revenue / v.views)),
+          item('Con 100.000 vistas', money(rpm * 100)),
+          item('Con 1 millón de vistas', money(rpm * 1000)),
+          item(`Con ${integer(v.targetViews)} vistas`, money(targetIncome))
+        ], 'Usa ingresos y visualizaciones del mismo periodo y analiza Shorts y vídeos largos por separado.');
       }
       case 'youtube-watch-hours': {
         const hours = v.views * v.duration * v.retention / 100 / 60;
@@ -213,8 +241,21 @@
         return result('Ingresos estimados', money(income), [item('Visualizaciones', integer(v.views)), item('RPM introducido', money(v.rpm)), item('Por 100.000 vistas', money(v.rpm * 100)), item('Por 1 millón de vistas', money(v.rpm * 1000))], 'El RPM real de Shorts puede variar ampliamente.');
       }
       case 'youtube-income': {
-        const base = v.views / 1000 * v.rpm, monthly = base / v.months;
-        return result('Ingresos del periodo', money(base), [item('Escenario prudente (−25 %)', money(base * .75)), item('Escenario central', money(base)), item('Escenario optimista (+25 %)', money(base * 1.25)), item('Proyección anual equivalente', money(monthly * 12))], 'Escenarios basados únicamente en las visualizaciones y el RPM introducidos.');
+        if (!(v.rpmLow <= v.rpm && v.rpm <= v.rpmHigh)) throw new Error('Ordena los escenarios: RPM bajo ≤ central ≤ alto.');
+        if (v.months <= 0) throw new Error('El periodo debe ser mayor que cero.');
+        const low = v.views / 1000 * v.rpmLow, base = v.views / 1000 * v.rpm, high = v.views / 1000 * v.rpmHigh, monthly = base / v.months;
+        const targetViews = v.rpm > 0 ? v.targetIncome / v.rpm * 1000 : 0;
+        const rows = [10000,100000,250000,500000,1000000].map(views => [
+          integer(views), money(views/1000*v.rpmLow), money(views/1000*v.rpm), money(views/1000*v.rpmHigh)
+        ]);
+        return result('Ingresos del periodo · escenario central', money(base), [
+          item('Escenario bajo', money(low)),
+          item('Escenario alto', money(high)),
+          item('Media mensual central', money(monthly)),
+          item('Proyección anual central', money(monthly * 12)),
+          item('Vistas para el objetivo', targetViews ? integer(targetViews) : '—'),
+          item('Objetivo introducido', money(v.targetIncome))
+        ], 'La estimación se basa únicamente en las visualizaciones y los RPM introducidos; no incluye patrocinios, afiliación ni venta de productos.', table(['Visualizaciones','RPM bajo','RPM central','RPM alto'], rows));
       }
       case 'youtube-rpm-monthly': {
         const views = v.dailyViews * v.days, income = views / 1000 * v.rpm;
@@ -227,11 +268,12 @@
       }
       case 'compound-interest': {
         const netRate = v.rate - v.fee;
-        const sim = simulateCompound(v.initial, v.monthly, netRate, v.years);
+        const sim = simulateCompound(v.initial, v.monthly, netRate, v.years, v.timing || 'end');
         const contributed = v.initial + v.monthly * v.years * 12, gains = sim.balance - contributed;
         const real = v.inflation <= -100 ? sim.balance : sim.balance / Math.pow(1 + v.inflation / 100, v.years);
         const rows = sim.yearly.slice(1).map((value, i) => [i + 1, money(value), money(v.initial + v.monthly * (i + 1) * 12), money(value - (v.initial + v.monthly * (i + 1) * 12))]);
-        return result('Capital final estimado', money(sim.balance), [item('Total aportado', money(contributed)), item('Ganancia estimada', money(gains)), item('Valor real tras inflación', money(real)), item('Rentabilidad neta usada', pct(netRate))], 'Simulación con capitalización mensual y tasa constante.', chart(sim.yearly) + table(['Año','Capital','Aportado','Ganancia'], rows.slice(-10)));
+        const effective = Math.pow(1 + netRate / 100, 1) - 1;
+        return result('Capital final estimado', money(sim.balance), [item('Total aportado', money(contributed)), item('Ganancia estimada', money(gains)), item('Valor real tras inflación', money(real)), item('Rentabilidad neta usada', pct(effective * 100))], `Capitalización mensual, aportación al ${v.timing === 'beginning' ? 'inicio' : 'final'} del mes y tasa constante.`, chart(sim.yearly) + table(['Año','Capital','Aportado','Ganancia'], rows.slice(-10)));
       }
       case 'mortgage': {
         const months = Math.round(v.years * 12), schedule = loanSchedule(v.principal, v.rate, months);
@@ -315,13 +357,36 @@
       }
       case 'severance': {
         const daily = v.monthly / 30, salaryPending = daily * v.salaryDays, vacation = daily * v.vacationDays;
-        const gross = salaryPending + vacation + v.extraPay + v.other - v.deductions;
-        return result('Finiquito bruto estimado', money(gross), [item('Salario pendiente', money(salaryPending)), item('Vacaciones', money(vacation)), item('Pagas extra', money(v.extraPay)), item('Otros menos deducciones', money(v.other - v.deductions))], 'No incluye una indemnización por extinción ni calcula retenciones finales.');
+        const compensation = v.includeCompensation ? Number(v.compensation || 0) : 0;
+        const settlement = salaryPending + vacation + v.extraPay + v.other - v.deductions;
+        const total = settlement + compensation;
+        const rows = [
+          ['Salario pendiente', money(salaryPending)],
+          ['Vacaciones no disfrutadas', money(vacation)],
+          ['Pagas extra devengadas', money(v.extraPay)],
+          ['Otros conceptos', money(v.other)],
+          ['Deducciones', `−${money(v.deductions)}`],
+          ['Finiquito sin indemnización', money(settlement)],
+          ['Indemnización añadida', money(compensation)],
+        ];
+        return result('Total bruto orientativo', money(total), [
+          item('Finiquito sin indemnización', money(settlement)),
+          item('Salario diario aproximado', money(daily)),
+          item('Vacaciones', money(vacation)),
+          item('Indemnización añadida', money(compensation))
+        ], 'Resultado bruto orientativo. No calcula IRPF, cotizaciones ni verifica el documento de liquidación.', table(['Partida','Importe'], rows));
       }
       case 'net-salary': {
         const irpf = v.gross * v.irpf / 100, ss = v.gross * v.ss / 100, net = v.gross - irpf - ss - v.other;
-        const pays = Number(v.payments);
-        return result('Neto anual estimado', money(net), [item(`Neto por paga (${pays})`, money(net / pays)), item('Neto mensual equivalente', money(net / 12)), item('IRPF estimado', money(irpf)), item('Cotización estimada', money(ss))], 'Porcentajes editables; no sustituye el cálculo real de nómina.');
+        const pays = Number(v.payments), totalDeductions = irpf + ss + v.other;
+        return result('Neto anual estimado', money(net), [
+          item(`Neto por paga (${pays})`, money(net / pays)),
+          item('Neto mensual equivalente', money(net / 12)),
+          item('IRPF estimado', money(irpf)),
+          item('Cotización estimada', money(ss)),
+          item('Deducciones totales', money(totalDeductions)),
+          item('Tipo efectivo total', pct(v.gross ? totalDeductions / v.gross * 100 : 0))
+        ], 'Porcentajes editables; no sustituye una nómina real ni el cálculo oficial de retenciones.');
       }
       case 'vacation-days': {
         const worked = daysBetween(v.start, v.end, true);
@@ -386,14 +451,49 @@
     }
   }
 
+  function initResultActions() {
+    const panel = document.querySelector('.result-panel');
+    const output = document.querySelector('#result-body');
+    if (!panel || !output) return;
+    const update = () => panel.classList.toggle('has-result', !output.classList.contains('result-placeholder') && Boolean(output.textContent.trim()));
+    new MutationObserver(update).observe(output, { childList:true, subtree:true, attributes:true, attributeFilter:['class'] });
+    update();
+    document.addEventListener('click', event => {
+      const copy = event.target.closest('.js-copy-result');
+      if (copy) {
+        copyText(output.innerText.trim(), copy);
+        track('result_copy', { tool_id: document.querySelector('.tool-form')?.dataset.tool || 'unknown' });
+      }
+      const print = event.target.closest('.js-print-result');
+      if (print) {
+        track('result_print', { tool_id: document.querySelector('.tool-form')?.dataset.tool || 'unknown' });
+        window.print();
+      }
+    });
+  }
+
   function initTool() {
     const form = document.querySelector('.tool-form');
     const output = document.querySelector('#result-body');
     if (!form || !output) return;
     const id = form.dataset.tool;
+    track('tool_view', { tool_id: id });
+    let started = false;
+    const markStarted = () => {
+      if (!started) {
+        started = true;
+        track('tool_start', { tool_id: id });
+      }
+    };
+    form.addEventListener('input', markStarted, { once:false });
+    form.addEventListener('change', markStarted, { once:false });
+    if (ADVANCED_IDS.has(id)) return;
     const live = ['instagram-fonts','instagram-counter','instagram-spaces'].includes(id);
-    const run = () => {
-      if (!live && !validate(form)) return;
+    const run = (userTriggered = false) => {
+      if (!live && !validate(form)) {
+        if (userTriggered) track('tool_error', { tool_id:id, error_type:'validation' });
+        return;
+      }
       try {
         const v = formValues(form);
         if (id === 'instagram-fonts') output.innerHTML = renderFonts(v.text || '');
@@ -403,20 +503,30 @@
           output.innerHTML = `${hero('Texto preparado', `${Array.from(formatted).length} caracteres`)}<textarea id="formatted-output" readonly style="width:100%;min-height:180px;border:1px solid #dfe5ef;border-radius:14px;padding:12px">${escapeHtml(formatted)}</textarea>${note('Copia el resultado y pégalo en Instagram. El comportamiento puede variar según la versión de la aplicación.')}`;
         } else output.innerHTML = calculate(id, v);
         output.classList.remove('result-placeholder');
+        form.querySelector('.error-message').textContent = '';
+        if (userTriggered) track('tool_complete', { tool_id:id });
       } catch (err) {
-        form.querySelector('.error-message').textContent = err.message || 'No se ha podido calcular. Revisa los datos.';
+        const message = err.message || 'No se ha podido calcular. Revisa los datos.';
+        form.querySelector('.error-message').textContent = message;
+        if (userTriggered) track('tool_error', { tool_id:id, error_message:message.slice(0,100) });
       }
     };
-    form.addEventListener('submit', e => { e.preventDefault(); run(); });
-    form.addEventListener('reset', () => setTimeout(run, 0));
-    if (live) form.addEventListener('input', run);
-    run();
+    form.addEventListener('submit', e => { e.preventDefault(); markStarted(); run(true); });
+    form.addEventListener('reset', () => setTimeout(() => run(false), 0));
+    if (live) form.addEventListener('input', () => run(started));
+    run(false);
 
     document.addEventListener('click', e => {
       const btn = e.target.closest('.js-copy-output');
-      if (btn) copyText(btn.closest('.font-result').querySelector('output').textContent, btn);
+      if (btn) {
+        copyText(btn.closest('.font-result').querySelector('output').textContent, btn);
+        track('result_copy', { tool_id:id, result_type:'font' });
+      }
       const main = e.target.closest('.js-copy-main');
-      if (main) copyText(document.querySelector('#formatted-output')?.value || '', main);
+      if (main) {
+        copyText(document.querySelector('#formatted-output')?.value || '', main);
+        track('result_copy', { tool_id:id, result_type:'formatted_text' });
+      }
     });
   }
 
@@ -425,6 +535,7 @@
   }
 
   initCatalog();
-  initCookies();
+  initAnalyticsInteractions();
+  initResultActions();
   initTool();
 })();

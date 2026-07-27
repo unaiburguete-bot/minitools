@@ -1,7 +1,7 @@
 {
   "name": "Clicivo",
   "short_name": "Clicivo",
-  "description": "Calculadoras y herramientas online gratuitas, rápidas y fáciles de usar.",
+  "description": "Herramientas online gratuitas para PDF, imágenes, texto, códigos QR, finanzas, empleo, negocios y creadores. Sin registro, adaptadas a móvil y con procesamiento local cuando trabajas con archivos.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f6f8fc",

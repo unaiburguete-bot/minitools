@@ -1,12 +1,52 @@
-CLICIVO · ENTREGA 22/07/2026
+CÓMO PUBLICAR ESTA ENTREGA
+==========================
 
-1. Descomprime el ZIP.
-2. Entra en el repositorio de Clicivo en GitHub.
-3. Sube TODO el contenido de esta carpeta a la raíz del repositorio y acepta sobrescribir los archivos existentes.
-4. Es importante conservar las carpetas .github, config, content, src, tests y public.
-5. Haz el commit en la rama main.
-6. En Settings > Pages, comprueba que Source esté configurado como “GitHub Actions”.
-7. Espera a que la acción “Build and deploy Clicivo” termine en verde.
-8. Abre https://clicivo.com/ y fuerza una recarga con Ctrl+F5.
+1. Descarga una copia de seguridad del repositorio actual:
+   GitHub > Code > Download ZIP.
 
-La carpeta public ya está compilada. El workflow también vuelve a compilarla y ejecuta las pruebas automáticamente.
+2. Descomprime este ZIP.
+
+3. Abre GitHub Desktop y selecciona el repositorio minitools.
+
+4. Pulsa Repository > Show in Explorer.
+
+5. En la carpeta local del repositorio:
+   - conserva la carpeta oculta .git;
+   - elimina el resto de archivos y carpetas antiguos;
+   - copia dentro TODO el contenido interior de esta entrega.
+
+6. Vuelve a GitHub Desktop.
+
+7. Comprueba que se eliminan archivos antiguos y se añaden los nuevos.
+   Debe existir únicamente:
+   .github/workflows/deploy.yml
+
+8. Escribe como resumen:
+   Clicivo: expansión 10/10, SEO, AdSense y mejoras prioritarias
+
+9. Pulsa Commit to main.
+
+10. Pulsa Push origin.
+
+11. En GitHub > Actions, espera a que “Build and deploy Clicivo” termine en verde.
+
+12. Abre https://clicivo.com/ y pulsa Ctrl + F5.
+
+13. Comprueba:
+   https://clicivo.com/ads.txt
+   https://clicivo.com/sitemap.xml
+   https://clicivo.com/es/youtube/monetizacion/ingresos-youtube/
+   https://clicivo.com/es/empleo/liquidacion-laboral/calculadora-finiquito/
+   https://clicivo.com/es/pdf/unir-dividir/unir-pdf/
+   https://clicivo.com/metodologia/
+   https://clicivo.com/privacidad/
+
+14. En AdSense > Privacidad y mensajes:
+   - abre el borrador de normativa europea;
+   - confirma que aparecen Consentir, No consentir y Gestionar opciones;
+   - confirma la URL https://clicivo.com/privacidad/;
+   - publica el mensaje.
+
+15. Prueba la web en una ventana de incógnito y comprueba que aparece el mensaje europeo.
+
+16. No solicites revisión de AdSense hasta terminar las pruebas indicadas en CHECKLIST_PUBLICACION.md.
