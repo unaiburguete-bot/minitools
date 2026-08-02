@@ -6,7 +6,7 @@
 - [ ] `clicivo.com` carga por HTTPS.
 - [ ] Dominio personalizado conservado en Settings > Pages.
 - [ ] `ads.txt` muestra el ID correcto.
-- [ ] `sitemap.xml` carga y contiene 88 URL.
+- [ ] `sitemap.xml` carga y contiene 87 URL.
 
 ## 2. Pruebas prioritarias
 

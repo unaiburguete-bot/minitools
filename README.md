@@ -2,14 +2,15 @@
 
 Generador estático de herramientas online para GitHub Pages.
 
-## Contenido de esta entrega
+## Entrega 02/08/2026
 
-- 43 herramientas.
-- 15 nuevas herramientas de PDF, imágenes, texto y QR.
-- Mejoras prioritarias de YouTube, Instagram y empleo basadas en Search Console.
-- 88 URL indexables.
+- 42 herramientas activas.
+- 87 URL indexables.
+- Consolidación SEO de YouTube, Instagram, empleo, finanzas, PDF, imágenes y productividad.
+- Redirecciones para URL antiguas y para una herramienta de YouTube con intención duplicada.
 - AdSense, `ads.txt`, Consent Mode y páginas de confianza preparados.
-- Pruebas automáticas de rutas, SEO, enlaces y cálculos.
+- Contenido público limpiado de notas internas de SEO y listas de palabras clave.
+- 16 pruebas automáticas y pruebas JavaScript superadas.
 
 ## Construir y probar
 
@@ -26,4 +27,4 @@ node tests/js_smoke.js
 
 El workflow `.github/workflows/deploy.yml` construye, prueba y publica `public` en GitHub Pages.
 
-Consulta `SUBIR_A_GITHUB.txt` y `CHECKLIST_PUBLICACION.md`.
+Consulta `SUBIR_A_GITHUB.txt`, `CHECKLIST_PUBLICACION.md` y `PLAN_90_DIAS.md`.

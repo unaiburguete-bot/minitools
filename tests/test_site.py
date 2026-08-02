@@ -14,6 +14,7 @@ TOOLS = json.loads((ROOT / "content" / "tools.json").read_text(encoding="utf-8")
 HTML_FILES = sorted(PUBLIC.rglob("index.html"))
 LEGACY_REDIRECT_ROUTES = {
     "/es/herramientas/": "/",
+    "/es/youtube/monetizacion/rpm-youtube/": "/es/youtube/monetizacion/ingresos-youtube/",
     "/es/finanzas-personales/": "/es/finanzas/",
     "/es/negocios-y-autonomos/": "/es/negocios/",
     "/politica-cookies/": "/cookies/",
@@ -43,9 +44,9 @@ def local_target(url: str) -> Path | None:
 
 
 def test_expected_tool_count_and_unique_urls():
-    assert len(TOOLS) == 43
-    assert len({tool["id"] for tool in TOOLS}) == 43
-    assert len({tool["path"] for tool in TOOLS}) == 43
+    assert len(TOOLS) == 42
+    assert len({tool["id"] for tool in TOOLS}) == 42
+    assert len({tool["path"] for tool in TOOLS}) == 42
     assert sum(bool(tool.get("new")) for tool in TOOLS) == 25
 
 
@@ -179,6 +180,17 @@ def test_legacy_routes_redirect_without_indexing():
         assert soup.select_one('meta[http-equiv="refresh"]')
 
 
+def test_no_internal_seo_notes_or_keyword_lists_are_public():
+    forbidden = ["Prioridad SEO:", "Consultas relacionadas:"]
+    hits = []
+    for path in INDEXABLE_HTML_FILES:
+        text = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser").get_text(" ", strip=True)
+        for phrase in forbidden:
+            if phrase in text:
+                hits.append((str(path.relative_to(PUBLIC)), phrase))
+    assert not hits, hits[:20]
+
+
 def test_trust_and_monetization_pages_exist():
     routes = [
         "/sobre-clicivo/", "/metodologia/", "/condiciones-de-uso/",
@@ -204,6 +216,7 @@ def test_adsense_cmp_and_consent_mode_are_prepared():
 
 def test_priority_tool_forms_contain_new_fields():
     expected_fields = {
+        "tiktok-income": {"views", "rpmLow", "rpm", "rpmHigh", "months", "targetIncome"},
         "youtube-income": {"views", "rpmLow", "rpm", "rpmHigh", "months", "targetIncome"},
         "youtube-rpm-revenue": {"revenue", "views", "targetViews"},
         "severance": {"monthly", "salaryDays", "vacationDays", "extraPay", "other", "includeCompensation", "compensation", "deductions"},
@@ -216,9 +229,38 @@ def test_priority_tool_forms_contain_new_fields():
 
 
 def test_result_actions_and_quality_signals_present():
+    report_categories = {"Redes sociales", "Finanzas", "Negocios", "Empleo"}
     for tool in TOOLS:
         soup = BeautifulSoup((PUBLIC / tool["path"].strip("/") / "index.html").read_text(encoding="utf-8"), "html.parser")
         assert soup.select_one(".js-copy-result")
-        assert soup.select_one(".js-print-result")
+        if tool["category"] in report_categories:
+            assert soup.select_one(".js-download-pdf"), tool["id"]
+            assert soup.select_one(".js-copy-client"), tool["id"]
+            assert "jspdf" in str(soup).lower(), tool["id"]
+        else:
+            assert soup.select_one(".js-print-result"), tool["id"]
         assert soup.select_one(".quality-card")
+        assert soup.select_one(".hero-outcome-card")
+        assert soup.select_one(".benefit-ribbon")
         assert "Última revisión" in soup.get_text(" ", strip=True)
+
+
+def test_every_tool_has_persuasive_unique_copy_fields():
+    hooks=set()
+    benefits=set()
+    for tool in TOOLS:
+        assert 25 <= len(tool.get("hook", "")) <= 120, tool["id"]
+        assert 25 <= len(tool.get("benefit_heading", "")) <= 100, tool["id"]
+        assert len(tool.get("benefit_copy", "")) >= 70, tool["id"]
+        assert tool["hook"] not in hooks, tool["id"]
+        assert tool["benefit_heading"] not in benefits, tool["id"]
+        hooks.add(tool["hook"])
+        benefits.add(tool["benefit_heading"])
+
+
+def test_homepage_uses_saas_value_proposition():
+    soup=BeautifulSoup((PUBLIC / "index.html").read_text(encoding="utf-8"), "html.parser")
+    text=soup.get_text(" ", strip=True)
+    assert "Calcula, compara y presenta resultados" in text
+    assert soup.select_one(".saas-dashboard-preview")
+    assert "Resultados que puedes reutilizar" in text

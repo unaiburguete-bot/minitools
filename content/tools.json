@@ -6,7 +6,7 @@
     "short_title": "Crecimiento de seguidores",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Calcula la tasa de crecimiento de seguidores de Instagram, el cambio neto, el ritmo diario, semanal y mensual, y la fecha orientativa para alcanzar un objetivo manteniendo el ritmo observado.",
+    "description": "Calcula la tasa de crecimiento de Instagram, compara el ritmo real y descubre cuándo podrías alcanzar tu próximo objetivo de seguidores.",
     "formula": "Crecimiento (%) = (seguidores finales − seguidores iniciales) ÷ seguidores iniciales × 100. Fecha objetivo = fecha actual + seguidores pendientes ÷ crecimiento diario.",
     "example": "Si una cuenta pasa de 8.000 a 8.640 seguidores en 30 días, crece un 8 %, suma 21,3 seguidores diarios y proyecta 640 nuevos seguidores cada 30 días.",
     "faqs": [
@@ -29,6 +29,10 @@
       [
         "¿Qué ocurre si el crecimiento es negativo?",
         "La herramienta mostrará la pérdida neta y no ofrecerá una fecha de objetivo mientras el ritmo sea cero o negativo."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de crecimiento de seguidores?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -54,7 +58,24 @@
       "Fecha estimada de objetivo",
       "Proyección a 30 y 90 días"
     ],
-    "reviewed": "2026-07-27"
+    "reviewed": "2026-08-02",
+    "usage_steps": [
+      {
+        "title": "Define un periodo comparable",
+        "text": "Introduce el total de seguidores al inicio y al final de un periodo concreto."
+      },
+      {
+        "title": "Normaliza el ritmo",
+        "text": "Revisa el cambio diario, semanal y mensual para comparar periodos de distinta duración."
+      },
+      {
+        "title": "Añade un objetivo",
+        "text": "La fecha estimada mantiene el ritmo observado y no contempla campañas, estacionalidad ni viralidad."
+      }
+    ],
+    "hook": "¿Tu cuenta crece de verdad o solo lo parece?",
+    "benefit_heading": "Convierte una cifra aislada en un plan de crecimiento",
+    "benefit_copy": "Visualiza el avance diario, mensual y proyectado para decidir si tu estrategia está acelerando o perdiendo fuerza."
   },
   {
     "id": "instagram-engagement-followers",
@@ -63,7 +84,7 @@
     "short_title": "Engagement por seguidores",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Calcula el engagement medio de Instagram respecto a seguidores sumando me gusta, comentarios, guardados y compartidos. Obtén interacciones por 1.000 seguidores, peso de acciones de valor y contexto de la muestra.",
+    "description": "Calcula el engagement de Instagram por seguidores y comprueba qué parte de tu comunidad interactúa realmente con cada publicación.",
     "formula": "Engagement (%) = (me gusta + comentarios + guardados + compartidos) ÷ seguidores × 100.",
     "example": "Con 1.200 interacciones medias y 40.000 seguidores, el engagement por seguidores es del 3 % y equivale a 30 interacciones por cada 1.000 seguidores.",
     "faqs": [
@@ -86,6 +107,10 @@
       [
         "¿Por qué muestra el peso de guardados y compartidos?",
         "Ayuda a separar interacciones rápidas de acciones que suelen reflejar intención de conservar o difundir el contenido, sin convertirlas en una puntuación universal."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de engagement por seguidores?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -111,7 +136,24 @@
       "Peso de guardados y compartidos",
       "Contexto del tamaño de muestra"
     ],
-    "reviewed": "2026-07-27"
+    "reviewed": "2026-08-02",
+    "usage_steps": [
+      {
+        "title": "Selecciona una muestra coherente",
+        "text": "Usa publicaciones recientes del mismo tipo y evita mezclar sorteos o campañas pagadas con contenido ordinario."
+      },
+      {
+        "title": "Incluye las interacciones disponibles",
+        "text": "Añade Me gusta, comentarios, guardados y compartidos cuando dispongas de ellos."
+      },
+      {
+        "title": "Interpreta el denominador",
+        "text": "El resultado compara interacciones con seguidores; para medir exposición real utiliza la calculadora por alcance."
+      }
+    ],
+    "hook": "Tener más seguidores no siempre significa conectar mejor.",
+    "benefit_heading": "Mide la calidad de tu comunidad, no solo su tamaño",
+    "benefit_copy": "Reúne likes, comentarios, guardados y compartidos en una tasa clara que puedes comparar entre campañas y cuentas."
   },
   {
     "id": "instagram-engagement-reach",
@@ -120,7 +162,7 @@
     "short_title": "Engagement por alcance",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Calcula qué porcentaje de las cuentas alcanzadas interactuó con una publicación o reel de Instagram.",
+    "description": "Calcula el engagement por alcance en Instagram y descubre qué porcentaje de las personas alcanzadas termina interactuando con tu contenido.",
     "formula": "Engagement por alcance (%) = interacciones totales ÷ alcance × 100.",
     "example": "Si una publicación alcanza 25.000 cuentas y consigue 1.500 interacciones, la tasa es del 6 %.",
     "faqs": [
@@ -135,6 +177,10 @@
       [
         "¿Se guardan mis datos?",
         "No. El cálculo se realiza localmente."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de engagement por alcance?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -151,8 +197,11 @@
     "new": false,
     "accent": "pink",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "El alcance importa; la reacción que provoca, todavía más.",
+    "benefit_heading": "Identifica las publicaciones que convierten alcance en acción",
+    "benefit_copy": "Compara piezas con audiencias distintas y detecta qué formatos generan una respuesta más intensa."
   },
   {
     "id": "instagram-fonts",
@@ -161,7 +210,7 @@
     "short_title": "Letras para Instagram",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Convierte un texto en estilos Unicode visuales para copiar y pegar en la biografía, publicaciones o comentarios: negrita, cursiva, monoespaciada y más.",
+    "description": "Genera letras en negrita, cursiva y otros estilos Unicode para Instagram, listas para copiar y pegar en biografías y publicaciones.",
     "formula": "La herramienta sustituye letras compatibles por caracteres Unicode equivalentes; no aplica formato HTML.",
     "example": "Escribe “Nueva colección” y copia una versión como “𝗡𝘂𝗲𝘃𝗮 𝗰𝗼𝗹𝗲𝗰𝗰𝗶ó𝗻”.",
     "faqs": [
@@ -176,6 +225,10 @@
       [
         "¿Conviene transformar todo el texto?",
         "Es mejor reservarlo para títulos o palabras cortas por legibilidad y accesibilidad."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de letras para instagram?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -196,8 +249,11 @@
       "Usa estilos especiales con moderación: algunos lectores de pantalla pueden pronunciarlos de forma distinta."
     ],
     "seo_title": "Letras en negrita para Instagram: copiar y pegar",
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Una palabra bien destacada puede cambiar dónde se detiene la mirada.",
+    "benefit_heading": "Haz que las palabras clave destaquen al instante",
+    "benefit_copy": "Prueba varios estilos, copia el que mejor encaje y mejora la jerarquía visual de tu texto sin instalar nada."
   },
   {
     "id": "instagram-counter",
@@ -206,7 +262,7 @@
     "short_title": "Contador de caracteres",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Cuenta caracteres, palabras, líneas y espacios mientras redactas tu biografía o publicación de Instagram, con referencias rápidas configurables.",
+    "description": "Cuenta caracteres, palabras y líneas para Instagram y adapta tu texto antes de publicarlo, con referencias editables para cada formato.",
     "formula": "Caracteres = longitud total del texto, incluyendo espacios y saltos de línea.",
     "example": "Pega una biografía y comprueba al instante cuánto espacio ocupa antes de publicarla.",
     "faqs": [
@@ -221,6 +277,10 @@
       [
         "¿Puedo usar un límite personalizado?",
         "Sí. Selecciona la opción personalizada e introduce cualquier máximo."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de contador de caracteres?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -237,8 +297,11 @@
     "new": true,
     "accent": "pink",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Un gran copy pierde fuerza cuando se corta en el lugar equivocado.",
+    "benefit_heading": "Publica con el texto bajo control",
+    "benefit_copy": "Comprueba cuánto espacio te queda y ajusta el mensaje antes de llegar al límite o perder información importante."
   },
   {
     "id": "instagram-spaces",
@@ -247,7 +310,7 @@
     "short_title": "Espacios para Instagram",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Limpia el texto, conserva párrafos vacíos mediante un carácter invisible y genera una versión lista para copiar en Instagram.",
+    "description": "Prepara espacios y saltos de línea para Instagram y copia un texto limpio, ordenado y fácil de leer desde el móvil.",
     "formula": "Las líneas vacías se sustituyen por un carácter Unicode invisible para ayudar a conservar la separación visual.",
     "example": "Escribe tres párrafos separados por líneas vacías y copia el texto formateado con un clic.",
     "faqs": [
@@ -262,6 +325,10 @@
       [
         "¿Puedo eliminar espacios sobrantes?",
         "Sí. La herramienta recorta espacios al inicio y al final de cada línea."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de espacios para instagram?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -278,8 +345,11 @@
     "new": true,
     "accent": "pink",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Un texto más respirable se lee mejor y retiene más.",
+    "benefit_heading": "Convierte bloques densos en publicaciones escaneables",
+    "benefit_copy": "Separa ideas, crea ritmo visual y deja tu copy listo para pegar sin editarlo otra vez dentro de Instagram."
   },
   {
     "id": "tiktok-engagement",
@@ -288,7 +358,7 @@
     "short_title": "Engagement de TikTok",
     "category": "Redes sociales",
     "cluster": "TikTok",
-    "description": "Calcula la tasa de interacción de un vídeo de TikTok respecto a sus visualizaciones o respecto a los seguidores de la cuenta.",
+    "description": "Calcula el engagement de TikTok por visualizaciones o seguidores y compara el rendimiento real de vídeos y campañas.",
     "formula": "Engagement (%) = (me gusta + comentarios + compartidos + guardados) ÷ base elegida × 100.",
     "example": "Con 12.000 interacciones y 300.000 visualizaciones, el engagement por visualizaciones es del 4 %.",
     "faqs": [
@@ -303,6 +373,10 @@
       [
         "¿Existe una tasa ideal?",
         "No hay un umbral universal; compárala con tu histórico y con contenidos similares."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de engagement de tiktok?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -319,34 +393,49 @@
     "new": true,
     "accent": "black",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Las visualizaciones impresionan; la interacción revela el impacto real.",
+    "benefit_heading": "Separa la viralidad puntual del contenido que conecta",
+    "benefit_copy": "Mide todas las interacciones relevantes en una sola tasa y detecta qué vídeos merecen repetirse o escalarse."
   },
   {
     "id": "tiktok-income",
     "path": "/es/tiktok/monetizacion/calculadora-ingresos-tiktok/",
-    "title": "Calculadora de ingresos de TikTok por RPM",
+    "title": "Calculadora de ingresos de TikTok: estima cuánto puedes ganar",
     "short_title": "Ingresos de TikTok",
     "category": "Redes sociales",
     "cluster": "TikTok",
-    "description": "Estima recompensas a partir de las visualizaciones cualificadas y del RPM real o hipotético que introduzcas.",
-    "formula": "Ingresos estimados = visualizaciones cualificadas ÷ 1.000 × RPM.",
-    "example": "Con 500.000 visualizaciones cualificadas y un RPM introducido de 0,50 €, el escenario sería de 250 €.",
+    "description": "Calcula cuánto podrías ganar en TikTok con visualizaciones cualificadas, tres escenarios de RPM y un objetivo mensual editable.",
+    "formula": "Ingresos estimados = visualizaciones cualificadas ÷ 1.000 × RPM. Las vistas necesarias para una meta se calculan como objetivo ÷ RPM × 1.000.",
+    "example": "Con 500.000 visualizaciones cualificadas y un RPM central de 0,50 €, el escenario central sería de 250 €. Con RPM de 0,30 € y 0,80 €, el rango sería de 150 € a 400 €.",
     "faqs": [
       [
-        "¿Clicivo fija un RPM medio?",
-        "No. El RPM varía y debes introducir el dato de tu panel o un escenario propio."
+        "¿Qué son las visualizaciones cualificadas?",
+        "Son las visualizaciones que TikTok considera válidas conforme a las reglas del programa aplicable. No todas las reproducciones totales tienen que ser elegibles."
       ],
       [
-        "¿Todas las visualizaciones generan recompensas?",
-        "No necesariamente. TikTok utiliza visualizaciones cualificadas y criterios del programa aplicable."
+        "¿Qué RPM debo introducir?",
+        "Utiliza, cuando dispongas de él, el RPM mostrado en tu panel para el mismo periodo. Si aún no tienes datos, prueba varios escenarios y no interpretes ninguno como una promesa."
       ],
       [
-        "¿El resultado está garantizado?",
-        "No. Es una estimación matemática, no una promesa de ingresos."
+        "¿Por qué la calculadora muestra tres escenarios?",
+        "Porque el RPM puede variar. Los escenarios bajo, central y alto permiten ver cómo cambia el resultado sin fijar una media universal."
+      ],
+      [
+        "¿La herramienta garantiza que cobraré esa cantidad?",
+        "No. Es una estimación matemática basada en tus datos. La elegibilidad, las visualizaciones cualificadas y el cálculo final dependen de TikTok y del programa disponible en tu región."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de ingresos de tiktok?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
+      [
+        "TikTok Creator Rewards: descripción general del programa",
+        "https://support.tiktok.com/es/business-and-creator/creator-rewards-program/creator-rewards-program"
+      ],
       [
         "TikTok Creator Rewards: cómo funcionan las recompensas",
         "https://support.tiktok.com/en/business-and-creator/creator-rewards-program/how-rewards-work"
@@ -354,16 +443,42 @@
     ],
     "keywords": [
       "calculadora ingresos tiktok",
-      "cuanto paga tiktok",
-      "rpm tiktok"
+      "cuánto paga tiktok",
+      "ganancias tiktok",
+      "rpm tiktok",
+      "ingresos creator rewards"
     ],
     "new": true,
     "accent": "black",
     "notes": [
-      "TikTok calcula recompensas con visualizaciones cualificadas y RPM; el resultado depende de los datos que introduzcas."
+      "TikTok calcula las recompensas con visualizaciones cualificadas y un RPM que puede variar. Introduce tus propios datos y trata el resultado como una estimación, no como una promesa de ingresos."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [
+      "Tres escenarios de RPM",
+      "Objetivo de ingresos y vistas necesarias",
+      "Proyección mensual y anual",
+      "Tabla comparativa por visualizaciones"
+    ],
+    "seo_title": "Calculadora de ingresos de TikTok: cuánto puedes ganar",
+    "opportunity": true,
+    "usage_steps": [
+      {
+        "title": "Introduce las visualizaciones cualificadas",
+        "text": "Usa la cifra elegible del mismo periodo, no mezcles reproducciones totales con visualizaciones cualificadas."
+      },
+      {
+        "title": "Define tres escenarios de RPM",
+        "text": "Introduce un RPM bajo, uno central y uno alto. El central puede ser tu dato real; los otros sirven para medir sensibilidad."
+      },
+      {
+        "title": "Añade una meta y compara",
+        "text": "La herramienta calcula el rango de ingresos, la media mensual, la proyección anual y las vistas necesarias para alcanzar tu objetivo."
+      }
+    ],
+    "hook": "¿Cuántas visualizaciones necesitas para acercarte a tu meta de ingresos?",
+    "benefit_heading": "Pasa de “muchas visitas” a un objetivo económico concreto",
+    "benefit_copy": "Compara escenarios prudente, central y alto, y calcula las visualizaciones cualificadas necesarias para llegar a tu meta."
   },
   {
     "id": "youtube-rpm-revenue",
@@ -372,7 +487,7 @@
     "short_title": "Calcular RPM de YouTube",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Calcula el RPM real de un canal, vídeo o periodo a partir de ingresos y visualizaciones. Estima además cuánto generarías con un volumen futuro de vistas usando ese mismo RPM.",
+    "description": "Calcula tu RPM real de YouTube a partir de ingresos y visualizaciones, y proyecta cuánto generarías con un volumen objetivo.",
     "formula": "RPM = ingresos ÷ visualizaciones × 1.000. Ingreso futuro estimado = visualizaciones objetivo ÷ 1.000 × RPM.",
     "example": "425 € con 100.000 visualizaciones equivalen a un RPM de 4,25 €. Con ese RPM, 250.000 vistas representarían 1.062,50 €.",
     "faqs": [
@@ -391,6 +506,10 @@
       [
         "¿Para qué sirve el campo de visualizaciones objetivo?",
         "Permite convertir el RPM calculado en una estimación de ingresos para un volumen futuro de vistas."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de calcular rpm de youtube?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -415,8 +534,24 @@
       "Proyección a vistas objetivo",
       "Referencias para 100.000 y 1 millón de vistas"
     ],
-    "reviewed": "2026-07-27",
-    "opportunity": "Prioridad SEO: URL próxima a la primera página en los datos iniciales."
+    "reviewed": "2026-08-02",
+    "usage_steps": [
+      {
+        "title": "Usa datos del mismo periodo",
+        "text": "Los ingresos y las visualizaciones deben pertenecer al mismo canal, formato y rango de fechas."
+      },
+      {
+        "title": "Calcula el RPM real",
+        "text": "La herramienta divide los ingresos entre las vistas y multiplica por mil."
+      },
+      {
+        "title": "Proyecta sin mezclar formatos",
+        "text": "Prueba una cifra futura de visualizaciones; analiza Shorts y vídeos largos por separado."
+      }
+    ],
+    "hook": "Tu RPM explica más sobre el negocio que el número total de visitas.",
+    "benefit_heading": "Descubre cuánto vale realmente cada mil visualizaciones",
+    "benefit_copy": "Obtén una métrica comparable entre periodos y úsala para proyectar ingresos con datos de tu propio canal."
   },
   {
     "id": "youtube-watch-hours",
@@ -425,7 +560,7 @@
     "short_title": "Horas de visualización",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Estima las horas generadas por un vídeo o conjunto de vídeos usando visualizaciones, duración y porcentaje medio visto.",
+    "description": "Calcula horas de visualización de YouTube y estima cuántas visitas necesitas para alcanzar un objetivo según duración y retención.",
     "formula": "Horas = visualizaciones × duración en minutos × retención ÷ 100 ÷ 60.",
     "example": "10.000 visualizaciones de un vídeo de 8 minutos al 50 % producen unas 666,67 horas.",
     "faqs": [
@@ -440,6 +575,10 @@
       [
         "¿YouTube puede excluir horas?",
         "Sí. Solo cuentan las horas públicas válidas según las reglas vigentes del programa."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de horas de visualización?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -456,8 +595,11 @@
     "new": false,
     "accent": "red",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "La monetización no depende solo de sumar visitas, sino de cuánto tiempo se queda la audiencia.",
+    "benefit_heading": "Convierte retención y visitas en horas acumuladas",
+    "benefit_copy": "Prueba distintos escenarios y descubre qué combinación de volumen y tiempo medio te acerca más rápido al objetivo."
   },
   {
     "id": "youtube-shorts-income",
@@ -466,7 +608,7 @@
     "short_title": "Ingresos de Shorts",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Estima los ingresos de Shorts a partir de las visualizaciones con interacción y un RPM de Shorts introducido por ti.",
+    "description": "Calcula ingresos orientativos de YouTube Shorts con tus visualizaciones y RPM, y compara rápidamente varios escenarios.",
     "formula": "Ingresos = visualizaciones con interacción ÷ 1.000 × RPM de Shorts.",
     "example": "Un millón de visualizaciones con un RPM introducido de 0,08 € produciría un escenario de 80 €.",
     "faqs": [
@@ -481,6 +623,10 @@
       [
         "¿El resultado es definitivo?",
         "No. Es una estimación basada en el RPM introducido."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de ingresos de shorts?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -501,8 +647,25 @@
     "new": false,
     "accent": "red",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "usage_steps": [
+      {
+        "title": "Consulta el RPM de Shorts",
+        "text": "Utiliza el dato de YouTube Studio correspondiente al periodo y al formato Shorts."
+      },
+      {
+        "title": "Introduce vistas con interacción",
+        "text": "No mezcles esta cifra con impresiones ni con vistas de vídeos largos."
+      },
+      {
+        "title": "Prueba varios escenarios",
+        "text": "Cambia el RPM para medir la sensibilidad del resultado sin tratarlo como una promesa."
+      }
+    ],
+    "hook": "Un millón de visualizaciones puede valer cantidades muy distintas.",
+    "benefit_heading": "Pon una cifra realista detrás del alcance de tus Shorts",
+    "benefit_copy": "Usa tu RPM histórico o una hipótesis editable para estimar ingresos sin confundir visualizaciones con rentabilidad."
   },
   {
     "id": "youtube-income",
@@ -511,7 +674,7 @@
     "short_title": "Ingresos de YouTube",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Estima cuánto puede generar un canal de YouTube con sus visualizaciones, tres escenarios de RPM y un objetivo de ingresos. Compara el resultado del periodo, la media mensual, la proyección anual y las vistas necesarias para alcanzar una meta.",
+    "description": "Calcula cuánto puedes ganar en YouTube con tres escenarios de RPM y descubre las visualizaciones necesarias para alcanzar tu objetivo.",
     "formula": "Ingresos = visualizaciones ÷ 1.000 × RPM. La herramienta compara un RPM bajo, central y alto y calcula las visualizaciones necesarias para un objetivo económico.",
     "example": "Con 250.000 visualizaciones y RPM de 2 €, 3,50 € y 5 €, los escenarios estiman 500 €, 875 € y 1.250 €.",
     "faqs": [
@@ -534,6 +697,10 @@
       [
         "¿La estimación garantiza esos ingresos?",
         "No. Es una simulación matemática basada en los datos introducidos, no una predicción ni una promesa de monetización."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de ingresos de youtube?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -561,49 +728,24 @@
       "Proyección mensual y anual",
       "Tabla por volúmenes de visualizaciones"
     ],
-    "reviewed": "2026-07-27",
-    "opportunity": "Prioridad SEO: página con mayor visibilidad inicial en Search Console."
-  },
-  {
-    "id": "youtube-rpm-monthly",
-    "path": "/es/youtube/monetizacion/rpm-youtube/",
-    "title": "Calculadora RPM YouTube: ingresos por vistas y periodo",
-    "short_title": "RPM e ingresos mensuales",
-    "category": "Redes sociales",
-    "cluster": "YouTube",
-    "description": "Proyecta ingresos a partir de visualizaciones diarias, días del periodo y RPM, mostrando también escenarios prudente y optimista.",
-    "formula": "Ingresos del periodo = visualizaciones diarias × días ÷ 1.000 × RPM.",
-    "example": "5.000 vistas diarias durante 30 días con RPM de 4 € producen un escenario de 600 €.",
-    "faqs": [
-      [
-        "¿Qué periodo conviene usar?",
-        "Compara meses completos o periodos equivalentes para evitar estacionalidad engañosa."
-      ],
-      [
-        "¿El RPM cambia?",
-        "Sí. Puede variar por audiencia, anuncios, temática, formato y temporada."
-      ],
-      [
-        "¿Se procesan mis datos fuera del navegador?",
-        "No."
-      ]
+    "reviewed": "2026-08-02",
+    "usage_steps": [
+      {
+        "title": "Introduce un periodo real",
+        "text": "Añade las visualizaciones totales de una semana, mes o trimestre. Si partes de vistas diarias, multiplícalas por los días del periodo."
+      },
+      {
+        "title": "Compara tres RPM",
+        "text": "Usa un escenario prudente, uno central y otro alto. El RPM central debería ser tu dato real de YouTube Analytics cuando esté disponible."
+      },
+      {
+        "title": "Convierte una meta en visitas",
+        "text": "Indica un objetivo de ingresos para conocer las visualizaciones aproximadas necesarias con el RPM central."
+      }
     ],
-    "sources": [
-      [
-        "YouTube Help: RPM",
-        "https://support.google.com/youtube/answer/9314357?hl=es"
-      ]
-    ],
-    "keywords": [
-      "rpm youtube",
-      "calculadora monetización youtube",
-      "ingresos mensuales youtube"
-    ],
-    "new": false,
-    "accent": "red",
-    "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "hook": "¿Tu volumen actual de visitas puede sostener el ingreso que buscas?",
+    "benefit_heading": "Convierte tu audiencia en un escenario de negocio",
+    "benefit_copy": "Compara un resultado prudente, central y alto, revisa la proyección anual y fija metas basadas en números."
   },
   {
     "id": "youtube-views-goal",
@@ -612,7 +754,7 @@
     "short_title": "Visualizaciones objetivo",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Calcula cuántas visualizaciones aproximadas necesitarías para alcanzar un objetivo de ingresos con un RPM determinado.",
+    "description": "Calcula las visualizaciones de YouTube necesarias para alcanzar un ingreso objetivo según tu RPM y el plazo disponible.",
     "formula": "Visualizaciones necesarias = objetivo de ingresos ÷ RPM × 1.000.",
     "example": "Para alcanzar 1.000 € con RPM de 4 € se necesitarían unas 250.000 visualizaciones.",
     "faqs": [
@@ -627,6 +769,10 @@
       [
         "¿Incluye YouTube Premium?",
         "El RPM de Studio puede integrar varias fuentes; depende del dato que introduzcas."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de visualizaciones objetivo?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -644,8 +790,11 @@
     "accent": "red",
     "notes": [],
     "seo_title": "Vistas necesarias para ganar dinero en YouTube",
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Una meta de ingresos es más útil cuando sabes cuántas visitas exige.",
+    "benefit_heading": "Transforma una meta económica en un plan de tráfico",
+    "benefit_copy": "Obtén las visitas totales y diarias que necesitarías para saber si el objetivo es realista con tu rendimiento actual."
   },
   {
     "id": "compound-interest",
@@ -654,7 +803,7 @@
     "short_title": "Interés compuesto",
     "category": "Finanzas",
     "cluster": "Ahorro e inversión",
-    "description": "Calcula el interés compuesto con capital inicial, aportaciones mensuales, comisiones e inflación. Compara el dinero aportado, la ganancia y el valor real año a año.",
+    "description": "Calcula el interés compuesto con aportaciones mensuales, comisiones e inflación y compara el capital aportado con el crecimiento estimado.",
     "formula": "Capital futuro = capital inicial capitalizado + valor futuro de las aportaciones periódicas. La simulación descuenta la comisión anual y muestra también el valor ajustado por inflación.",
     "example": "Con 10.000 €, 200 € al mes, un 6 % bruto, un 0,3 % de comisión y 15 años, la herramienta muestra el capital estimado, lo aportado y la ganancia acumulada.",
     "faqs": [
@@ -673,6 +822,10 @@
       [
         "¿La comisión se descuenta antes de calcular?",
         "Sí. La simulación utiliza una rentabilidad anual neta aproximada igual a rentabilidad bruta menos comisión anual."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de interés compuesto?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -691,8 +844,11 @@
     "accent": "green",
     "notes": [],
     "seo_title": "Calculadora de interés compuesto con aportaciones mensuales",
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "La diferencia entre ahorrar e invertir se vuelve enorme cuando entra el tiempo.",
+    "benefit_heading": "Visualiza lo que el tiempo puede hacer con tus aportaciones",
+    "benefit_copy": "Separa ahorro e intereses, compara valor nominal y real, y prueba escenarios antes de comprometer tu plan."
   },
   {
     "id": "mortgage",
@@ -701,7 +857,7 @@
     "short_title": "Calculadora de hipoteca",
     "category": "Finanzas",
     "cluster": "Hipotecas",
-    "description": "Calcula la cuota mensual de una hipoteca a tipo fijo mediante el sistema francés y consulta coste total, intereses y primeras cuotas.",
+    "description": "Calcula la cuota de una hipoteca, los intereses totales y el coste completo para comparar capital, tipo y plazo antes de decidir.",
     "formula": "Cuota = capital × i ÷ (1 − (1 + i)^−n), con i mensual y n cuotas.",
     "example": "Una hipoteca de 200.000 € a 25 años y un tipo nominal del 3 % produce una cuota constante antes de gastos y cambios contractuales.",
     "faqs": [
@@ -716,6 +872,10 @@
       [
         "¿Por qué baja el interés con el tiempo?",
         "En el sistema francés la cuota es estable, pero al reducirse el capital pendiente disminuye la parte de intereses."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de calculadora de hipoteca?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -733,8 +893,11 @@
     "accent": "green",
     "notes": [],
     "seo_title": "Calculadora de hipoteca y cuota mensual",
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Una pequeña variación del tipo puede cambiar miles de euros al final.",
+    "benefit_heading": "Compara hipotecas con el coste total delante",
+    "benefit_copy": "No te quedes solo con la cuota: revisa intereses, gastos y efecto del plazo en una misma simulación."
   },
   {
     "id": "personal-loan",
@@ -743,7 +906,7 @@
     "short_title": "Préstamo personal",
     "category": "Finanzas",
     "cluster": "Préstamos",
-    "description": "Estima la cuota, los intereses totales y el coste con comisión de apertura de un préstamo personal a tipo fijo.",
+    "description": "Calcula la cuota, los intereses y el coste total de un préstamo personal incluyendo la comisión de apertura.",
     "formula": "La cuota se calcula con el sistema de amortización francés usando tipo mensual y número de pagos.",
     "example": "Un préstamo de 15.000 € a cinco años puede compararse con distintas tasas y comisiones antes de decidir.",
     "faqs": [
@@ -758,6 +921,10 @@
       [
         "¿Es una oferta bancaria?",
         "No. Es un simulador independiente y orientativo."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de préstamo personal?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -774,8 +941,25 @@
     "new": false,
     "accent": "green",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "usage_steps": [
+      {
+        "title": "Compara ofertas equivalentes",
+        "text": "Usa el mismo capital, plazo y criterio de comisiones para que la comparación tenga sentido."
+      },
+      {
+        "title": "Diferencia TIN y coste total",
+        "text": "La cuota se calcula con el TIN; la comisión de apertura se suma al coste estimado."
+      },
+      {
+        "title": "Prueba cambios pequeños",
+        "text": "Modifica plazo y tipo por separado para ver qué variable explica la diferencia de cuota e intereses."
+      }
+    ],
+    "hook": "La cuota baja puede ocultar un préstamo mucho más caro.",
+    "benefit_heading": "Mira más allá de la mensualidad",
+    "benefit_copy": "Compara escenarios de tipo y plazo para detectar cuánto terminas pagando realmente por financiarte."
   },
   {
     "id": "monthly-savings",
@@ -784,7 +968,7 @@
     "short_title": "Ahorro mensual",
     "category": "Finanzas",
     "cluster": "Ahorro e inversión",
-    "description": "Calcula cuánto deberías aportar cada mes para alcanzar un objetivo en una fecha determinada, con o sin rentabilidad estimada.",
+    "description": "Calcula cuánto necesitas ahorrar al mes para alcanzar un objetivo, partiendo de tu ahorro actual y una rentabilidad estimada.",
     "formula": "La aportación se obtiene despejando el valor futuro de una anualidad mensual y restando el crecimiento del ahorro inicial.",
     "example": "Para reunir 20.000 € en 48 meses partiendo de 2.000 €, la herramienta calcula la aportación mensual necesaria.",
     "faqs": [
@@ -799,6 +983,10 @@
       [
         "¿La rentabilidad es segura?",
         "No. Si la incluyes, funciona como hipótesis para escenarios de inversión."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de ahorro mensual?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -815,8 +1003,11 @@
     "new": true,
     "accent": "green",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Una meta deja de ser abstracta cuando sabes cuánto exige cada mes.",
+    "benefit_heading": "Convierte tu objetivo en una cifra mensual accionable",
+    "benefit_copy": "Ajusta tiempo, capital y rentabilidad para encontrar un plan que encaje con tu capacidad real de ahorro."
   },
   {
     "id": "index-funds",
@@ -825,7 +1016,7 @@
     "short_title": "Fondos indexados",
     "category": "Finanzas",
     "cluster": "Ahorro e inversión",
-    "description": "Compara la evolución estimada de aportaciones a un fondo indexado con y sin comisión, y muestra el valor real tras inflación.",
+    "description": "Simula una inversión en fondos indexados con aportaciones, rentabilidad, comisiones e inflación para estimar el capital futuro.",
     "formula": "Se usa capitalización mensual con rentabilidad bruta menos comisión anual; el valor real descuenta la inflación.",
     "example": "Compara 20 años de aportaciones de 250 € al mes y observa cómo una diferencia pequeña de comisiones se acumula.",
     "faqs": [
@@ -840,6 +1031,10 @@
       [
         "¿Incluye impuestos?",
         "No. La fiscalidad depende del producto, país y situación personal."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de fondos indexados?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -857,8 +1052,11 @@
     "accent": "green",
     "notes": [],
     "seo_title": "Simulador de fondos indexados y comisiones",
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Las comisiones pequeñas también se acumulan durante décadas.",
+    "benefit_heading": "Compara crecimiento bruto, costes y poder adquisitivo",
+    "benefit_copy": "Descubre cuánto aportas, cuánto podría generar la inversión y cómo cambian los resultados al ajustar comisiones o plazo."
   },
   {
     "id": "mortgage-prepayment",
@@ -867,7 +1065,7 @@
     "short_title": "Amortizar hipoteca",
     "category": "Finanzas",
     "cluster": "Hipotecas",
-    "description": "Compara qué ocurre al amortizar capital: reducir cuota manteniendo plazo o reducir plazo manteniendo una cuota equivalente.",
+    "description": "Calcula el efecto de amortizar anticipadamente una hipoteca y compara la reducción de cuota, plazo e intereses.",
     "formula": "La herramienta simula mes a mes el préstamo actual y los dos escenarios tras aplicar la amortización extraordinaria.",
     "example": "Introduce 10.000 € de amortización y compara meses ahorrados, nueva cuota, intereses y posible comisión.",
     "faqs": [
@@ -882,6 +1080,10 @@
       [
         "¿Coincidirá exactamente con el banco?",
         "Puede haber diferencias por fechas de liquidación, redondeos, tipo variable y condiciones contractuales."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de amortizar hipoteca?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -898,8 +1100,11 @@
     "new": true,
     "accent": "green",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Amortizar antes no siempre produce el mismo ahorro.",
+    "benefit_heading": "Descubre dónde aprovechas mejor una amortización",
+    "benefit_copy": "Introduce capital pendiente, tipo y plazo para visualizar el ahorro potencial antes de hablar con tu entidad."
   },
   {
     "id": "freelance-rate",
@@ -908,7 +1113,7 @@
     "short_title": "Tarifa por hora",
     "category": "Negocios",
     "cluster": "Autónomos",
-    "description": "Calcula una tarifa mínima por hora y por día a partir de ingresos netos deseados, gastos, impuestos, horas facturables y semanas de descanso.",
+    "description": "Calcula una tarifa por hora sostenible para autónomos incluyendo gastos, impuestos, tiempo no facturable y margen de seguridad.",
     "formula": "Facturación necesaria = (neto deseado + gastos) ÷ (1 − tasa reservada); tarifa = facturación ÷ horas facturables.",
     "example": "Si quieres 2.000 € netos, tienes 600 € de gastos y solo 80 horas facturables, la tarifa debe cubrir también reservas y margen.",
     "faqs": [
@@ -923,6 +1128,10 @@
       [
         "¿Incluye vacaciones?",
         "Sí. Las semanas no trabajadas reducen las horas facturables anuales."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de tarifa por hora?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -939,8 +1148,11 @@
     "new": false,
     "accent": "orange",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Tu tarifa no debe cubrir solo las horas que facturas.",
+    "benefit_heading": "Deja de poner precio sin contar todos tus costes",
+    "benefit_copy": "Convierte tu objetivo neto en una tarifa mínima y comprueba si cada proyecto sostiene realmente tu actividad."
   },
   {
     "id": "profit-margin",
@@ -949,7 +1161,7 @@
     "short_title": "Margen de beneficio",
     "category": "Negocios",
     "cluster": "Precios",
-    "description": "Calcula beneficio unitario, margen sobre ventas, recargo sobre coste y el precio necesario para alcanzar un margen objetivo.",
+    "description": "Calcula margen, beneficio unitario y precio objetivo para saber cuánto ganas realmente con cada producto o servicio.",
     "formula": "Margen = (precio − coste) ÷ precio × 100; markup = (precio − coste) ÷ coste × 100.",
     "example": "Un producto con coste 60 € y precio 100 € tiene 40 % de margen y 66,67 % de markup.",
     "faqs": [
@@ -964,6 +1176,10 @@
       [
         "¿Puedo calcular un precio objetivo?",
         "Sí. Introduce el margen deseado y la herramienta despeja el precio."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de margen de beneficio?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -980,8 +1196,11 @@
     "new": false,
     "accent": "orange",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Vender más no sirve si cada venta deja menos de lo que crees.",
+    "benefit_heading": "Protege el margen antes de fijar el precio",
+    "benefit_copy": "Compara coste y precio, estima el beneficio total y descubre qué precio necesitas para alcanzar tu margen objetivo."
   },
   {
     "id": "break-even",
@@ -990,7 +1209,7 @@
     "short_title": "Punto de equilibrio",
     "category": "Negocios",
     "cluster": "Rentabilidad",
-    "description": "Calcula cuántas unidades o ventas necesitas para cubrir costes fijos y variables, y prueba un volumen previsto.",
+    "description": "Calcula el punto de equilibrio de un negocio y descubre cuántas unidades necesitas vender para cubrir todos los costes.",
     "formula": "Unidades de equilibrio = costes fijos ÷ (precio unitario − coste variable unitario).",
     "example": "Con 3.000 € de costes fijos y 30 € de margen de contribución necesitas vender 100 unidades.",
     "faqs": [
@@ -1005,6 +1224,10 @@
       [
         "¿Puedo usar servicios?",
         "Sí. Trata cada servicio o proyecto como una unidad comparable."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de punto de equilibrio?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -1021,8 +1244,11 @@
     "new": false,
     "accent": "orange",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Antes de buscar beneficios, necesitas saber cuántas ventas cubren el mes.",
+    "benefit_heading": "Pon una cifra concreta a tu mínimo de ventas",
+    "benefit_copy": "Compara costes fijos, margen por unidad y ventas previstas para detectar rápidamente si el escenario es sostenible."
   },
   {
     "id": "dismissal-compensation",
@@ -1031,7 +1257,7 @@
     "short_title": "Indemnización por despido",
     "category": "Empleo",
     "cluster": "Extinción de contrato",
-    "description": "Estima la indemnización por despido en España con salario bruto anual, fechas y tipo de extinción. Separa antigüedad, salario diario, días indemnizatorios, tramos anteriores a 2012 y topes orientativos.",
+    "description": "Calcula una indemnización por despido orientativa en España según antigüedad, salario y tipo de extinción.",
     "formula": "Importe = salario diario × días por año × antigüedad, aplicando los topes legales del supuesto elegido.",
     "example": "Un salario anual de 30.000 € y cinco años completos genera resultados distintos según se trate de 20 o 33 días por año.",
     "faqs": [
@@ -1054,6 +1280,10 @@
       [
         "¿Qué salario debo introducir?",
         "Utiliza el salario bruto anual que corresponda al salario regulador, incluyendo los conceptos salariales computables. La composición exacta puede requerir revisar convenio, nóminas y jurisprudencia."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de indemnización por despido?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -1080,7 +1310,10 @@
       "Topes orientativos",
       "Desglose de antigüedad y salario diario"
     ],
-    "reviewed": "2026-07-27"
+    "reviewed": "2026-08-02",
+    "hook": "La indemnización y el finiquito no son la misma cantidad.",
+    "benefit_heading": "Obtén un desglose comprensible antes de revisar la documentación",
+    "benefit_copy": "Visualiza días indemnizatorios, antigüedad y cuantía estimada sin confundirla con salarios o vacaciones pendientes."
   },
   {
     "id": "severance",
@@ -1089,7 +1322,7 @@
     "short_title": "Calculadora de finiquito",
     "category": "Empleo",
     "cluster": "Liquidación laboral",
-    "description": "Calcula un finiquito bruto orientativo en España con salario pendiente, vacaciones no disfrutadas, pagas extraordinarias, otros conceptos, deducciones y una indemnización adicional cuando corresponda.",
+    "description": "Calcula un finiquito orientativo en España con salario pendiente, vacaciones, pagas extra, deducciones e indemnización opcional.",
     "formula": "Finiquito bruto estimado = salario pendiente + vacaciones + pagas extraordinarias + otros conceptos + indemnización indicada − deducciones.",
     "example": "Con 2.200 € mensuales, 15 días de salario pendientes, 8 días de vacaciones y 500 € de paga extra devengada, la herramienta muestra cada partida y el total bruto.",
     "faqs": [
@@ -1112,6 +1345,10 @@
       [
         "¿El resultado sustituye el documento de liquidación?",
         "No. Contrasta el resultado con nóminas, convenio, contrato, carta de extinción y asesoramiento profesional cuando sea necesario."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de calculadora de finiquito?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -1139,8 +1376,24 @@
       "Pagas extra y otros conceptos",
       "Indemnización adicional opcional"
     ],
-    "reviewed": "2026-07-27",
-    "opportunity": "Prioridad SEO: las consultas laborales muestran demanda clara aunque la autoridad todavía es baja."
+    "reviewed": "2026-08-02",
+    "usage_steps": [
+      {
+        "title": "Separa cada concepto",
+        "text": "Introduce por separado salario pendiente, vacaciones, pagas extra, otros importes y deducciones."
+      },
+      {
+        "title": "No confundas finiquito e indemnización",
+        "text": "La indemnización solo se añade cuando corresponda y debe calcularse aparte con los datos laborales correctos."
+      },
+      {
+        "title": "Revisa documentación oficial",
+        "text": "Compara la estimación con nóminas, convenio, contrato y asesoramiento laboral antes de firmar un acuerdo."
+      }
+    ],
+    "hook": "El finiquito reúne varias cantidades que suelen mezclarse.",
+    "benefit_heading": "Reúne todas las partidas en un único desglose",
+    "benefit_copy": "Comprueba qué suma cada concepto y copia o descarga un resumen ordenado para revisarlo con tu documentación."
   },
   {
     "id": "net-salary",
@@ -1149,7 +1402,7 @@
     "short_title": "Sueldo neto",
     "category": "Empleo",
     "cluster": "Salarios",
-    "description": "Convierte un salario bruto anual en un neto estimado con porcentajes editables de IRPF, cotización y otras deducciones. Compara 12 y 14 pagas y consulta el tipo efectivo total aplicado.",
+    "description": "Calcula el sueldo neto aproximado a partir del bruto, las pagas y las deducciones editables para comparar ofertas y escenarios.",
     "formula": "Neto anual = bruto anual − IRPF estimado − cotización estimada − otras deducciones.",
     "example": "Con 30.000 € brutos, puedes comparar 12 y 14 pagas y ajustar los porcentajes a tu nómina.",
     "faqs": [
@@ -1168,6 +1421,10 @@
       [
         "¿Por qué no calcula automáticamente mi IRPF exacto?",
         "La retención depende de datos personales, familiares, contractuales y territoriales. Clicivo permite introducir el porcentaje de una simulación oficial o de tu nómina."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de sueldo neto?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -1193,7 +1450,10 @@
       "IRPF y cotización editables",
       "Tipo efectivo total"
     ],
-    "reviewed": "2026-07-27"
+    "reviewed": "2026-08-02",
+    "hook": "El salario anual no dice cuánto llegará realmente cada mes.",
+    "benefit_heading": "Convierte el bruto en una estimación mensual útil",
+    "benefit_copy": "Revisa neto anual y por paga, ajusta retenciones y compara cómo cambia el resultado con 12 o 14 pagas."
   },
   {
     "id": "vacation-days",
@@ -1202,7 +1462,7 @@
     "short_title": "Días de vacaciones",
     "category": "Empleo",
     "cluster": "Vacaciones",
-    "description": "Calcula vacaciones devengadas de forma proporcional entre dos fechas y resta los días ya disfrutados.",
+    "description": "Calcula las vacaciones generadas y pendientes según el periodo trabajado, los días anuales y los ya disfrutados.",
     "formula": "Vacaciones generadas = días anuales pactados × días trabajados ÷ días del año.",
     "example": "Con 30 días naturales anuales y seis meses trabajados se generan aproximadamente 15 días.",
     "faqs": [
@@ -1217,6 +1477,10 @@
       [
         "¿Redondea el resultado?",
         "Muestra decimales y una referencia redondeada; la regla aplicada puede depender de convenio o acuerdo."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de días de vacaciones?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -1236,8 +1500,11 @@
       "El convenio colectivo o contrato puede mejorar el número de días y establecer reglas propias."
     ],
     "seo_title": "Calculadora de vacaciones generadas",
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Los días pendientes se entienden mejor cuando separas devengo y disfrute.",
+    "benefit_heading": "Aclara cuántos días has generado hasta una fecha",
+    "benefit_copy": "Obtén un cálculo proporcional y comprueba el saldo antes de contrastarlo con convenio, contrato o empresa."
   },
   {
     "id": "employer-cost",
@@ -1246,7 +1513,7 @@
     "short_title": "Coste empresa trabajador",
     "category": "Empleo",
     "cluster": "Coste de empresa",
-    "description": "Estima el coste anual y mensual para la empresa sumando salario bruto, cotización empresarial editable y otros costes laborales.",
+    "description": "Calcula el coste anual y mensual de un trabajador para la empresa sumando cotizaciones, variable y otros gastos.",
     "formula": "Coste total = salario bruto + salario bruto × porcentaje empresarial + otros costes anuales.",
     "example": "Con 30.000 € brutos y una hipótesis empresarial del 31 %, las cotizaciones estimadas serían 9.300 € antes de otros costes.",
     "faqs": [
@@ -1261,6 +1528,10 @@
       [
         "¿Sirve para presupuestar una contratación?",
         "Sirve como primera aproximación, pero confirma el coste con nóminas o asesoría laboral."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de coste empresa trabajador?",
+        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
       ]
     ],
     "sources": [
@@ -1279,8 +1550,11 @@
     "notes": [
       "La tasa empresarial es editable y orientativa; no representa una cotización universal."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "El salario bruto es solo una parte del coste real de contratar.",
+    "benefit_heading": "Presupuesta una contratación con una visión más completa",
+    "benefit_copy": "Compara salario y costes adicionales para evitar decisiones basadas únicamente en la nómina bruta."
   },
   {
     "id": "pdf-merge",
@@ -1290,7 +1564,7 @@
     "short_title": "Unir PDF",
     "category": "PDF y documentos",
     "cluster": "PDF",
-    "description": "Combina varios archivos PDF en el orden que elijas y descarga un único documento. El proceso se realiza en tu navegador: los archivos no se envían a Clicivo.",
+    "description": "Une varios PDF en el orden que elijas, sin registro y con procesamiento local en tu navegador.",
     "formula": "El documento final copia todas las páginas de cada PDF siguiendo el orden indicado, sin rasterizar el contenido.",
     "example": "Selecciona contrato.pdf, anexos.pdf y firma.pdf, cambia su orden si lo necesitas y genera un solo archivo unido.",
     "faqs": [
@@ -1309,6 +1583,10 @@
       [
         "¿Funciona con PDF protegidos?",
         "Los PDF cifrados o con restricciones pueden no abrirse. Clicivo no intenta eludir contraseñas."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de unir pdf?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1328,8 +1606,11 @@
     "notes": [
       "Para documentos confidenciales, confirma que el navegador y el dispositivo son de confianza. Los archivos permanecen en tu equipo."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Varios archivos separados pueden convertirse en un único documento en segundos.",
+    "benefit_heading": "Crea un PDF único sin subir documentos privados",
+    "benefit_copy": "Ordena, elimina archivos y descarga el resultado final desde una herramienta rápida y fácil de usar."
   },
   {
     "id": "pdf-split",
@@ -1339,7 +1620,7 @@
     "short_title": "Dividir PDF",
     "category": "PDF y documentos",
     "cluster": "PDF",
-    "description": "Separa un PDF en páginas individuales o crea varios archivos por rangos como 1-3, 4-6 y 9. Descarga el resultado en un ZIP sin subir el documento.",
+    "description": "Divide un PDF por rangos o crea un archivo por página directamente en el navegador, sin enviar el documento a Clicivo.",
     "formula": "Cada archivo nuevo copia únicamente las páginas seleccionadas del PDF original y conserva su contenido vectorial.",
     "example": "Escribe 1-3, 4-7, 10 para generar tres PDF: páginas 1 a 3, páginas 4 a 7 y página 10.",
     "faqs": [
@@ -1358,6 +1639,10 @@
       [
         "¿Se envía mi documento a un servidor?",
         "No. La lectura y la división ocurren en tu navegador."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de dividir pdf?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1377,8 +1662,25 @@
     "notes": [
       "Los PDF protegidos con contraseña pueden requerir desbloqueo legítimo previo."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "usage_steps": [
+      {
+        "title": "Carga un PDF",
+        "text": "El documento se procesa localmente en el navegador."
+      },
+      {
+        "title": "Elige páginas o rangos",
+        "text": "Usa rangos como 1-3, 5, 8-10 o crea un archivo independiente por página."
+      },
+      {
+        "title": "Revisa las descargas",
+        "text": "Comprueba que cada archivo incluye las páginas esperadas antes de borrar el original."
+      }
+    ],
+    "hook": "No necesitas compartir un PDF completo cuando solo importan unas páginas.",
+    "benefit_heading": "Extrae exactamente lo que necesitas",
+    "benefit_copy": "Define los rangos, procesa el archivo localmente y descarga solo las partes que vas a utilizar o compartir."
   },
   {
     "id": "pdf-organize",
@@ -1388,7 +1690,7 @@
     "short_title": "Organizar páginas PDF",
     "category": "PDF y documentos",
     "cluster": "PDF",
-    "description": "Reordena páginas mediante arrastrar y soltar, gira las que estén mal orientadas y elimina las que no necesites. Exporta un PDF nuevo procesado localmente.",
+    "description": "Organiza páginas de un PDF: cambia el orden, gira o elimina páginas y descarga una copia nueva desde el navegador.",
     "formula": "El orden visual define la secuencia del PDF final; cada página conserva el contenido original y aplica la rotación seleccionada.",
     "example": "Carga un PDF, arrastra la página 4 a la primera posición, gira la página 2 y elimina una hoja en blanco antes de descargar.",
     "faqs": [
@@ -1407,6 +1709,10 @@
       [
         "¿Dónde se procesa el archivo?",
         "En la memoria del navegador, sin enviarlo a Clicivo."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de organizar páginas pdf?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1430,8 +1736,25 @@
     "notes": [
       "En documentos muy grandes, el rendimiento depende de la memoria disponible en el dispositivo."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "usage_steps": [
+      {
+        "title": "Carga el documento una sola vez",
+        "text": "Las miniaturas se generan en tu navegador y el archivo no se envía a Clicivo."
+      },
+      {
+        "title": "Ordena, gira o elimina",
+        "text": "Arrastra páginas y revisa visualmente cada cambio antes de continuar."
+      },
+      {
+        "title": "Descarga una copia nueva",
+        "text": "Conserva el original hasta comprobar que el PDF resultante abre correctamente."
+      }
+    ],
+    "hook": "Un documento desordenado puede corregirse sin volver a crearlo.",
+    "benefit_heading": "Reordena el documento con una vista visual",
+    "benefit_copy": "Trabaja página a página y exporta una versión limpia sin subir el PDF a un servidor de Clicivo."
   },
   {
     "id": "images-to-pdf",
@@ -1441,7 +1764,7 @@
     "short_title": "Imágenes a PDF",
     "category": "PDF y documentos",
     "cluster": "PDF",
-    "description": "Convierte varias imágenes en un PDF, cambia su orden y elige tamaño de página, orientación y márgenes. Todo se procesa localmente y sin registro.",
+    "description": "Convierte imágenes JPG, PNG y WebP a PDF, controla el orden, el tamaño de página y los márgenes desde el navegador.",
     "formula": "Cada imagen se ajusta proporcionalmente dentro de la página elegida, respetando los márgenes y sin deformarse.",
     "example": "Selecciona cinco fotografías, elige A4 vertical con 10 mm de margen y descarga un PDF de cinco páginas.",
     "faqs": [
@@ -1460,6 +1783,10 @@
       [
         "¿Se suben las fotografías?",
         "No. La conversión se realiza en el navegador."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de imágenes a pdf?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1483,8 +1810,11 @@
     "notes": [
       "Las imágenes animadas se convertirán usando un único fotograma."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Una colección de imágenes puede convertirse en un documento listo para enviar.",
+    "benefit_heading": "Crea un documento profesional a partir de imágenes",
+    "benefit_copy": "Combina varias imágenes en un solo archivo y ajusta la presentación antes de descargarlo."
   },
   {
     "id": "pdf-to-jpg",
@@ -1494,7 +1824,7 @@
     "short_title": "PDF a JPG",
     "category": "PDF y documentos",
     "cluster": "PDF",
-    "description": "Convierte todas las páginas de un PDF, o solo las que elijas, en imágenes JPG. Ajusta la resolución y la calidad antes de descargar un ZIP.",
+    "description": "Convierte páginas de PDF a JPG, elige resolución y calidad y descarga las imágenes sin subir el documento a Clicivo.",
     "formula": "Cada página se renderiza en un lienzo a la escala seleccionada y se exporta como JPG con el nivel de calidad elegido.",
     "example": "Convierte las páginas 1-3 y 8 a JPG con escala 2× y calidad del 90 %, y descarga cuatro imágenes en un ZIP.",
     "faqs": [
@@ -1513,6 +1843,10 @@
       [
         "¿Mi PDF se sube a Clicivo?",
         "No. PDF.js renderiza el documento en el navegador."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de pdf a jpg?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1536,8 +1870,11 @@
     "notes": [
       "La conversión de muchas páginas a alta resolución puede consumir bastante memoria."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Cada página de un PDF puede convertirse en una imagen reutilizable.",
+    "benefit_heading": "Extrae páginas listas para presentaciones y redes",
+    "benefit_copy": "Selecciona páginas concretas o convierte el documento completo con una calidad adaptada a tu uso."
   },
   {
     "id": "image-compress",
@@ -1547,7 +1884,7 @@
     "short_title": "Comprimir imágenes",
     "category": "Imágenes",
     "cluster": "Imágenes",
-    "description": "Reduce el peso de varias imágenes, limita su dimensión máxima y compara el tamaño original con el optimizado. Descarga los resultados en un ZIP.",
+    "description": "Comprime imágenes JPG, PNG y WebP en lote, ajustando formato, calidad y dimensión máxima desde tu navegador.",
     "formula": "La imagen se redimensiona si supera el límite elegido y se vuelve a codificar con la calidad y el formato seleccionados.",
     "example": "Comprime diez fotografías a WebP con calidad 82 y un máximo de 1.920 px para publicarlas en una web.",
     "faqs": [
@@ -1566,6 +1903,10 @@
       [
         "¿Las imágenes se envían a un servidor?",
         "No. Canvas las procesa localmente."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de comprimir imágenes?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1585,8 +1926,11 @@
     "notes": [
       "La recompresión puede eliminar metadatos y, en formatos con pérdida, reducir ligeramente la calidad."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Una imagen más ligera carga antes sin tener que verse peor.",
+    "benefit_heading": "Reduce peso y conserva el control visual",
+    "benefit_copy": "Compara el tamaño de salida y descarga versiones optimizadas para web, correo o redes sociales."
   },
   {
     "id": "image-resize",
@@ -1596,7 +1940,7 @@
     "short_title": "Redimensionar imágenes",
     "category": "Imágenes",
     "cluster": "Imágenes",
-    "description": "Redimensiona varias imágenes para que encajen dentro de un ancho y alto máximos, manteniendo la proporción y evitando ampliarlas si no lo deseas.",
+    "description": "Redimensiona varias imágenes a la vez, conserva proporciones y fija límites de ancho y alto sin subir archivos.",
     "formula": "Escala = mínimo(ancho máximo ÷ ancho original, alto máximo ÷ alto original). Las dimensiones se multiplican por esa escala.",
     "example": "Ajusta fotografías a un máximo de 1.200 × 1.200 px sin deformarlas ni ampliar las que ya son más pequeñas.",
     "faqs": [
@@ -1615,6 +1959,10 @@
       [
         "¿Se mantienen los metadatos?",
         "La recodificación mediante canvas suele eliminarlos."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de redimensionar imágenes?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1634,8 +1982,25 @@
     "notes": [
       "Para impresión profesional, revisa también la resolución física y el perfil de color."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "usage_steps": [
+      {
+        "title": "Selecciona una o varias imágenes",
+        "text": "Revisa formato y dimensiones antes de procesarlas en lote."
+      },
+      {
+        "title": "Define límites, no una deformación",
+        "text": "La herramienta mantiene la proporción y ajusta cada archivo al ancho y alto máximos."
+      },
+      {
+        "title": "Comprueba el resultado",
+        "text": "Abre una imagen descargada y verifica nitidez, orientación, formato y peso final."
+      }
+    ],
+    "hook": "El tamaño correcto evita cargas lentas y recortes inesperados.",
+    "benefit_heading": "Adapta imágenes a cualquier canal en un solo lote",
+    "benefit_copy": "Prepara archivos para web, ecommerce o redes sin editar cada imagen por separado."
   },
   {
     "id": "image-convert",
@@ -1645,7 +2010,7 @@
     "short_title": "Convertir JPG, PNG y WebP",
     "category": "Imágenes",
     "cluster": "Imágenes",
-    "description": "Convierte varias imágenes a JPG, PNG o WebP, ajusta la calidad y descarga todos los archivos en un ZIP. No necesitas subirlos a ningún servidor.",
+    "description": "Convierte imágenes entre JPG, PNG y WebP en lote, con control de calidad y procesamiento local.",
     "formula": "El navegador decodifica la imagen, la dibuja en un lienzo y la exporta en el formato de destino.",
     "example": "Convierte un lote de PNG pesados a WebP con calidad 85 para mejorar la velocidad de una web.",
     "faqs": [
@@ -1664,6 +2029,10 @@
       [
         "¿Se mantiene la animación de un GIF?",
         "No. Se utiliza un único fotograma."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de convertir jpg, png y webp?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1683,8 +2052,11 @@
     "notes": [
       "Al convertir a JPG se pierde la transparencia."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "El formato adecuado puede mejorar compatibilidad, peso y calidad.",
+    "benefit_heading": "Elige el formato que mejor encaja con cada uso",
+    "benefit_copy": "Pasa tus archivos a un formato compatible y descarga todas las conversiones sin enviarlas a Clicivo."
   },
   {
     "id": "image-crop",
@@ -1694,7 +2066,7 @@
     "short_title": "Recortar imagen",
     "category": "Imágenes",
     "cluster": "Imágenes",
-    "description": "Recorta una fotografía con proporción libre, cuadrada, 4:5, 16:9 o 9:16. Ajusta zoom y posición con vista previa antes de descargar.",
+    "description": "Recorta una imagen con proporciones libres o predefinidas y descarga el resultado directamente desde el navegador.",
     "formula": "La herramienta calcula una ventana de recorte con la proporción elegida y la desplaza sobre la imagen según la posición y el zoom.",
     "example": "Prepara una fotografía vertical en formato 4:5, centra el rostro y descárgala como JPG de alta calidad.",
     "faqs": [
@@ -1713,6 +2085,10 @@
       [
         "¿Dónde se procesa la foto?",
         "En tu navegador."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de recortar imagen?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1732,8 +2108,11 @@
     "notes": [
       "El recorte no inventa detalle: ampliar mucho una imagen pequeña puede hacer visibles los píxeles."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Un recorte preciso puede mejorar una imagen más que cualquier filtro.",
+    "benefit_heading": "Enfoca la atención donde realmente importa",
+    "benefit_copy": "Ajusta el encuadre y prepara una versión lista para publicar, presentar o compartir."
   },
   {
     "id": "remove-exif",
@@ -1743,7 +2122,7 @@
     "short_title": "Eliminar metadatos EXIF",
     "category": "Imágenes",
     "cluster": "Imágenes",
-    "description": "Crea copias nuevas de tus imágenes sin los metadatos habituales de cámara, fecha o ubicación. Procesa varias fotos localmente y descarga un ZIP.",
+    "description": "Elimina metadatos EXIF de imágenes y crea copias limpias antes de compartirlas, con procesamiento local.",
     "formula": "La imagen se decodifica y se vuelve a codificar desde sus píxeles; los bloques de metadatos del archivo original no se copian.",
     "example": "Selecciona fotografías tomadas con el móvil y crea copias nuevas antes de compartirlas públicamente.",
     "faqs": [
@@ -1762,6 +2141,10 @@
       [
         "¿Las fotos salen de mi dispositivo?",
         "No. Se procesan en el navegador."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de eliminar metadatos exif?",
+        "Puedes descargar el archivo generado y conservar el original sin cambios. Revisa siempre el resultado antes de enviarlo o sustituir una copia importante."
       ]
     ],
     "sources": [
@@ -1781,8 +2164,11 @@
     "notes": [
       "La herramienta elimina los metadatos que no se copian al recodificar; no puede garantizar la ausencia de información visible dentro de la propia imagen."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Una fotografía puede contener más información de la que se ve.",
+    "benefit_heading": "Comparte imágenes con menos información oculta",
+    "benefit_copy": "Genera una nueva copia sin los metadatos habituales y conserva el archivo original sin cambios."
   },
   {
     "id": "word-counter",
@@ -1792,7 +2178,7 @@
     "short_title": "Contador de palabras",
     "category": "Texto y productividad",
     "cluster": "Texto",
-    "description": "Cuenta palabras, caracteres, frases, párrafos y líneas en tiempo real. Calcula tiempo de lectura y locución y muestra las palabras más repetidas.",
+    "description": "Cuenta palabras, caracteres, frases, párrafos y tiempo de lectura mientras escribes o pegas tu contenido.",
     "formula": "Tiempo de lectura = número de palabras ÷ 200. Tiempo de locución = número de palabras ÷ 130. Son referencias editables mediante el texto, no mediciones exactas.",
     "example": "Un texto de 1.000 palabras tiene un tiempo de lectura orientativo de 5 minutos a 200 palabras por minuto.",
     "faqs": [
@@ -1811,6 +2197,10 @@
       [
         "¿Se guarda mi texto?",
         "No. El análisis se ejecuta localmente."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de contador de palabras?",
+        "Puedes copiar o descargar el resultado para reutilizarlo en tu trabajo. Comprueba el contenido final antes de publicarlo, imprimirlo o compartirlo."
       ]
     ],
     "sources": [
@@ -1828,8 +2218,11 @@
     "new": true,
     "accent": "purple",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Un texto puede ser demasiado largo antes de parecerlo.",
+    "benefit_heading": "Controla longitud y ritmo antes de publicar",
+    "benefit_copy": "Comprueba de un vistazo si el texto encaja en una entrega, una publicación o una lectura determinada."
   },
   {
     "id": "case-converter",
@@ -1839,7 +2232,7 @@
     "short_title": "Mayúsculas y minúsculas",
     "category": "Texto y productividad",
     "cluster": "Texto",
-    "description": "Transforma un texto a MAYÚSCULAS, minúsculas, Tipo Título, tipo oración o alternado. Copia el resultado o descárgalo como TXT.",
+    "description": "Convierte textos a mayúsculas, minúsculas, tipo título o tipo oración y copia el resultado al instante.",
     "formula": "La transformación utiliza las reglas de capitalización del navegador y aplica el modo seleccionado a cada letra o palabra.",
     "example": "Convierte «una guía práctica de seo» en «Una Guía Práctica de SEO» o en «UNA GUÍA PRÁCTICA DE SEO».",
     "faqs": [
@@ -1858,6 +2251,10 @@
       [
         "¿El texto se envía a Clicivo?",
         "No. Se transforma en el navegador."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de mayúsculas y minúsculas?",
+        "Puedes copiar o descargar el resultado para reutilizarlo en tu trabajo. Comprueba el contenido final antes de publicarlo, imprimirlo o compartirlo."
       ]
     ],
     "sources": [
@@ -1875,8 +2272,11 @@
     "new": true,
     "accent": "purple",
     "notes": [],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Corregir el formato de un texto no debería llevar más de un clic.",
+    "benefit_heading": "Uniforma el estilo sin reescribir",
+    "benefit_copy": "Limpia encabezados, listados y bloques de texto directamente en el navegador."
   },
   {
     "id": "text-diff",
@@ -1886,7 +2286,7 @@
     "short_title": "Comparar textos",
     "category": "Texto y productividad",
     "cluster": "Texto",
-    "description": "Compara dos versiones de un texto línea por línea y destaca contenido añadido, eliminado y sin cambios. Ideal para revisar documentos, copys y código breve.",
+    "description": "Compara dos textos y detecta líneas añadidas, eliminadas o iguales con una vista clara y rápida.",
     "formula": "La comparación busca una subsecuencia común de líneas y clasifica el resto como añadido o eliminado.",
     "example": "Pega una versión original y otra revisada para localizar rápidamente qué párrafos cambiaron.",
     "faqs": [
@@ -1905,6 +2305,10 @@
       [
         "¿Se guardan los documentos?",
         "No. La comparación es local."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de comparar textos?",
+        "Puedes copiar o descargar el resultado para reutilizarlo en tu trabajo. Comprueba el contenido final antes de publicarlo, imprimirlo o compartirlo."
       ]
     ],
     "sources": [
@@ -1924,8 +2328,11 @@
     "notes": [
       "No sustituye un control de cambios jurídico o editorial con historial de autores."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Los cambios importantes se esconden fácilmente dentro de dos versiones largas.",
+    "benefit_heading": "Encuentra diferencias sin releerlo todo",
+    "benefit_copy": "Pega ambas versiones y localiza cambios concretos antes de aprobar, enviar o publicar el texto."
   },
   {
     "id": "qr-generator",
@@ -1935,7 +2342,7 @@
     "short_title": "Generador de código QR",
     "category": "Texto y productividad",
     "cluster": "Códigos QR",
-    "description": "Crea un código QR para una web, texto, correo o cualquier contenido breve. Personaliza tamaño y colores y descarga una imagen PNG.",
+    "description": "Genera un código QR personalizado para URL, texto, teléfono o correo y descárgalo listo para usar.",
     "formula": "El contenido se codifica en una matriz QR con el nivel de corrección de errores seleccionado.",
     "example": "Pega la dirección de una landing, elige 320 px y descarga el QR para un cartel.",
     "faqs": [
@@ -1954,6 +2361,10 @@
       [
         "¿Clicivo guarda la URL?",
         "No. El QR se genera localmente."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de generador de código qr?",
+        "Puedes copiar o descargar el resultado para reutilizarlo en tu trabajo. Comprueba el contenido final antes de publicarlo, imprimirlo o compartirlo."
       ]
     ],
     "sources": [
@@ -1973,8 +2384,11 @@
     "notes": [
       "Prueba el código con varios móviles antes de imprimirlo y mantén suficiente contraste y margen blanco."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Un enlace se vuelve más fácil de abrir cuando basta con escanearlo.",
+    "benefit_heading": "Convierte información en un acceso inmediato",
+    "benefit_copy": "Ajusta colores y tamaño, comprueba el contenido y descarga un QR para carteles, tarjetas o pantallas."
   },
   {
     "id": "wifi-qr",
@@ -1984,7 +2398,7 @@
     "short_title": "QR para Wi-Fi",
     "category": "Texto y productividad",
     "cluster": "Códigos QR",
-    "description": "Genera un código QR con el nombre, la seguridad y la contraseña de una red Wi-Fi para que otras personas puedan conectarse escaneándolo.",
+    "description": "Genera un QR para Wi-Fi con nombre de red, contraseña y seguridad, listo para escanear sin escribir credenciales.",
     "formula": "Formato Wi-Fi: WIFI:T:seguridad;S:nombre;P:contraseña;H:oculta;; con caracteres especiales escapados.",
     "example": "Introduce el nombre de la red de invitados, selecciona WPA/WPA2 y descarga el QR para colocarlo en una oficina o alojamiento.",
     "faqs": [
@@ -2003,6 +2417,10 @@
       [
         "¿Es seguro imprimir la contraseña?",
         "Quien escanee el QR puede obtener acceso a la red. Utiliza una red de invitados y cambia la clave cuando sea necesario."
+      ],
+      [
+        "¿Qué puedo hacer con el resultado de qr para wi-fi?",
+        "Puedes copiar o descargar el resultado para reutilizarlo en tu trabajo. Comprueba el contenido final antes de publicarlo, imprimirlo o compartirlo."
       ]
     ],
     "sources": [
@@ -2022,7 +2440,10 @@
     "notes": [
       "Un QR Wi-Fi revela las credenciales a cualquier persona que pueda escanearlo. Usa preferentemente una red de invitados."
     ],
-    "reviewed": "2026-07-27",
-    "features": []
+    "reviewed": "2026-08-02",
+    "features": [],
+    "hook": "Compartir una contraseña de Wi-Fi puede ser tan simple como enseñar un código.",
+    "benefit_heading": "Facilita el acceso sin repetir la contraseña",
+    "benefit_copy": "Crea un código para casa, oficina o eventos y descárgalo para imprimir o mostrar en una pantalla."
   }
 ]

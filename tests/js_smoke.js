@@ -14,6 +14,9 @@ if (!mortgage.includes('Cuota mensual estimada')) throw new Error('Mortgage smok
 const vacation = t.calculate('vacation-days',{start:'2026-01-01',end:'2026-07-22',annual:30,taken:5});
 if (!vacation.includes('Vacaciones pendientes estimadas')) throw new Error('Vacation smoke test failed.');
 
+const tiktokIncome = t.calculate('tiktok-income',{views:500000,rpmLow:0.3,rpm:0.5,rpmHigh:0.8,months:1,targetIncome:500});
+if (!tiktokIncome.includes('Ingresos del periodo') || !tiktokIncome.includes('Vistas cualificadas para la meta')) throw new Error('TikTok income smoke test failed.');
+
 const youtubeIncome = t.calculate('youtube-income',{views:250000,rpmLow:2,rpm:3.5,rpmHigh:5,months:1,targetIncome:1000});
 if (!youtubeIncome.includes('Ingresos del periodo') || !youtubeIncome.includes('Vistas para el objetivo')) throw new Error('YouTube income smoke test failed.');
 const youtubeRpm = t.calculate('youtube-rpm-revenue',{revenue:425,views:100000,targetViews:250000});

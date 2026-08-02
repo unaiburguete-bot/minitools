@@ -1,91 +1,49 @@
-# Clicivo — expansión 10/10 · 27/07/2026
+# Clicivo — consolidación 10/10 · 02/08/2026
 
-## Resumen
+## Decisión estratégica
 
-- 43 herramientas funcionales.
-- 15 herramientas nuevas de PDF, imágenes, texto y QR.
-- 88 URL indexables en el sitemap.
-- 4 URL antiguas conservadas como redirecciones `noindex` para evitar errores 404.
-- Google AdSense y `ads.txt` integrados con el editor `pub-2391387240778857`.
-- Consent Mode configurado con consentimiento denegado por defecto.
-- Eliminado el banner propio de cookies para no duplicar la CMP de Google.
+Esta entrega no añade nuevas categorías. Consolida la expansión del 27 de julio para mejorar calidad, coherencia, SEO y monetización antes del periodo sin cambios del 12 de agosto al 1 de septiembre.
 
-## Mejoras guiadas por Search Console
+## Datos que motivan la entrega
 
-### YouTube
+- 1.542 impresiones acumuladas hasta el 31 de julio.
+- Un clic externo confirmado; el resto de clics pertenecen a comprobaciones del propietario.
+- 493 consultas visibles, 57 URL con impresiones y presencia en 55 países.
+- Del 28 al 31 de julio: 636 impresiones, una media de 159 al día frente a 58 al día en la semana anterior.
+- YouTube e Instagram son las oportunidades inmediatas; empleo, finanzas y negocios son oportunidades de mayor valor pero más competitivas.
 
-- Reparada la calculadora de ingresos: la versión anterior esperaba dos campos de RPM que no aparecían en el formulario.
-- Añadidos RPM bajo, central y alto.
-- Añadido objetivo de ingresos y visualizaciones necesarias.
-- Añadida tabla para 10.000, 100.000, 250.000, 500.000 y 1.000.000 de vistas.
-- Mejorada la calculadora de RPM con una proyección a visualizaciones objetivo.
-- Títulos, descripciones, preguntas y enlazado interno revisados.
+## Cambios principales
 
-### Instagram
+- 42 herramientas activas y 87 URL indexables.
+- Consolidada la herramienta redundante `/es/youtube/monetizacion/rpm-youtube/` hacia la calculadora principal de ingresos de YouTube.
+- La antigua URL se conserva como redirección estática `noindex` con canonical al destino.
+- Eliminadas de las páginas públicas las notas internas «Prioridad SEO».
+- Eliminados los bloques visibles de palabras clave «Consultas relacionadas».
+- Contenido de uso específico para las principales herramientas de YouTube, Instagram, finiquito, préstamo, PDF e imágenes.
+- La afiliación de Metricool se muestra después de la metodología, preguntas y fuentes, nunca antes de la herramienta.
+- Actualizada la revisión general a 02/08/2026.
+- Añadida prueba automática para impedir que vuelvan a publicarse notas internas de SEO o listas de palabras clave.
 
-- Crecimiento: ritmo diario, semanal y mensual, proyección a 30/90 días y fecha orientativa del objetivo.
-- Engagement: título orientado a la consulta “calculadora de engagement de Instagram gratis”, desglose por 1.000 seguidores y contexto de la muestra.
+## Redirecciones no indexables
 
-### Empleo
+- `/es/herramientas/` → `/`
+- `/es/youtube/monetizacion/rpm-youtube/` → `/es/youtube/monetizacion/ingresos-youtube/`
+- `/es/finanzas-personales/` → `/es/finanzas/`
+- `/es/negocios-y-autonomos/` → `/es/negocios/`
+- `/politica-cookies/` → `/cookies/`
 
-- Finiquito ampliado con desglose, vacaciones, pagas, otros conceptos, deducciones e indemnización adicional opcional.
-- Sueldo neto ampliado con deducciones totales y tipo efectivo.
-- Indemnización reforzada con más explicaciones, tramos y enlaces a finiquito/vacaciones.
+## Calidad verificada
 
-## Confianza y AdSense
-
-Nuevas o ampliadas:
-
-- Quiénes somos.
-- Metodología, fuentes y correcciones.
-- Condiciones de uso.
-- Publicidad y afiliación.
-- Aviso legal.
-- Política de privacidad.
-- Política de cookies.
-- Contacto.
-
-La web identifica públicamente a Zurekin Comunicación como gestor editorial y operativo. No publica el NIF ni una identidad personal no autorizada.
-
-## SEO y arquitectura
-
-- Portada reorientada a tareas y propuesta de valor.
-- Herramientas prioritarias destacadas.
-- Categorías con introducción, herramientas populares y señales de confianza.
-- Enlazado interno específico entre YouTube, Instagram, empleo, finanzas y PDF.
-- URL antiguas conservadas como redirecciones estáticas `noindex`:
-  - `/es/herramientas/` → `/`
-  - `/es/finanzas-personales/` → `/es/finanzas/`
-  - `/es/negocios-y-autonomos/` → `/es/negocios/`
-  - `/politica-cookies/` → `/cookies/`
-- Página 404 personalizada.
-- Sitemap excluye redirecciones y páginas no indexables.
-
-## Medición
-
-Eventos preparados para Google Analytics:
-
-- `tool_view`
-- `tool_start`
-- `tool_complete`
-- `tool_error`
-- `result_copy`
-- `result_print`
-- `file_upload`
-- `file_download`
-- `related_tool_click`
-- `tool_card_click`
-- `catalog_search`
-- `catalog_filter`
-- `affiliate_click`
-
-Los eventos respetan el Consent Mode y la elección gestionada por la CMP de Google.
-
-## Calidad
-
-- 15 pruebas automáticas superadas.
+- 16 pruebas automáticas superadas.
 - Pruebas JavaScript superadas.
 - Sin enlaces internos rotos.
-- Sin campos usados por cálculos que falten en los formularios.
-- Sin referencias al nombre personal eliminado.
-- Botones universales para copiar resultados e imprimir/guardar como PDF.
+- Sitemap sincronizado con las páginas indexables.
+- `ads.txt`, meta de AdSense y Consent Mode conservados.
+- Un único workflow de despliegue en GitHub Pages.
+
+## Ajuste del 2 de agosto · señal externa de TikTok
+
+- Se prioriza la calculadora de ingresos de TikTok tras registrar un clic externo posterior al cierre del informe de Search Console.
+- Se añaden tres escenarios de RPM, objetivo de ingresos, vistas necesarias, proyección mensual/anual y tabla comparativa.
+- Se mejora el título, la descripción, las preguntas frecuentes, la metodología y las fuentes oficiales de TikTok.
+- TikTok se incorpora a las herramientas destacadas de la portada sin crear una URL nueva.

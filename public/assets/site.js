@@ -212,8 +212,24 @@
         return result(`Engagement por ${basis}`, pct(rate), [item('Interacciones totales', integer(interactions)), item('Base', integer(v.base)), item('Compartidos', integer(v.shares)), item('Guardados', integer(v.saves))], 'Usa el mismo criterio de interacciones al comparar vídeos.');
       }
       case 'tiktok-income': {
-        const income = v.views / 1000 * v.rpm, monthly = income / v.months;
-        return result('Ingresos estimados del periodo', money(income), [item('RPM introducido', money(v.rpm)), item('Ingreso mensual equivalente', money(monthly)), item('Proyección anual equivalente', money(monthly * 12)), item('Visualizaciones cualificadas', integer(v.views))], 'Escenario matemático basado en visualizaciones cualificadas y el RPM introducido.');
+        if (!(v.rpmLow <= v.rpm && v.rpm <= v.rpmHigh)) throw new Error('Ordena los escenarios: RPM bajo ≤ central ≤ alto.');
+        if (v.months <= 0) throw new Error('El periodo debe ser mayor que cero.');
+        const low = v.views / 1000 * v.rpmLow;
+        const base = v.views / 1000 * v.rpm;
+        const high = v.views / 1000 * v.rpmHigh;
+        const monthly = base / v.months;
+        const targetViews = v.rpm > 0 ? v.targetIncome / v.rpm * 1000 : 0;
+        const rows = [10000,100000,500000,1000000,5000000].map(views => [
+          integer(views), money(views/1000*v.rpmLow), money(views/1000*v.rpm), money(views/1000*v.rpmHigh)
+        ]);
+        return result('Ingresos del periodo · escenario central', money(base), [
+          item('Escenario bajo', money(low)),
+          item('Escenario alto', money(high)),
+          item('Media mensual central', money(monthly)),
+          item('Proyección anual central', money(monthly * 12)),
+          item('Vistas cualificadas para la meta', targetViews ? integer(targetViews) : '—'),
+          item('Objetivo introducido', money(v.targetIncome))
+        ], 'Estimación matemática basada en visualizaciones cualificadas y en los RPM introducidos. La elegibilidad y el pago final dependen de TikTok.', table(['Visualizaciones cualificadas','RPM bajo','RPM central','RPM alto'], rows));
       }
       case 'youtube-rpm-revenue': {
         if (v.views <= 0) throw new Error('Las visualizaciones deben ser mayores que cero.');
@@ -451,6 +467,112 @@
     }
   }
 
+  function cleanReportText(text) {
+    return String(text || '').replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+  }
+
+  function fieldLabel(element) {
+    if (!element?.id) return element?.name || 'Dato';
+    return document.querySelector(`label[for="${element.id}"]`)?.textContent?.trim() || element.name || 'Dato';
+  }
+
+  function collectInputs(form) {
+    if (!form) return [];
+    return Array.from(form.elements || []).filter(el => el.name && !['submit','reset','button','file'].includes(el.type)).map(el => {
+      if (el.type === 'checkbox') return [fieldLabel(el), el.checked ? 'Sí' : 'No'];
+      const value = el.tagName === 'SELECT' ? el.options[el.selectedIndex]?.text : el.value;
+      return [fieldLabel(el), String(value ?? '').trim()];
+    }).filter(([, value]) => value !== '');
+  }
+
+  function buildClientReport(panel, output) {
+    const form = document.querySelector('.tool-form');
+    const title = panel?.dataset.reportTitle || form?.dataset.toolTitle || document.querySelector('h1')?.textContent || 'Resultado Clicivo';
+    const inputs = collectInputs(form);
+    const lines = [title, `Fecha: ${new Date().toLocaleDateString('es-ES')}`, ''];
+    if (inputs.length) {
+      lines.push('DATOS UTILIZADOS');
+      inputs.forEach(([label, value]) => lines.push(`• ${label}: ${value}`));
+      lines.push('');
+    }
+    lines.push('RESULTADO');
+    lines.push(cleanReportText(output?.innerText));
+    lines.push('', 'Resultado orientativo generado con Clicivo. Revisa los datos y contrasta documentación oficial o asesoramiento profesional cuando corresponda.', `Fuente: ${location.origin}${panel?.dataset.reportPath || location.pathname}`);
+    return lines.join('\n');
+  }
+
+  function reportSlug(text) {
+    return String(text || 'resultado').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 65);
+  }
+
+  function downloadResultPdf(panel, output) {
+    const jsPDF = window.jspdf?.jsPDF;
+    if (!jsPDF) {
+      window.print();
+      return false;
+    }
+    const form = document.querySelector('.tool-form');
+    const title = panel?.dataset.reportTitle || form?.dataset.toolTitle || 'Resultado Clicivo';
+    const inputs = collectInputs(form);
+    const result = cleanReportText(output?.innerText);
+    const doc = new jsPDF({ unit:'mm', format:'a4' });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 18;
+    let y = 22;
+    const ensureSpace = needed => {
+      if (y + needed > pageHeight - 20) {
+        doc.addPage();
+        y = 22;
+      }
+    };
+    const write = (text, size=10, options={}) => {
+      doc.setFont('helvetica', options.bold ? 'bold' : 'normal');
+      doc.setFontSize(size);
+      doc.setTextColor(...(options.color || [48,57,79]));
+      const lines = doc.splitTextToSize(String(text), pageWidth - margin*2);
+      ensureSpace(lines.length * (size * .43) + 4);
+      doc.text(lines, margin, y);
+      y += lines.length * (size * .43) + (options.gap ?? 4);
+    };
+    doc.setFillColor(22,36,82);
+    doc.roundedRect(12, 12, pageWidth-24, 42, 5, 5, 'F');
+    doc.setTextColor(255,255,255);
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(11);
+    doc.text('CLICIVO · INFORME DE RESULTADO', margin, 25);
+    doc.setFontSize(17);
+    const titleLines = doc.splitTextToSize(title, pageWidth-margin*2);
+    doc.text(titleLines, margin, 36);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(9);
+    doc.text(`Generado el ${new Date().toLocaleDateString('es-ES')}`, margin, 49);
+    y = 66;
+    if (inputs.length) {
+      write('Datos utilizados', 13, {bold:true, color:[22,36,82], gap:5});
+      inputs.forEach(([label,value]) => write(`${label}: ${value}`, 9.5, {gap:2.5}));
+      y += 4;
+    }
+    write('Resultado', 13, {bold:true, color:[22,36,82], gap:5});
+    const blocks = result.split('\n').filter(Boolean);
+    blocks.forEach((line, index) => write(line, index === 0 ? 12 : 9.5, {bold:index === 0, gap:3.5}));
+    y += 4;
+    write('Cómo interpretar este informe', 12, {bold:true, color:[22,36,82], gap:5});
+    write('El resultado depende de los datos introducidos y de los supuestos visibles en la herramienta. Úsalo para comparar escenarios y contrasta documentación oficial o asesoramiento profesional cuando corresponda.', 8.8, {color:[92,102,124], gap:4});
+    write(`${location.origin}${panel?.dataset.reportPath || location.pathname}`, 8.2, {color:[37,99,235], gap:2});
+    const pages = doc.getNumberOfPages();
+    for (let i=1;i<=pages;i++) {
+      doc.setPage(i);
+      doc.setDrawColor(225,230,240);
+      doc.line(margin, pageHeight-14, pageWidth-margin, pageHeight-14);
+      doc.setTextColor(120,128,145);
+      doc.setFontSize(8);
+      doc.text(`Clicivo · página ${i} de ${pages}`, margin, pageHeight-9);
+    }
+    doc.save(`clicivo-${reportSlug(title)}.pdf`);
+    return true;
+  }
+
   function initResultActions() {
     const panel = document.querySelector('.result-panel');
     const output = document.querySelector('#result-body');
@@ -459,14 +581,25 @@
     new MutationObserver(update).observe(output, { childList:true, subtree:true, attributes:true, attributeFilter:['class'] });
     update();
     document.addEventListener('click', event => {
+      const toolId = document.querySelector('.tool-form')?.dataset.tool || 'unknown';
       const copy = event.target.closest('.js-copy-result');
       if (copy) {
-        copyText(output.innerText.trim(), copy);
-        track('result_copy', { tool_id: document.querySelector('.tool-form')?.dataset.tool || 'unknown' });
+        copyText(cleanReportText(output.innerText), copy);
+        track('result_copy', { tool_id:toolId, copy_type:'summary' });
+      }
+      const clientCopy = event.target.closest('.js-copy-client');
+      if (clientCopy) {
+        copyText(buildClientReport(panel, output), clientCopy);
+        track('result_copy_client', { tool_id:toolId });
+      }
+      const pdf = event.target.closest('.js-download-pdf');
+      if (pdf) {
+        const generated = downloadResultPdf(panel, output);
+        track(generated ? 'result_pdf_download' : 'result_print_fallback', { tool_id:toolId });
       }
       const print = event.target.closest('.js-print-result');
       if (print) {
-        track('result_print', { tool_id: document.querySelector('.tool-form')?.dataset.tool || 'unknown' });
+        track('result_print', { tool_id:toolId });
         window.print();
       }
     });

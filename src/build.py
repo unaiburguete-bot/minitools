@@ -86,9 +86,12 @@ FORM_SCHEMAS = {
         ("number", "saves", "Guardados", 500, 0, None, 1, "Opcional."),
     ],
     "tiktok-income": [
-        ("number", "views", "Visualizaciones cualificadas", 500000, 0, None, 1, "Usa la cifra que corresponda al programa."),
-        ("number", "rpm", "RPM (€ por 1.000)", 0.5, 0, 1000, 0.01, "Introduce tu RPM o una hipótesis."),
-        ("number", "months", "Meses equivalentes", 1, 1, 120, 1, "Para mostrar una proyección anual comparable."),
+        ("number", "views", "Visualizaciones cualificadas del periodo", 500000, 0, None, 1, "Usa la cifra elegible del mismo periodo."),
+        ("number", "rpmLow", "RPM bajo (€)", 0.3, 0, 1000, 0.01, "Escenario prudente introducido por ti."),
+        ("number", "rpm", "RPM central (€)", 0.5, 0, 1000, 0.01, "Usa tu RPM real cuando lo tengas."),
+        ("number", "rpmHigh", "RPM alto (€)", 0.8, 0, 1000, 0.01, "Escenario alto, no una promesa."),
+        ("number", "months", "Meses del periodo", 1, 1, 120, 1, "Permite normalizar la media mensual."),
+        ("number", "targetIncome", "Objetivo de ingresos (€)", 500, 0, None, 0.01, "Calcula las vistas necesarias con el RPM central."),
     ],
     "youtube-rpm-revenue": [
         ("number", "revenue", "Ingresos del periodo (€)", 425, 0, None, 0.01, "Ingresos del mismo periodo que las visualizaciones."),
@@ -396,14 +399,14 @@ def header() -> str:
 
 
 def footer(extra_scripts: str = "") -> str:
-    return f'''
+    return f'''\
 <footer class="site-footer"><div class="container">
 <div class="footer-grid">
-<div><a class="brand" href="/"><img src="/assets/logo-mark.svg" width="34" height="34" alt=""><span>Clicivo</span></a><p>Herramientas online gratuitas para calcular, convertir y resolver con rapidez, transparencia y privacidad.</p><p class="footer-small">Proyecto gestionado por {esc(SITE.get('operator_name','Zurekin Comunicación'))}, {esc(SITE.get('operator_location','Bilbao, España'))}.</p></div>
-<div><h3>Herramientas</h3><a href="/es/pdf/">PDF y documentos</a><a href="/es/imagenes/">Imágenes</a><a href="/es/productividad/">Texto y productividad</a><a href="/es/finanzas/">Finanzas</a><a href="/es/redes-sociales/">Redes sociales</a><a href="/es/empleo/">Empleo</a></div>
+<div><a class="brand" href="/"><img src="/assets/logo-mark.svg" width="34" height="34" alt=""><span>Clicivo</span></a><p>Calcula, compara y presenta resultados con claridad. Herramientas gratuitas, rápidas y preparadas para trabajar desde cualquier dispositivo.</p><p class="footer-small">Proyecto gestionado por {esc(SITE.get('operator_name','Zurekin Comunicación'))}, {esc(SITE.get('operator_location','Bilbao, España'))}.</p></div>
+<div><h3>Herramientas</h3><a href="/es/pdf/">PDF y documentos</a><a href="/es/imagenes/">Imágenes</a><a href="/es/productividad/">Texto y productividad</a><a href="/es/finanzas/">Finanzas</a><a href="/es/redes-sociales/">Creadores</a><a href="/es/empleo/">Empleo</a></div>
 <div><h3>Confianza</h3><a href="/sobre-clicivo/">Quiénes somos</a><a href="/metodologia/">Metodología y correcciones</a><a href="/condiciones-de-uso/">Condiciones de uso</a><a href="/publicidad-y-afiliacion/">Publicidad y afiliación</a><a href="/contacto/">Contacto</a></div>
-<div><h3>Legal y privacidad</h3><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Política de privacidad</a><a href="/cookies/">Política de cookies</a><p>Google mostrará automáticamente el enlace para revisar o retirar el consentimiento cuando esté publicado el mensaje europeo.</p><a href="mailto:{esc(SITE['contact_email'])}">{esc(SITE['contact_email'])}</a></div>
-</div><div class="footer-bottom">© 2026 Clicivo · Revisión general: {esc(UPDATED)} · Versión {esc(SITE.get('quality_version','2026.07'))}.</div>
+<div><h3>Legal y privacidad</h3><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Política de privacidad</a><a href="/cookies/">Política de cookies</a><p>El mensaje europeo de Google permite revisar o retirar el consentimiento cuando está publicado.</p><a href="mailto:{esc(SITE['contact_email'])}">{esc(SITE['contact_email'])}</a></div>
+</div><div class="footer-bottom">© 2026 Clicivo · Revisión general: {esc(UPDATED)} · Versión {esc(SITE.get('quality_version','2026.08'))}.</div>
 </div></footer>
 <script src="/assets/site.js" defer></script>{extra_scripts}</body></html>'''
 
@@ -417,24 +420,25 @@ PDF_LIB_TOOLS = {"pdf-merge", "pdf-split", "pdf-organize", "images-to-pdf"}
 PDF_JS_TOOLS = {"pdf-organize", "pdf-to-jpg"}
 ZIP_TOOLS = {"pdf-split", "pdf-to-jpg", "image-compress", "image-resize", "image-convert", "remove-exif"}
 QR_TOOLS = {"qr-generator", "wifi-qr"}
+REPORT_CATEGORIES = {"Redes sociales", "Finanzas", "Negocios", "Empleo"}
 
 
 def tool_scripts(tool) -> str:
     tool_id = tool["id"]
-    if tool_id not in ADVANCED_TOOL_IDS:
-        return ""
     tags = []
-    if tool_id in PDF_LIB_TOOLS:
-        tags.append('<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>')
-    if tool_id in PDF_JS_TOOLS:
-        tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
-    if tool_id in ZIP_TOOLS:
-        tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
-    if tool_id in QR_TOOLS:
-        tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
-    tags.append('<script src="/assets/advanced-tools.js" defer></script>')
+    if tool["category"] in REPORT_CATEGORIES:
+        tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/4.2.1/jspdf.umd.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
+    if tool_id in ADVANCED_TOOL_IDS:
+        if tool_id in PDF_LIB_TOOLS:
+            tags.append('<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>')
+        if tool_id in PDF_JS_TOOLS:
+            tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
+        if tool_id in ZIP_TOOLS:
+            tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
+        if tool_id in QR_TOOLS:
+            tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
+        tags.append('<script src="/assets/advanced-tools.js" defer></script>')
     return "".join(tags)
-
 
 def breadcrumb(items):
     lis=[]
@@ -457,8 +461,9 @@ def tool_icon(tool):
 
 
 def tool_card(tool):
-    badge = '<span class="badge">Nueva</span>' if tool.get("new") else ('<span class="badge badge-priority">Destacada</span>' if tool.get("opportunity") else '')
-    return f'''<a class="tool-card" href="{esc(tool['path'])}" data-tool-card="{esc(tool['id'])}" data-category="{esc(tool['category'])}" data-search="{esc((tool['title']+' '+' '.join(tool['keywords'])).lower())}"><div class="top"><span class="tool-icon" aria-hidden="true">{esc(tool_icon(tool))}</span>{badge}</div><h3>{esc(tool['short_title'])}</h3><p>{esc(tool['description'])}</p><span class="link">Usar {esc(tool['short_title'].lower())} →</span></a>'''
+    badge = '<span class="badge">Nueva</span>' if tool.get("new") else ('<span class="badge badge-priority">Destacada</span>' if tool.get("opportunity") else '<span class="badge badge-free">Gratis</span>')
+    promise = tool.get('benefit_heading', tool['description'])
+    return f'''<a class="tool-card accent-{esc(tool.get('accent','blue'))}" href="{esc(tool['path'])}" data-tool-card="{esc(tool['id'])}" data-category="{esc(tool['category'])}" data-search="{esc((tool['title']+' '+' '.join(tool['keywords'])).lower())}"><div class="top"><span class="tool-icon" aria-hidden="true">{esc(tool_icon(tool))}</span>{badge}</div><h3>{esc(tool['short_title'])}</h3><p>{esc(promise)}</p><span class="link">Abrir herramienta <span aria-hidden="true">→</span></span></a>'''
 
 def field_html(field):
     kind,name,label,value,minv,maxv,step,hint = field
@@ -504,13 +509,23 @@ def form_html(tool):
     if live:
         button=''
     elif tool['id']=='instagram-spaces':
-        button='<button class="btn btn-secondary js-copy-main" type="button">Copiar resultado</button>'
+        button='<button class="btn btn-secondary js-copy-main" type="button">Copiar texto preparado</button>'
     else:
-        text=labels.get(tool['id'],'Calcular')
-        button=f'<button class="btn btn-primary" type="submit">{esc(text)}</button><button class="btn btn-secondary" type="reset">Restablecer</button>'
-    privacy='🔒 Los archivos se procesan localmente y no se envían a Clicivo.' if tool['category'] in {'PDF y documentos','Imágenes'} else '🔒 El cálculo o transformación se realiza localmente. Clicivo no recibe los datos introducidos.'
-    return f'''<section class="calculator" aria-labelledby="calc-title"><h2 id="calc-title">Introduce tus datos</h2><form class="tool-form" data-tool="{esc(tool['id'])}" novalidate><div class="fields">{"".join(field_html(f) for f in fields)}</div><div class="form-actions">{button}</div><div class="error-message" role="alert" aria-live="polite"></div></form><p class="privacy-line">{privacy}</p></section>'''
-
+        text=labels.get(tool['id'],'Calcular resultado')
+        button=f'<button class="btn btn-primary btn-calculate" type="submit"><span>{esc(text)}</span><span aria-hidden="true">→</span></button><button class="btn btn-ghost" type="reset">Restablecer</button>'
+    if tool['category'] in {'PDF y documentos','Imágenes'}:
+        title='Sube y configura tus archivos'
+        subtitle='Todo se procesa en tu navegador. Ajusta las opciones y descarga el resultado sin registro.'
+        privacy='🔒 Tus archivos se procesan localmente y no se envían a Clicivo.'
+    elif tool['category']=='Texto y productividad':
+        title='Introduce el contenido'
+        subtitle='Pega o escribe la información y obtén un resultado listo para reutilizar.'
+        privacy='🔒 La transformación se realiza localmente. Clicivo no recibe el contenido introducido.'
+    else:
+        title='Configura tu escenario'
+        subtitle='Usa datos del mismo periodo. Puedes cambiar cualquier variable para comparar alternativas.'
+        privacy='🔒 El cálculo se realiza localmente. Clicivo no recibe los datos introducidos.'
+    return f'''<section class="calculator app-card" aria-labelledby="calc-title"><div class="app-card-head"><span class="app-step">01</span><div><h2 id="calc-title">{esc(title)}</h2><p>{esc(subtitle)}</p></div></div><form class="tool-form" data-tool="{esc(tool['id'])}" data-tool-title="{esc(tool['title'])}" data-category="{esc(tool['category'])}" novalidate><div class="fields">{"".join(field_html(f) for f in fields)}</div><div class="form-actions">{button}</div><div class="error-message" role="alert" aria-live="polite"></div></form><p class="privacy-line">{privacy}</p></section>'''
 
 def path_breadcrumbs(tool):
     items=[("Inicio","/")]
@@ -534,7 +549,7 @@ def path_breadcrumbs(tool):
 
 PRIORITY_RELATED = {
     "youtube-income": ["youtube-rpm-revenue", "youtube-shorts-income", "youtube-views-goal"],
-    "youtube-rpm-revenue": ["youtube-income", "youtube-rpm-monthly", "youtube-views-goal"],
+    "youtube-rpm-revenue": ["youtube-income", "youtube-shorts-income", "youtube-views-goal"],
     "instagram-growth": ["instagram-engagement-followers", "instagram-engagement-reach", "instagram-counter"],
     "instagram-engagement-followers": ["instagram-engagement-reach", "instagram-growth", "instagram-counter"],
     "severance": ["dismissal-compensation", "vacation-days", "net-salary"],
@@ -569,10 +584,16 @@ def related_tools(tool):
 
 def affiliate_block(tool):
     if tool['category']!='Redes sociales': return ''
-    return f'''<aside class="affiliate-card"><h2>Organiza tus métricas en un solo lugar</h2><p>Metricool permite planificar contenido y consultar analítica de redes sociales. Enlace patrocinado: Clicivo puede recibir una comisión sin coste adicional para ti.</p><a class="btn" href="{esc(SITE['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-affiliate="metricool">Probar Metricool</a></aside>'''
-
+    return f'''<aside class="affiliate-card"><span class="sponsor-badge">Recurso para creadores · enlace patrocinado</span><h2>Convierte estas cifras en un calendario de contenido</h2><p>Metricool reúne planificación y analítica para que no tengas que comparar métricas a mano. Clicivo puede recibir una comisión sin coste adicional para ti.</p><a class="btn" href="{esc(SITE['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-affiliate="metricool">Explorar Metricool <span aria-hidden="true">→</span></a></aside>'''
 
 def usage_block(tool):
+    custom_steps = tool.get("usage_steps") or []
+    if custom_steps:
+        steps = "".join(
+            f'<div class="step"><strong>{esc(step["title"])}</strong><p>{esc(step["text"])}</p></div>'
+            for step in custom_steps
+        )
+        return f'<section class="content-card"><h2>Cómo utilizar esta herramienta</h2><div class="steps">{steps}</div></section>'
     if tool['category'] in {'PDF y documentos','Imágenes'}:
         return '''<section class="content-card"><h2>Cómo utilizar esta herramienta</h2><div class="steps"><div class="step"><strong>Selecciona los archivos</strong><p>Elige los documentos o imágenes desde tu dispositivo. Revisa el tamaño y el formato admitido.</p></div><div class="step"><strong>Ajusta las opciones</strong><p>Ordena, selecciona páginas, define formato, tamaño o calidad según la herramienta.</p></div><div class="step"><strong>Descarga el resultado</strong><p>El procesamiento se realiza en el navegador. Guarda el archivo y cierra la página para liberar memoria.</p></div></div></section>'''
     if tool['category']=='Texto y productividad':
@@ -592,30 +613,36 @@ def tool_page(tool):
     notes=''.join(f'<div class="notice"><strong>Importante:</strong> {esc(n)}</div>' for n in tool.get('notes',[]))
     sources=''.join(f'<li><a href="{esc(url)}" target="_blank" rel="noopener">{esc(name)}</a></li>' for name,url in tool['sources'])
     faqs=''.join(f'<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>' for q,a in tool['faqs'])
-    rel=''.join(f'<a class="related-link" data-related-tool="{esc(t["id"])}" href="{esc(t["path"])}">{esc(t["short_title"])} →</a>' for t in related_tools(tool))
-    keywords=', '.join(tool['keywords'][:4])
-    features=tool.get('features') or [
-        "Resultado inmediato en el navegador",
-        "Metodología y ejemplo visibles",
-        "Diseño adaptado a móvil",
-        "Sin registro",
-    ]
-    feature_html=''.join(f'<li>{esc(feature)}</li>' for feature in features)
+    rel=''.join(f'<a class="related-link" data-related-tool="{esc(t["id"])}" href="{esc(t["path"])}"><span>{esc(t["short_title"])}</span><b aria-hidden="true">→</b></a>' for t in related_tools(tool))
+    features=tool.get('features') or ["Resultado inmediato","Metodología visible","Adaptada a móvil","Sin registro"]
+    feature_html=''.join(f'<li><span aria-hidden="true">✓</span>{esc(feature)}</li>' for feature in features)
     review_date=tool.get('reviewed',UPDATED)
-    opportunity=f'<p class="opportunity-note">{esc(tool["opportunity"])}</p>' if tool.get('opportunity') else ''
     report_subject=esc(f'Corrección en {tool["short_title"]}')
+    report_enabled=tool['category'] in REPORT_CATEGORIES
+    if report_enabled:
+        result_actions='''<button class="btn btn-primary js-download-pdf" type="button">Descargar resultado en PDF</button><button class="btn btn-secondary js-copy-client" type="button">Copiar para cliente</button><button class="btn btn-ghost js-copy-result" type="button">Copiar resumen</button>'''
+        export_badge='<span class="result-export-badge">PDF y copia profesional incluidos</span>'
+    else:
+        result_actions='''<button class="btn btn-primary js-copy-result" type="button">Copiar resultado</button><button class="btn btn-secondary js-print-result" type="button">Imprimir o guardar PDF</button>'''
+        export_badge='<span class="result-export-badge">Resultado listo para reutilizar</span>'
+    accent=esc(tool.get('accent','blue'))
+    benefit_heading=esc(tool.get('benefit_heading','Obtén un resultado que puedas utilizar'))
+    benefit_copy=esc(tool.get('benefit_copy',tool['description']))
+    hook=esc(tool.get('hook',tool['description']))
     return head(tool.get('seo_title',tool['title']),tool['description'],tool['path'],[app_ld,faq_ld,crumb_ld])+header()+f'''
-<main id="contenido"><div class="container">{crumbs}</div>
-<section class="tool-hero"><div class="container">{badge}<h1>{esc(tool['title'])}</h1><p>{esc(tool['description'])}</p><div class="trust-inline"><span>✓ Sin registro</span><span>✓ Funciona en móvil</span><span>✓ Revisión: {esc(review_date)}</span></div>{opportunity}</div></section>
-<section class="container"><div class="tool-layout">{form_html(tool)}<aside class="result-panel" aria-live="polite"><h2>Resultado</h2><div id="result-body" class="result-placeholder">Completa los campos para ver el resultado.</div><div class="result-actions"><button class="btn btn-primary js-copy-result" type="button">Copiar resultado</button><button class="btn btn-secondary js-print-result" type="button">Imprimir o guardar PDF</button></div></aside></div>{notes}
-<div class="quality-card"><div><strong>Qué incluye</strong><ul>{feature_html}</ul></div><div><strong>Control de calidad</strong><p>Fórmula visible, valores validados, pruebas automáticas y revisión editorial. Comunica cualquier error verificable.</p><a href="mailto:{esc(SITE['editorial_email'])}?subject={report_subject}">Informar de un error →</a></div></div>
+<main id="contenido" class="tool-app accent-{accent}"><div class="container">{crumbs}</div>
+<section class="tool-hero saas-hero"><div class="container saas-hero-grid"><div class="saas-hero-copy">{badge}<p class="curiosity-hook">{hook}</p><h1>{esc(tool['title'])}</h1><p class="hero-benefit">{esc(tool['description'])}</p><div class="trust-inline"><span>✓ Gratis y sin registro</span><span>✓ Resultado en segundos</span><span>✓ Privacidad desde el diseño</span></div></div><aside class="hero-outcome-card"><span class="status-dot"><i></i> Lista para usar</span><h2>{benefit_heading}</h2><p>{benefit_copy}</p><ul>{feature_html}</ul></aside></div></section>
+<section class="container app-workspace"><div class="tool-layout">{form_html(tool)}<aside class="result-panel app-card" aria-live="polite" data-report-title="{esc(tool['title'])}" data-report-path="{esc(tool['path'])}"><div class="app-card-head result-head"><span class="app-step">02</span><div><p class="result-kicker">Tu resultado</p><h2>Una cifra clara para decidir mejor</h2></div></div>{export_badge}<div id="result-body" class="result-placeholder">Completa los campos y pulsa calcular. Aquí verás el resultado, el desglose y los escenarios.</div><div class="result-actions">{result_actions}</div></aside></div>{notes}
+<div class="benefit-ribbon"><div><span>01</span><strong>Calcula</strong><p>Introduce tus datos sin crear una cuenta.</p></div><div><span>02</span><strong>Compara</strong><p>Cambia variables y entiende qué mueve el resultado.</p></div><div><span>03</span><strong>Presenta</strong><p>Copia o descarga una versión lista para compartir.</p></div></div>
 <div class="content-stack">
 {usage_block(tool)}
-<section class="content-card"><h2>Fórmula y metodología</h2><p class="formula">{esc(tool['formula'])}</p><h3>Ejemplo práctico</h3><p>{esc(tool['example'])}</p><p>La herramienta muestra las variables que utiliza y separa las estimaciones de los datos introducidos. En materias económicas, laborales o fiscales, contrasta siempre el resultado con documentación y asesoramiento adecuados.</p></section>
+<section class="content-card benefit-card"><span class="section-badge">Beneficio directo</span><h2>{benefit_heading}</h2><p class="lead-copy">{benefit_copy}</p><ul class="benefit-list">{feature_html}</ul></section>
+<section class="content-card"><span class="section-badge">Cálculo transparente</span><h2>Fórmula, método y un ejemplo realista</h2><p class="formula">{esc(tool['formula'])}</p><h3>Ejemplo práctico</h3><p>{esc(tool['example'])}</p><p>Las estimaciones se separan de los datos introducidos. En materias económicas, laborales o fiscales, contrasta el resultado con documentación y asesoramiento adecuados.</p></section>
+<section class="content-card faq"><span class="section-badge">Respuestas rápidas</span><h2>Preguntas frecuentes antes de usar la herramienta</h2>{faqs}</section>
+<section class="content-card"><span class="section-badge">Confianza</span><h2>Fuentes, actualización y correcciones</h2><p>Última revisión: <strong>{esc(review_date)}</strong>. Las plataformas, normas y productos pueden cambiar, por eso mostramos las referencias y los límites de cada cálculo.</p><ul class="source-list">{sources}</ul><p><a href="/metodologia/">Consulta la metodología editorial y la política de correcciones de Clicivo.</a></p></section>
 {affiliate_block(tool)}
-<section class="content-card faq"><h2>Preguntas frecuentes</h2>{faqs}</section>
-<section class="content-card"><h2>Fuentes, actualización y correcciones</h2><p>Última revisión de esta herramienta: <strong>{esc(review_date)}</strong>. Las referencias permiten comprobar la metodología o las reglas generales relacionadas. Las plataformas, normas y productos pueden cambiar.</p><ul class="source-list">{sources}</ul><p><strong>Consultas relacionadas:</strong> {esc(keywords)}.</p><p><a href="/metodologia/">Consulta la metodología editorial y la política de correcciones de Clicivo.</a></p></section>
-<section class="content-card"><h2>Herramientas relacionadas</h2><div class="related-grid">{rel}</div></section>
+<section class="content-card"><span class="section-badge">Siguiente paso</span><h2>Continúa con una herramienta relacionada</h2><div class="related-grid">{rel}</div></section>
+<div class="quality-card"><div><strong>Calidad comprobable</strong><p>Fórmula visible, valores validados, pruebas automáticas y revisión editorial.</p></div><div><strong>¿Algo no cuadra?</strong><p>Comunica un error reproducible y lo revisaremos con prioridad.</p><a href="mailto:{esc(SITE['editorial_email'])}?subject={report_subject}">Informar de un error →</a></div></div>
 </div></section></main>'''+footer(tool_scripts(tool))
 
 def page_schema(title,desc,route):
@@ -626,29 +653,29 @@ def collection_page(title,desc,route,tools,eyebrow="Colección de herramientas")
     crumbs,crumb_ld=breadcrumb([("Inicio","/"),(title,None)])
     cards=''.join(tool_card(t) for t in tools)
     popular=sorted(tools,key=lambda t:(not bool(t.get('opportunity')),not bool(t.get('new')),t['short_title']))[:3]
-    popular_links=''.join(f'<a class="related-link" href="{esc(t["path"])}">{esc(t["short_title"])} →</a>' for t in popular)
+    popular_links=''.join(f'<a class="related-link" href="{esc(t["path"])}"><span>{esc(t["short_title"])}</span><b aria-hidden="true">→</b></a>' for t in popular)
     clusters=sorted({t['cluster'] for t in tools})
     cluster_text=', '.join(clusters)
     return head(title,desc,route,[page_schema(title,desc,route),crumb_ld])+header()+f'''
 <main id="contenido"><div class="container">{crumbs}</div>
-<section class="tool-hero"><div class="container"><span class="eyebrow">{esc(eyebrow)}</span><h1>{esc(title)}</h1><p>{esc(desc)}</p><div class="collection-stats"><span><b>{len(tools)}</b> herramientas</span><span>Sin registro</span><span>Adaptadas a móvil</span></div></div></section>
-<section class="section section-tight"><div class="container"><div class="content-card collection-intro"><h2>Qué puedes resolver aquí</h2><p>Esta colección reúne herramientas de {esc(cluster_text)}. Cada utilidad tiene una función distinta, explica su método y enlaza con alternativas relacionadas para completar la tarea sin saltar entre webs.</p><div class="related-grid">{popular_links}</div></div></div></section>
-<section class="section"><div class="container"><div class="search-wrap"><span aria-hidden="true">⌕</span><input type="search" class="catalog-search" placeholder="Buscar en esta colección" aria-label="Buscar herramientas"></div><div class="tool-grid" id="tool-grid">{cards}</div><p class="empty-state">No se han encontrado herramientas con ese término.</p></div></section>
-<section class="section section-tight"><div class="container"><div class="quality-card"><div><strong>Calidad y privacidad</strong><p>Los archivos se procesan localmente cuando la herramienta lo indica. Las calculadoras muestran fórmula, ejemplo, fuentes y fecha de revisión.</p></div><div><strong>¿Has detectado un problema?</strong><p>Indica la herramienta, el navegador y los pasos para reproducir el error.</p><a href="/contacto/">Contactar con Clicivo →</a></div></div></div></section></main>'''+footer()
+<section class="tool-hero collection-hero"><div class="container"><span class="eyebrow">{esc(eyebrow)}</span><p class="curiosity-hook">Menos pasos, más claridad y resultados que puedes reutilizar.</p><h1>{esc(title)}</h1><p>{esc(desc)}</p><div class="collection-stats"><span><b>{len(tools)}</b> herramientas</span><span>Gratis y sin registro</span><span>Diseñadas para móvil</span></div></div></section>
+<section class="section section-tight"><div class="container"><div class="content-card collection-intro"><span class="section-badge">Resuelve la tarea de principio a fin</span><h2>Todo lo que necesitas para {esc(title.lower())}</h2><p>Esta colección reúne herramientas de {esc(cluster_text)}. Cada utilidad tiene una función diferente, una metodología visible y un resultado que puedes copiar, descargar o continuar en otra herramienta.</p><div class="related-grid">{popular_links}</div></div></div></section>
+<section class="section"><div class="container"><div class="search-wrap"><span aria-hidden="true">⌕</span><input type="search" class="catalog-search" placeholder="¿Qué necesitas resolver?" aria-label="Buscar herramientas"></div><div class="tool-grid" id="tool-grid">{cards}</div><p class="empty-state">No hemos encontrado una herramienta con ese término.</p></div></section>
+<section class="section section-tight"><div class="container"><div class="quality-card"><div><strong>Privacidad práctica</strong><p>Los archivos se procesan localmente cuando la herramienta lo indica. Los cálculos muestran método, ejemplo y fecha de revisión.</p></div><div><strong>Mejora continua</strong><p>Revisamos errores, experiencia móvil y utilidad real para que cada herramienta resuelva una tarea concreta.</p><a href="/metodologia/">Cómo comprobamos la calidad →</a></div></div></div></section></main>'''+footer()
 
 def homepage():
     website_ld={"@context":"https://schema.org","@type":"WebSite","name":"Clicivo","url":ORIGIN,"description":SITE['site_description'],"inLanguage":"es","potentialAction":{"@type":"SearchAction","target":ORIGIN+"/?q={search_term_string}","query-input":"required name=search_term_string"}}
     org_ld={"@context":"https://schema.org","@type":"Organization","name":"Clicivo","alternateName":SITE.get('operator_name','Zurekin Comunicación'),"url":ORIGIN,"logo":canonical('/assets/logo-mark.svg'),"email":SITE['contact_email']}
-    featured_ids=['youtube-income','instagram-growth','severance','pdf-merge','image-compress','qr-generator']
+    featured_ids=['youtube-income','tiktok-income','instagram-growth','severance','pdf-merge','image-compress','qr-generator']
     featured=[next(t for t in TOOLS if t['id']==x) for x in featured_ids]
-    catcards=''.join(f'''<a class="category-card" href="{m['path']}"><span aria-hidden="true">{m['icon']}</span><h3>{esc(k)}</h3><p>{esc(m['description'])}</p></a>''' for k,m in CATEGORY_META.items())
+    catcards=''.join(f'''<a class="category-card" href="{m['path']}"><span aria-hidden="true">{m['icon']}</span><h3>{esc(k)}</h3><p>{esc(m['description'])}</p><b>Explorar área →</b></a>''' for k,m in CATEGORY_META.items())
     allcards=''.join(tool_card(t) for t in TOOLS)
-    return head('Herramientas online gratuitas para PDF, imágenes y cálculos | Clicivo',SITE['site_description'],'/',[website_ld,org_ld])+header()+f'''
-<main id="contenido"><section class="hero"><div class="container hero-grid"><div><span class="eyebrow">{len(TOOLS)} herramientas · sin registro</span><h1>Resuelve tareas online sin complicarte.</h1><p>Calculadoras y utilidades para PDF, imágenes, texto, códigos QR, finanzas, empleo, negocios y creadores. Resultados inmediatos, metodología visible y procesamiento local cuando trabajas con archivos.</p><div class="hero-actions"><a class="btn btn-primary" href="#herramientas">Buscar una herramienta</a><a class="btn btn-secondary" href="/sobre-clicivo/">Cómo trabajamos</a></div></div><aside class="hero-panel"><h2>Qué hace diferente a Clicivo</h2><ul><li>Una función clara por página, sin registro obligatorio.</li><li>Archivos procesados en el navegador cuando se indica.</li><li>Fórmulas, ejemplos, fuentes y fecha de revisión.</li><li>Diseño rápido y usable desde móvil.</li></ul><div class="stats"><div class="stat"><b>{len(TOOLS)}</b><span>herramientas</span></div><div class="stat"><b>{len(CATEGORY_META)}</b><span>áreas</span></div><div class="stat"><b>0</b><span>archivos guardados</span></div></div></aside></div></section>
-<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">Prioridad actual</span><h2>Herramientas destacadas</h2></div><p>Una selección que combina las utilidades universales de la expansión con las páginas que Google ya está probando para búsquedas de YouTube, Instagram y empleo.</p></div><div class="tool-grid">{''.join(tool_card(t) for t in featured)}</div></div></section>
-<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">Por área</span><h2>Encuentra tu categoría</h2></div><p>Clicivo se organiza por tareas: documentos, imágenes, productividad, cálculos y herramientas para creadores.</p></div><div class="category-strip">{catcards}</div></div></section>
-<section class="section section-trust"><div class="container"><div class="quality-card"><div><strong>Privacidad práctica</strong><p>Los PDF, imágenes y textos se procesan en el dispositivo cuando la página lo indica. Clicivo no recibe esos archivos mediante sus herramientas.</p></div><div><strong>Transparencia</strong><p>Las calculadoras sensibles incluyen metodología, limitaciones, fuentes y advertencias para evitar presentar una estimación como un resultado oficial.</p><a href="/metodologia/">Ver metodología →</a></div></div></div></section>
-<section class="section" id="herramientas"><div class="container"><div class="section-head"><div><span class="eyebrow">Catálogo completo</span><h2>Todas las herramientas</h2></div><p>Busca por palabra clave o filtra por temática.</p></div><div class="search-wrap"><span aria-hidden="true">⌕</span><input type="search" class="catalog-search" placeholder="Ej.: unir PDF, comprimir imágenes, QR, finiquito, ingresos de YouTube…" aria-label="Buscar herramientas"></div><div class="filters"><button class="filter active" data-filter="all">Todas</button>{''.join(f'<button class="filter" data-filter="{esc(k)}">{esc(k)}</button>' for k in CATEGORY_META)}</div><div class="tool-grid" id="tool-grid">{allcards}</div><p class="empty-state">No se han encontrado herramientas con ese término.</p></div></section></main>'''+footer()
+    return head('Herramientas online para calcular, convertir y descargar | Clicivo',SITE['site_description'],'/',[website_ld,org_ld])+header()+f'''
+<main id="contenido"><section class="hero saas-home-hero"><div class="container hero-grid"><div><span class="eyebrow">{len(TOOLS)} herramientas · gratis y sin registro</span><p class="curiosity-hook">La decisión cambia cuando por fin ves los números claros.</p><h1>Calcula, compara y presenta resultados sin perder tiempo.</h1><p>Herramientas para creadores, finanzas, empleo, PDF, imágenes y productividad. Introduce tus datos, prueba escenarios y consigue un resultado listo para copiar o descargar.</p><div class="hero-actions"><a class="btn btn-primary" href="#herramientas">Encontrar mi herramienta <span aria-hidden="true">→</span></a><a class="btn btn-secondary" href="/sobre-clicivo/">Por qué confiar en Clicivo</a></div><div class="hero-proof"><span>✓ Resultado inmediato</span><span>✓ Privacidad por diseño</span><span>✓ Uso profesional</span></div></div><aside class="hero-panel saas-dashboard-preview"><span class="status-dot"><i></i> Herramientas operativas</span><h2>Del dato a una decisión útil</h2><div class="dashboard-number"><small>Ejemplo de proyección</small><strong>1.248 €</strong><span>resultado editable y exportable</span></div><div class="dashboard-bars"><i style="height:34%"></i><i style="height:52%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:88%"></i></div><div class="stats"><div class="stat"><b>{len(TOOLS)}</b><span>herramientas</span></div><div class="stat"><b>{len(CATEGORY_META)}</b><span>áreas</span></div><div class="stat"><b>0</b><span>archivos guardados</span></div></div></aside></div></section>
+<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">Empieza por aquí</span><h2>Herramientas que convierten datos en decisiones</h2></div><p>Seleccionadas por utilidad, oportunidad de búsqueda y capacidad de ayudarte a comparar o presentar un resultado.</p></div><div class="tool-grid">{''.join(tool_card(t) for t in featured)}</div></div></section>
+<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">Una plataforma, varias necesidades</span><h2>Elige el área que quieres resolver</h2></div><p>Documentos, imágenes, productividad, cálculos y herramientas para creadores, organizadas para que encuentres la respuesta sin navegar entre webs.</p></div><div class="category-strip">{catcards}</div></div></section>
+<section class="section section-trust"><div class="container"><div class="quality-card"><div><strong>Resultados que puedes reutilizar</strong><p>Las calculadoras profesionales permiten copiar un resumen y descargar informes PDF para clientes o para tu propia revisión.</p></div><div><strong>Privacidad práctica</strong><p>Los PDF, imágenes y textos se procesan en tu dispositivo cuando la página lo indica. Clicivo no recibe esos archivos.</p><a href="/metodologia/">Ver metodología y controles →</a></div></div></div></section>
+<section class="section" id="herramientas"><div class="container"><div class="section-head"><div><span class="eyebrow">Catálogo completo</span><h2>¿Qué quieres resolver hoy?</h2></div><p>Busca una tarea concreta o filtra por área.</p></div><div class="search-wrap"><span aria-hidden="true">⌕</span><input type="search" class="catalog-search" placeholder="Ej.: ingresos de TikTok, unir PDF, finiquito, comprimir imágenes…" aria-label="Buscar herramientas"></div><div class="filters"><button class="filter active" data-filter="all">Todas</button>{''.join(f'<button class="filter" data-filter="{esc(k)}">{esc(k)}</button>' for k in CATEGORY_META)}</div><div class="tool-grid" id="tool-grid">{allcards}</div><p class="empty-state">No hemos encontrado una herramienta con ese término.</p></div></section></main>'''+footer()
 
 def legal_page(title,route,body):
     crumbs,crumb_ld=breadcrumb([("Inicio","/"),(title,None)])
@@ -756,6 +783,7 @@ def main():
 
     # Preserve legacy URLs already visible in Search Console without indexing duplicates.
     write_redirect('/es/herramientas/', '/')
+    write_redirect('/es/youtube/monetizacion/rpm-youtube/', '/es/youtube/monetizacion/ingresos-youtube/')
     write_redirect('/es/finanzas-personales/', '/es/finanzas/')
     write_redirect('/es/negocios-y-autonomos/', '/es/negocios/')
     write_redirect('/politica-cookies/', '/cookies/')
@@ -765,7 +793,7 @@ def main():
     not_found += header()+'''<main id="contenido"><section class="tool-hero"><div class="container"><span class="eyebrow">Error 404</span><h1>No encontramos esa página</h1><p>La herramienta puede haberse trasladado o la dirección puede estar incompleta.</p><div class="hero-actions"><a class="btn btn-primary" href="/">Buscar herramientas</a><a class="btn btn-secondary" href="/contacto/">Informar del problema</a></div></div></section></main>'''+footer()
     (PUBLIC/'404.html').write_text(not_found,encoding='utf-8')
 
-    legacy_redirect_routes={'/es/herramientas/','/es/finanzas-personales/','/es/negocios-y-autonomos/','/politica-cookies/'}
+    legacy_redirect_routes={'/es/herramientas/','/es/youtube/monetizacion/rpm-youtube/','/es/finanzas-personales/','/es/negocios-y-autonomos/','/politica-cookies/'}
     routes=['/']+[t['path'] for t in TOOLS]+[m['path'] for m in CATEGORY_META.values()]
     # Include every generated index page except legacy redirect helpers.
     for page_path in PUBLIC.rglob('index.html'):

@@ -1,0 +1,18 @@
+VERSIÓN QUE DEBES SUBIR
+=======================
+
+Clicivo SaaS + Copy + Retención · 2026-08-02
+
+1. Descarga una copia de seguridad del repositorio actual.
+2. Descomprime este ZIP.
+3. Abre el repositorio local minitools desde GitHub Desktop > Repository > Show in Explorer.
+4. Conserva la carpeta oculta .git.
+5. Sustituye todos los demás archivos visibles por el contenido interior de esta carpeta.
+6. En GitHub Desktop escribe:
+   Clicivo: experiencia SaaS, copy persuasivo y exportación PDF
+7. Pulsa Commit to main.
+8. Pulsa Push origin.
+9. Espera a que Actions termine en verde.
+10. Comprueba portada, TikTok, YouTube, finiquito, interés compuesto, sitemap y ads.txt.
+
+No cambies las URL ni vuelvas a enviar manualmente todo el sitemap.
