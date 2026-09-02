@@ -1,7 +1,7 @@
 {
   "name": "Clicivo",
   "short_name": "Clicivo",
-  "description": "Herramientas online gratuitas para calcular, convertir y descargar resultados profesionales. PDF, imágenes, creadores, finanzas, empleo y productividad, sin registro.",
+  "description": "Herramientas online gratuitas para creadores, empleo, finanzas, negocio, PDF, imágenes y productividad. Calcula, convierte, compara, guarda escenarios y consulta guías prácticas sin registro.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f6f8fc",

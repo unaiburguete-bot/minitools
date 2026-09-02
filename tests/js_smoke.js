@@ -14,16 +14,37 @@ if (!mortgage.includes('Cuota mensual estimada')) throw new Error('Mortgage smok
 const vacation = t.calculate('vacation-days',{start:'2026-01-01',end:'2026-07-22',annual:30,taken:5});
 if (!vacation.includes('Vacaciones pendientes estimadas')) throw new Error('Vacation smoke test failed.');
 
-const tiktokIncome = t.calculate('tiktok-income',{views:500000,rpmLow:0.3,rpm:0.5,rpmHigh:0.8,months:1,targetIncome:500});
+const tiktokIncome = t.calculate('tiktok-income',{totalViews:650000,views:500000,rpmLow:0.3,rpm:0.5,rpmHigh:0.8,months:1,targetIncome:500});
 if (!tiktokIncome.includes('Ingresos del periodo') || !tiktokIncome.includes('Vistas cualificadas para la meta')) throw new Error('TikTok income smoke test failed.');
 
 const youtubeIncome = t.calculate('youtube-income',{views:250000,rpmLow:2,rpm:3.5,rpmHigh:5,months:1,targetIncome:1000});
 if (!youtubeIncome.includes('Ingresos del periodo') || !youtubeIncome.includes('Vistas para el objetivo')) throw new Error('YouTube income smoke test failed.');
-const youtubeRpm = t.calculate('youtube-rpm-revenue',{revenue:425,views:100000,targetViews:250000});
-if (!youtubeRpm.includes('RPM calculado') || !youtubeRpm.includes('250.000')) throw new Error('YouTube RPM smoke test failed.');
+const youtubeRpm = t.calculate('youtube-rpm-revenue',{revenue:425,views:100000,targetViews:250000,targetIncome:1000});
+if (!youtubeRpm.includes('RPM calculado') || !youtubeRpm.includes('RPM necesario')) throw new Error('YouTube RPM smoke test failed.');
 const severance = t.calculate('severance',{monthly:2200,salaryDays:15,vacationDays:8,extraPay:500,other:0,includeCompensation:true,compensation:3000,deductions:0});
 if (!severance.includes('Total bruto orientativo') || !severance.includes('Indemnización añadida')) throw new Error('Finiquito smoke test failed.');
 
 const formatted = t.formatInstagramText('Uno\n\nDos');
 if (!formatted.includes('\u2800')) throw new Error('Instagram spacing smoke test failed.');
+const youtubeShorts = t.calculate('youtube-shorts-income',{views:1000000,rpmLow:0.04,rpm:0.08,rpmHigh:0.12,months:1,targetIncome:250});
+if (!youtubeShorts.includes('Ingresos del periodo') || !youtubeShorts.includes('Vistas interesadas para la meta')) throw new Error('YouTube Shorts smoke test failed.');
+const youtubeCpm = t.calculate('youtube-cpm',{cost:7,adImpressions:2000,monetizedPlaybacks:1500,targetImpressions:100000});
+if (!youtubeCpm.includes('CPM por impresiones') || !youtubeCpm.includes('3,5')) throw new Error('YouTube CPM smoke test failed.');
+const tiktokRpm = t.calculate('tiktok-rpm',{rewards:250,qualifiedViews:500000,targetViews:1000000});
+if (!tiktokRpm.includes('RPM calculado') || !tiktokRpm.includes('1.000.000')) throw new Error('TikTok RPM smoke test failed.');
+const netToGross = t.calculate('net-salary',{direction:'net-to-gross',gross:24000,payments:'12',irpf:15,ss:6.5,other:0});
+if (!netToGross.includes('Bruto anual estimado')) throw new Error('Neto a bruto smoke test failed.');
+const roas = t.calculate('marketing-roas-cac',{spend:1000,revenue:4500,customers:30,grossMargin:60,otherCosts:150});
+if (!roas.includes('ROAS de la campaña') || !roas.includes('CAC publicitario')) throw new Error('ROAS/CAC smoke test failed.');
+const customer = t.calculate('customer-profitability',{revenue:12000,customers:80,directCosts:5000,acquisition:1600,otherCosts:600});
+if (!customer.includes('Beneficio medio por cliente')) throw new Error('Customer profitability smoke test failed.');
+const vat = t.calculate('vat-calculator',{direction:'add',amount:100,ratePreset:'21',customRate:21});
+if (!vat.includes('Total con IVA') || !vat.includes('121')) throw new Error('VAT smoke test failed.');
+const percentage = t.calculate('percentage-calculator',{mode:'of',a:20,b:150});
+if (!percentage.includes('20 % de 150') || !percentage.includes('30')) throw new Error('Percentage smoke test failed.');
+const dates = t.calculate('date-difference',{start:'2026-09-01',end:'2026-09-30',inclusive:false,holidays:0});
+if (!dates.includes('Días entre fechas') || !dates.includes('29')) throw new Error('Date difference smoke test failed.');
+
+const units = t.calculate('unit-converter',{dimension:'length',from:'km',to:'m',value:2.5});
+if (!units.includes('2,5') || !units.includes('2500')) throw new Error('Unit converter smoke test failed.');
 console.log('JavaScript smoke tests passed.');

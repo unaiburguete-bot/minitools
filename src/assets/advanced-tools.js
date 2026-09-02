@@ -15,6 +15,7 @@
   const fileState = new Map();
   let organizeState = null;
   let cropState = null;
+  let previewUrls = [];
 
   const nf = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 });
   const n0 = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0 });
@@ -365,7 +366,10 @@
     await downloadFiles(generated,`imagenes-${mode}-clicivo.zip`,generated.length>1);
     const totalBefore=files.reduce((s,f)=>s+f.size,0),totalAfter=generated.reduce((s,f)=>s+f.blob.size,0),saving=totalBefore?(totalBefore-totalAfter)/totalBefore*100:0;
     const table=`<div class="table-scroll"><table class="data-table"><thead><tr><th>Archivo</th><th>Dimensiones</th><th>Original</th><th>Resultado</th><th>Ahorro</th></tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-    setOutput(result('Imágenes procesadas',n0.format(generated.length),[item('Peso original',bytes(totalBefore)),item('Peso final',bytes(totalAfter)),item('Variación',`${nf.format(saving)} %`),item('Procesamiento','Local')],'Los archivos se han descargado.',table));
+    previewUrls.forEach(url=>URL.revokeObjectURL(url)); previewUrls=[];
+    let comparison='';
+    if(files[0]&&generated[0]){const originalUrl=URL.createObjectURL(files[0]),resultUrl=URL.createObjectURL(generated[0].blob);previewUrls.push(originalUrl,resultUrl);comparison=`<div class="image-compare" aria-label="Comparación visual de la primera imagen"><figure><img src="${originalUrl}" alt="Primera imagen antes de procesar"><figcaption><strong>Antes</strong><span>${bytes(files[0].size)}</span></figcaption></figure><figure><img src="${resultUrl}" alt="Primera imagen después de procesar"><figcaption><strong>Después</strong><span>${bytes(generated[0].blob.size)}</span></figcaption></figure></div><p class="result-note">Vista previa de la primera imagen del lote. Revisa detalle, bordes y texto antes de usar todos los archivos.</p>`;}
+    setOutput(result('Imágenes procesadas',n0.format(generated.length),[item('Peso original',bytes(totalBefore)),item('Peso final',bytes(totalAfter)),item('Variación',`${nf.format(saving)} %`),item('Procesamiento','Local')],'Los archivos se han descargado.',comparison+table));
     track('tool_complete',{files:files.length,mode});
   }
 
@@ -474,7 +478,7 @@
   initFileInputs(); initOrganizerEvents();
   form.addEventListener('submit',runTool);
   form.addEventListener('reset',()=>setTimeout(()=>{
-    fileState.clear(); organizeState=null; cropState?.image?.close?.(); cropState=null; setError('');
+    fileState.clear(); organizeState=null; cropState?.image?.close?.(); cropState=null; previewUrls.forEach(url=>URL.revokeObjectURL(url)); previewUrls=[]; setError('');
     form.querySelectorAll('input[type="file"]').forEach(renderFileSelection); placeholder();
     if(id==='word-counter')renderWordCounter(); if(id==='case-converter')renderCaseConverter();
   },0));

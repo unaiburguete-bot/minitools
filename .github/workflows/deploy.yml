@@ -32,7 +32,7 @@ jobs:
       - name: Run Python tests
         run: pytest -q
       - name: Check JavaScript
-        run: node --check public/assets/site.js && node --check public/assets/advanced-tools.js && node tests/js_smoke.js
+        run: node --check public/assets/site.js && node --check public/assets/advanced-tools.js && node --check public/assets/suites.js && node tests/js_smoke.js
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

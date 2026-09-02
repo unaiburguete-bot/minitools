@@ -1,0 +1,15 @@
+{
+  "release": "2026.09.02-september-complete-10of10",
+  "generated_on": "2026-09-02",
+  "tools": 50,
+  "guides": 8,
+  "integrated_suites": 3,
+  "indexable_routes": 112,
+  "python_tests": 32,
+  "javascript_smoke_tests": "passed",
+  "javascript_syntax_checks": ["site.js", "advanced-tools.js", "suites.js"],
+  "homepage_fake_dashboard_removed": true,
+  "mobile_breakpoints": [390, 430],
+  "ads_txt_preserved": true,
+  "adsense_publisher": "ca-pub-2391387240778857"
+}

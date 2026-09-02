@@ -62,6 +62,10 @@
       if (related) track('related_tool_click', { target_tool: related.dataset.relatedTool });
       const card = event.target.closest('[data-tool-card]');
       if (card) track('tool_card_click', { target_tool: card.dataset.toolCard });
+      const guide = event.target.closest('[data-guide-click]');
+      if (guide) track('guide_click', { guide_id: guide.dataset.guideClick });
+      const suiteLink = event.target.closest('[data-suite-click],[data-suite-card]');
+      if (suiteLink) track('suite_click', { suite_id: suiteLink.dataset.suiteClick || suiteLink.dataset.suiteCard });
     });
     const search = document.querySelector('.catalog-search');
     let timer = null;
@@ -75,6 +79,30 @@
     document.querySelectorAll('.filter[data-filter]').forEach(button => {
       button.addEventListener('click', () => track('catalog_filter', { filter_name: button.dataset.filter }));
     });
+    document.querySelector('[data-home-search]')?.addEventListener('submit', event => {
+      const term = event.currentTarget.querySelector('input[name="q"]')?.value?.trim() || '';
+      track('home_search_submit', { search_term: term.slice(0,80) });
+    });
+    document.querySelectorAll('[data-home-quick]').forEach(link => link.addEventListener('click', () => {
+      track('home_quick_click', { target_tool: link.dataset.homeQuick });
+    }));
+  }
+
+  function initScrollDepthAnalytics() {
+    if (typeof window.addEventListener !== 'function') return;
+    const fired = new Set();
+    const check = () => {
+      const doc = document.documentElement;
+      const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      const pctScrolled = Math.min(100, Math.round(window.scrollY / max * 100));
+      [50,90].forEach(mark => {
+        if (pctScrolled >= mark && !fired.has(mark)) {
+          fired.add(mark);
+          track('scroll_depth', { percent: mark });
+        }
+      });
+    };
+    window.addEventListener('scroll', check, { passive:true });
   }
 
   const item = (label, value) => `<div class="result-item"><span>${label}</span><b>${value}</b></div>`;
@@ -135,7 +163,7 @@
       const principalPart = payment - interest;
       balance = Math.max(0, balance - principalPart);
       totalInterest += interest;
-      if (m <= 12) rows.push([m, payment, interest, principalPart, balance]);
+      rows.push([m, payment, interest, principalPart, balance]);
       if (payment <= interest && balance > 0) break;
     }
     return { months: m, payment: scheduled, interest: totalInterest, rows, balance };
@@ -175,6 +203,10 @@
         const change = v.final - v.initial, growth = change / v.initial * 100, daily = change / v.days;
         const remaining = Math.max(0, Number(v.target || 0) - v.final);
         const daysToTarget = daily > 0 && remaining > 0 ? Math.ceil(remaining / daily) : 0;
+        const needed30 = remaining > 0 ? remaining / 30 : 0;
+        const needed90 = remaining > 0 ? remaining / 90 : 0;
+        const pace30 = remaining <= 0 ? 'Objetivo alcanzado' : daily > 0 ? pct(daily / needed30 * 100) : '0 %';
+        const pace90 = remaining <= 0 ? 'Objetivo alcanzado' : daily > 0 ? pct(daily / needed90 * 100) : '0 %';
         let targetValue = 'Sin estimación';
         if (remaining <= 0 && v.target > 0) targetValue = 'Objetivo alcanzado';
         else if (daysToTarget) {
@@ -188,12 +220,14 @@
         ];
         return result('Crecimiento del periodo', pct(growth), [
           item('Cambio neto', `${change >= 0 ? '+' : ''}${integer(change)}`),
-          item('Ritmo diario', `${number(daily)} seguidores`),
-          item('Ritmo semanal', `${daily >= 0 ? '+' : ''}${integer(daily * 7)}`),
-          item('Ritmo cada 30 días', `${daily >= 0 ? '+' : ''}${integer(daily * 30)}`),
+          item('Ritmo diario actual', `${number(daily)} seguidores`),
+          item('Ritmo necesario para meta en 30 días', remaining > 0 ? `${number(needed30)} seguidores/día` : '—'),
+          item('Ritmo necesario para meta en 90 días', remaining > 0 ? `${number(needed90)} seguidores/día` : '—'),
+          item('Cobertura del ritmo necesario · 30 días', pace30),
+          item('Cobertura del ritmo necesario · 90 días', pace90),
           item('Fecha orientativa del objetivo', targetValue),
           item('Días estimados al objetivo', daysToTarget ? integer(daysToTarget) : '—')
-        ], 'La proyección mantiene exactamente el ritmo observado; no contempla campañas, estacionalidad ni pérdidas futuras.', table(['Horizonte','Cambio proyectado','Seguidores estimados'], rows));
+        ], 'La proyección mantiene exactamente el ritmo observado; no contempla campañas, estacionalidad, viralidad ni pérdidas futuras.', table(['Horizonte','Cambio proyectado','Seguidores estimados'], rows));
       }
       case 'instagram-engagement-followers': {
         if (v.followers <= 0) throw new Error('Los seguidores deben ser mayores que cero.');
@@ -214,35 +248,70 @@
       case 'tiktok-income': {
         if (!(v.rpmLow <= v.rpm && v.rpm <= v.rpmHigh)) throw new Error('Ordena los escenarios: RPM bajo ≤ central ≤ alto.');
         if (v.months <= 0) throw new Error('El periodo debe ser mayor que cero.');
+        if (v.totalViews > 0 && v.views > v.totalViews) throw new Error('Las visualizaciones cualificadas no pueden superar las visualizaciones totales introducidas.');
         const low = v.views / 1000 * v.rpmLow;
         const base = v.views / 1000 * v.rpm;
         const high = v.views / 1000 * v.rpmHigh;
         const monthly = base / v.months;
         const targetViews = v.rpm > 0 ? v.targetIncome / v.rpm * 1000 : 0;
+        const qualifiedRate = v.totalViews > 0 ? v.views / v.totalViews * 100 : 0;
         const rows = [10000,100000,500000,1000000,5000000].map(views => [
           integer(views), money(views/1000*v.rpmLow), money(views/1000*v.rpm), money(views/1000*v.rpmHigh)
         ]);
         return result('Ingresos del periodo · escenario central', money(base), [
           item('Escenario bajo', money(low)),
           item('Escenario alto', money(high)),
+          item('Vistas cualificadas sobre vistas totales', v.totalViews > 0 ? pct(qualifiedRate) : '—'),
+          item('Vistas no cualificadas estimadas', v.totalViews > 0 ? integer(Math.max(0,v.totalViews-v.views)) : '—'),
           item('Media mensual central', money(monthly)),
           item('Proyección anual central', money(monthly * 12)),
           item('Vistas cualificadas para la meta', targetViews ? integer(targetViews) : '—'),
           item('Objetivo introducido', money(v.targetIncome))
         ], 'Estimación matemática basada en visualizaciones cualificadas y en los RPM introducidos. La elegibilidad y el pago final dependen de TikTok.', table(['Visualizaciones cualificadas','RPM bajo','RPM central','RPM alto'], rows));
       }
+      case 'tiktok-rpm': {
+        if (v.qualifiedViews <= 0) throw new Error('Las visualizaciones cualificadas deben ser mayores que cero.');
+        const rpm = v.rewards / v.qualifiedViews * 1000;
+        const projected = v.targetViews / 1000 * rpm;
+        return result('RPM calculado', money(rpm), [
+          item('Recompensas del periodo', money(v.rewards)),
+          item('Visualizaciones cualificadas', integer(v.qualifiedViews)),
+          item('Recompensa por visualización', money(v.rewards / v.qualifiedViews)),
+          item(`Con ${integer(v.targetViews)} vistas cualificadas`, money(projected)),
+          item('Con 100.000 vistas cualificadas', money(rpm * 100)),
+          item('Con 1 millón de vistas cualificadas', money(rpm * 1000))
+        ], 'La proyección mantiene el RPM calculado como hipótesis. TikTok puede modificar la elegibilidad y el RPM según el contenido, el periodo y el programa.');
+      }
       case 'youtube-rpm-revenue': {
         if (v.views <= 0) throw new Error('Las visualizaciones deben ser mayores que cero.');
         const rpm = v.revenue / v.views * 1000;
-        const targetIncome = v.targetViews / 1000 * rpm;
+        const projectedIncome = v.targetViews / 1000 * rpm;
+        const neededRpm = v.targetViews > 0 ? v.targetIncome / v.targetViews * 1000 : 0;
+        const rpmGap = neededRpm - rpm;
         return result('RPM calculado', money(rpm), [
           item('Ingresos del periodo', money(v.revenue)),
           item('Visualizaciones del periodo', integer(v.views)),
           item('Ingreso por visualización', money(v.revenue / v.views)),
+          item(`Ingreso con ${integer(v.targetViews)} vistas`, money(projectedIncome)),
+          item('RPM necesario para tu objetivo', neededRpm ? money(neededRpm) : '—'),
+          item('Diferencia frente a tu RPM actual', neededRpm ? `${rpmGap >= 0 ? '+' : ''}${money(rpmGap)}` : '—'),
           item('Con 100.000 vistas', money(rpm * 100)),
-          item('Con 1 millón de vistas', money(rpm * 1000)),
-          item(`Con ${integer(v.targetViews)} vistas`, money(targetIncome))
+          item('Con 1 millón de vistas', money(rpm * 1000))
         ], 'Usa ingresos y visualizaciones del mismo periodo y analiza Shorts y vídeos largos por separado.');
+      }
+      case 'youtube-cpm': {
+        if (v.adImpressions <= 0 || v.monetizedPlaybacks <= 0) throw new Error('Impresiones y reproducciones monetizadas deben ser mayores que cero.');
+        const cpm = v.cost / v.adImpressions * 1000;
+        const playbackCpm = v.cost / v.monetizedPlaybacks * 1000;
+        const targetCost = v.targetImpressions / 1000 * cpm;
+        return result('CPM por impresiones', money(cpm), [
+          item('CPM basado en reproducciones', money(playbackCpm)),
+          item('Coste publicitario', money(v.cost)),
+          item('Impresiones de anuncio', integer(v.adImpressions)),
+          item('Reproducciones monetizadas', integer(v.monetizedPlaybacks)),
+          item(`Coste estimado con ${integer(v.targetImpressions)} impresiones`, money(targetCost)),
+          item('Diferencia playback CPM vs CPM', money(playbackCpm - cpm))
+        ], 'CPM es una métrica enfocada en anunciantes y no equivale al RPM ni al ingreso final del creador.');
       }
       case 'youtube-watch-hours': {
         const hours = v.views * v.duration * v.retention / 100 / 60;
@@ -253,14 +322,30 @@
         return result('Horas estimadas', `${number(hours)} h`, [item('Avance sobre objetivo', pct(progress)), item('Objetivo', `${integer(target)} h`), item('Vistas adicionales estimadas', integer(neededViews)), item('Minutos vistos', integer(hours * 60))], 'Solo cuentan las horas públicas válidas conforme a las reglas de YouTube.', extra);
       }
       case 'youtube-shorts-income': {
-        const income = v.views / 1000 * v.rpm;
-        return result('Ingresos estimados', money(income), [item('Visualizaciones', integer(v.views)), item('RPM introducido', money(v.rpm)), item('Por 100.000 vistas', money(v.rpm * 100)), item('Por 1 millón de vistas', money(v.rpm * 1000))], 'El RPM real de Shorts puede variar ampliamente.');
+        if (!(v.rpmLow <= v.rpm && v.rpm <= v.rpmHigh)) throw new Error('Ordena los escenarios: RPM bajo ≤ central ≤ alto.');
+        if (v.months <= 0) throw new Error('El periodo debe ser mayor que cero.');
+        const low=v.views/1000*v.rpmLow, base=v.views/1000*v.rpm, high=v.views/1000*v.rpmHigh;
+        const monthly=base/v.months;
+        const targetViews=v.rpm>0?v.targetIncome/v.rpm*1000:0;
+        const rows=[100000,500000,1000000,5000000,10000000].map(views=>[
+          integer(views),money(views/1000*v.rpmLow),money(views/1000*v.rpm),money(views/1000*v.rpmHigh)
+        ]);
+        return result('Ingresos del periodo · escenario central',money(base),[
+          item('Escenario bajo',money(low)),
+          item('Escenario alto',money(high)),
+          item('Media mensual central',money(monthly)),
+          item('Proyección anual central',money(monthly*12)),
+          item('Vistas interesadas para la meta',targetViews?integer(targetViews):'—'),
+          item('Objetivo introducido',money(v.targetIncome))
+        ],'El RPM real de Shorts puede cambiar por audiencia, país, temporada y rendimiento. Usa tu dato de Analytics cuando esté disponible.',table(['Visualizaciones interesadas','RPM bajo','RPM central','RPM alto'],rows));
       }
       case 'youtube-income': {
         if (!(v.rpmLow <= v.rpm && v.rpm <= v.rpmHigh)) throw new Error('Ordena los escenarios: RPM bajo ≤ central ≤ alto.');
         if (v.months <= 0) throw new Error('El periodo debe ser mayor que cero.');
         const low = v.views / 1000 * v.rpmLow, base = v.views / 1000 * v.rpm, high = v.views / 1000 * v.rpmHigh, monthly = base / v.months;
         const targetViews = v.rpm > 0 ? v.targetIncome / v.rpm * 1000 : 0;
+        const rpmNeeded = v.views > 0 ? v.targetIncome / v.views * 1000 : 0;
+        const viewsGap = Math.max(0,targetViews-v.views);
         const rows = [10000,100000,250000,500000,1000000].map(views => [
           integer(views), money(views/1000*v.rpmLow), money(views/1000*v.rpm), money(views/1000*v.rpmHigh)
         ]);
@@ -270,6 +355,8 @@
           item('Media mensual central', money(monthly)),
           item('Proyección anual central', money(monthly * 12)),
           item('Vistas para el objetivo', targetViews ? integer(targetViews) : '—'),
+          item('Vistas adicionales frente al volumen actual', targetViews ? integer(viewsGap) : '—'),
+          item('RPM necesario con tus vistas actuales', rpmNeeded ? money(rpmNeeded) : '—'),
           item('Objetivo introducido', money(v.targetIncome))
         ], 'La estimación se basa únicamente en las visualizaciones y los RPM introducidos; no incluye patrocinios, afiliación ni venta de productos.', table(['Visualizaciones','RPM bajo','RPM central','RPM alto'], rows));
       }
@@ -292,14 +379,21 @@
         return result('Capital final estimado', money(sim.balance), [item('Total aportado', money(contributed)), item('Ganancia estimada', money(gains)), item('Valor real tras inflación', money(real)), item('Rentabilidad neta usada', pct(effective * 100))], `Capitalización mensual, aportación al ${v.timing === 'beginning' ? 'inicio' : 'final'} del mes y tasa constante.`, chart(sim.yearly) + table(['Año','Capital','Aportado','Ganancia'], rows.slice(-10)));
       }
       case 'mortgage': {
-        const months = Math.round(v.years * 12), schedule = loanSchedule(v.principal, v.rate, months);
+        const months = Math.max(1, Math.round(v.years * 12)), schedule = loanSchedule(v.principal, v.rate, months);
         const total = schedule.payment * months, rows = schedule.rows.map(r => [r[0], money(r[1]), money(r[2]), money(r[3]), money(r[4])]);
-        return result('Cuota mensual estimada', money(schedule.payment), [item('Intereses totales', money(schedule.interest)), item('Total de cuotas', money(total)), item('Coste con gastos iniciales', money(total + v.fees)), item('Número de cuotas', integer(months))], 'Sistema francés a tipo fijo; no incluye seguros ni variaciones contractuales.', table(['Mes','Cuota','Interés','Capital','Pendiente'], rows));
+        const yearsSet=[Math.max(1,v.years-5),v.years,v.years+5].filter((x,i,a)=>a.indexOf(x)===i);
+        const scenarios=yearsSet.map(y=>{const sc=loanSchedule(v.principal,v.rate,Math.max(1,Math.round(y*12)));return [`${number(y)} años`,money(sc.payment),money(sc.interest),money(sc.payment*sc.months+v.fees)];});
+        const extra=`<h3 class="result-subheading">Compara el efecto del plazo</h3>${table(['Plazo','Cuota','Intereses','Coste con gastos'],scenarios)}<h3 class="result-subheading">Tabla completa de amortización</h3>${table(['Mes','Cuota','Interés','Capital','Pendiente'], rows)}`;
+        return result('Cuota mensual estimada', money(schedule.payment), [item('Intereses totales', money(schedule.interest)), item('Total de cuotas', money(total)), item('Coste con gastos iniciales', money(total + v.fees)), item('Número de cuotas', integer(months))], 'Sistema francés a tipo fijo; no incluye seguros ni variaciones contractuales.', extra);
       }
       case 'personal-loan': {
         const months = Math.max(1, Math.round(v.years * 12)), schedule = loanSchedule(v.principal, v.rate, months);
         const opening = v.principal * v.commission / 100, total = schedule.payment * months + opening;
-        return result('Cuota mensual estimada', money(schedule.payment), [item('Intereses', money(schedule.interest)), item('Comisión apertura', money(opening)), item('Coste total', money(total)), item('Cuotas', integer(months))], 'La TAE de una oferta puede incorporar otros costes y calendarios de pago.');
+        const rows=schedule.rows.map(r=>[r[0],money(r[1]),money(r[2]),money(r[3]),money(r[4])]);
+        const yearsSet=[Math.max(1,v.years-1),v.years,v.years+1].filter((x,i,a)=>a.indexOf(x)===i);
+        const scenarios=yearsSet.map(y=>{const sc=loanSchedule(v.principal,v.rate,Math.max(1,Math.round(y*12)));return [`${number(y)} años`,money(sc.payment),money(sc.interest),money(sc.payment*sc.months+opening)];});
+        const extra=`<h3 class="result-subheading">Compara plazos</h3>${table(['Plazo','Cuota','Intereses','Coste total'],scenarios)}<h3 class="result-subheading">Tabla completa de amortización</h3>${table(['Mes','Cuota','Interés','Capital','Pendiente'],rows)}`;
+        return result('Cuota mensual estimada', money(schedule.payment), [item('Intereses', money(schedule.interest)), item('Comisión apertura', money(opening)), item('Coste total', money(total)), item('Cuotas', integer(months))], 'La TAE de una oferta puede incorporar otros costes y calendarios de pago.',extra);
       }
       case 'monthly-savings': {
         if (v.months <= 0) throw new Error('El plazo debe ser mayor que cero.');
@@ -341,7 +435,8 @@
         if (v.price <= 0) throw new Error('El precio debe ser mayor que cero.');
         const profit = v.price - v.cost, margin = profit / v.price * 100, markup = v.cost ? profit / v.cost * 100 : Infinity;
         const targetPrice = v.targetMargin >= 100 ? Infinity : v.cost / (1 - v.targetMargin / 100);
-        return result('Margen sobre ventas', pct(margin), [item('Beneficio unitario', money(profit)), item('Markup sobre coste', Number.isFinite(markup) ? pct(markup) : '∞'), item('Beneficio total', money(profit * v.units)), item('Precio para margen objetivo', Number.isFinite(targetPrice) ? money(targetPrice) : 'No definido')], 'Compara siempre coste y precio con el mismo criterio de impuestos.');
+        const margins=[20,30,40,50,60].map(m=>[`${m} %`,money(v.cost/(1-m/100)),money(v.cost/(1-m/100)-v.cost)]);
+        return result('Margen sobre ventas', pct(margin), [item('Beneficio unitario', money(profit)), item('Markup sobre coste', Number.isFinite(markup) ? pct(markup) : '∞'), item('Beneficio total', money(profit * v.units)), item('Precio para margen objetivo', Number.isFinite(targetPrice) ? money(targetPrice) : 'No definido')], 'Compara siempre coste y precio con el mismo criterio de impuestos.', `<h3 class="result-subheading">Escenarios de precio por margen</h3>${table(['Margen objetivo','Precio necesario','Beneficio/unidad'],margins)}`);
       }
       case 'break-even': {
         const contribution = v.price - v.variable;
@@ -393,26 +488,120 @@
         ], 'Resultado bruto orientativo. No calcula IRPF, cotizaciones ni verifica el documento de liquidación.', table(['Partida','Importe'], rows));
       }
       case 'net-salary': {
-        const irpf = v.gross * v.irpf / 100, ss = v.gross * v.ss / 100, net = v.gross - irpf - ss - v.other;
-        const pays = Number(v.payments), totalDeductions = irpf + ss + v.other;
-        return result('Neto anual estimado', money(net), [
-          item(`Neto por paga (${pays})`, money(net / pays)),
-          item('Neto mensual equivalente', money(net / 12)),
-          item('IRPF estimado', money(irpf)),
-          item('Cotización estimada', money(ss)),
-          item('Deducciones totales', money(totalDeductions)),
-          item('Tipo efectivo total', pct(v.gross ? totalDeductions / v.gross * 100 : 0))
-        ], 'Porcentajes editables; no sustituye una nómina real ni el cálculo oficial de retenciones.');
+        const rate=(v.irpf+v.ss)/100;
+        if (rate >= 1) throw new Error('La suma de IRPF y cotización debe ser inferior al 100 %.');
+        const pays=Number(v.payments);
+        if(v.direction==='net-to-gross'){
+          const net=v.gross;
+          const gross=(net+v.other)/(1-rate);
+          const irpf=gross*v.irpf/100,ss=gross*v.ss/100,totalDeductions=irpf+ss+v.other;
+          return result('Bruto anual estimado',money(gross),[
+            item(`Bruto por paga (${pays})`,money(gross/pays)),
+            item('Neto anual objetivo',money(net)),
+            item('IRPF estimado',money(irpf)),
+            item('Cotización estimada',money(ss)),
+            item('Deducciones totales',money(totalDeductions)),
+            item('Tipo efectivo total',pct(gross?totalDeductions/gross*100:0))
+          ],'Conversión inversa orientativa usando porcentajes editables. No sustituye una nómina real ni el cálculo oficial de retenciones.');
+        }
+        const gross=v.gross,irpf=gross*v.irpf/100,ss=gross*v.ss/100,net=gross-irpf-ss-v.other,totalDeductions=irpf+ss+v.other;
+        return result('Neto anual estimado',money(net),[
+          item(`Neto por paga (${pays})`,money(net/pays)),
+          item('Neto mensual equivalente',money(net/12)),
+          item('IRPF estimado',money(irpf)),
+          item('Cotización estimada',money(ss)),
+          item('Deducciones totales',money(totalDeductions)),
+          item('Tipo efectivo total',pct(gross?totalDeductions/gross*100:0))
+        ],'Porcentajes editables; no sustituye una nómina real ni el cálculo oficial de retenciones.');
       }
       case 'vacation-days': {
         const worked = daysBetween(v.start, v.end, true);
         if (!(worked > 0)) throw new Error('La fecha final debe ser igual o posterior a la inicial.');
         const accrued = v.annual * worked / 365.2425, pending = accrued - v.taken;
-        return result('Vacaciones pendientes estimadas', `${number(pending)} días`, [item('Generadas', `${number(accrued)} días`), item('Ya disfrutadas', `${number(v.taken)} días`), item('Días trabajados', integer(worked)), item('Referencia anual', `${number(v.annual)} días`)], 'El convenio, el contrato y la política de redondeo pueden modificar el resultado.');
+        return result('Vacaciones pendientes estimadas', `${number(pending)} días`, [item('Generadas', `${number(accrued)} días`), item('Ya disfrutadas', `${number(v.taken)} días`), item('Días trabajados', integer(worked)), item('Referencia anual', `${number(v.annual)} días`), item('Ritmo mensual orientativo', `${number(v.annual/12)} días`), item('Parte del año trabajada', pct(worked/365.2425*100))], 'El convenio, el contrato y la política de redondeo pueden modificar el resultado.');
       }
       case 'employer-cost': {
         const contribution = v.gross * v.rate / 100, total = v.gross + contribution + v.other + v.bonus;
-        return result('Coste anual estimado', money(total), [item('Coste mensual medio', money(total / 12)), item('Cotización empresarial estimada', money(contribution)), item('Otros costes + variable', money(v.other + v.bonus)), item('Coste adicional sobre bruto', pct(v.gross ? (total - v.gross) / v.gross * 100 : 0))], 'La tasa empresarial es una hipótesis editable y no una cotización universal.');
+        const rates=[Math.max(0,v.rate-2),v.rate,v.rate+2].filter((x,i,a)=>a.indexOf(x)===i);
+        const rows=rates.map(rate=>{const cont=v.gross*rate/100;const cost=v.gross+cont+v.other+v.bonus;return [pct(rate),money(cont),money(cost),money(cost/12)];});
+        const breakdown=[['Salario bruto',money(v.gross)],['Cotización empresarial',money(contribution)],['Otros costes',money(v.other)],['Bonus / variable',money(v.bonus)],['Coste total',money(total)]];
+        return result('Coste anual estimado', money(total), [item('Coste mensual medio', money(total / 12)), item('Cotización empresarial estimada', money(contribution)), item('Otros costes + variable', money(v.other + v.bonus)), item('Coste adicional sobre bruto', pct(v.gross ? (total - v.gross) / v.gross * 100 : 0))], 'La tasa empresarial es una hipótesis editable y no una cotización universal.', `<h3 class="result-subheading">Desglose del escenario</h3>${table(['Partida','Importe'],breakdown)}<h3 class="result-subheading">Sensibilidad de la cotización</h3>${table(['Tasa','Cotización','Coste anual','Coste mensual'],rows)}`);
+      }
+      case 'marketing-roas-cac': {
+        if (v.spend <= 0) throw new Error('La inversión publicitaria debe ser mayor que cero.');
+        const roas = v.revenue / v.spend;
+        const roi = (v.revenue - v.spend - v.otherCosts) / (v.spend + v.otherCosts) * 100;
+        const cac = v.customers > 0 ? v.spend / v.customers : 0;
+        const grossContribution = v.revenue * v.grossMargin / 100 - v.spend - v.otherCosts;
+        const breakEvenRoas = v.grossMargin > 0 ? 100 / v.grossMargin : 0;
+        return result('ROAS de la campaña', `${number(roas)}x`, [item('Ingresos atribuidos', money(v.revenue)), item('CAC publicitario', v.customers > 0 ? money(cac) : '—'), item('ROI antes de costes generales', pct(roi)), item('Contribución tras margen y campaña', money(grossContribution)), item('ROAS de equilibrio aproximado', `${number(breakEvenRoas)}x`)], 'El ROAS mide ingresos atribuidos por euro invertido; no equivale a beneficio. La atribución y el margen bruto cambian la lectura.');
+      }
+      case 'customer-profitability': {
+        if (v.customers <= 0) throw new Error('El número de clientes debe ser mayor que cero.');
+        const costs = v.directCosts + v.acquisition + v.otherCosts;
+        const profit = v.revenue - costs;
+        const per = profit / v.customers;
+        const revenuePer = v.revenue / v.customers;
+        const costPer = costs / v.customers;
+        const margin = v.revenue > 0 ? profit / v.revenue * 100 : 0;
+        return result('Beneficio medio por cliente', money(per), [item('Beneficio total estimado', money(profit)), item('Ingresos por cliente', money(revenuePer)), item('Coste total por cliente', money(costPer)), item('Margen después de costes atribuidos', pct(margin)), item('Clientes analizados', integer(v.customers))], 'Incluye solo costes atribuibles de forma coherente al mismo grupo y periodo.');
+      }
+      case 'vat-calculator': {
+        const rate = v.ratePreset === 'custom' ? Number(v.customRate) : Number(v.ratePreset);
+        if (!(rate >= 0 && rate <= 100)) throw new Error('El tipo de IVA debe estar entre 0 y 100 %.');
+        const factor = 1 + rate / 100;
+        let base, total;
+        if (v.direction === 'remove') { total = v.amount; base = factor ? total / factor : total; }
+        else { base = v.amount; total = base * factor; }
+        const vat = total - base;
+        return result(v.direction === 'remove' ? 'Base sin IVA' : 'Total con IVA', money(v.direction === 'remove' ? base : total), [item('Base imponible', money(base)), item(`IVA · ${number(rate)} %`, money(vat)), item('Total', money(total))], 'Comprueba que el tipo elegido corresponde realmente a la operación. La herramienta no determina qué tipo fiscal es aplicable.');
+      }
+      case 'percentage-calculator': {
+        let value = 0, label = 'Resultado';
+        if (v.mode === 'of') { value = v.a / 100 * v.b; label = `${number(v.a)} % de ${number(v.b)}`; }
+        else if (v.mode === 'ratio') { if (v.b === 0) throw new Error('El valor B no puede ser cero.'); value = v.a / v.b * 100; label = 'Porcentaje'; }
+        else if (v.mode === 'change') { if (v.a === 0) throw new Error('El valor inicial no puede ser cero.'); value = (v.b - v.a) / v.a * 100; label = 'Variación porcentual'; }
+        else if (v.mode === 'increase') { value = v.a * (1 + v.b/100); label = 'Valor tras aumentar'; }
+        else if (v.mode === 'discount') { value = v.a * (1 - v.b/100); label = 'Valor tras reducir'; }
+        else if (v.mode === 'original') { const factor = 1 + v.b/100; if (Math.abs(factor) < 1e-12) throw new Error('Ese porcentaje no permite recuperar un valor original.'); value = v.a / factor; label = 'Valor original'; }
+        const isPct = ['ratio','change'].includes(v.mode);
+        return result(label, isPct ? pct(value) : number(value), [item('Valor A', number(v.a)), item('Valor B', number(v.b)), item('Modo', String(v.mode))], 'Elige el modo que corresponda a tu pregunta; porcentajes y puntos porcentuales no son equivalentes.');
+      }
+      case 'unit-converter': {
+        const defs = {
+          length:{m:{label:'Metros',factor:1},km:{label:'Kilómetros',factor:1000},cm:{label:'Centímetros',factor:.01},mm:{label:'Milímetros',factor:.001},mi:{label:'Millas',factor:1609.344},yd:{label:'Yardas',factor:.9144},ft:{label:'Pies',factor:.3048},in:{label:'Pulgadas',factor:.0254}},
+          mass:{kg:{label:'Kilogramos',factor:1},g:{label:'Gramos',factor:.001},mg:{label:'Miligramos',factor:.000001},lb:{label:'Libras',factor:.45359237},oz:{label:'Onzas',factor:.028349523125},t:{label:'Toneladas',factor:1000}},
+          volume:{l:{label:'Litros',factor:1},ml:{label:'Mililitros',factor:.001},m3:{label:'Metros cúbicos',factor:1000},gal_us:{label:'Galones US',factor:3.785411784},qt_us:{label:'Cuartos US',factor:.946352946},cup_us:{label:'Tazas US',factor:.2365882365}},
+          speed:{ms:{label:'m/s',factor:1},kmh:{label:'km/h',factor:1/3.6},mph:{label:'mph',factor:.44704},knot:{label:'Nudos',factor:.5144444444}},
+          data:{B:{label:'Bytes',factor:1},KB:{label:'KB · decimal',factor:1000},MB:{label:'MB · decimal',factor:1e6},GB:{label:'GB · decimal',factor:1e9},KiB:{label:'KiB · binario',factor:1024},MiB:{label:'MiB · binario',factor:1048576},GiB:{label:'GiB · binario',factor:1073741824}},
+          temperature:{C:{label:'°C'},F:{label:'°F'},K:{label:'K'}}
+        };
+        const dim=defs[v.dimension]; if(!dim || !dim[v.from] || !dim[v.to]) throw new Error('Selecciona unidades compatibles con la magnitud elegida.');
+        const dimensionLabels={length:'Longitud',mass:'Masa',volume:'Volumen',temperature:'Temperatura',speed:'Velocidad',data:'Datos / almacenamiento'};
+        let converted, factorText='';
+        if(v.dimension==='temperature'){
+          let c;if(v.from==='C')c=v.value;else if(v.from==='F')c=(v.value-32)*5/9;else c=v.value-273.15;
+          if(v.to==='C')converted=c;else if(v.to==='F')converted=c*9/5+32;else converted=c+273.15; factorText='Transformación de temperatura';
+        } else { const factor=dim[v.from].factor/dim[v.to].factor; const base=v.value*dim[v.from].factor; converted=base/dim[v.to].factor; factorText=`Factor de conversión: × ${number(factor)}`; }
+        return result('Valor convertido', number(converted), [item('Origen', `${number(v.value)} ${dim[v.from].label}`), item('Destino', `${number(converted)} ${dim[v.to].label}`), item('Magnitud', dimensionLabels[v.dimension] || v.dimension), item('Relación', factorText)], 'El valor mostrado se redondea para lectura; el cálculo utiliza los factores definidos en la herramienta.');
+      }
+      case 'date-difference': {
+        const rawDays = daysBetween(v.start, v.end, Boolean(v.inclusive));
+        if (!(rawDays >= 0)) throw new Error('La fecha final debe ser igual o posterior a la inicial.');
+        const start = new Date(`${v.start}T12:00:00`), end = new Date(`${v.end}T12:00:00`);
+        let business = 0;
+        const cursor = new Date(start);
+        while (cursor <= end) {
+          const day = cursor.getDay();
+          if (day !== 0 && day !== 6) business++;
+          cursor.setDate(cursor.getDate()+1);
+        }
+        if (!v.inclusive && start <= end) {
+          const day=end.getDay(); if (day!==0 && day!==6) business=Math.max(0,business-1);
+        }
+        business = Math.max(0, business - Number(v.holidays || 0));
+        const weeks = rawDays / 7;
+        return result('Días entre fechas', `${integer(rawDays)} días`, [item('Semanas equivalentes', number(weeks)), item('Días laborables estimados', integer(business)), item('Festivos restados', integer(v.holidays || 0)), item('Conteo inclusivo', v.inclusive ? 'Sí' : 'No')], 'Los días laborables se estiman de lunes a viernes y restan los festivos que tú indiques; no consulta calendarios oficiales.');
       }
       default: throw new Error('Herramienta no reconocida.');
     }
@@ -573,36 +762,136 @@
     return true;
   }
 
+  const FAVORITES_KEY = 'clicivo:favorites:v1';
+  const RECENTS_KEY = 'clicivo:recent:v1';
+  const SCENARIO_PREFIX = 'clicivo:scenario:v1:';
+
+  function safeJsonRead(key, fallback = []) {
+    try { const value = JSON.parse(localStorage.getItem(key) || 'null'); return value ?? fallback; } catch { return fallback; }
+  }
+
+  function downloadCsv(filename, rows) {
+    const csv = rows.map(row => row.map(value => `"${String(value ?? '').replace(/"/g,'""')}"`).join(',')).join('\r\n');
+    const blob = new Blob(['﻿'+csv], { type:'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),500);
+  }
+
+  function scenarioData(form) {
+    const values = {};
+    Array.from(form?.elements || []).forEach(el => {
+      if (!el.name || ['submit','reset','button','file'].includes(el.type)) return;
+      values[el.name] = el.type === 'checkbox' ? el.checked : el.value;
+    });
+    return values;
+  }
+
+  function restoreScenario(form, values) {
+    if (!form || !values) return;
+    Object.entries(values).forEach(([name,value]) => {
+      const el=form.elements.namedItem(name); if (!el) return;
+      if (el.type === 'checkbox') el.checked=Boolean(value); else el.value=value;
+      el.dispatchEvent(new Event('change',{bubbles:true}));
+    });
+  }
+
+  function currentToolMeta() {
+    const main=document.querySelector('[data-tool-page]');
+    if (!main) return null;
+    return { id:main.dataset.toolPage, title:main.dataset.toolTitle || document.querySelector('h1')?.textContent || 'Herramienta', path:main.dataset.toolPath || location.pathname };
+  }
+
+  function rememberRecentTool() {
+    const meta=currentToolMeta(); if (!meta) return;
+    const recent=safeJsonRead(RECENTS_KEY,[]).filter(x=>x.id!==meta.id); recent.unshift(meta); localStorage.setItem(RECENTS_KEY,JSON.stringify(recent.slice(0,8)));
+  }
+
+  function renderRecentTools() {
+    const section=document.querySelector('[data-recent-section]'); const box=document.querySelector('[data-recent-tools]'); if (!section || !box) return;
+    const favorites=safeJsonRead(FAVORITES_KEY,[]); const recent=safeJsonRead(RECENTS_KEY,[]);
+    const items=[]; const seen=new Set();
+    [...favorites,...recent].forEach(x=>{ if (x?.id && !seen.has(x.id)) { seen.add(x.id); items.push(x); } });
+    if (!items.length) return;
+    box.innerHTML=items.slice(0,8).map(x=>`<a class="recent-tool" href="${x.path}"><span>${favorites.some(f=>f.id===x.id)?'★ Favorita':'Reciente'}</span><strong>${escapeHtml(x.title)}</strong><b>→</b></a>`).join('');
+    section.hidden=false;
+  }
+
+  function initFavorites() {
+    const meta=currentToolMeta(); if (!meta) return;
+    const buttons=[...document.querySelectorAll('.js-favorite-tool,.js-favorite-inline')];
+    const sync=()=>{ const saved=safeJsonRead(FAVORITES_KEY,[]).some(x=>x.id===meta.id); buttons.forEach(btn=>{ btn.setAttribute('aria-pressed',String(saved)); btn.textContent=saved?'★ Guardada':'☆ Guardar'; }); };
+    buttons.forEach(btn=>btn.addEventListener('click',()=>{
+      let saved=safeJsonRead(FAVORITES_KEY,[]); const exists=saved.some(x=>x.id===meta.id);
+      saved=exists?saved.filter(x=>x.id!==meta.id):[meta,...saved.filter(x=>x.id!==meta.id)].slice(0,20);
+      localStorage.setItem(FAVORITES_KEY,JSON.stringify(saved)); track('favorite_tool',{tool_id:meta.id,state:exists?'removed':'added'}); sync();
+    })); sync();
+  }
+
+  function initWebVitals() {
+    if (!('PerformanceObserver' in window)) return;
+    try {
+      let cls=0;
+      const poCls=new PerformanceObserver(list=>{ list.getEntries().forEach(e=>{ if (!e.hadRecentInput) cls += e.value; }); });
+      poCls.observe({type:'layout-shift',buffered:true});
+      const poLcp=new PerformanceObserver(list=>{ const entries=list.getEntries(); const last=entries[entries.length-1]; if (last) window.__clicivoLcp=Math.round(last.startTime); });
+      poLcp.observe({type:'largest-contentful-paint',buffered:true});
+      addEventListener('pagehide',()=>track('web_vitals',{lcp_ms:window.__clicivoLcp||0,cls:Number(cls.toFixed(3))}),{once:true});
+    } catch {}
+  }
+
   function initResultActions() {
     const panel = document.querySelector('.result-panel');
     const output = document.querySelector('#result-body');
     if (!panel || !output) return;
+    const form=document.querySelector('.tool-form');
     const update = () => panel.classList.toggle('has-result', !output.classList.contains('result-placeholder') && Boolean(output.textContent.trim()));
-    new MutationObserver(update).observe(output, { childList:true, subtree:true, attributes:true, attributeFilter:['class'] });
-    update();
-    document.addEventListener('click', event => {
-      const toolId = document.querySelector('.tool-form')?.dataset.tool || 'unknown';
+    new MutationObserver(update).observe(output, { childList:true, subtree:true, attributes:true, attributeFilter:['class'] }); update();
+    document.addEventListener('click', async event => {
+      const toolId = form?.dataset.tool || 'unknown';
       const copy = event.target.closest('.js-copy-result');
-      if (copy) {
-        copyText(cleanReportText(output.innerText), copy);
-        track('result_copy', { tool_id:toolId, copy_type:'summary' });
-      }
+      if (copy) { copyText(cleanReportText(output.innerText), copy); track('result_copy', { tool_id:toolId, copy_type:'summary' }); }
       const clientCopy = event.target.closest('.js-copy-client');
-      if (clientCopy) {
-        copyText(buildClientReport(panel, output), clientCopy);
-        track('result_copy_client', { tool_id:toolId });
-      }
+      if (clientCopy) { copyText(buildClientReport(panel, output), clientCopy); track('result_copy_client', { tool_id:toolId }); }
       const pdf = event.target.closest('.js-download-pdf');
-      if (pdf) {
-        const generated = downloadResultPdf(panel, output);
-        track(generated ? 'result_pdf_download' : 'result_print_fallback', { tool_id:toolId });
+      if (pdf) { const generated = downloadResultPdf(panel, output); track(generated ? 'result_pdf_download' : 'result_print_fallback', { tool_id:toolId }); }
+      const csv = event.target.closest('.js-download-csv');
+      if (csv) {
+        const rows=[['Clicivo',panel.dataset.reportTitle||form?.dataset.toolTitle||'Resultado'],['Fecha',new Date().toLocaleDateString('es-ES')],[],['DATOS UTILIZADOS',''],...collectInputs(form),[],['RESULTADO',''],...cleanReportText(output.innerText).split('\n').filter(Boolean).map(line=>[line,'']),[],['URL',location.href]];
+        downloadCsv(`clicivo-${reportSlug(panel.dataset.reportTitle||toolId)}.csv`,rows); track('result_csv_download',{tool_id:toolId});
       }
-      const print = event.target.closest('.js-print-result');
-      if (print) {
-        track('result_print', { tool_id:toolId });
-        window.print();
+      const save = event.target.closest('.js-save-scenario');
+      if (save && form) { localStorage.setItem(SCENARIO_PREFIX+toolId,JSON.stringify(scenarioData(form))); save.textContent='Guardado ✓'; setTimeout(()=>save.textContent='Guardar escenario',1400); track('scenario_save',{tool_id:toolId}); }
+      const load = event.target.closest('.js-load-scenario');
+      if (load && form) { const data=safeJsonRead(SCENARIO_PREFIX+toolId,null); if (data) { restoreScenario(form,data); form.requestSubmit?.(); track('scenario_load',{tool_id:toolId}); } else { load.textContent='Sin escenario'; setTimeout(()=>load.textContent='Recuperar',1400); } }
+      const share = event.target.closest('.js-share-result');
+      if (share) {
+        const text=buildClientReport(panel,output); let used='clipboard';
+        try { if (navigator.share) { await navigator.share({title:panel.dataset.reportTitle||'Resultado Clicivo',text,url:location.href}); used='native'; } else { await navigator.clipboard.writeText(text); share.textContent='Copiado'; setTimeout(()=>share.textContent='Compartir',1400); } } catch { return; }
+        track('result_share',{tool_id:toolId,share_method:used});
       }
+      const print = event.target.closest('.js-print-result'); if (print) { track('result_print',{tool_id:toolId}); window.print(); }
     });
+  }
+
+  const UNIT_GROUPS = {
+    length:[['m','Metros'],['km','Kilómetros'],['cm','Centímetros'],['mm','Milímetros'],['mi','Millas'],['yd','Yardas'],['ft','Pies'],['in','Pulgadas']],
+    mass:[['kg','Kilogramos'],['g','Gramos'],['mg','Miligramos'],['lb','Libras'],['oz','Onzas'],['t','Toneladas']],
+    volume:[['l','Litros'],['ml','Mililitros'],['m3','Metros cúbicos'],['gal_us','Galones US'],['qt_us','Cuartos US'],['cup_us','Tazas US']],
+    temperature:[['C','Celsius · °C'],['F','Fahrenheit · °F'],['K','Kelvin · K']],
+    speed:[['ms','Metros/segundo'],['kmh','Kilómetros/hora'],['mph','Millas/hora'],['knot','Nudos']],
+    data:[['B','Bytes'],['KB','KB · decimal'],['MB','MB · decimal'],['GB','GB · decimal'],['KiB','KiB · binario'],['MiB','MiB · binario'],['GiB','GiB · binario']]
+  };
+  function initUnitConverter(form) {
+    if (form?.dataset.tool !== 'unit-converter') return;
+    const dimension=form.elements.dimension, from=form.elements.from, to=form.elements.to;
+    const defaults={length:['km','mi'],mass:['kg','lb'],volume:['l','gal_us'],temperature:['C','F'],speed:['kmh','mph'],data:['GB','GiB']};
+    const rebuild=(preserve=true)=>{
+      const group=UNIT_GROUPS[dimension.value]||UNIT_GROUPS.length; const oldFrom=from.value,oldTo=to.value;
+      const html=group.map(([value,label])=>`<option value="${value}">${label}</option>`).join(''); from.innerHTML=html;to.innerHTML=html;
+      const [df,dt]=defaults[dimension.value]||group.slice(0,2).map(x=>x[0]);
+      from.value=preserve&&group.some(x=>x[0]===oldFrom)?oldFrom:df; to.value=preserve&&group.some(x=>x[0]===oldTo)?oldTo:dt;
+    };
+    dimension.addEventListener('change',()=>rebuild(false)); rebuild(false);
+    form.querySelector('.js-swap-units')?.addEventListener('click',()=>{const a=from.value;from.value=to.value;to.value=a;form.requestSubmit();track('unit_swap',{tool_id:'unit-converter'});});
   }
 
   function initTool() {
@@ -610,12 +899,16 @@
     const output = document.querySelector('#result-body');
     if (!form || !output) return;
     const id = form.dataset.tool;
-    track('tool_view', { tool_id: id });
+    initUnitConverter(form);
+    const deviceClass = window.innerWidth <= 720 ? 'mobile' : window.innerWidth <= 1024 ? 'tablet' : 'desktop';
+    track('tool_view', { tool_id: id, device_class: deviceClass });
     let started = false;
+    let startedAt = 0;
     const markStarted = () => {
       if (!started) {
         started = true;
-        track('tool_start', { tool_id: id });
+        startedAt = Date.now();
+        track('tool_start', { tool_id: id, device_class: deviceClass });
       }
     };
     form.addEventListener('input', markStarted, { once:false });
@@ -637,7 +930,12 @@
         } else output.innerHTML = calculate(id, v);
         output.classList.remove('result-placeholder');
         form.querySelector('.error-message').textContent = '';
-        if (userTriggered) track('tool_complete', { tool_id:id });
+        if (userTriggered) {
+          const elapsed = startedAt ? Math.max(0, Date.now() - startedAt) : 0;
+          track('tool_complete', { tool_id:id, device_class:deviceClass, time_to_result_ms:elapsed });
+          track('result_view', { tool_id:id, device_class:deviceClass });
+          if (window.innerWidth <= 960) document.querySelector('.result-panel')?.scrollIntoView({ behavior:'smooth', block:'start' });
+        }
       } catch (err) {
         const message = err.message || 'No se ha podido calcular. Revisa los datos.';
         form.querySelector('.error-message').textContent = message;
@@ -645,7 +943,7 @@
       }
     };
     form.addEventListener('submit', e => { e.preventDefault(); markStarted(); run(true); });
-    form.addEventListener('reset', () => setTimeout(() => run(false), 0));
+    form.addEventListener('reset', () => { track('tool_reset', { tool_id:id }); setTimeout(() => run(false), 0); });
     if (live) form.addEventListener('input', () => run(started));
     run(false);
 
@@ -664,11 +962,16 @@
   }
 
   if (typeof window !== 'undefined' && typeof location !== 'undefined' && ['localhost','127.0.0.1'].includes(location.hostname)) {
-    window.ClicivoDebug = { calculate, loanPayment, simulateCompound, formatInstagramText, renderFonts, renderCounter };
+    window.ClicivoDebug = { calculate, loanPayment, loanSchedule, simulateCompound, formatInstagramText, renderFonts, renderCounter, UNIT_GROUPS };
   }
 
+  rememberRecentTool();
+  renderRecentTools();
+  initFavorites();
   initCatalog();
   initAnalyticsInteractions();
+  initScrollDepthAnalytics();
+  initWebVitals();
   initResultActions();
   initTool();
 })();

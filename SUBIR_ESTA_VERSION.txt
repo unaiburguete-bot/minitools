@@ -1,18 +1,22 @@
-VERSIÓN QUE DEBES SUBIR
-=======================
+CLICIVO · SEPTIEMBRE DEFINITIVO 10/10 · 2 SEPTIEMBRE 2026
 
-Clicivo SaaS + Copy + Retención · 2026-08-02
+Esta carpeta sustituye a todas las entregas anteriores.
 
-1. Descarga una copia de seguridad del repositorio actual.
-2. Descomprime este ZIP.
-3. Abre el repositorio local minitools desde GitHub Desktop > Repository > Show in Explorer.
-4. Conserva la carpeta oculta .git.
-5. Sustituye todos los demás archivos visibles por el contenido interior de esta carpeta.
-6. En GitHub Desktop escribe:
-   Clicivo: experiencia SaaS, copy persuasivo y exportación PDF
-7. Pulsa Commit to main.
-8. Pulsa Push origin.
-9. Espera a que Actions termine en verde.
-10. Comprueba portada, TikTok, YouTube, finiquito, interés compuesto, sitemap y ads.txt.
-
-No cambies las URL ni vuelvas a enviar manualmente todo el sitemap.
+1. Descarga una copia de seguridad del repositorio actual desde GitHub > Code > Download ZIP.
+2. Descomprime este paquete.
+3. En GitHub Desktop: Repository > Show in Explorer.
+4. Dentro de la carpeta local `minitools`, elimina los archivos y carpetas visibles. NO borres la carpeta oculta `.git`.
+5. Copia TODO el contenido interior de esta carpeta y pégalo dentro de `minitools`.
+6. Comprueba que existe `.github/workflows/deploy.yml` y que NO existe `compiler.yml`.
+7. En GitHub Desktop escribe como Summary:
+   Clicivo: septiembre definitivo 10/10 2026
+8. Pulsa Commit to main.
+9. Pulsa Push origin.
+10. En GitHub > Actions espera a que `Build and deploy Clicivo` termine en verde.
+11. Abre clicivo.com y fuerza recarga con Ctrl+F5.
+12. Comprueba `/sitemap.xml`, `/robots.txt` y `/ads.txt`. El sitemap debe rondar 112 URL.
+13. Prueba portada, una herramienta ganadora, el conversor de unidades y las tres suites.
+14. Desde un móvil real prueba una calculadora, una tabla, una descarga y la suite PDF/Imágenes.
+15. En GA4 Tiempo real o DebugView verifica `tool_start`, `tool_complete`, `suite_view` y `suite_complete`; prueba también una descarga para confirmar el evento correspondiente.
+16. No solicites indexación de todas las URL. El sitemap comunica los cambios. Si quieres, inspecciona únicamente alguna URL totalmente nueva.
+17. No vuelvas a solicitar AdSense automáticamente. Primero deja acumular datos limpios y realiza la revisión final de valor/calidad antes del nuevo envío.

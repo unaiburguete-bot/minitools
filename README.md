@@ -1,30 +1,35 @@
 # Clicivo
 
-Generador estático de herramientas online para GitHub Pages.
+Plataforma estática de herramientas online, suites integradas, guías prácticas y calculadoras orientada a utilidad, SEO técnico, privacidad, experiencia móvil y monetización progresiva.
 
-## Entrega 02/08/2026
+## Versión
 
-- 42 herramientas activas.
-- 87 URL indexables.
-- Consolidación SEO de YouTube, Instagram, empleo, finanzas, PDF, imágenes y productividad.
-- Redirecciones para URL antiguas y para una herramienta de YouTube con intención duplicada.
-- AdSense, `ads.txt`, Consent Mode y páginas de confianza preparados.
-- Contenido público limpiado de notas internas de SEO y listas de palabras clave.
-- 16 pruebas automáticas y pruebas JavaScript superadas.
+`2026.09.02-september-complete-10of10`
 
-## Construir y probar
+## Contenido
+
+- 50 herramientas activas.
+- 8 guías editoriales originales.
+- 3 suites integradas: Creadores, Laboral España y PDF/Imágenes.
+- 112 rutas indexables generadas.
+- Generador estático Python.
+- GitHub Pages mediante GitHub Actions.
+- Procesamiento local en navegador para PDF e imágenes cuando se indica.
+- Informes PDF y CSV en calculadoras profesionales.
+- Favoritos, recientes y escenarios guardados localmente.
+- Analytics con eventos de uso, suites y Web Vitals.
+- Configuración de AdSense/ads.txt conservada.
+
+## Construcción local
 
 ```bash
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 python src/build.py
 pytest -q
 node --check public/assets/site.js
 node --check public/assets/advanced-tools.js
+node --check public/assets/suites.js
 node tests/js_smoke.js
 ```
 
-## Publicación
-
-El workflow `.github/workflows/deploy.yml` construye, prueba y publica `public` en GitHub Pages.
-
-Consulta `SUBIR_A_GITHUB.txt`, `CHECKLIST_PUBLICACION.md` y `PLAN_90_DIAS.md`.
+Consulta `ENTREGA_10_10.md`, `SUBIR_ESTA_VERSION.txt` y `CHECKLIST_PUBLICACION.md` antes de publicar.

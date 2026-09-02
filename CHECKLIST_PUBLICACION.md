@@ -1,69 +1,105 @@
-# Checklist posterior a la publicación
+# Checklist de publicación · septiembre definitivo 10/10
 
-## 1. Despliegue
+## Antes de subir
 
-- [ ] GitHub Actions en verde.
-- [ ] `clicivo.com` carga por HTTPS.
-- [ ] Dominio personalizado conservado en Settings > Pages.
-- [ ] `ads.txt` muestra el ID correcto.
-- [ ] `sitemap.xml` carga y contiene 87 URL.
+- [ ] Descargar copia de seguridad del repositorio actual.
+- [ ] Confirmar que la carpeta local es `Documentos/GitHub/minitools`.
+- [ ] Conservar la carpeta oculta `.git`.
+- [ ] Sustituir los archivos visibles por esta entrega.
 
-## 2. Pruebas prioritarias
+## GitHub
 
-### YouTube
+- [ ] `.github/workflows/deploy.yml` existe.
+- [ ] No existe `.github/workflows/compiler.yml`.
+- [ ] Commit a `main`.
+- [ ] Push origin.
+- [ ] GitHub Actions termina en verde.
 
-- [ ] Ingresos: cambiar visualizaciones y tres RPM.
-- [ ] Comprobar escenarios bajo, central y alto.
-- [ ] Comprobar vistas para objetivo.
-- [ ] RPM: calcular con ingresos y vistas.
-- [ ] Comprobar proyección a visualizaciones objetivo.
+## Producción
 
-### Instagram
+- [ ] `https://clicivo.com/` carga.
+- [ ] `https://clicivo.com/sitemap.xml` carga y contiene aproximadamente 112 URL.
+- [ ] `https://clicivo.com/robots.txt` carga.
+- [ ] `https://clicivo.com/ads.txt` contiene el publisher correcto.
+- [ ] No aparece el antiguo gráfico ficticio de 1.248 €.
+- [ ] El hero explica Clicivo inmediatamente.
+- [ ] El buscador de portada funciona.
+- [ ] Los cinco accesos rápidos incluyen Instagram, YouTube, finiquito, imagen y PDF.
 
-- [ ] Crecimiento: comprobar ritmo y fecha objetivo.
-- [ ] Engagement: comprobar likes, comentarios, guardados y compartidos.
+## Herramientas prioritarias
 
-### Empleo
+- [ ] Instagram Growth.
+- [ ] RPM YouTube.
+- [ ] Ingresos YouTube.
+- [ ] YouTube Shorts.
+- [ ] Ingresos/RPM TikTok.
+- [ ] Sueldo bruto ↔ neto.
+- [ ] Finiquito.
+- [ ] Coste empresa.
+- [ ] Hipoteca y préstamo con tablas/escenarios.
+- [ ] Redimensionar/comprimir imágenes en lote.
+- [ ] PDF.
 
-- [ ] Finiquito sin indemnización.
-- [ ] Finiquito con indemnización activada.
-- [ ] Indemnización por despido con fechas válidas.
-- [ ] Sueldo neto con 12 y 14 pagas.
+## Nuevas intenciones
 
-### Archivos
+- [ ] CPM YouTube.
+- [ ] RPM TikTok.
+- [ ] ROAS y CAC.
+- [ ] Beneficio por cliente.
+- [ ] IVA.
+- [ ] Porcentajes.
+- [ ] Días entre fechas.
+- [ ] Conversor de unidades.
 
-- [ ] Unir dos PDF pequeños.
-- [ ] Dividir un PDF.
-- [ ] Comprimir una imagen.
-- [ ] Convertir una imagen.
-- [ ] Generar un QR.
-- [ ] Probar una descarga desde móvil.
+## Suites
 
-## 3. Privacidad y AdSense
+- [ ] `/es/suites/` carga.
+- [ ] `/es/suites/creadores/` calcula, guarda, recupera, copia y exporta.
+- [ ] `/es/suites/laboral-espana/` calcula un escenario conectado.
+- [ ] `/es/suites/pdf-imagenes/` mantiene la selección entre operaciones.
 
-- [ ] Publicar la CMP europea de Google.
-- [ ] Botones Consentir, No consentir y Gestionar opciones visibles.
-- [ ] Política de privacidad enlazada.
-- [ ] No aparece el antiguo banner propio de Clicivo.
-- [ ] El enlace de revocación/privacidad de Google aparece cuando corresponde.
+## Retención
 
-## 4. Analytics
+- [ ] Descargar PDF.
+- [ ] Descargar CSV en una calculadora compatible.
+- [ ] Copiar para cliente.
+- [ ] Guardar escenario.
+- [ ] Recuperar escenario.
+- [ ] Compartir.
+- [ ] Favoritos y recientes.
 
-Tras aceptar en la CMP:
+## Guías
 
-- [ ] Visita visible en Tiempo real.
-- [ ] Evento `tool_view`.
-- [ ] Evento `tool_complete`.
-- [ ] Evento `file_download` al descargar un archivo.
-- [ ] Evento `result_copy` al copiar un resultado.
+- [ ] `/es/guias/` carga.
+- [ ] Las 8 guías cargan.
+- [ ] La guía específica de YouTube Shorts existe.
+- [ ] Cada guía enlaza a herramientas relacionadas.
 
-## 5. Search Console
+## Mobile first
 
-- [ ] No volver a enviar repetidamente el sitemap.
-- [ ] Inspeccionar solo tres URL representativas.
-- [ ] Evitar entrar desde resultados de Google para no contaminar clics.
-- [ ] Acceder a Clicivo mediante URL directa o marcador.
+- [ ] Probar a ancho aproximado 390–430 px o en un móvil real.
+- [ ] Sin scroll horizontal inesperado.
+- [ ] Inputs sin zoom forzado.
+- [ ] Botón principal cómodo.
+- [ ] Resultados legibles.
+- [ ] Tablas desplazables.
+- [ ] PDF/CSV/descargas funcionan en Chrome móvil.
 
-## 6. Solicitud de AdSense
+## Analytics
 
-Solicitar revisión únicamente cuando todos los apartados anteriores estén completos y no haya errores visibles.
+- [ ] Abrir GA4 Tiempo real/DebugView.
+- [ ] Ejecutar una calculadora y comprobar `tool_start` y `tool_complete`.
+- [ ] Copiar/descargar y comprobar eventos de resultado.
+- [ ] Probar una suite y comprobar `suite_view`/`suite_complete`.
+- [ ] Probar archivo y comprobar `file_upload`/`file_download`.
+
+## Search Console
+
+- [ ] No borrar ni reenviar el sitemap si ya está registrado.
+- [ ] Opcional: inspeccionar solo URL realmente nuevas.
+- [ ] No hacer clic en resultados propios de Google durante la medición.
+
+## AdSense
+
+- [ ] Mantener `ads.txt`, script y consentimiento.
+- [ ] No reenviar revisión solo por publicar esta versión; esperar señales y revisar de nuevo el sitio antes de solicitar.

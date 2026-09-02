@@ -1,0 +1,526 @@
+[
+  {
+    "id": "rpm-cpm-youtube",
+    "path": "/es/guias/rpm-cpm-youtube/",
+    "title": "RPM y CPM de YouTube: qué significa cada métrica y cómo usarlas",
+    "description": "Guía práctica para entender RPM, CPM y CPM basado en reproducciones de YouTube, interpretar cambios y conectar las métricas con ingresos y visualizaciones.",
+    "eyebrow": "Monetización para creadores",
+    "reviewed": "2026-09-02",
+    "tool_ids": [
+      "youtube-rpm-revenue",
+      "youtube-income",
+      "youtube-cpm",
+      "youtube-shorts-income"
+    ],
+    "sources": [
+      [
+        "YouTube Help · estadísticas de ingresos publicitarios",
+        "https://support.google.com/youtube/answer/9314357?hl=es-419"
+      ],
+      [
+        "YouTube Help · consultar los ingresos",
+        "https://support.google.com/youtube/answer/9314488?hl=es"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "RPM y CPM responden a preguntas distintas",
+        "paragraphs": [
+          "El RPM sirve al creador: relaciona los ingresos registrados con el volumen de vistas del mismo periodo. El CPM sirve principalmente para entender cuánto pagan los anunciantes por mil impresiones de anuncios antes del reparto de ingresos de YouTube. Por eso no deben compararse como si fueran dos versiones del mismo indicador.",
+          "Cuando una cifra cambia, la pregunta útil no es solo “¿subió o bajó?”, sino qué componente del negocio cambió: vistas monetizadas, país de la audiencia, formato, estacionalidad publicitaria, ingresos de YouTube Premium u otras fuentes."
+        ],
+        "bullets": [
+          "RPM: ingresos del creador por cada 1.000 vistas.",
+          "CPM: coste del anunciante por cada 1.000 impresiones de anuncios.",
+          "CPM basado en reproducciones: coste por cada 1.000 reproducciones que muestran uno o más anuncios."
+        ]
+      },
+      {
+        "heading": "Cómo calcular un RPM que puedas comparar",
+        "paragraphs": [
+          "Usa ingresos y visualizaciones del mismo intervalo y, cuando compares periodos, mantén un criterio estable. Mezclar ingresos de 28 días con vistas de 30 días produce un RPM que parece preciso, pero no representa la realidad.",
+          "También conviene separar formatos cuando el objetivo sea tomar decisiones: vídeos largos y Shorts pueden tener lógicas de monetización distintas. La calculadora de Clicivo te permite introducir los datos que ya ves en YouTube Analytics y proyectarlos sin conectarse a tu cuenta."
+        ],
+        "bullets": [
+          "Compara periodos de duración similar.",
+          "No mezcles datos estimados de distintas fuentes.",
+          "Anota cambios de formato, país o temática cuando expliques una variación."
+        ]
+      },
+      {
+        "heading": "Por qué un CPM alto no garantiza ingresos altos",
+        "paragraphs": [
+          "Un CPM elevado significa que determinados anunciantes están pagando más por impresiones, pero no todas las vistas generan una impresión de anuncio y el creador no recibe el CPM íntegro. El RPM incorpora más elementos y se acerca más a la pregunta “¿cuánto produce mi audiencia por cada mil vistas?”.",
+          "Por eso una subida del CPM puede convivir con un RPM plano o incluso menor. Si al mismo tiempo aumenta el porcentaje de vistas no monetizadas, cambia el mix de países o cae la duración de sesión, el efecto final puede ser diferente."
+        ]
+      },
+      {
+        "heading": "Cómo usar estas métricas para tomar decisiones",
+        "paragraphs": [
+          "El RPM es especialmente útil para presupuestar objetivos. Si conoces tu RPM histórico, puedes estimar cuántas vistas necesitarías para aproximarte a un objetivo mensual. El resultado no es una promesa: es un escenario basado en una tasa observada.",
+          "El CPM ayuda más a interpretar el mercado publicitario y a entender por qué ciertas épocas o audiencias tienen mayor valor para los anunciantes. Para optimizar contenido no deberías perseguir únicamente el CPM: retención, satisfacción y utilidad del contenido siguen siendo fundamentales para construir audiencia."
+        ],
+        "bullets": [
+          "Usa RPM para objetivos de ingresos.",
+          "Usa CPM para contexto publicitario.",
+          "Evalúa siempre junto a vistas, retención, formatos y países."
+        ]
+      },
+      {
+        "heading": "Errores habituales al comparar ingresos",
+        "paragraphs": [
+          "El error más frecuente es convertir un dato aislado en una regla universal. Un RPM de otro canal no es una tarifa de YouTube. Los valores dependen de la audiencia, formato, época del año y fuentes de ingresos.",
+          "Otro error es confundir una estimación con un ingreso definitivo. YouTube puede ajustar los ingresos estimados posteriormente. Por eso Clicivo presenta escenarios y permite guardar los datos utilizados, para que puedas comparar lo que estimabas con lo que terminó ocurriendo."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "crecimiento-instagram",
+    "path": "/es/guias/crecimiento-seguidores-instagram/",
+    "title": "Cómo medir el crecimiento de seguidores de Instagram sin engañarte con la cifra total",
+    "description": "Aprende a medir crecimiento neto y porcentual, normalizar periodos, proyectar objetivos y combinar seguidores con engagement para evaluar una cuenta de Instagram.",
+    "eyebrow": "Analítica de Instagram",
+    "reviewed": "2026-09-02",
+    "tool_ids": [
+      "instagram-growth",
+      "instagram-engagement-followers",
+      "instagram-engagement-reach"
+    ],
+    "sources": [
+      [
+        "Instagram Help · Insights",
+        "https://help.instagram.com/1533933820244654"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "El crecimiento absoluto no basta para comparar cuentas",
+        "paragraphs": [
+          "Sumar 1.000 seguidores puede ser extraordinario para una cuenta pequeña y marginal para una cuenta con millones. Por eso conviene observar el cambio neto y el porcentaje respecto al tamaño inicial.",
+          "La tasa de crecimiento te permite comparar periodos y cuentas con escalas diferentes, siempre que uses datos obtenidos con el mismo criterio."
+        ],
+        "bullets": [
+          "Cambio neto: seguidores finales menos iniciales.",
+          "Crecimiento porcentual: cambio neto dividido por seguidores iniciales.",
+          "Ritmo diario: cambio neto dividido por los días analizados."
+        ]
+      },
+      {
+        "heading": "Normaliza el tiempo antes de decidir si vas mejor o peor",
+        "paragraphs": [
+          "Comparar una campaña de siete días con un trimestre completo sin normalizar puede generar conclusiones equivocadas. El ritmo diario, semanal y mensual sirve para poner los periodos en una escala común.",
+          "Aun así, normalizar no elimina la estacionalidad. Lanzamientos, sorteos, colaboraciones o publicaciones virales pueden producir picos que no se repiten. Conviene etiquetar esos eventos cuando guardes un escenario."
+        ]
+      },
+      {
+        "heading": "Una proyección es un escenario, no una predicción",
+        "paragraphs": [
+          "Proyectar consiste en prolongar el ritmo observado. Es útil para responder “si siguiera igual, ¿cuándo alcanzaría 10.000 seguidores?”, pero no incorpora cambios futuros de algoritmo, contenido, inversión, competencia o pérdida de seguidores.",
+          "La mejor forma de usar una proyección es compararla con un objetivo operativo. Si tu ritmo actual exige 180 días y tu plan necesita 90, la herramienta puede calcular cuánto tendrías que acelerar el crecimiento diario."
+        ]
+      },
+      {
+        "heading": "Combina crecimiento y engagement",
+        "paragraphs": [
+          "Crecer sin mantener interacción puede indicar que la audiencia nueva no está respondiendo del mismo modo. Por eso la evolución de seguidores debería leerse junto al engagement por seguidores y, cuando tengas el dato, por alcance.",
+          "El engagement por alcance explica mejor el rendimiento de una pieza concreta; el engagement por seguidores facilita comparar el tamaño de la comunidad. No hay un porcentaje universalmente bueno: depende del sector, formato, tamaño de cuenta y objetivo."
+        ]
+      },
+      {
+        "heading": "Un cuadro de mando mínimo para revisar cada mes",
+        "paragraphs": [
+          "Para un seguimiento sencillo guarda cuatro cifras: seguidores iniciales y finales, ritmo diario y engagement medio de una muestra comparable. Añade una nota con campañas o contenidos extraordinarios.",
+          "Con esos datos puedes utilizar Clicivo para crear un histórico local y exportar escenarios. La meta es detectar tendencias, no perseguir variaciones de un solo día."
+        ],
+        "bullets": [
+          "Seguidores netos ganados o perdidos.",
+          "Tasa de crecimiento del periodo.",
+          "Ritmo diario normalizado.",
+          "Engagement con un criterio constante."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ingresos-youtube-shorts",
+    "path": "/es/guias/ingresos-youtube-shorts/",
+    "title": "Ingresos de YouTube Shorts: cómo estimarlos sin convertir el RPM en una promesa",
+    "description": "Guía práctica para entender vistas interesadas, RPM de Shorts, escenarios de ingresos y por qué un millón de vistas no tiene un pago fijo.",
+    "eyebrow": "YouTube Shorts",
+    "reviewed": "2026-09-02",
+    "tool_ids": [
+      "youtube-shorts-income",
+      "youtube-rpm-revenue",
+      "youtube-income"
+    ],
+    "sources": [
+      [
+        "YouTube Help · Políticas de monetización de Shorts",
+        "https://support.google.com/youtube/answer/12504220?hl=es"
+      ],
+      [
+        "YouTube Help · Comprender RPM y CPM",
+        "https://support.google.com/youtube/answer/9314357?hl=es"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Un número de vistas no equivale a una tarifa fija",
+        "paragraphs": [
+          "No existe una regla universal del tipo “un millón de Shorts paga X euros”. El ingreso depende del rendimiento monetizable del periodo y de métricas que pueden variar entre canales, países y meses.",
+          "Por eso una estimación útil empieza por un RPM observado o por varios escenarios explícitos, no por una tarifa presentada como garantía."
+        ]
+      },
+      {
+        "heading": "Qué dato conviene introducir en la calculadora",
+        "paragraphs": [
+          "Utiliza una métrica de visualizaciones comparable con la que empleas para calcular tu RPM y mantén ingresos y vistas dentro del mismo periodo. Si tu panel ofrece una referencia más específica para monetización de Shorts, utiliza siempre el mismo criterio al comparar meses."
+        ],
+        "bullets": [
+          "No mezcles Shorts y vídeos largos en el mismo RPM.",
+          "No combines ingresos de un mes con vistas de otro.",
+          "Guarda el escenario para comparar después con el dato real."
+        ]
+      },
+      {
+        "heading": "Por qué Clicivo muestra tres escenarios",
+        "paragraphs": [
+          "Un escenario bajo, uno central y uno alto obliga a hacer visible la incertidumbre. Si pequeñas variaciones del RPM cambian mucho el ingreso final, la decisión no debería basarse en una sola cifra.",
+          "Cuando dispongas de tu propio histórico, sustituye los valores genéricos por percentiles o rangos obtenidos de tus meses reales."
+        ]
+      },
+      {
+        "heading": "Cómo calcular las vistas necesarias para una meta",
+        "paragraphs": [
+          "Una meta de ingresos puede traducirse a vistas necesarias dividiendo el objetivo entre el RPM y multiplicando por mil. Ese cálculo sirve para planificación, no para predecir cuánto pagará YouTube en el futuro.",
+          "Si el volumen exigido es muy superior a tu media actual, puede ser más útil trabajar sobre frecuencia, retención, audiencia y diversificación de ingresos que perseguir únicamente más vistas."
+        ]
+      },
+      {
+        "heading": "Qué comparar cada mes",
+        "paragraphs": [
+          "Guarda vistas, RPM, ingreso estimado, ingreso real y cualquier cambio relevante de audiencia o formato. Con varios periodos podrás distinguir mejor una tendencia de una anomalía."
+        ],
+        "bullets": [
+          "Vistas del periodo.",
+          "RPM del mismo periodo.",
+          "Ingreso total.",
+          "Diferencia entre escenario y resultado real.",
+          "Cambios de país, temática o formato."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "finiquito-indemnizacion",
+    "path": "/es/guias/finiquito-indemnizacion-espana/",
+    "title": "Finiquito e indemnización en España: qué conceptos son distintos y cómo revisarlos",
+    "description": "Guía práctica para separar salario pendiente, vacaciones, pagas extra e indemnización al revisar una extinción de contrato en España.",
+    "eyebrow": "Empleo · España",
+    "reviewed": "2026-09-02",
+    "tool_ids": [
+      "severance",
+      "dismissal-compensation",
+      "vacation-days",
+      "net-salary"
+    ],
+    "sources": [
+      [
+        "BOE · Estatuto de los Trabajadores",
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+      ],
+      [
+        "BOE · artículo 38, vacaciones",
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430&p=20241221&tn=1"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Finiquito e indemnización no son sinónimos",
+        "paragraphs": [
+          "El finiquito liquida cantidades pendientes al terminar la relación laboral: salario del periodo, vacaciones no disfrutadas, pagas extraordinarias devengadas y otros conceptos. La indemnización, cuando procede, responde a la causa de extinción y se calcula con reglas diferentes.",
+          "Separar ambos conceptos evita sumar dos veces una cantidad o interpretar que todo finiquito incluye automáticamente una indemnización."
+        ]
+      },
+      {
+        "heading": "Qué revisar dentro del finiquito",
+        "paragraphs": [
+          "Empieza por el salario ya devengado y no pagado. Después revisa vacaciones pendientes con el mismo criterio que utilice el convenio o contrato, y la parte proporcional de pagas extraordinarias si no están prorrateadas. Añade comisiones, bonus u otros conceptos solo cuando realmente estén devengados.",
+          "La calculadora de Clicivo muestra cada partida por separado para que puedas contrastarla con la nómina, el contrato o la propuesta de liquidación."
+        ],
+        "bullets": [
+          "Salario pendiente.",
+          "Vacaciones no disfrutadas.",
+          "Pagas extraordinarias devengadas.",
+          "Otros conceptos pendientes.",
+          "Anticipos o deducciones que correspondan."
+        ]
+      },
+      {
+        "heading": "Vacaciones: la referencia legal no sustituye al convenio",
+        "paragraphs": [
+          "El Estatuto de los Trabajadores establece que las vacaciones anuales retribuidas no pueden ser inferiores a treinta días naturales, pero el convenio o contrato puede concretar el cómputo en días laborables u otras condiciones.",
+          "Por eso una calculadora proporcional necesita que introduzcas la referencia anual aplicable a tu caso. El resultado sirve para revisar cifras, no para sustituir la lectura del convenio."
+        ]
+      },
+      {
+        "heading": "La causa de extinción cambia la indemnización",
+        "paragraphs": [
+          "La indemnización depende de la causa y de la normativa aplicable. Por ejemplo, la finalización de determinados contratos temporales tiene una referencia distinta de un despido objetivo o improcedente. Además, periodos de antigüedad largos pueden requerir reglas transitorias.",
+          "La calculadora separada de indemnización permite elegir el supuesto orientativo y mantener el importe fuera del finiquito hasta que decidas incorporarlo."
+        ]
+      },
+      {
+        "heading": "Cómo usar una estimación de forma responsable",
+        "paragraphs": [
+          "Guarda los datos usados, exporta el desglose y compáralo con la documentación entregada por la empresa. Si hay diferencias relevantes, causas complejas, antigüedad anterior a reformas o conceptos variables, busca asesoramiento laboral.",
+          "La utilidad de la calculadora está en hacer visible el camino entre los datos y el total. Una cifra sin desglose es difícil de auditar; un escenario documentado permite localizar exactamente dónde aparece la diferencia."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "coste-trabajador",
+    "path": "/es/guias/coste-trabajador-empresa/",
+    "title": "Cómo estimar el coste de un trabajador para la empresa en España",
+    "description": "Guía para entender qué hay detrás del coste laboral: salario bruto, cotizaciones empresariales, variable y otros costes del puesto.",
+    "eyebrow": "Empresa y empleo · España",
+    "reviewed": "2026-09-02",
+    "tool_ids": [
+      "employer-cost",
+      "net-salary",
+      "freelance-rate"
+    ],
+    "sources": [
+      [
+        "Seguridad Social · tipos de cotización 2026",
+        "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/CotizacionRecaudacionTrabajadores/10721/10957/9932/4315/4316?changeLanguage=es"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Salario bruto y coste empresa son cifras diferentes",
+        "paragraphs": [
+          "El salario bruto anual es la remuneración antes de las deducciones de la persona trabajadora, pero la empresa soporta además cotizaciones propias y puede asumir otros costes asociados al puesto.",
+          "Una estimación útil separa esas capas en vez de aplicar un multiplicador fijo sin explicar de dónde sale."
+        ]
+      },
+      {
+        "heading": "Las cotizaciones dependen del caso",
+        "paragraphs": [
+          "La Seguridad Social publica tipos para contingencias comunes, desempleo, formación, FOGASA, mecanismo de equidad intergeneracional y otras partidas. Algunas dependen del tipo de contrato, actividad o contingencia profesional.",
+          "Por ese motivo la calculadora de Clicivo utiliza una tasa empresarial editable. Puedes introducir una hipótesis aproximada o sustituirla por una tasa que hayas calculado con información de tu caso."
+        ]
+      },
+      {
+        "heading": "No olvides costes que no aparecen en la nómina",
+        "paragraphs": [
+          "Equipo, formación, seguros, software, variable, dietas, prevención o espacio de trabajo pueden formar parte del presupuesto real. No todos son obligatorios ni deben imputarse igual, pero ignorarlos puede infravalorar el coste del puesto.",
+          "La herramienta permite añadir otros costes anuales y bonus para que el escenario se acerque a tu presupuesto interno."
+        ]
+      },
+      {
+        "heading": "Cómo comparar dos contrataciones",
+        "paragraphs": [
+          "Usa el mismo criterio de costes en ambos escenarios. Si en una alternativa incluyes hardware y formación y en otra no, la comparación dejará de ser útil.",
+          "Exporta cada escenario a CSV, añade notas en tu hoja de cálculo y conserva la tasa utilizada. Así puedes actualizar el modelo cuando cambien tipos de cotización o condiciones del puesto."
+        ]
+      },
+      {
+        "heading": "Qué no puede decidir una calculadora general",
+        "paragraphs": [
+          "Una herramienta genérica no conoce el convenio, grupo de cotización, bonificaciones, reducciones, tarifa de accidentes, bases máximas o particularidades de cada contrato.",
+          "Por eso el resultado debe tratarse como presupuesto orientativo. Para nómina y cotización real utiliza la información de Seguridad Social, el software laboral de la empresa o asesoramiento profesional."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "imagenes-web",
+    "path": "/es/guias/redimensionar-comprimir-imagenes/",
+    "title": "Redimensionar y comprimir imágenes sin perder más calidad de la necesaria",
+    "description": "Guía para elegir dimensiones, formato y calidad al optimizar JPG, PNG y WebP para web, redes y correo.",
+    "eyebrow": "Imágenes y rendimiento",
+    "reviewed": "2026-09-02",
+    "tool_ids": [
+      "image-resize",
+      "image-compress",
+      "image-convert",
+      "image-crop",
+      "remove-exif"
+    ],
+    "sources": [
+      [
+        "MDN · multimedia e imágenes",
+        "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/Multimedia"
+      ],
+      [
+        "MDN · tipos y formatos de imagen",
+        "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Primero cambia dimensiones, después ajusta compresión",
+        "paragraphs": [
+          "Una fotografía de 6000 píxeles de ancho pesa mucho aunque se guarde con una calidad razonable. Si el uso final necesita 1200 píxeles, reducir dimensiones suele ahorrar más que comprimir agresivamente el archivo original.",
+          "El orden práctico es: define el tamaño máximo necesario, redimensiona manteniendo proporciones y después ajusta la calidad del formato de salida."
+        ]
+      },
+      {
+        "heading": "JPG, PNG y WebP no resuelven lo mismo",
+        "paragraphs": [
+          "JPG sigue siendo útil para fotografías sin transparencia. PNG conserva transparencia y puede ser adecuado para gráficos o capturas, pero suele pesar más en fotografías. WebP ofrece compresión con y sin pérdida y es compatible con navegadores modernos.",
+          "No existe un formato universalmente mejor: el contenido, la transparencia, la compatibilidad y el destino final determinan la decisión."
+        ]
+      },
+      {
+        "heading": "La calidad debe medirse mirando el resultado",
+        "paragraphs": [
+          "Un control de calidad del 80 % no significa “80 % de calidad visual” de forma universal. Es un parámetro del codificador. La misma cifra puede producir resultados diferentes según la imagen y el formato.",
+          "Por eso una herramienta útil debe mostrar el tamaño original y final y permitir repetir el proceso con otra calidad si aparecen artefactos."
+        ]
+      },
+      {
+        "heading": "Procesar en lote ahorra tiempo y mantiene consistencia",
+        "paragraphs": [
+          "Cuando tienes decenas de imágenes, repetir la operación una a una aumenta el riesgo de usar ajustes distintos. Las herramientas de Clicivo permiten seleccionar varias imágenes y aplicar una configuración común.",
+          "Después se descargan juntas, lo que resulta útil para catálogos, campañas y carga de imágenes en una web."
+        ]
+      },
+      {
+        "heading": "Privacidad y metadatos",
+        "paragraphs": [
+          "Las fotografías pueden incluir metadatos EXIF, como información técnica y, en algunos casos, ubicación. Si vas a publicar una imagen y no necesitas esos datos, crear una copia limpia reduce información innecesaria.",
+          "Las herramientas de Clicivo que lo indican procesan imágenes en tu navegador: el archivo no se envía al servidor del proyecto."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pdf-privado",
+    "path": "/es/guias/organizar-dividir-pdf/",
+    "title": "Cómo organizar, dividir y extraer páginas de un PDF sin subir el archivo",
+    "description": "Guía para elegir entre unir, dividir, extraer, ordenar, girar o convertir páginas PDF con procesamiento local en el navegador.",
+    "eyebrow": "PDF y privacidad",
+    "reviewed": "2026-09-02",
+    "tool_ids": [
+      "pdf-merge",
+      "pdf-split",
+      "pdf-organize",
+      "pdf-to-jpg",
+      "images-to-pdf"
+    ],
+    "sources": [
+      [
+        "pdf-lib · biblioteca de manipulación PDF",
+        "https://pdf-lib.js.org/"
+      ],
+      [
+        "PDF.js · proyecto de Mozilla",
+        "https://mozilla.github.io/pdf.js/"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Elige la operación antes de tocar el archivo",
+        "paragraphs": [
+          "“Editar un PDF” puede significar tareas muy distintas. Si necesitas conservar solo unas páginas, utiliza división o extracción. Si el problema es el orden, usa el organizador. Si quieres combinar varios documentos, únelos.",
+          "Separar cada intención evita conversiones innecesarias y ayuda a mantener la calidad del contenido original."
+        ]
+      },
+      {
+        "heading": "Dividir y extraer páginas",
+        "paragraphs": [
+          "Un rango como 1-3, 5, 8-10 permite crear varios documentos a partir de un solo PDF. Si solo quieres una selección, utiliza un único grupo de páginas; si quieres varios archivos, separa los grupos con comas.",
+          "Antes de descargar, comprueba el número total de páginas y que los rangos no estén invertidos."
+        ]
+      },
+      {
+        "heading": "Organizar con vista previa reduce errores",
+        "paragraphs": [
+          "Mover páginas únicamente por número puede ser confuso en documentos largos. Una vista previa ayuda a identificar portada, anexos, firmas o páginas en blanco antes de reordenar.",
+          "Clicivo genera miniaturas en el navegador para poder arrastrar, girar o eliminar páginas y exportar un documento nuevo."
+        ]
+      },
+      {
+        "heading": "Procesamiento local y límites del navegador",
+        "paragraphs": [
+          "Procesar localmente significa que el navegador trabaja con el archivo en tu dispositivo. Esto mejora la privacidad, pero también implica que documentos muy grandes consumen memoria y pueden superar la capacidad del equipo o del navegador.",
+          "Para operaciones masivas, divide el trabajo en lotes y evita mantener muchas pestañas con archivos grandes abiertas al mismo tiempo."
+        ]
+      },
+      {
+        "heading": "Cuándo convertir PDF a imagen",
+        "paragraphs": [
+          "Convertir una página a JPG puede servir para previsualizaciones, redes, documentación visual o sistemas que no aceptan PDF. No es adecuado si necesitas conservar texto seleccionable, enlaces o estructura accesible.",
+          "Elige una escala suficiente para el uso final y evita generar imágenes enormes si solo se visualizarán en pantalla."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "calculadoras-financieras",
+    "path": "/es/guias/usar-calculadoras-financieras/",
+    "title": "Cómo usar calculadoras financieras sin confundir una simulación con una previsión",
+    "description": "Guía para interpretar interés compuesto, hipotecas, préstamos y fondos indexados con supuestos transparentes y escenarios comparables.",
+    "eyebrow": "Finanzas personales",
+    "reviewed": "2026-09-02",
+    "tool_ids": [
+      "compound-interest",
+      "mortgage",
+      "personal-loan",
+      "monthly-savings",
+      "index-funds",
+      "mortgage-prepayment"
+    ],
+    "sources": [
+      [
+        "Banco de España · Portal del Cliente Bancario",
+        "https://clientebancario.bde.es/pcb/es/"
+      ],
+      [
+        "CNMV · Portal del inversor",
+        "https://www.cnmv.es/Portal/Inversor/Indice.aspx"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Una calculadora financiera no conoce el futuro",
+        "paragraphs": [
+          "Interés compuesto, hipotecas y préstamos utilizan supuestos. Si introduces una rentabilidad anual constante, el resultado muestra qué ocurriría bajo esa hipótesis, no cuánto vas a ganar.",
+          "La utilidad está en comparar escenarios coherentes: por ejemplo, 4 %, 6 % y 8 % de rentabilidad, o distintos plazos y tipos de interés."
+        ]
+      },
+      {
+        "heading": "Diferencia variables controlables y variables externas",
+        "paragraphs": [
+          "Aportación mensual, plazo o amortización extraordinaria son decisiones que puedes modificar. Rentabilidad futura, inflación o tipos de interés variables no dependen de ti.",
+          "Separarlas ayuda a evitar que una simulación parezca una promesa. Cambia una variable cada vez para entender qué factor explica la diferencia."
+        ]
+      },
+      {
+        "heading": "Comisiones e inflación cambian resultados a largo plazo",
+        "paragraphs": [
+          "Una diferencia anual pequeña en costes puede acumularse durante décadas. Del mismo modo, el valor nominal de una cartera no equivale necesariamente a su poder adquisitivo futuro.",
+          "Por eso las calculadoras de inversión de Clicivo incluyen comisiones e inflación cuando el modelo lo permite."
+        ]
+      },
+      {
+        "heading": "En préstamos importa el coste total, no solo la cuota",
+        "paragraphs": [
+          "Alargar el plazo suele reducir la cuota mensual, pero puede aumentar los intereses totales. Comparar únicamente la cuota puede ocultar esa contrapartida.",
+          "Revisa capital, intereses, gastos iniciales y plazo. En productos reales también debes considerar TAE, comisiones y condiciones contractuales."
+        ]
+      },
+      {
+        "heading": "Guarda el escenario y anota el supuesto",
+        "paragraphs": [
+          "Dos meses después es difícil recordar qué rentabilidad o tipo utilizaste. Guardar el escenario localmente y exportarlo facilita volver a la hipótesis original.",
+          "Clicivo no sustituye asesoramiento financiero. Utiliza las simulaciones para entender relaciones entre variables y contrasta productos concretos con documentación oficial."
+        ]
+      }
+    ]
+  }
+]

@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
 TOOLS = json.loads((ROOT / "content" / "tools.json").read_text(encoding="utf-8"))
+GUIDES = json.loads((ROOT / "content" / "guides.json").read_text(encoding="utf-8"))
 HTML_FILES = sorted(PUBLIC.rglob("index.html"))
 LEGACY_REDIRECT_ROUTES = {
     "/es/herramientas/": "/",
@@ -44,10 +45,10 @@ def local_target(url: str) -> Path | None:
 
 
 def test_expected_tool_count_and_unique_urls():
-    assert len(TOOLS) == 42
-    assert len({tool["id"] for tool in TOOLS}) == 42
-    assert len({tool["path"] for tool in TOOLS}) == 42
-    assert sum(bool(tool.get("new")) for tool in TOOLS) == 25
+    assert len(TOOLS) == 50
+    assert len({tool["id"] for tool in TOOLS}) == 50
+    assert len({tool["path"] for tool in TOOLS}) == 50
+    assert sum(bool(tool.get("new")) for tool in TOOLS) == 33
 
 
 def test_every_tool_route_exists_and_has_form():
@@ -102,7 +103,7 @@ def test_brand_assets_and_operational_files_exist():
     expected = [
         "assets/logo-mark.svg", "assets/logo-clicivo.svg", "assets/favicon.svg",
         "assets/favicon-48.png", "assets/apple-touch-icon.png", "assets/og-clicivo.png",
-        "assets/styles.css", "assets/site.js", "assets/advanced-tools.js", "robots.txt", "manifest.webmanifest", "CNAME", ".nojekyll",
+        "assets/styles.css", "assets/site.js", "assets/advanced-tools.js", "assets/suites.js", "robots.txt", "manifest.webmanifest", "CNAME", ".nojekyll",
     ]
     for item in expected:
         assert (PUBLIC / item).exists(), item
@@ -216,10 +217,20 @@ def test_adsense_cmp_and_consent_mode_are_prepared():
 
 def test_priority_tool_forms_contain_new_fields():
     expected_fields = {
-        "tiktok-income": {"views", "rpmLow", "rpm", "rpmHigh", "months", "targetIncome"},
+        "tiktok-income": {"totalViews", "views", "rpmLow", "rpm", "rpmHigh", "months", "targetIncome"},
+        "tiktok-rpm": {"rewards", "qualifiedViews", "targetViews"},
         "youtube-income": {"views", "rpmLow", "rpm", "rpmHigh", "months", "targetIncome"},
-        "youtube-rpm-revenue": {"revenue", "views", "targetViews"},
+        "youtube-rpm-revenue": {"revenue", "views", "targetViews", "targetIncome"},
+        "youtube-cpm": {"cost", "adImpressions", "monetizedPlaybacks", "targetImpressions"},
+        "youtube-shorts-income": {"views", "rpmLow", "rpm", "rpmHigh", "months", "targetIncome"},
+        "net-salary": {"direction", "gross", "payments", "irpf", "ss", "other"},
         "severance": {"monthly", "salaryDays", "vacationDays", "extraPay", "other", "includeCompensation", "compensation", "deductions"},
+        "marketing-roas-cac": {"spend", "revenue", "customers", "grossMargin", "otherCosts"},
+        "customer-profitability": {"revenue", "customers", "directCosts", "acquisition", "otherCosts"},
+        "vat-calculator": {"direction", "amount", "ratePreset", "customRate"},
+        "percentage-calculator": {"mode", "a", "b"},
+        "date-difference": {"start", "end", "inclusive", "holidays"},
+        "unit-converter": {"dimension", "value", "from", "to"},
     }
     for tool_id, names in expected_fields.items():
         tool = next(t for t in TOOLS if t["id"] == tool_id)
@@ -235,7 +246,11 @@ def test_result_actions_and_quality_signals_present():
         assert soup.select_one(".js-copy-result")
         if tool["category"] in report_categories:
             assert soup.select_one(".js-download-pdf"), tool["id"]
+            assert soup.select_one(".js-download-csv"), tool["id"]
             assert soup.select_one(".js-copy-client"), tool["id"]
+            assert soup.select_one(".js-save-scenario"), tool["id"]
+            assert soup.select_one(".js-load-scenario"), tool["id"]
+            assert soup.select_one(".js-share-result"), tool["id"]
             assert "jspdf" in str(soup).lower(), tool["id"]
         else:
             assert soup.select_one(".js-print-result"), tool["id"]
@@ -258,9 +273,175 @@ def test_every_tool_has_persuasive_unique_copy_fields():
         benefits.add(tool["benefit_heading"])
 
 
-def test_homepage_uses_saas_value_proposition():
+def test_homepage_uses_real_task_first_value_proposition():
     soup=BeautifulSoup((PUBLIC / "index.html").read_text(encoding="utf-8"), "html.parser")
     text=soup.get_text(" ", strip=True)
-    assert "Calcula, compara y presenta resultados" in text
-    assert soup.select_one(".saas-dashboard-preview")
+    assert "Herramientas online gratuitas para calcular, convertir y crear" in text
+    assert soup.select_one(".home-search")
+    assert soup.select_one(".home-quick-panel")
+    assert len(soup.select("[data-home-quick]")) >= 5
+    assert "1.248 €" not in text
+    assert "archivos guardados" not in text
     assert "Resultados que puedes reutilizar" in text
+
+
+def test_september_data_led_routes_and_interpretation():
+    routes={
+        "/es/youtube/monetizacion/calculadora-cpm-youtube/",
+        "/es/tiktok/monetizacion/calculadora-rpm-tiktok/",
+    }
+    all_routes={t["path"] for t in TOOLS}
+    assert routes <= all_routes
+    for route in routes:
+        assert (PUBLIC / route.strip("/") / "index.html").exists()
+    for tool_id in ["instagram-growth","youtube-rpm-revenue","youtube-income","youtube-shorts-income","tiktok-income","youtube-cpm","tiktok-rpm"]:
+        tool=next(t for t in TOOLS if t["id"]==tool_id)
+        soup=BeautifulSoup((PUBLIC / tool["path"].strip("/") / "index.html").read_text(encoding="utf-8"),"html.parser")
+        assert soup.select_one(".interpretation-card"), tool_id
+        assert len(soup.select(".interpretation-item")) >= 3, tool_id
+
+def test_mobile_first_and_measurement_hooks_present():
+    css=(PUBLIC / "assets/styles.css").read_text(encoding="utf-8")
+    js=(PUBLIC / "assets/site.js").read_text(encoding="utf-8")
+    assert "calculator .form-actions{position:sticky" in css
+    assert "time_to_result_ms" in js
+    assert "result_view" in js
+    assert "home_search_submit" in js
+    assert "scroll_depth" in js
+
+
+def test_september_complete_routes_exist():
+    routes={
+        "/es/negocios/marketing/calculadora-roas-cac/",
+        "/es/negocios/clientes/calculadora-beneficio-por-cliente/",
+        "/es/negocios/fiscalidad/calculadora-iva/",
+        "/es/productividad/calculos-rapidos/calculadora-porcentajes/",
+        "/es/productividad/calculos-rapidos/dias-entre-fechas/",
+        "/es/productividad/calculos-rapidos/conversor-unidades/",
+    }
+    assert routes <= {t["path"] for t in TOOLS}
+    for route in routes:
+        assert (PUBLIC / route.strip("/") / "index.html").exists()
+
+
+def test_editorial_guides_exist_and_are_substantial():
+    assert len(GUIDES) == 8
+    assert (PUBLIC / "es" / "guias" / "index.html").exists()
+    for guide in GUIDES:
+        path=PUBLIC / guide["path"].strip("/") / "index.html"
+        assert path.exists(), guide["id"]
+        soup=BeautifulSoup(path.read_text(encoding="utf-8"),"html.parser")
+        text=" ".join(soup.get_text(" ",strip=True).split())
+        assert len(text) > 1800, (guide["id"],len(text))
+        ld=" ".join(x.get_text(" ",strip=True) for x in soup.select('script[type="application/ld+json"]'))
+        assert 'Article' in ld, guide["id"]
+        assert len(soup.select('.guide-section')) >= 4, guide["id"]
+        assert soup.select('.tool-card'), guide["id"]
+
+
+def test_homepage_has_guides_and_local_retention_area():
+    soup=BeautifulSoup((PUBLIC / "index.html").read_text(encoding="utf-8"),"html.parser")
+    assert soup.select_one('[data-recent-section]')
+    assert soup.select_one('[data-recent-tools]')
+    assert len(soup.select('.guide-card')) >= 4
+    assert soup.select_one('a[href="/es/guias/"]')
+
+
+def test_retention_and_measurement_javascript_present():
+    js=(PUBLIC / "assets/site.js").read_text(encoding="utf-8")
+    for token in [
+        "clicivo:favorites:v1", "clicivo:recent:v1", "clicivo:scenario:v1:",
+        "result_csv_download", "scenario_save", "scenario_load", "result_share",
+        "favorite_tool", "guide_click", "web_vitals"
+    ]:
+        assert token in js
+    for tool_id in ["marketing-roas-cac","customer-profitability","vat-calculator","percentage-calculator","date-difference","unit-converter"]:
+        assert f"case '{tool_id}'" in js
+
+
+def test_affiliate_is_contextual_not_sitewide():
+    affiliate_tools={t["id"] for t in TOOLS if "affiliate-card" in (PUBLIC / t["path"].strip("/") / "index.html").read_text(encoding="utf-8")}
+    assert affiliate_tools
+    assert affiliate_tools <= {"instagram-growth","instagram-engagement-followers","instagram-engagement-reach","tiktok-engagement","tiktok-income","tiktok-rpm","youtube-rpm-revenue","youtube-cpm","youtube-shorts-income","youtube-income"}
+    assert "image-resize" not in affiliate_tools
+
+
+def test_homepage_exact_five_priority_quick_links_and_no_fake_dashboard():
+    soup=BeautifulSoup((PUBLIC / "index.html").read_text(encoding="utf-8"),"html.parser")
+    text=soup.get_text(" ",strip=True)
+    assert "Herramientas online gratuitas para calcular, convertir y crear" in text
+    links={x.get("data-home-quick"):x.get("href") for x in soup.select("[data-home-quick]")}
+    assert len(links)==5
+    assert set(links)=={"instagram-growth","youtube-income","severance","image-resize","pdf-organize"}
+    assert "1.248 €" not in text and "0 archivos guardados" not in text
+
+
+def test_ctr_titles_match_september_plan_without_url_changes():
+    expected={
+        "instagram-growth":"Calculadora de crecimiento de seguidores de Instagram | Proyección gratis",
+        "youtube-rpm-revenue":"Calculadora RPM YouTube: calcula tu ingreso real por 1.000 visitas",
+        "youtube-shorts-income":"Calculadora de ingresos de YouTube Shorts | Estimación por visitas",
+    }
+    for tool_id,title_fragment in expected.items():
+        tool=next(t for t in TOOLS if t["id"]==tool_id)
+        soup=BeautifulSoup((PUBLIC / tool["path"].strip("/") / "index.html").read_text(encoding="utf-8"),"html.parser")
+        assert title_fragment in soup.title.get_text(" ",strip=True)
+        assert soup.select_one("h1")
+        assert soup.select_one('link[rel="canonical"]')["href"]=="https://clicivo.com"+tool["path"]
+
+
+def test_priority_product_upgrades_are_real_functions_not_only_copy():
+    js=(PUBLIC / "assets/site.js").read_text(encoding="utf-8")
+    advanced=(PUBLIC / "assets/advanced-tools.js").read_text(encoding="utf-8")
+    assert "Tabla completa de amortización" in js
+    assert "Sensibilidad de la cotización" in js
+    assert "Escenarios de precio por margen" in js
+    assert "Ritmo mensual orientativo" in js
+    assert "image-compare" in advanced
+    for tool_id in ["image-resize","image-compress","severance","employer-cost","mortgage","personal-loan","vacation-days","profit-margin"]:
+        tool=next(t for t in TOOLS if t["id"]==tool_id)
+        assert len(tool.get("interpretation",[]))>=3, tool_id
+
+
+def test_integrated_suites_exist_and_are_functional_products():
+    routes=["/es/suites/","/es/suites/creadores/","/es/suites/laboral-espana/","/es/suites/pdf-imagenes/"]
+    for route in routes:
+        assert (PUBLIC / route.strip("/") / "index.html").exists(),route
+    creators=BeautifulSoup((PUBLIC/"es/suites/creadores/index.html").read_text(encoding="utf-8"),"html.parser")
+    labor=BeautifulSoup((PUBLIC/"es/suites/laboral-espana/index.html").read_text(encoding="utf-8"),"html.parser")
+    files=BeautifulSoup((PUBLIC/"es/suites/pdf-imagenes/index.html").read_text(encoding="utf-8"),"html.parser")
+    assert creators.select_one('[data-suite-form]') and creators.select_one('[name="ytViews"]') and creators.select_one('[name="ttViews"]') and creators.select_one('[name="igInitial"]')
+    assert labor.select_one('[name="gross"]') and labor.select_one('[name="annualVacation"]') and labor.select_one('[name="terminationType"]')
+    assert files.select_one('[name="pdfFile"]') and files.select_one('[name="imageFiles"]') and len(files.select('[data-pdf-action]'))>=3 and len(files.select('[data-image-action]'))>=3
+    suite_js=(PUBLIC/"assets/suites.js").read_text(encoding="utf-8")
+    for token in ["suite_start","suite_complete","suite_pdf_download","pdfExtract","imageProcess"]:
+        assert token in suite_js
+
+
+def test_shorts_guide_and_who_how_why_transparency_present():
+    assert any(g["id"]=="ingresos-youtube-shorts" for g in GUIDES)
+    guide=PUBLIC/"es/guias/ingresos-youtube-shorts/index.html"
+    assert guide.exists()
+    for tool in TOOLS:
+        soup=BeautifulSoup((PUBLIC/tool["path"].strip("/")/"index.html").read_text(encoding="utf-8"),"html.parser")
+        block=soup.select_one(".editorial-responsibility")
+        assert block, tool["id"]
+        text=block.get_text(" ",strip=True)
+        assert "Quién" in text and "Cómo" in text and "Por qué" in text
+
+
+def test_mobile_390_430_css_and_horizontal_table_protection():
+    css=(PUBLIC/"assets/styles.css").read_text(encoding="utf-8")
+    assert "@media(max-width:430px)" in css
+    assert "@media(max-width:390px)" in css
+    assert ".data-table{min-width:" in css
+    assert ".suite-workspace{grid-template-columns:1fr}" in css
+
+
+def test_unit_converter_has_distinct_intent_and_dynamic_units():
+    tool=next(t for t in TOOLS if t["id"]=="unit-converter")
+    assert tool["path"]=="/es/productividad/calculos-rapidos/conversor-unidades/"
+    js=(PUBLIC/"assets/site.js").read_text(encoding="utf-8")
+    assert "case 'unit-converter'" in js
+    assert "UNIT_GROUPS" in js
+    assert "js-swap-units" in (PUBLIC/tool["path"].strip("/")/"index.html").read_text(encoding="utf-8")

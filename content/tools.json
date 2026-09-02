@@ -6,8 +6,8 @@
     "short_title": "Crecimiento de seguidores",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Calcula la tasa de crecimiento de Instagram, compara el ritmo real y descubre cuándo podrías alcanzar tu próximo objetivo de seguidores.",
-    "formula": "Crecimiento (%) = (seguidores finales − seguidores iniciales) ÷ seguidores iniciales × 100. Fecha objetivo = fecha actual + seguidores pendientes ÷ crecimiento diario.",
+    "description": "Calcula el crecimiento de seguidores de Instagram, compara ritmos diarios y mensuales y proyecta cuándo podrías alcanzar tu próximo objetivo.",
+    "formula": "Crecimiento (%) = (seguidores finales − seguidores iniciales) ÷ seguidores iniciales × 100. Ritmo necesario = seguidores pendientes ÷ días objetivo.",
     "example": "Si una cuenta pasa de 8.000 a 8.640 seguidores en 30 días, crece un 8 %, suma 21,3 seguidores diarios y proyecta 640 nuevos seguidores cada 30 días.",
     "faqs": [
       [
@@ -33,6 +33,10 @@
       [
         "¿Qué puedo hacer con el resultado de crecimiento de seguidores?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -51,14 +55,14 @@
     "new": false,
     "accent": "pink",
     "notes": [],
-    "seo_title": "Calculadora de crecimiento de seguidores de Instagram",
+    "seo_title": "Calculadora de crecimiento de seguidores de Instagram | Proyección gratis",
     "features": [
       "Crecimiento porcentual y neto",
       "Ritmo diario, semanal y mensual",
-      "Fecha estimada de objetivo",
-      "Proyección a 30 y 90 días"
+      "Proyección a 7, 30 y 90 días",
+      "Ritmo necesario para llegar a la meta"
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-02",
     "usage_steps": [
       {
         "title": "Define un periodo comparable",
@@ -73,9 +77,25 @@
         "text": "La fecha estimada mantiene el ritmo observado y no contempla campañas, estacionalidad ni viralidad."
       }
     ],
-    "hook": "¿Tu cuenta crece de verdad o solo lo parece?",
-    "benefit_heading": "Convierte una cifra aislada en un plan de crecimiento",
-    "benefit_copy": "Visualiza el avance diario, mensual y proyectado para decidir si tu estrategia está acelerando o perdiendo fuerza."
+    "hook": "¿Tu crecimiento de Instagram acelera de verdad o solo estás mirando una cifra aislada?",
+    "benefit_heading": "Convierte dos cifras de seguidores en una evolución que puedas comparar",
+    "benefit_copy": "Mide crecimiento neto y porcentual, normaliza el ritmo por día, semana y mes y proyecta objetivos sin conectar tu cuenta ni compartir credenciales.",
+    "opportunity": true,
+    "interpretation": [
+      {
+        "title": "Compara ritmo, no solo seguidores",
+        "text": "Una cuenta grande puede sumar más seguidores y crecer porcentualmente menos. Usa el porcentaje y el ritmo diario para comparar periodos."
+      },
+      {
+        "title": "La meta necesita un ritmo concreto",
+        "text": "La herramienta calcula cuántos seguidores diarios tendrías que sumar para alcanzar el objetivo en 30 o 90 días y lo compara con tu ritmo actual."
+      },
+      {
+        "title": "Una proyección no es una predicción",
+        "text": "Campañas, viralidad, estacionalidad y pérdidas de seguidores pueden cambiar el resultado. La proyección solo prolonga el ritmo observado."
+      }
+    ],
+    "result_heading": "Crecimiento, ritmo y fecha orientativa de objetivo"
   },
   {
     "id": "instagram-engagement-followers",
@@ -84,7 +104,7 @@
     "short_title": "Engagement por seguidores",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Calcula el engagement de Instagram por seguidores y comprueba qué parte de tu comunidad interactúa realmente con cada publicación.",
+    "description": "Calcula el engagement de Instagram por seguidores con likes, comentarios, guardados y compartidos y compara publicaciones con un criterio consistente.",
     "formula": "Engagement (%) = (me gusta + comentarios + guardados + compartidos) ÷ seguidores × 100.",
     "example": "Con 1.200 interacciones medias y 40.000 seguidores, el engagement por seguidores es del 3 % y equivale a 30 interacciones por cada 1.000 seguidores.",
     "faqs": [
@@ -111,6 +131,10 @@
       [
         "¿Qué puedo hacer con el resultado de engagement por seguidores?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -129,14 +153,14 @@
     "new": false,
     "accent": "pink",
     "notes": [],
-    "seo_title": "Calculadora de engagement de Instagram gratis",
+    "seo_title": "Calculadora engagement Instagram gratis | Por seguidores",
     "features": [
       "Likes, comentarios, guardados y compartidos",
       "Interacciones por 1.000 seguidores",
       "Peso de guardados y compartidos",
       "Contexto del tamaño de muestra"
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-02",
     "usage_steps": [
       {
         "title": "Selecciona una muestra coherente",
@@ -151,9 +175,10 @@
         "text": "El resultado compara interacciones con seguidores; para medir exposición real utiliza la calculadora por alcance."
       }
     ],
-    "hook": "Tener más seguidores no siempre significa conectar mejor.",
-    "benefit_heading": "Mide la calidad de tu comunidad, no solo su tamaño",
-    "benefit_copy": "Reúne likes, comentarios, guardados y compartidos en una tasa clara que puedes comparar entre campañas y cuentas."
+    "hook": "¿Tu comunidad interactúa o el número de seguidores está ocultando el rendimiento real?",
+    "benefit_heading": "Compara cuentas y campañas con una tasa consistente",
+    "benefit_copy": "Agrupa las interacciones que realmente te importan, calcula la tasa por seguidores y separa guardados y compartidos para interpretar mejor la calidad de respuesta.",
+    "result_heading": "Tasa de engagement y calidad de interacción"
   },
   {
     "id": "instagram-engagement-reach",
@@ -181,6 +206,10 @@
       [
         "¿Qué puedo hacer con el resultado de engagement por alcance?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -229,6 +258,10 @@
       [
         "¿Qué puedo hacer con el resultado de letras para instagram?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -281,6 +314,10 @@
       [
         "¿Qué puedo hacer con el resultado de contador de caracteres?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -329,6 +366,10 @@
       [
         "¿Qué puedo hacer con el resultado de espacios para instagram?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -377,6 +418,10 @@
       [
         "¿Qué puedo hacer con el resultado de engagement de tiktok?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -406,29 +451,37 @@
     "short_title": "Ingresos de TikTok",
     "category": "Redes sociales",
     "cluster": "TikTok",
-    "description": "Calcula cuánto podrías ganar en TikTok con visualizaciones cualificadas, tres escenarios de RPM y un objetivo mensual editable.",
-    "formula": "Ingresos estimados = visualizaciones cualificadas ÷ 1.000 × RPM. Las vistas necesarias para una meta se calculan como objetivo ÷ RPM × 1.000.",
+    "description": "Estima ingresos de TikTok Creator Rewards con vistas cualificadas y un rango de RPM, compara escenarios y calcula las vistas necesarias para una meta.",
+    "formula": "Ingresos = visualizaciones cualificadas ÷ 1.000 × RPM. Ratio cualificado = vistas cualificadas ÷ vistas totales × 100. Vistas para una meta = objetivo ÷ RPM × 1.000.",
     "example": "Con 500.000 visualizaciones cualificadas y un RPM central de 0,50 €, el escenario central sería de 250 €. Con RPM de 0,30 € y 0,80 €, el rango sería de 150 € a 400 €.",
     "faqs": [
       [
         "¿Qué son las visualizaciones cualificadas?",
-        "Son las visualizaciones que TikTok considera válidas conforme a las reglas del programa aplicable. No todas las reproducciones totales tienen que ser elegibles."
+        "Son las visualizaciones que TikTok considera válidas conforme a las reglas de Creator Rewards. No todas las reproducciones totales tienen que ser elegibles."
+      ],
+      [
+        "¿Por qué introduzco también visualizaciones totales?",
+        "Permite calcular qué porcentaje de tu alcance ha resultado cualificado en el periodo y detectar si el problema está en el volumen total o en la elegibilidad."
       ],
       [
         "¿Qué RPM debo introducir?",
         "Utiliza, cuando dispongas de él, el RPM mostrado en tu panel para el mismo periodo. Si aún no tienes datos, prueba varios escenarios y no interpretes ninguno como una promesa."
       ],
       [
-        "¿Por qué la calculadora muestra tres escenarios?",
-        "Porque el RPM puede variar. Los escenarios bajo, central y alto permiten ver cómo cambia el resultado sin fijar una media universal."
-      ],
-      [
         "¿La herramienta garantiza que cobraré esa cantidad?",
-        "No. Es una estimación matemática basada en tus datos. La elegibilidad, las visualizaciones cualificadas y el cálculo final dependen de TikTok y del programa disponible en tu región."
+        "No. Es una estimación matemática. La elegibilidad, las visualizaciones cualificadas y el cálculo final dependen de TikTok y del programa disponible en tu región."
       ],
       [
-        "¿Qué puedo hacer con el resultado de ingresos de tiktok?",
-        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+        "¿Puedo fijar una meta de ingresos?",
+        "Sí. La herramienta convierte tu objetivo en visualizaciones cualificadas necesarias usando el RPM central introducido."
+      ],
+      [
+        "¿Puedo descargar el resultado?",
+        "Sí. Puedes copiar un resumen y descargar un PDF con los datos, escenarios y resultado."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -453,14 +506,14 @@
     "notes": [
       "TikTok calcula las recompensas con visualizaciones cualificadas y un RPM que puede variar. Introduce tus propios datos y trata el resultado como una estimación, no como una promesa de ingresos."
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-02",
     "features": [
+      "Ratio de vistas cualificadas",
       "Tres escenarios de RPM",
       "Objetivo de ingresos y vistas necesarias",
-      "Proyección mensual y anual",
-      "Tabla comparativa por visualizaciones"
+      "Proyección mensual y anual"
     ],
-    "seo_title": "Calculadora de ingresos de TikTok: cuánto puedes ganar",
+    "seo_title": "Calculadora ingresos TikTok | Ganancias por vistas cualificadas",
     "opportunity": true,
     "usage_steps": [
       {
@@ -476,9 +529,121 @@
         "text": "La herramienta calcula el rango de ingresos, la media mensual, la proyección anual y las vistas necesarias para alcanzar tu objetivo."
       }
     ],
-    "hook": "¿Cuántas visualizaciones necesitas para acercarte a tu meta de ingresos?",
-    "benefit_heading": "Pasa de “muchas visitas” a un objetivo económico concreto",
-    "benefit_copy": "Compara escenarios prudente, central y alto, y calcula las visualizaciones cualificadas necesarias para llegar a tu meta."
+    "hook": "Las visualizaciones totales no son lo mismo que las cualificadas: calcula con la métrica que realmente importa.",
+    "benefit_heading": "Separa alcance total, vistas cualificadas e ingresos estimados",
+    "benefit_copy": "Compara tres escenarios de RPM, mide qué parte de tus vistas sería cualificada y calcula el volumen necesario para llegar a un objetivo de ingresos.",
+    "interpretation": [
+      {
+        "title": "Vistas totales y cualificadas no son lo mismo",
+        "text": "Creator Rewards utiliza visualizaciones que cumplen los criterios del programa. La proporción elegible ayuda a entender por qué dos vídeos con el mismo alcance pueden monetizar distinto."
+      },
+      {
+        "title": "El RPM puede variar",
+        "text": "TikTok indica que el RPM depende de distintos factores, por lo que conviene usar un rango y, cuando exista, el dato real del panel."
+      },
+      {
+        "title": "No confundas estimación con elegibilidad",
+        "text": "La calculadora reproduce una relación matemática. La participación, la elegibilidad del contenido y el pago final dependen de TikTok y de la región."
+      }
+    ],
+    "result_heading": "Ingresos estimados con vistas cualificadas"
+  },
+  {
+    "id": "tiktok-rpm",
+    "path": "/es/tiktok/monetizacion/calculadora-rpm-tiktok/",
+    "title": "Calculadora de RPM de TikTok Creator Rewards",
+    "short_title": "RPM de TikTok",
+    "category": "Redes sociales",
+    "cluster": "TikTok",
+    "description": "Calcula tu RPM real de TikTok Creator Rewards con las recompensas y visualizaciones cualificadas del mismo periodo y proyecta ingresos futuros.",
+    "formula": "RPM = recompensas ÷ visualizaciones cualificadas × 1.000. Ingreso proyectado = visualizaciones cualificadas objetivo ÷ 1.000 × RPM.",
+    "example": "Si obtienes 250 € con 500.000 visualizaciones cualificadas, tu RPM del periodo es 0,50 €. Con 1.000.000 de vistas cualificadas al mismo RPM, el escenario sería 500 €.",
+    "faqs": [
+      [
+        "¿Qué visualizaciones debo introducir?",
+        "Usa visualizaciones cualificadas o válidas del mismo periodo de Creator Rewards, no las reproducciones totales del vídeo."
+      ],
+      [
+        "¿Qué significa RPM en TikTok?",
+        "Es la recompensa media obtenida por cada mil visualizaciones cualificadas dentro del programa aplicable."
+      ],
+      [
+        "¿Por qué puede cambiar el RPM?",
+        "TikTok indica que intervienen factores como rendimiento del vídeo, valor de búsqueda, ubicación, interacción y valor publicitario."
+      ],
+      [
+        "¿Puedo comparar dos meses?",
+        "Sí, siempre que uses recompensas y visualizaciones cualificadas de cada periodo por separado y tengas en cuenta cambios de audiencia y contenido."
+      ],
+      [
+        "¿La proyección garantiza el ingreso futuro?",
+        "No. Mantiene el RPM calculado como hipótesis; el RPM y la elegibilidad pueden cambiar."
+      ],
+      [
+        "¿Puedo exportar el resultado?",
+        "Sí. Puedes copiar el resumen o descargar un PDF con los datos y la proyección."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
+      ]
+    ],
+    "sources": [
+      [
+        "TikTok Creator Rewards",
+        "https://support.tiktok.com/es/business-and-creator/creator-rewards-program/creator-rewards-program"
+      ]
+    ],
+    "keywords": [
+      "rpm tiktok",
+      "calculadora rpm tiktok",
+      "que es rpm en tiktok",
+      "creator rewards rpm"
+    ],
+    "new": true,
+    "accent": "black",
+    "notes": [
+      "Creator Rewards utiliza visualizaciones cualificadas y el RPM puede variar. Usa datos del mismo periodo para calcularlo."
+    ],
+    "seo_title": "Calculadora RPM TikTok: Creator Rewards por 1.000 vistas",
+    "features": [
+      "RPM real del periodo",
+      "Recompensa por visualización",
+      "Proyección a vistas objetivo",
+      "Comparación con la calculadora de ingresos"
+    ],
+    "reviewed": "2026-08-31",
+    "usage_steps": [
+      {
+        "title": "Usa datos del mismo periodo",
+        "text": "Introduce recompensas y visualizaciones cualificadas del mismo rango de fechas."
+      },
+      {
+        "title": "Calcula tu RPM real",
+        "text": "La herramienta divide la recompensa entre las vistas cualificadas y multiplica por mil."
+      },
+      {
+        "title": "Proyecta con cautela",
+        "text": "Añade una meta de visualizaciones cualificadas para estimar ingresos si el RPM se mantuviera."
+      }
+    ],
+    "hook": "¿Sabes cuánto te está pagando realmente TikTok por cada mil vistas cualificadas?",
+    "benefit_heading": "Convierte Creator Rewards en una métrica comparable entre periodos",
+    "benefit_copy": "Calcula tu RPM con datos reales del panel y úsalo para comparar contenido o proyectar un volumen futuro sin depender de medias externas.",
+    "interpretation": [
+      {
+        "title": "El denominador correcto es clave",
+        "text": "Creator Rewards utiliza visualizaciones cualificadas. Usar vistas totales produciría un RPM que no representa la métrica del programa."
+      },
+      {
+        "title": "El RPM resume varios factores",
+        "text": "TikTok señala que rendimiento, búsqueda, ubicación, interacción y valor publicitario pueden influir en la recompensa por mil vistas."
+      },
+      {
+        "title": "Una proyección no congela el algoritmo",
+        "text": "La proyección mantiene el RPM actual como hipótesis. El rendimiento del contenido y las reglas del programa pueden cambiar."
+      }
+    ]
   },
   {
     "id": "youtube-rpm-revenue",
@@ -487,9 +652,9 @@
     "short_title": "Calcular RPM de YouTube",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Calcula tu RPM real de YouTube a partir de ingresos y visualizaciones, y proyecta cuánto generarías con un volumen objetivo.",
-    "formula": "RPM = ingresos ÷ visualizaciones × 1.000. Ingreso futuro estimado = visualizaciones objetivo ÷ 1.000 × RPM.",
-    "example": "425 € con 100.000 visualizaciones equivalen a un RPM de 4,25 €. Con ese RPM, 250.000 vistas representarían 1.062,50 €.",
+    "description": "Calcula tu RPM real de YouTube con ingresos y visualizaciones del mismo periodo, proyecta ingresos y estima el RPM necesario para una meta.",
+    "formula": "RPM = ingresos ÷ visualizaciones × 1.000. Ingreso proyectado = vistas objetivo ÷ 1.000 × RPM. RPM necesario = objetivo de ingresos ÷ vistas objetivo × 1.000.",
+    "example": "425 € con 100.000 visualizaciones equivalen a un RPM de 4,25 €. Con 250.000 vistas serían 1.062,50 €. Para ganar 1.000 € con 250.000 vistas haría falta un RPM de 4 €.",
     "faqs": [
       [
         "¿Qué ingresos debo introducir?",
@@ -510,6 +675,10 @@
       [
         "¿Qué puedo hacer con el resultado de calcular rpm de youtube?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -527,14 +696,14 @@
     "new": false,
     "accent": "red",
     "notes": [],
-    "seo_title": "Calculadora de RPM de YouTube con ingresos y vistas",
+    "seo_title": "Calculadora RPM YouTube: calcula tu ingreso real por 1.000 visitas",
     "features": [
       "RPM real del periodo",
-      "Ingreso por visualización",
       "Proyección a vistas objetivo",
-      "Referencias para 100.000 y 1 millón de vistas"
+      "RPM necesario para una meta",
+      "Comparación clara con CPM"
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-02",
     "usage_steps": [
       {
         "title": "Usa datos del mismo periodo",
@@ -549,9 +718,122 @@
         "text": "Prueba una cifra futura de visualizaciones; analiza Shorts y vídeos largos por separado."
       }
     ],
-    "hook": "Tu RPM explica más sobre el negocio que el número total de visitas.",
-    "benefit_heading": "Descubre cuánto vale realmente cada mil visualizaciones",
-    "benefit_copy": "Obtén una métrica comparable entre periodos y úsala para proyectar ingresos con datos de tu propio canal."
+    "hook": "Dos canales con las mismas vistas pueden generar ingresos muy distintos: descubre tu RPM real.",
+    "benefit_heading": "Mide cuánto ingreso produce cada 1.000 vistas de tu canal",
+    "benefit_copy": "Calcula el RPM real con tus datos de YouTube Analytics, proyecta ingresos a otro volumen de vistas y estima el RPM que necesitarías para alcanzar una meta.",
+    "opportunity": true,
+    "interpretation": [
+      {
+        "title": "Usa el mismo periodo",
+        "text": "Ingresos y visualizaciones deben pertenecer al mismo rango de fechas y al mismo formato para que el RPM sea comparable."
+      },
+      {
+        "title": "RPM y CPM responden preguntas distintas",
+        "text": "RPM mide ingresos del creador por mil vistas. CPM representa el coste publicitario por mil impresiones antes del reparto de ingresos."
+      },
+      {
+        "title": "La meta puede atacarse por dos vías",
+        "text": "Si mantienes las vistas, necesitas mejorar el RPM; si mantienes el RPM, necesitas aumentar las visualizaciones. La herramienta muestra ambas palancas."
+      }
+    ],
+    "result_heading": "Tu RPM real y la proyección con más vistas"
+  },
+  {
+    "id": "youtube-cpm",
+    "path": "/es/youtube/monetizacion/calculadora-cpm-youtube/",
+    "title": "Calculadora de CPM de YouTube: coste por 1.000 impresiones",
+    "short_title": "CPM de YouTube",
+    "category": "Redes sociales",
+    "cluster": "YouTube",
+    "description": "Calcula el CPM de YouTube a partir del coste publicitario y las impresiones de anuncios, compara el CPM basado en reproducciones y estima costes a otro volumen.",
+    "formula": "CPM = coste publicitario ÷ impresiones de anuncio × 1.000. CPM basado en reproducciones = coste ÷ reproducciones monetizadas × 1.000.",
+    "example": "Si el coste publicitario es 7 € para 2.000 impresiones de anuncio, el CPM es 3,50 €. Si hubo 1.500 reproducciones monetizadas, el CPM basado en reproducciones sería 4,67 €.",
+    "faqs": [
+      [
+        "¿Qué diferencia hay entre CPM y RPM?",
+        "El CPM es una métrica enfocada en el coste publicitario por mil impresiones antes del reparto de ingresos. El RPM mide los ingresos del creador por mil visualizaciones."
+      ],
+      [
+        "¿Qué son las impresiones de anuncio?",
+        "Una impresión se registra cuando se muestra un anuncio. Un vídeo puede generar más de una impresión publicitaria en una misma reproducción."
+      ],
+      [
+        "¿Qué es el CPM basado en reproducciones?",
+        "Mide el coste por cada mil reproducciones de vídeo en las que se mostró al menos un anuncio. Puede diferir del CPM por impresiones."
+      ],
+      [
+        "¿Puedo usar esta calculadora para conocer mis ingresos?",
+        "No directamente. Para ingresos del creador utiliza la calculadora de RPM o la calculadora de ingresos de YouTube."
+      ],
+      [
+        "¿De dónde sale la fórmula?",
+        "YouTube explica CPM y CPM basado en reproducciones en su documentación de estadísticas de ingresos publicitarios."
+      ],
+      [
+        "¿Puedo guardar el resultado?",
+        "Sí. Puedes copiar el resumen y descargar un PDF para comparar campañas o periodos."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
+      ]
+    ],
+    "sources": [
+      [
+        "YouTube Help: RPM y CPM",
+        "https://support.google.com/youtube/answer/9314357?hl=es"
+      ]
+    ],
+    "keywords": [
+      "calcular cpm youtube",
+      "calculadora cpm youtube",
+      "cpm youtube",
+      "cpm basado en reproducciones youtube"
+    ],
+    "new": true,
+    "accent": "red",
+    "notes": [
+      "El CPM es una métrica enfocada en anunciantes y no equivale al ingreso final del creador. Para ingresos utiliza RPM."
+    ],
+    "seo_title": "Calculadora CPM YouTube: coste por 1.000 impresiones",
+    "features": [
+      "CPM por impresiones de anuncio",
+      "CPM basado en reproducciones",
+      "Comparación entre ambas métricas",
+      "Estimación de coste a otro volumen"
+    ],
+    "reviewed": "2026-08-31",
+    "usage_steps": [
+      {
+        "title": "Introduce el coste del mismo periodo",
+        "text": "Usa el coste publicitario y las impresiones correspondientes al mismo rango de fechas."
+      },
+      {
+        "title": "Añade reproducciones monetizadas",
+        "text": "Así podrás comparar el CPM por impresiones con el CPM basado en reproducciones."
+      },
+      {
+        "title": "Proyecta otro volumen",
+        "text": "La herramienta estima el coste teórico si el CPM se mantuviera constante."
+      }
+    ],
+    "hook": "¿Cuánto está pagando realmente un anunciante por cada mil impresiones en YouTube?",
+    "benefit_heading": "Distingue CPM, reproducciones monetizadas y RPM sin mezclar métricas",
+    "benefit_copy": "Calcula el coste por mil impresiones, compáralo con el CPM basado en reproducciones y utiliza la métrica correcta al analizar monetización.",
+    "interpretation": [
+      {
+        "title": "CPM no es ingreso del creador",
+        "text": "El CPM refleja lo que pagan los anunciantes antes del reparto de ingresos. Para medir lo que gana el canal utiliza RPM."
+      },
+      {
+        "title": "Una reproducción puede incluir varios anuncios",
+        "text": "Por eso el número de impresiones de anuncio y el de reproducciones monetizadas puede ser diferente."
+      },
+      {
+        "title": "Compara siempre periodos equivalentes",
+        "text": "País, temática, audiencia, temporada y formatos pueden alterar el CPM. Evita comparar cifras de contextos distintos."
+      }
+    ]
   },
   {
     "id": "youtube-watch-hours",
@@ -579,6 +861,10 @@
       [
         "¿Qué puedo hacer con el resultado de horas de visualización?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -604,29 +890,41 @@
   {
     "id": "youtube-shorts-income",
     "path": "/es/youtube/monetizacion/ingresos-youtube-shorts/",
-    "title": "Calculadora de ingresos de YouTube Shorts",
+    "title": "Calculadora de ingresos de YouTube Shorts por visitas y RPM",
     "short_title": "Ingresos de Shorts",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Calcula ingresos orientativos de YouTube Shorts con tus visualizaciones y RPM, y compara rápidamente varios escenarios.",
-    "formula": "Ingresos = visualizaciones con interacción ÷ 1.000 × RPM de Shorts.",
-    "example": "Un millón de visualizaciones con un RPM introducido de 0,08 € produciría un escenario de 80 €.",
+    "description": "Estima ingresos de YouTube Shorts con visualizaciones y RPM, compara escenarios y calcula cuántas vistas necesitarías para alcanzar una meta.",
+    "formula": "Ingresos = visualizaciones interesadas ÷ 1.000 × RPM de Shorts. La herramienta compara un RPM bajo, central y alto y calcula las vistas necesarias para una meta.",
+    "example": "Con 1.000.000 de visualizaciones interesadas y RPM de 0,04 €, 0,08 € y 0,12 €, los escenarios serían 40 €, 80 € y 120 €.",
     "faqs": [
       [
-        "¿Dónde encuentro el RPM?",
-        "En YouTube Studio, dentro de Analytics e Ingresos, filtrando por Shorts."
+        "¿Qué RPM debo introducir?",
+        "Usa preferentemente el RPM de Shorts de YouTube Analytics para un periodo comparable. Si no tienes histórico, prueba varios escenarios y evita asumir una media universal."
       ],
       [
-        "¿Por qué debo introducirlo?",
-        "El RPM real varía por canal, audiencia y periodo; usar tu dato evita presentar una media universal engañosa."
+        "¿Por qué aparecen tres escenarios?",
+        "Porque el RPM puede cambiar con la audiencia, el país, la temporada y el rendimiento. El rango permite medir sensibilidad sin presentar una cifra como garantía."
       ],
       [
-        "¿El resultado es definitivo?",
-        "No. Es una estimación basada en el RPM introducido."
+        "¿Qué visualizaciones debo usar?",
+        "Usa la métrica de visualizaciones interesadas que YouTube emplea para el RPM de Shorts y evita mezclarla con impresiones o vistas de vídeos largos."
       ],
       [
-        "¿Qué puedo hacer con el resultado de ingresos de shorts?",
-        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+        "¿La herramienta incluye patrocinios o afiliación?",
+        "No. La estimación se basa en visualizaciones y RPM. Otros ingresos deben analizarse por separado."
+      ],
+      [
+        "¿Puedo fijar un objetivo de ingresos?",
+        "Sí. Con el RPM central, la calculadora estima cuántas visualizaciones interesadas serían necesarias para alcanzar la meta."
+      ],
+      [
+        "¿Puedo guardar el resultado?",
+        "Sí. Puedes copiar un resumen o descargar un PDF para comparar periodos o compartirlo con un cliente."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -647,8 +945,13 @@
     "new": false,
     "accent": "red",
     "notes": [],
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-02",
+    "features": [
+      "Tres escenarios de RPM",
+      "Meta de ingresos y vistas necesarias",
+      "Media mensual y proyección anual",
+      "Tabla por volúmenes de visualizaciones"
+    ],
     "usage_steps": [
       {
         "title": "Consulta el RPM de Shorts",
@@ -663,9 +966,26 @@
         "text": "Cambia el RPM para medir la sensibilidad del resultado sin tratarlo como una promesa."
       }
     ],
-    "hook": "Un millón de visualizaciones puede valer cantidades muy distintas.",
-    "benefit_heading": "Pon una cifra realista detrás del alcance de tus Shorts",
-    "benefit_copy": "Usa tu RPM histórico o una hipótesis editable para estimar ingresos sin confundir visualizaciones con rentabilidad."
+    "hook": "Un millón de vistas en Shorts no dice cuánto ganarás: el RPM cambia completamente el resultado.",
+    "benefit_heading": "Pon un rango realista alrededor de tus ingresos de Shorts",
+    "benefit_copy": "Introduce vistas interesadas y tres escenarios de RPM para obtener una horquilla, una media mensual y las vistas necesarias para alcanzar tu objetivo.",
+    "seo_title": "Calculadora de ingresos de YouTube Shorts | Estimación por visitas",
+    "opportunity": true,
+    "interpretation": [
+      {
+        "title": "Usa visualizaciones interesadas",
+        "text": "YouTube calcula el RPM de Shorts sobre la métrica aplicable en Analytics. Evita mezclarla con impresiones u otras vistas no equivalentes."
+      },
+      {
+        "title": "Tu propio RPM vale más que una media de internet",
+        "text": "Cuando tengas histórico, utiliza el dato de tu canal y periodo. Los escenarios sirven para medir sensibilidad, no para prometer ingresos."
+      },
+      {
+        "title": "Mide por periodos comparables",
+        "text": "Normalizar por mes facilita comparar temporadas y detectar si el cambio viene del volumen de vistas o del RPM."
+      }
+    ],
+    "result_heading": "Ingresos de Shorts por escenario y objetivo"
   },
   {
     "id": "youtube-income",
@@ -674,7 +994,7 @@
     "short_title": "Ingresos de YouTube",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Calcula cuánto puedes ganar en YouTube con tres escenarios de RPM y descubre las visualizaciones necesarias para alcanzar tu objetivo.",
+    "description": "Estima ingresos de YouTube con tus visualizaciones y un rango de RPM, compara escenarios y calcula cuántas vistas necesitarías para llegar a una meta.",
     "formula": "Ingresos = visualizaciones ÷ 1.000 × RPM. La herramienta compara un RPM bajo, central y alto y calcula las visualizaciones necesarias para un objetivo económico.",
     "example": "Con 250.000 visualizaciones y RPM de 2 €, 3,50 € y 5 €, los escenarios estiman 500 €, 875 € y 1.250 €.",
     "faqs": [
@@ -701,6 +1021,10 @@
       [
         "¿Qué puedo hacer con el resultado de ingresos de youtube?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -721,14 +1045,14 @@
     "notes": [
       "Estimación orientativa. Usa tu RPM real de YouTube Analytics siempre que sea posible y analiza Shorts y vídeos largos por separado."
     ],
-    "seo_title": "Calculadora de ingresos de YouTube por visitas y RPM",
+    "seo_title": "Calculadora ingresos YouTube | Ganancias por visitas y RPM",
     "features": [
       "Tres escenarios de RPM",
-      "Objetivo de ingresos y vistas necesarias",
-      "Proyección mensual y anual",
-      "Tabla por volúmenes de visualizaciones"
+      "Vistas necesarias para la meta",
+      "RPM necesario con las vistas actuales",
+      "Proyección mensual y anual"
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-02",
     "usage_steps": [
       {
         "title": "Introduce un periodo real",
@@ -743,9 +1067,25 @@
         "text": "Indica un objetivo de ingresos para conocer las visualizaciones aproximadas necesarias con el RPM central."
       }
     ],
-    "hook": "¿Tu volumen actual de visitas puede sostener el ingreso que buscas?",
-    "benefit_heading": "Convierte tu audiencia en un escenario de negocio",
-    "benefit_copy": "Compara un resultado prudente, central y alto, revisa la proyección anual y fija metas basadas en números."
+    "hook": "¿Cuántas visitas necesitas para que un objetivo de ingresos deje de ser una cifra abstracta?",
+    "benefit_heading": "Transforma visitas y RPM en tres escenarios de ingresos",
+    "benefit_copy": "Compara un escenario prudente, central y alto, normaliza el resultado por mes y calcula las visualizaciones necesarias para alcanzar un objetivo económico.",
+    "opportunity": true,
+    "interpretation": [
+      {
+        "title": "El rango importa más que una cifra única",
+        "text": "Un RPM cambia por país, temática, formato, temporada y audiencia. Trabajar con tres escenarios evita tratar una media como una promesa."
+      },
+      {
+        "title": "Separa vídeos largos y Shorts",
+        "text": "Los modelos de monetización y los RPM suelen ser distintos. Analízalos por separado para no mezclar señales."
+      },
+      {
+        "title": "Tu objetivo tiene dos soluciones",
+        "text": "Puedes llegar aumentando visualizaciones, aumentando RPM o combinando ambas. El resultado muestra cuánto exigiría cada alternativa."
+      }
+    ],
+    "result_heading": "Ingresos estimados y visualizaciones necesarias"
   },
   {
     "id": "youtube-views-goal",
@@ -773,6 +1113,10 @@
       [
         "¿Qué puedo hacer con el resultado de visualizaciones objetivo?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -826,6 +1170,10 @@
       [
         "¿Qué puedo hacer con el resultado de interés compuesto?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -857,7 +1205,7 @@
     "short_title": "Calculadora de hipoteca",
     "category": "Finanzas",
     "cluster": "Hipotecas",
-    "description": "Calcula la cuota de una hipoteca, los intereses totales y el coste completo para comparar capital, tipo y plazo antes de decidir.",
+    "description": "Calcula la cuota mensual de una hipoteca, los intereses totales y el coste del escenario con capital, TIN, plazo y gastos iniciales.",
     "formula": "Cuota = capital × i ÷ (1 − (1 + i)^−n), con i mensual y n cuotas.",
     "example": "Una hipoteca de 200.000 € a 25 años y un tipo nominal del 3 % produce una cuota constante antes de gastos y cambios contractuales.",
     "faqs": [
@@ -876,6 +1224,10 @@
       [
         "¿Qué puedo hacer con el resultado de calculadora de hipoteca?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -892,12 +1244,32 @@
     "new": false,
     "accent": "green",
     "notes": [],
-    "seo_title": "Calculadora de hipoteca y cuota mensual",
-    "reviewed": "2026-08-02",
-    "features": [],
-    "hook": "Una pequeña variación del tipo puede cambiar miles de euros al final.",
-    "benefit_heading": "Compara hipotecas con el coste total delante",
-    "benefit_copy": "No te quedes solo con la cuota: revisa intereses, gastos y efecto del plazo en una misma simulación."
+    "seo_title": "Calculadora hipoteca | Cuota mensual e intereses",
+    "reviewed": "2026-09-02",
+    "features": [
+      "Cuota mensual",
+      "Tabla completa de amortización",
+      "Comparación de plazos",
+      "Intereses y coste total"
+    ],
+    "hook": "La cuota es solo el principio: compara cuánto capital e intereses pagarías durante todo el plazo.",
+    "benefit_heading": "Ve la cuota y el coste completo antes de cambiar el plazo",
+    "benefit_copy": "Simula capital, TIN y años, revisa los primeros meses de amortización y comprueba cómo el plazo modifica los intereses totales.",
+    "interpretation": [
+      {
+        "title": "Una cuota menor puede costar más",
+        "text": "Alargar el plazo reduce la cuota mensual, pero normalmente aumenta los intereses acumulados."
+      },
+      {
+        "title": "Compara plazos con el mismo tipo",
+        "text": "La tabla de escenarios mantiene capital y TIN para aislar el efecto del plazo."
+      },
+      {
+        "title": "La oferta real puede incluir más costes",
+        "text": "TAE, seguros, comisiones y bonificaciones pueden cambiar la comparación final."
+      }
+    ],
+    "result_heading": "Cuota, amortización y comparación de plazos"
   },
   {
     "id": "personal-loan",
@@ -906,7 +1278,7 @@
     "short_title": "Préstamo personal",
     "category": "Finanzas",
     "cluster": "Préstamos",
-    "description": "Calcula la cuota, los intereses y el coste total de un préstamo personal incluyendo la comisión de apertura.",
+    "description": "Calcula cuota mensual, intereses totales y coste de un préstamo personal con capital, TIN, plazo y comisión de apertura.",
     "formula": "La cuota se calcula con el sistema de amortización francés usando tipo mensual y número de pagos.",
     "example": "Un préstamo de 15.000 € a cinco años puede compararse con distintas tasas y comisiones antes de decidir.",
     "faqs": [
@@ -925,6 +1297,10 @@
       [
         "¿Qué puedo hacer con el resultado de préstamo personal?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -941,8 +1317,13 @@
     "new": false,
     "accent": "green",
     "notes": [],
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-02",
+    "features": [
+      "Cuota mensual",
+      "Tabla completa de amortización",
+      "Comparación de plazos",
+      "Comisión de apertura"
+    ],
     "usage_steps": [
       {
         "title": "Compara ofertas equivalentes",
@@ -957,9 +1338,25 @@
         "text": "Modifica plazo y tipo por separado para ver qué variable explica la diferencia de cuota e intereses."
       }
     ],
-    "hook": "La cuota baja puede ocultar un préstamo mucho más caro.",
-    "benefit_heading": "Mira más allá de la mensualidad",
-    "benefit_copy": "Compara escenarios de tipo y plazo para detectar cuánto terminas pagando realmente por financiarte."
+    "hook": "Una cuota cómoda puede ocultar un coste total mucho mayor: mira ambas cifras antes de comparar préstamos.",
+    "benefit_heading": "Compara cuota, intereses y coste total del préstamo",
+    "benefit_copy": "Introduce importe, TIN, plazo y comisión para obtener una cuota orientativa, intereses acumulados y coste total del escenario.",
+    "seo_title": "Calculadora préstamo personal | Cuota e intereses",
+    "interpretation": [
+      {
+        "title": "Compara coste total además de cuota",
+        "text": "Una cuota baja puede deberse a un plazo mayor y terminar generando más intereses."
+      },
+      {
+        "title": "La comisión cambia el desembolso real",
+        "text": "La herramienta suma la comisión de apertura indicada al coste total del escenario."
+      },
+      {
+        "title": "Contrasta con la TAE",
+        "text": "La TAE de la oferta puede incorporar otros costes y es la referencia adecuada para comparar productos reales."
+      }
+    ],
+    "result_heading": "Cuota, coste total y amortización"
   },
   {
     "id": "monthly-savings",
@@ -987,6 +1384,10 @@
       [
         "¿Qué puedo hacer con el resultado de ahorro mensual?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1035,6 +1436,10 @@
       [
         "¿Qué puedo hacer con el resultado de fondos indexados?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1084,6 +1489,10 @@
       [
         "¿Qué puedo hacer con el resultado de amortizar hipoteca?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1132,6 +1541,10 @@
       [
         "¿Qué puedo hacer con el resultado de tarifa por hora?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1161,7 +1574,7 @@
     "short_title": "Margen de beneficio",
     "category": "Negocios",
     "cluster": "Precios",
-    "description": "Calcula margen, beneficio unitario y precio objetivo para saber cuánto ganas realmente con cada producto o servicio.",
+    "description": "Calcula margen de beneficio, markup, beneficio unitario y precio necesario para alcanzar un margen objetivo a partir de coste y precio.",
     "formula": "Margen = (precio − coste) ÷ precio × 100; markup = (precio − coste) ÷ coste × 100.",
     "example": "Un producto con coste 60 € y precio 100 € tiene 40 % de margen y 66,67 % de markup.",
     "faqs": [
@@ -1180,6 +1593,10 @@
       [
         "¿Qué puedo hacer con el resultado de margen de beneficio?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1196,11 +1613,32 @@
     "new": false,
     "accent": "orange",
     "notes": [],
-    "reviewed": "2026-08-02",
-    "features": [],
-    "hook": "Vender más no sirve si cada venta deja menos de lo que crees.",
-    "benefit_heading": "Protege el margen antes de fijar el precio",
-    "benefit_copy": "Compara coste y precio, estima el beneficio total y descubre qué precio necesitas para alcanzar tu margen objetivo."
+    "reviewed": "2026-09-02",
+    "features": [
+      "Margen y markup",
+      "Beneficio unitario y total",
+      "Precio objetivo",
+      "Tabla de márgenes objetivo"
+    ],
+    "hook": "Margen y markup no son lo mismo: una confusión pequeña puede cambiar por completo tu precio objetivo.",
+    "benefit_heading": "Entiende margen, markup y precio objetivo en el mismo cálculo",
+    "benefit_copy": "Compara coste y precio, mide el beneficio por unidad y calcula qué precio necesitarías para alcanzar el margen que has marcado.",
+    "seo_title": "Calculadora margen de beneficio | Coste, precio y margen",
+    "result_heading": "Margen, markup y escenarios de precio",
+    "interpretation": [
+      {
+        "title": "Margen y markup usan bases distintas",
+        "text": "El margen divide entre precio de venta; el markup divide entre coste. No compares ambos porcentajes como si fueran equivalentes."
+      },
+      {
+        "title": "El precio objetivo depende del coste",
+        "text": "La tabla muestra qué precio necesitarías para distintos márgenes manteniendo constante el coste introducido."
+      },
+      {
+        "title": "Usa el mismo criterio fiscal",
+        "text": "Compara coste y precio ambos con IVA o ambos sin IVA para evitar márgenes ficticios."
+      }
+    ]
   },
   {
     "id": "break-even",
@@ -1228,6 +1666,10 @@
       [
         "¿Qué puedo hacer con el resultado de punto de equilibrio?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1284,6 +1726,10 @@
       [
         "¿Qué puedo hacer con el resultado de indemnización por despido?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1322,7 +1768,7 @@
     "short_title": "Calculadora de finiquito",
     "category": "Empleo",
     "cluster": "Liquidación laboral",
-    "description": "Calcula un finiquito orientativo en España con salario pendiente, vacaciones, pagas extra, deducciones e indemnización opcional.",
+    "description": "Calcula un finiquito orientativo en España con salario pendiente, vacaciones no disfrutadas, pagas extra, otros conceptos e indemnización separada.",
     "formula": "Finiquito bruto estimado = salario pendiente + vacaciones + pagas extraordinarias + otros conceptos + indemnización indicada − deducciones.",
     "example": "Con 2.200 € mensuales, 15 días de salario pendientes, 8 días de vacaciones y 500 € de paga extra devengada, la herramienta muestra cada partida y el total bruto.",
     "faqs": [
@@ -1349,6 +1795,10 @@
       [
         "¿Qué puedo hacer con el resultado de calculadora de finiquito?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1369,14 +1819,14 @@
     "notes": [
       "Estimación bruta orientativa para España. No sustituye asesoramiento laboral, una nómina final ni el documento de saldo y finiquito."
     ],
-    "seo_title": "Calculadora de finiquito completa en España",
+    "seo_title": "Calculadora finiquito España | Salario, vacaciones y pagas",
     "features": [
       "Desglose por partidas",
       "Vacaciones no disfrutadas",
       "Pagas extra y otros conceptos",
       "Indemnización adicional opcional"
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-02",
     "usage_steps": [
       {
         "title": "Separa cada concepto",
@@ -1391,9 +1841,24 @@
         "text": "Compara la estimación con nóminas, convenio, contrato y asesoramiento laboral antes de firmar un acuerdo."
       }
     ],
-    "hook": "El finiquito reúne varias cantidades que suelen mezclarse.",
-    "benefit_heading": "Reúne todas las partidas en un único desglose",
-    "benefit_copy": "Comprueba qué suma cada concepto y copia o descarga un resumen ordenado para revisarlo con tu documentación."
+    "hook": "El finiquito no es una sola cifra: separa cada concepto antes de comparar el total.",
+    "benefit_heading": "Desglosa el finiquito para detectar qué parte explica cada euro",
+    "benefit_copy": "Separa salario pendiente, vacaciones, pagas extra, otros conceptos, deducciones e indemnización opcional para obtener un total trazable y exportable.",
+    "result_heading": "Total bruto con desglose auditable",
+    "interpretation": [
+      {
+        "title": "Separa finiquito e indemnización",
+        "text": "El finiquito liquida cantidades pendientes; la indemnización depende de la causa de extinción y conviene revisarla aparte."
+      },
+      {
+        "title": "Revisa cada partida",
+        "text": "Compara salario, vacaciones, pagas extra, otros conceptos y deducciones con nóminas, contrato y convenio."
+      },
+      {
+        "title": "Exporta el desglose",
+        "text": "El PDF y el CSV facilitan localizar dónde aparece una diferencia antes de consultar con una persona profesional."
+      }
+    ]
   },
   {
     "id": "net-salary",
@@ -1402,29 +1867,37 @@
     "short_title": "Sueldo neto",
     "category": "Empleo",
     "cluster": "Salarios",
-    "description": "Calcula el sueldo neto aproximado a partir del bruto, las pagas y las deducciones editables para comparar ofertas y escenarios.",
-    "formula": "Neto anual = bruto anual − IRPF estimado − cotización estimada − otras deducciones.",
-    "example": "Con 30.000 € brutos, puedes comparar 12 y 14 pagas y ajustar los porcentajes a tu nómina.",
+    "description": "Convierte salario bruto a neto o neto a bruto con IRPF y cotización editables. Estimación orientativa anual y por paga para España.",
+    "formula": "Bruto → neto: neto = bruto − IRPF estimado − cotización estimada − otras deducciones. Neto → bruto: bruto = (neto objetivo + otras deducciones) ÷ (1 − tipos estimados).",
+    "example": "Con 30.000 € brutos, un 15 % de IRPF, 6,5 % de cotización y sin otras deducciones, el neto orientativo sería 23.550 €. En sentido inverso, esos mismos porcentajes permiten estimar el bruto necesario para un neto objetivo.",
     "faqs": [
       [
-        "¿Por qué debo ajustar el IRPF?",
-        "La retención depende de circunstancias personales y laborales; no existe un porcentaje universal."
+        "¿Puedo calcular de neto a bruto?",
+        "Sí. Selecciona “Neto → bruto”, introduce tu neto anual objetivo y los porcentajes estimados. La herramienta despeja el bruto bajo esos mismos supuestos."
       ],
       [
-        "¿Calcula una nómina oficial?",
-        "No. Es un escenario editable y simplificado."
+        "¿El IRPF es igual para todas las personas?",
+        "No. Depende de circunstancias personales, familiares, territoriales y salariales. El porcentaje es editable para que utilices una hipótesis adecuada."
       ],
       [
-        "¿12 y 14 pagas cambian el neto anual?",
-        "No por sí solas; cambian el importe de cada paga y la distribución anual."
+        "¿La cotización del trabajador es siempre la misma?",
+        "No. Puede variar por conceptos y normativa. El campo es una aproximación editable y no sustituye una nómina real."
       ],
       [
-        "¿Por qué no calcula automáticamente mi IRPF exacto?",
-        "La retención depende de datos personales, familiares, contractuales y territoriales. Clicivo permite introducir el porcentaje de una simulación oficial o de tu nómina."
+        "¿Qué diferencia hay entre 12 y 14 pagas?",
+        "El total anual no cambia por repartirlo en 12 o 14 pagas; cambia el importe orientativo de cada paga."
       ],
       [
-        "¿Qué puedo hacer con el resultado de sueldo neto?",
-        "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+        "¿Sirve para negociar salario?",
+        "Puede ayudarte a comparar escenarios bruto/neto, pero una oferta real debe revisarse con su nómina, convenio, retenciones y condiciones."
+      ],
+      [
+        "¿Puedo descargar el resultado?",
+        "Sí. Puedes copiar el resumen o generar un PDF orientativo con los datos utilizados."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1443,17 +1916,18 @@
     "notes": [
       "Los porcentajes son editables y no sustituyen una nómina real ni el cálculo de la Agencia Tributaria."
     ],
-    "seo_title": "Calculadora de sueldo neto desde salario bruto",
+    "seo_title": "Calculadora sueldo neto y bruto España | Bruto ↔ neto",
     "features": [
-      "Neto anual y por paga",
-      "Comparación de 12 y 14 pagas",
+      "Bruto → neto y neto → bruto",
+      "12 o 14 pagas",
       "IRPF y cotización editables",
-      "Tipo efectivo total"
+      "Desglose anual y por paga"
     ],
-    "reviewed": "2026-08-02",
-    "hook": "El salario anual no dice cuánto llegará realmente cada mes.",
-    "benefit_heading": "Convierte el bruto en una estimación mensual útil",
-    "benefit_copy": "Revisa neto anual y por paga, ajusta retenciones y compara cómo cambia el resultado con 12 o 14 pagas."
+    "reviewed": "2026-09-02",
+    "hook": "¿Quieres pasar de bruto a neto o saber qué bruto necesitarías para cobrar una cantidad concreta?",
+    "benefit_heading": "Calcula en los dos sentidos sin rehacer las cuentas",
+    "benefit_copy": "Trabaja bruto → neto o neto → bruto, ajusta IRPF y cotización, compara 12 y 14 pagas y revisa el tipo efectivo total de deducciones.",
+    "result_heading": "Bruto, neto y deducciones del escenario"
   },
   {
     "id": "vacation-days",
@@ -1462,7 +1936,7 @@
     "short_title": "Días de vacaciones",
     "category": "Empleo",
     "cluster": "Vacaciones",
-    "description": "Calcula las vacaciones generadas y pendientes según el periodo trabajado, los días anuales y los ya disfrutados.",
+    "description": "Calcula vacaciones generadas y pendientes de forma proporcional según el periodo trabajado, los días anuales pactados y los días ya disfrutados.",
     "formula": "Vacaciones generadas = días anuales pactados × días trabajados ÷ días del año.",
     "example": "Con 30 días naturales anuales y seis meses trabajados se generan aproximadamente 15 días.",
     "faqs": [
@@ -1481,6 +1955,10 @@
       [
         "¿Qué puedo hacer con el resultado de días de vacaciones?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1499,12 +1977,32 @@
     "notes": [
       "El convenio colectivo o contrato puede mejorar el número de días y establecer reglas propias."
     ],
-    "seo_title": "Calculadora de vacaciones generadas",
-    "reviewed": "2026-08-02",
-    "features": [],
-    "hook": "Los días pendientes se entienden mejor cuando separas devengo y disfrute.",
-    "benefit_heading": "Aclara cuántos días has generado hasta una fecha",
-    "benefit_copy": "Obtén un cálculo proporcional y comprueba el saldo antes de contrastarlo con convenio, contrato o empresa."
+    "seo_title": "Calculadora días de vacaciones proporcionales | España",
+    "reviewed": "2026-09-02",
+    "features": [
+      "Días generados",
+      "Días pendientes",
+      "Ritmo mensual orientativo",
+      "Periodo trabajado"
+    ],
+    "hook": "¿Cuántos días has generado realmente si no has trabajado el año completo?",
+    "benefit_heading": "Calcula vacaciones proporcionales sin hacer reglas de tres a mano",
+    "benefit_copy": "Introduce el periodo trabajado, la referencia anual y los días disfrutados para estimar vacaciones generadas y pendientes con el mismo criterio de cómputo.",
+    "result_heading": "Vacaciones generadas, disfrutadas y pendientes",
+    "interpretation": [
+      {
+        "title": "Mantén el mismo criterio",
+        "text": "No mezcles días naturales y laborables entre la referencia anual y los días disfrutados."
+      },
+      {
+        "title": "El convenio puede mejorar el mínimo",
+        "text": "Introduce la cifra anual que realmente corresponda a tu relación laboral."
+      },
+      {
+        "title": "El redondeo puede variar",
+        "text": "La empresa o el convenio pueden aplicar reglas de redondeo distintas al cálculo proporcional."
+      }
+    ]
   },
   {
     "id": "employer-cost",
@@ -1513,7 +2011,7 @@
     "short_title": "Coste empresa trabajador",
     "category": "Empleo",
     "cluster": "Coste de empresa",
-    "description": "Calcula el coste anual y mensual de un trabajador para la empresa sumando cotizaciones, variable y otros gastos.",
+    "description": "Estima el coste anual y mensual de un trabajador para la empresa a partir del salario bruto, cotización empresarial y otros costes editables.",
     "formula": "Coste total = salario bruto + salario bruto × porcentaje empresarial + otros costes anuales.",
     "example": "Con 30.000 € brutos y una hipótesis empresarial del 31 %, las cotizaciones estimadas serían 9.300 € antes de otros costes.",
     "faqs": [
@@ -1532,6 +2030,10 @@
       [
         "¿Qué puedo hacer con el resultado de coste empresa trabajador?",
         "Puedes copiar un resumen preparado para compartir y descargar un informe PDF con los datos y el resultado. Úsalo para comparar escenarios o revisarlo con un cliente o profesional; no sustituye documentación oficial ni asesoramiento cuando corresponda."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
       ]
     ],
     "sources": [
@@ -1550,11 +2052,32 @@
     "notes": [
       "La tasa empresarial es editable y orientativa; no representa una cotización universal."
     ],
-    "reviewed": "2026-08-02",
-    "features": [],
-    "hook": "El salario bruto es solo una parte del coste real de contratar.",
-    "benefit_heading": "Presupuesta una contratación con una visión más completa",
-    "benefit_copy": "Compara salario y costes adicionales para evitar decisiones basadas únicamente en la nómina bruta."
+    "reviewed": "2026-09-02",
+    "features": [
+      "Coste anual y mensual",
+      "Cotización empresarial editable",
+      "Sensibilidad ±2 puntos",
+      "CSV para Excel"
+    ],
+    "hook": "El salario bruto es solo una parte del coste: calcula el presupuesto completo del puesto.",
+    "benefit_heading": "Pasa del salario bruto al coste empresarial total",
+    "benefit_copy": "Estima cotizaciones, variable y otros costes, compara el sobrecoste respecto al salario bruto y exporta el escenario para revisarlo en Excel o con tu gestoría.",
+    "seo_title": "Calculadora coste empresa trabajador España | Coste laboral",
+    "result_heading": "Coste total, desglose y sensibilidad",
+    "interpretation": [
+      {
+        "title": "El bruto no es el coste total",
+        "text": "La empresa puede asumir cotizaciones y otros costes que no aparecen como salario bruto del trabajador."
+      },
+      {
+        "title": "Usa la sensibilidad, no una tasa universal",
+        "text": "La tabla ±2 puntos muestra cuánto cambia el presupuesto si tu hipótesis de cotización varía."
+      },
+      {
+        "title": "Separa costes recurrentes y puntuales",
+        "text": "Equipo, formación o bonus pueden alterar el primer año. Introduce solo partidas del mismo periodo."
+      }
+    ]
   },
   {
     "id": "pdf-merge",
@@ -1616,11 +2139,11 @@
     "id": "pdf-split",
     "path": "/es/pdf/unir-dividir/dividir-pdf/",
     "title": "Dividir PDF por páginas o rangos",
-    "seo_title": "Dividir PDF online por páginas o rangos",
+    "seo_title": "Dividir PDF online gratis | Separar y extraer páginas",
     "short_title": "Dividir PDF",
     "category": "PDF y documentos",
     "cluster": "PDF",
-    "description": "Divide un PDF por rangos o crea un archivo por página directamente en el navegador, sin enviar el documento a Clicivo.",
+    "description": "Divide un PDF por rangos o crea un archivo por página. Extrae, separa y descarga las páginas seleccionadas en un ZIP sin subir el documento.",
     "formula": "Cada archivo nuevo copia únicamente las páginas seleccionadas del PDF original y conserva su contenido vectorial.",
     "example": "Escribe 1-3, 4-7, 10 para generar tres PDF: páginas 1 a 3, páginas 4 a 7 y página 10.",
     "faqs": [
@@ -1662,7 +2185,7 @@
     "notes": [
       "Los PDF protegidos con contraseña pueden requerir desbloqueo legítimo previo."
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-02",
     "features": [],
     "usage_steps": [
       {
@@ -1678,19 +2201,19 @@
         "text": "Comprueba que cada archivo incluye las páginas esperadas antes de borrar el original."
       }
     ],
-    "hook": "No necesitas compartir un PDF completo cuando solo importan unas páginas.",
-    "benefit_heading": "Extrae exactamente lo que necesitas",
-    "benefit_copy": "Define los rangos, procesa el archivo localmente y descarga solo las partes que vas a utilizar o compartir."
+    "hook": "No necesitas cortar un PDF página a página: define los rangos y descarga todo el resultado de una vez.",
+    "benefit_heading": "Separa o extrae páginas con rangos personalizados",
+    "benefit_copy": "Escribe rangos como 1-3, 5, 8-10 o genera una página por archivo. Todo el procesamiento se realiza localmente en tu navegador."
   },
   {
     "id": "pdf-organize",
     "path": "/es/pdf/organizar/organizar-paginas-pdf/",
     "title": "Organizar páginas de PDF: ordenar, girar y eliminar",
-    "seo_title": "Organizar páginas PDF online: ordenar, girar y borrar",
+    "seo_title": "Organizar PDF online | Ordenar, girar y eliminar páginas",
     "short_title": "Organizar páginas PDF",
     "category": "PDF y documentos",
     "cluster": "PDF",
-    "description": "Organiza páginas de un PDF: cambia el orden, gira o elimina páginas y descarga una copia nueva desde el navegador.",
+    "description": "Organiza un PDF online con vista previa: arrastra páginas para reordenar, gira, elimina y descarga un nuevo PDF sin subirlo a Clicivo.",
     "formula": "El orden visual define la secuencia del PDF final; cada página conserva el contenido original y aplica la rotación seleccionada.",
     "example": "Carga un PDF, arrastra la página 4 a la primera posición, gira la página 2 y elimina una hoja en blanco antes de descargar.",
     "faqs": [
@@ -1736,7 +2259,7 @@
     "notes": [
       "En documentos muy grandes, el rendimiento depende de la memoria disponible en el dispositivo."
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-02",
     "features": [],
     "usage_steps": [
       {
@@ -1752,9 +2275,9 @@
         "text": "Conserva el original hasta comprobar que el PDF resultante abre correctamente."
       }
     ],
-    "hook": "Un documento desordenado puede corregirse sin volver a crearlo.",
-    "benefit_heading": "Reordena el documento con una vista visual",
-    "benefit_copy": "Trabaja página a página y exporta una versión limpia sin subir el PDF a un servidor de Clicivo."
+    "hook": "Ver las páginas antes de moverlas evita errores: organiza el documento con una vista previa real.",
+    "benefit_heading": "Reordena visualmente el PDF antes de descargarlo",
+    "benefit_copy": "Genera miniaturas, arrastra páginas, gira o elimina y exporta un PDF nuevo manteniendo el archivo dentro de tu navegador."
   },
   {
     "id": "images-to-pdf",
@@ -1880,11 +2403,11 @@
     "id": "image-compress",
     "path": "/es/imagenes/optimizar/comprimir-imagenes/",
     "title": "Comprimir imágenes JPG, PNG y WebP",
-    "seo_title": "Comprimir imágenes online gratis y en lote",
+    "seo_title": "Comprimir imágenes online en lote | JPG, PNG y WebP",
     "short_title": "Comprimir imágenes",
     "category": "Imágenes",
     "cluster": "Imágenes",
-    "description": "Comprime imágenes JPG, PNG y WebP en lote, ajustando formato, calidad y dimensión máxima desde tu navegador.",
+    "description": "Comprime varias imágenes online a la vez, ajusta calidad y dimensión máxima y descarga un ZIP optimizado en JPG, PNG o WebP.",
     "formula": "La imagen se redimensiona si supera el límite elegido y se vuelve a codificar con la calidad y el formato seleccionados.",
     "example": "Comprime diez fotografías a WebP con calidad 82 y un máximo de 1.920 px para publicarlas en una web.",
     "faqs": [
@@ -1926,21 +2449,41 @@
     "notes": [
       "La recompresión puede eliminar metadatos y, en formatos con pérdida, reducir ligeramente la calidad."
     ],
-    "reviewed": "2026-08-02",
-    "features": [],
-    "hook": "Una imagen más ligera carga antes sin tener que verse peor.",
-    "benefit_heading": "Reduce peso y conserva el control visual",
-    "benefit_copy": "Compara el tamaño de salida y descarga versiones optimizadas para web, correo o redes sociales."
+    "reviewed": "2026-09-02",
+    "features": [
+      "Procesamiento por lotes",
+      "Vista previa antes y después",
+      "Ahorro de peso por archivo",
+      "Descarga ZIP"
+    ],
+    "hook": "¿Tienes diez o cincuenta imágenes pesadas? Optimízalas todas con una sola configuración.",
+    "benefit_heading": "Comprime varias imágenes en una sola operación",
+    "benefit_copy": "Procesa un lote completo, ajusta calidad y dimensión máxima y descarga los resultados juntos sin subir tus imágenes a Clicivo.",
+    "interpretation": [
+      {
+        "title": "Mira el ahorro y la imagen",
+        "text": "Un porcentaje de ahorro alto no sirve si introduce artefactos visibles. Usa la vista previa para equilibrar peso y calidad."
+      },
+      {
+        "title": "WebP suele ser eficiente",
+        "text": "Para web moderna, WebP puede reducir peso frente a JPG o PNG, aunque conviene comprobar compatibilidad con tu flujo."
+      },
+      {
+        "title": "No recomprimas indefinidamente",
+        "text": "Repetir compresiones con pérdida puede degradar la imagen. Conserva un original de calidad."
+      }
+    ],
+    "result_heading": "Ahorro de peso y comparación visual del lote"
   },
   {
     "id": "image-resize",
     "path": "/es/imagenes/redimensionar/cambiar-tamano-imagen/",
     "title": "Cambiar el tamaño de imágenes en lote",
-    "seo_title": "Cambiar tamaño de imágenes online sin deformar",
+    "seo_title": "Cambiar tamaño de imagen online gratis | Redimensionar en lote",
     "short_title": "Redimensionar imágenes",
     "category": "Imágenes",
     "cluster": "Imágenes",
-    "description": "Redimensiona varias imágenes a la vez, conserva proporciones y fija límites de ancho y alto sin subir archivos.",
+    "description": "Cambia el tamaño de una o varias imágenes online, limita ancho y alto, conserva proporciones y descarga el lote en JPG, PNG o WebP.",
     "formula": "Escala = mínimo(ancho máximo ÷ ancho original, alto máximo ÷ alto original). Las dimensiones se multiplican por esa escala.",
     "example": "Ajusta fotografías a un máximo de 1.200 × 1.200 px sin deformarlas ni ampliar las que ya son más pequeñas.",
     "faqs": [
@@ -1982,8 +2525,13 @@
     "notes": [
       "Para impresión profesional, revisa también la resolución física y el perfil de color."
     ],
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-02",
+    "features": [
+      "Procesamiento por lotes",
+      "Vista previa antes y después",
+      "Conserva proporciones",
+      "JPG, PNG y WebP"
+    ],
     "usage_steps": [
       {
         "title": "Selecciona una o varias imágenes",
@@ -1998,9 +2546,24 @@
         "text": "Abre una imagen descargada y verifica nitidez, orientación, formato y peso final."
       }
     ],
-    "hook": "El tamaño correcto evita cargas lentas y recortes inesperados.",
-    "benefit_heading": "Adapta imágenes a cualquier canal en un solo lote",
-    "benefit_copy": "Prepara archivos para web, ecommerce o redes sin editar cada imagen por separado."
+    "hook": "Reduce dimensiones sin abrir un editor y procesa varias imágenes en la misma operación.",
+    "benefit_heading": "Redimensiona un lote entero con límites de ancho y alto",
+    "benefit_copy": "Aplica las mismas dimensiones máximas a varias imágenes, evita ampliar archivos pequeños si no quieres y elige el formato de salida antes de descargar.",
+    "interpretation": [
+      {
+        "title": "Primero ajusta dimensiones",
+        "text": "Reducir ancho y alto suele bajar el peso sin necesidad de forzar una calidad muy baja."
+      },
+      {
+        "title": "Comprueba la primera imagen",
+        "text": "La comparación visual antes/después te permite detectar recortes, escalado o pérdida de detalle antes de usar el lote."
+      },
+      {
+        "title": "Evita ampliar sin necesidad",
+        "text": "Ampliar una imagen pequeña no crea detalle nuevo. Mantén desactivada la ampliación salvo que tengas un motivo concreto."
+      }
+    ],
+    "result_heading": "Dimensiones, peso y comparación visual del lote"
   },
   {
     "id": "image-convert",
@@ -2445,5 +3008,568 @@
     "hook": "Compartir una contraseña de Wi-Fi puede ser tan simple como enseñar un código.",
     "benefit_heading": "Facilita el acceso sin repetir la contraseña",
     "benefit_copy": "Crea un código para casa, oficina o eventos y descárgalo para imprimir o mostrar en una pantalla."
+  },
+  {
+    "id": "marketing-roas-cac",
+    "path": "/es/negocios/marketing/calculadora-roas-cac/",
+    "title": "Calculadora ROAS y CAC de campañas",
+    "seo_title": "Calculadora ROAS y CAC | Rentabilidad de campañas",
+    "short_title": "ROAS y CAC",
+    "category": "Negocios",
+    "cluster": "Marketing",
+    "description": "Calcula ROAS, CAC, margen de contribución y beneficio estimado de una campaña a partir de inversión, ingresos atribuidos y clientes conseguidos.",
+    "formula": "ROAS = ingresos atribuidos ÷ inversión publicitaria. CAC = inversión ÷ clientes. Beneficio de contribución = ingresos × margen bruto − inversión − otros costes.",
+    "example": "Con 2.000 € de inversión, 8.000 € de ingresos, 40 clientes y 60 % de margen bruto, el ROAS es 4, el CAC 50 € y la contribución estimada antes de otros costes es 2.800 €.",
+    "faqs": [
+      [
+        "¿ROAS 4 significa un 400 % de beneficio?",
+        "No. ROAS compara ingresos atribuidos con inversión publicitaria. No descuenta coste de producto, personal, devoluciones, comisiones ni otros gastos."
+      ],
+      [
+        "¿Qué clientes uso para calcular CAC?",
+        "Utiliza los clientes nuevos atribuibles al mismo periodo y campaña que la inversión. Mezclar periodos distorsiona el resultado."
+      ],
+      [
+        "¿Qué margen bruto debo introducir?",
+        "Usa el margen sobre los ingresos atribuidos antes de publicidad. Si no lo conoces, calcula primero precio y coste con la calculadora de margen."
+      ],
+      [
+        "¿Puedo comparar dos campañas?",
+        "Sí. Guarda cada escenario en el navegador o exporta el CSV y compara ROAS, CAC y contribución con el mismo criterio de atribución."
+      ],
+      [
+        "¿Es una medición contable oficial?",
+        "No. Es una estimación de marketing que depende del modelo de atribución y de los costes que hayas incluido."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
+      ]
+    ],
+    "sources": [
+      [
+        "Google Ads · métricas y conversiones",
+        "https://support.google.com/google-ads/answer/1722022?hl=es"
+      ]
+    ],
+    "keywords": [
+      "calculadora roas",
+      "calculadora cac",
+      "rentabilidad campaña publicidad",
+      "retorno publicidad",
+      "coste adquisicion cliente"
+    ],
+    "new": true,
+    "accent": "orange",
+    "notes": [
+      "La atribución de ingresos a una campaña puede cambiar según la plataforma y la ventana de conversión."
+    ],
+    "features": [
+      "ROAS y retorno porcentual",
+      "CAC por cliente nuevo",
+      "Contribución después de publicidad",
+      "ROAS mínimo según margen"
+    ],
+    "reviewed": "2026-09-02",
+    "hook": "Una campaña puede vender mucho y aun así perder dinero: mide el retorno después de mirar el margen.",
+    "benefit_heading": "Une ROAS, CAC y margen para decidir si la campaña crea valor",
+    "benefit_copy": "Compara ingresos atribuidos, inversión, clientes y margen bruto para detectar si el crecimiento publicitario compensa realmente el coste de adquisición.",
+    "result_heading": "ROAS, CAC y beneficio de contribución",
+    "usage_steps": [
+      {
+        "title": "Usa el mismo periodo",
+        "text": "Inversión, ingresos y clientes deben corresponder a la misma campaña y ventana temporal."
+      },
+      {
+        "title": "Añade el margen",
+        "text": "El ROAS por sí solo no incorpora el coste del producto o servicio; el margen bruto añade ese contexto."
+      },
+      {
+        "title": "Compara escenarios",
+        "text": "Guarda o exporta campañas con el mismo modelo de atribución para comparar resultados de forma consistente."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "ROAS no es beneficio",
+        "text": "Un ROAS elevado puede convivir con pérdidas si el margen es pequeño o existen costes importantes fuera de la publicidad."
+      },
+      {
+        "title": "CAC necesita calidad de cliente",
+        "text": "Un CAC bajo no garantiza rentabilidad si el cliente compra poco, devuelve o genera un coste de servicio alto."
+      },
+      {
+        "title": "El punto de equilibrio depende del margen",
+        "text": "Cuanto menor sea tu margen bruto, mayor ROAS necesitarás para cubrir la inversión publicitaria."
+      }
+    ]
+  },
+  {
+    "id": "customer-profitability",
+    "path": "/es/negocios/clientes/calculadora-beneficio-por-cliente/",
+    "title": "Calculadora de beneficio medio por cliente",
+    "seo_title": "Calculadora beneficio por cliente | Ingreso, coste y margen",
+    "short_title": "Beneficio por cliente",
+    "category": "Negocios",
+    "cluster": "Clientes",
+    "description": "Calcula ingreso medio, coste medio, beneficio y margen por cliente con facturación, clientes, costes directos y gasto de adquisición del mismo periodo.",
+    "formula": "Ingreso medio por cliente = ingresos ÷ clientes. Beneficio medio = (ingresos − costes directos − adquisición − otros costes) ÷ clientes.",
+    "example": "Con 30.000 € de ingresos, 100 clientes, 12.000 € de costes directos y 3.000 € de adquisición, el beneficio medio antes de otros costes es 150 € por cliente.",
+    "faqs": [
+      [
+        "¿Es lo mismo que LTV?",
+        "No. Esta herramienta calcula el resultado medio del periodo. El valor de vida del cliente requiere observar compras y costes a lo largo del tiempo."
+      ],
+      [
+        "¿Incluyo salarios y estructura?",
+        "Puedes añadirlos como otros costes si quieres una visión más completa. Mantén siempre el mismo criterio al comparar periodos."
+      ],
+      [
+        "¿Qué hago si tengo clientes muy distintos?",
+        "Segmenta por tipo de cliente. Una media global puede ocultar que unos segmentos son rentables y otros no."
+      ],
+      [
+        "¿Puedo usar pedidos en vez de clientes?",
+        "No si quieres beneficio por cliente. Para beneficio por pedido utiliza el número de pedidos como unidad y deja claro ese criterio en la comparación."
+      ],
+      [
+        "¿Qué puedo exportar?",
+        "Puedes guardar el escenario localmente, copiar el resumen y descargar un CSV para trabajar con los datos en Excel u otra hoja de cálculo."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
+      ]
+    ],
+    "sources": [
+      [
+        "Clicivo · metodología de cálculo",
+        "https://clicivo.com/metodologia/"
+      ]
+    ],
+    "keywords": [
+      "beneficio medio por cliente",
+      "rentabilidad por cliente",
+      "ganancia por cliente",
+      "margen por cliente",
+      "ingreso medio cliente"
+    ],
+    "new": true,
+    "accent": "orange",
+    "notes": [],
+    "features": [
+      "Ingreso medio por cliente",
+      "Coste total por cliente",
+      "Beneficio medio y margen",
+      "Escenario exportable"
+    ],
+    "reviewed": "2026-09-02",
+    "hook": "La facturación total puede crecer mientras cada cliente deja menos margen: mide la unidad económica.",
+    "benefit_heading": "Descubre cuánto valor económico deja cada cliente en el periodo",
+    "benefit_copy": "Convierte facturación y costes en ingreso, coste, beneficio y margen por cliente para comparar segmentos, canales o periodos con una misma unidad.",
+    "result_heading": "Beneficio y margen medio por cliente",
+    "usage_steps": [
+      {
+        "title": "Elige una unidad consistente",
+        "text": "Usa clientes únicos del mismo periodo que los ingresos y costes."
+      },
+      {
+        "title": "Incluye los costes relevantes",
+        "text": "Añade costes directos, adquisición y otros gastos que quieras repartir entre clientes."
+      },
+      {
+        "title": "Segmenta cuando sea necesario",
+        "text": "Si tus clientes son muy diferentes, repite el cálculo por canal, producto o tipo de cliente."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "La media no describe a todos",
+        "text": "Un cliente muy grande puede elevar el promedio. La segmentación ayuda a detectar dispersión."
+      },
+      {
+        "title": "Margen y beneficio responden preguntas distintas",
+        "text": "El beneficio muestra euros por cliente; el margen permite comparar periodos con diferente nivel de ingresos."
+      },
+      {
+        "title": "La adquisición cambia la economía unitaria",
+        "text": "Un canal puede generar clientes valiosos y aun así resultar caro si el coste de captación crece demasiado."
+      }
+    ]
+  },
+  {
+    "id": "vat-calculator",
+    "path": "/es/negocios/fiscalidad/calculadora-iva/",
+    "title": "Calculadora de IVA: añadir o quitar IVA",
+    "seo_title": "Calculadora IVA España | Añadir o quitar 21 %, 10 % y 4 %",
+    "short_title": "Calculadora de IVA",
+    "category": "Negocios",
+    "cluster": "Fiscalidad",
+    "description": "Añade o quita IVA a un importe con los tipos habituales en España o un porcentaje personalizado y separa base imponible, cuota y total.",
+    "formula": "Añadir IVA: total = base × (1 + tipo). Quitar IVA: base = total ÷ (1 + tipo). Cuota = total − base.",
+    "example": "Con una base de 100 € y un IVA del 21 %, la cuota es 21 € y el total 121 €. Si partes de 121 €, la base vuelve a ser 100 €.",
+    "faqs": [
+      [
+        "¿Qué tipos de IVA incluye?",
+        "Incluye accesos a 21 %, 10 %, 4 % y un tipo personalizado. La Agencia Tributaria también contempla tipos o supuestos especiales en determinadas operaciones."
+      ],
+      [
+        "¿Quitar un 21 % es restar el 21 % al total?",
+        "No. Para obtener la base desde un total con IVA se divide por 1,21; restar el 21 % produce una cifra distinta."
+      ],
+      [
+        "¿Sirve para Canarias?",
+        "No como calculadora de IGIC. Canarias aplica un impuesto diferente con tipos propios."
+      ],
+      [
+        "¿La herramienta decide qué tipo corresponde?",
+        "No. Debes seleccionar el tipo aplicable a la operación. Consulta la Agencia Tributaria o asesoramiento fiscal si tienes dudas."
+      ],
+      [
+        "¿Puedo usar un tipo personalizado?",
+        "Sí. Permite calcular porcentajes diferentes para supuestos o territorios que quieras analizar, sin afirmar que sean tipos legales aplicables."
+      ],
+      [
+        "¿Puedo guardar este escenario para compararlo después?",
+        "Sí. Clicivo permite guardar el escenario en este navegador, recuperarlo más tarde y exportar los datos en PDF o CSV sin crear una cuenta."
+      ]
+    ],
+    "sources": [
+      [
+        "Agencia Tributaria · tipos impositivos de IVA",
+        "https://sede.agenciatributaria.gob.es/Sede/iva/calculo-iva-repercutido-clientes/tipos-impositivos-iva.html"
+      ],
+      [
+        "Agencia Tributaria · régimen general",
+        "https://sede.agenciatributaria.gob.es/Sede/iva/regimenes-tributacion-iva/regimen-general.html"
+      ]
+    ],
+    "keywords": [
+      "calculadora iva",
+      "calcular iva 21",
+      "quitar iva",
+      "añadir iva",
+      "base imponible iva"
+    ],
+    "new": true,
+    "accent": "orange",
+    "notes": [
+      "Selecciona el tipo que corresponda a la operación. Clicivo no determina la clasificación fiscal de bienes o servicios."
+    ],
+    "features": [
+      "Añadir IVA",
+      "Quitar IVA de un total",
+      "Tipos 21 %, 10 % y 4 %",
+      "Tipo personalizado"
+    ],
+    "reviewed": "2026-09-02",
+    "hook": "Quitar IVA no consiste en restar el mismo porcentaje: calcula base, cuota y total correctamente.",
+    "benefit_heading": "Pasa de base a total —o de total a base— sin fórmulas manuales",
+    "benefit_copy": "Selecciona un tipo habitual o personalizado y obtén base imponible, cuota de IVA y total con una explicación clara del sentido del cálculo.",
+    "result_heading": "Base imponible, IVA y total",
+    "usage_steps": [
+      {
+        "title": "Elige el sentido",
+        "text": "Indica si partes de una base sin IVA o de un total que ya lo incluye."
+      },
+      {
+        "title": "Selecciona el tipo",
+        "text": "Usa 21 %, 10 %, 4 % o introduce un porcentaje personalizado."
+      },
+      {
+        "title": "Comprueba la operación",
+        "text": "La herramienta separa base, cuota y total para que puedas revisar el resultado."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "Base y total no son intercambiables",
+        "text": "Cuando el impuesto ya está incluido, la base se obtiene dividiendo y no restando directamente el porcentaje."
+      },
+      {
+        "title": "El tipo depende de la operación",
+        "text": "La calculadora aplica el porcentaje elegido; no clasifica fiscalmente productos o servicios."
+      },
+      {
+        "title": "Los redondeos pueden variar",
+        "text": "Facturación y contabilidad pueden aplicar reglas de redondeo por línea o documento. Revisa el sistema que utilices."
+      }
+    ]
+  },
+  {
+    "id": "percentage-calculator",
+    "path": "/es/productividad/calculos-rapidos/calculadora-porcentajes/",
+    "title": "Calculadora de porcentajes completa",
+    "seo_title": "Calculadora de porcentajes | Aumentos, descuentos y proporciones",
+    "short_title": "Calculadora de porcentajes",
+    "category": "Texto y productividad",
+    "cluster": "Cálculos rápidos",
+    "description": "Calcula porcentajes, proporciones, aumentos, descuentos y el valor original antes de un cambio porcentual con varios modos en una sola herramienta.",
+    "formula": "Parte = total × porcentaje ÷ 100. Variación (%) = (nuevo − anterior) ÷ anterior × 100. Valor original tras aumento p = final ÷ (1 + p/100).",
+    "example": "El 15 % de 240 es 36. Si un precio pasa de 200 a 230, el aumento es del 15 %.",
+    "faqs": [
+      [
+        "¿Puedo calcular qué porcentaje representa una cantidad?",
+        "Sí. El modo “qué porcentaje es A de B” divide la parte entre el total y multiplica por 100."
+      ],
+      [
+        "¿Sirve para descuentos?",
+        "Sí. Puedes calcular el importe después de aplicar un descuento o recuperar el valor anterior a un cambio porcentual."
+      ],
+      [
+        "¿Cómo calculo una subida porcentual?",
+        "Introduce el valor inicial y el final en el modo de variación para obtener el porcentaje de aumento o disminución."
+      ],
+      [
+        "¿Por qué sumar 20 % y luego restar 20 % no vuelve al mismo valor?",
+        "Porque el segundo porcentaje se aplica sobre una base diferente. Por ejemplo, 100 → 120 → 96."
+      ],
+      [
+        "¿Se guardan los cálculos?",
+        "Puedes guardar un escenario en el navegador si utilizas los controles de Clicivo; no necesitas una cuenta."
+      ]
+    ],
+    "sources": [
+      [
+        "Clicivo · metodología de cálculo",
+        "https://clicivo.com/metodologia/"
+      ]
+    ],
+    "keywords": [
+      "calculadora porcentajes",
+      "calcular porcentaje",
+      "porcentaje aumento",
+      "porcentaje descuento",
+      "variacion porcentual"
+    ],
+    "new": true,
+    "accent": "purple",
+    "notes": [],
+    "features": [
+      "Porcentaje de una cantidad",
+      "Qué porcentaje es A de B",
+      "Aumento o descuento",
+      "Variación y valor original"
+    ],
+    "reviewed": "2026-09-02",
+    "hook": "Un porcentaje cambia de significado según la base: elige la operación correcta antes de calcular.",
+    "benefit_heading": "Resuelve las operaciones porcentuales más habituales en una sola página",
+    "benefit_copy": "Cambia de modo para calcular una parte, una proporción, un aumento, un descuento o recuperar el valor original sin memorizar fórmulas distintas.",
+    "result_heading": "Porcentaje y valor resultante",
+    "usage_steps": [
+      {
+        "title": "Elige la pregunta",
+        "text": "Selecciona el tipo de cálculo antes de introducir los valores."
+      },
+      {
+        "title": "Mantén la misma unidad",
+        "text": "Cuando compares A y B, utiliza euros con euros, visitas con visitas o la misma unidad."
+      },
+      {
+        "title": "Revisa la base",
+        "text": "En aumentos y descuentos, el porcentaje se aplica sobre el valor inicial indicado."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "La base manda",
+        "text": "Un mismo 10 % produce resultados diferentes según el valor sobre el que se aplica."
+      },
+      {
+        "title": "Variación no equivale a diferencia",
+        "text": "La diferencia es una cantidad absoluta; la variación porcentual la relaciona con el valor inicial."
+      },
+      {
+        "title": "Cambios consecutivos se multiplican",
+        "text": "Dos cambios porcentuales sucesivos no se suman de forma simple porque cada uno usa una base distinta."
+      }
+    ]
+  },
+  {
+    "id": "date-difference",
+    "path": "/es/productividad/calculos-rapidos/dias-entre-fechas/",
+    "title": "Calculadora de días entre fechas y días laborables",
+    "seo_title": "Calculadora días entre fechas | Naturales y laborables",
+    "short_title": "Días entre fechas",
+    "category": "Texto y productividad",
+    "cluster": "Cálculos rápidos",
+    "description": "Calcula días naturales y laborables de lunes a viernes entre dos fechas y descuenta festivos manuales si necesitas ajustar un periodo.",
+    "formula": "Días naturales = diferencia entre fechas. Días laborables = lunes a viernes del intervalo − festivos laborables indicados.",
+    "example": "Entre el 1 y el 31 de marzo hay 30 días de diferencia sin contar el día inicial; el número de laborables depende del calendario y los festivos.",
+    "faqs": [
+      [
+        "¿Incluye festivos nacionales, autonómicos o locales?",
+        "No automáticamente. Puedes indicar cuántos festivos laborables quieres descontar para adaptar el resultado a tu calendario."
+      ],
+      [
+        "¿Cuenta el día inicial y el final?",
+        "Puedes elegir si el intervalo es inclusivo. La herramienta muestra claramente el criterio utilizado."
+      ],
+      [
+        "¿Qué considera día laborable?",
+        "De forma predeterminada, lunes a viernes. No interpreta convenios, turnos, sábados laborables ni calendarios especiales."
+      ],
+      [
+        "¿Sirve para plazos legales?",
+        "Puede ayudarte a contar fechas, pero no determina reglas procesales o administrativas. Algunos plazos tienen calendarios y criterios específicos."
+      ],
+      [
+        "¿Puedo usarlo para vacaciones?",
+        "Para vacaciones laborales es mejor usar la calculadora específica de vacaciones, que incorpora una referencia anual y días ya disfrutados."
+      ]
+    ],
+    "sources": [
+      [
+        "Clicivo · metodología de cálculo",
+        "https://clicivo.com/metodologia/"
+      ]
+    ],
+    "keywords": [
+      "dias entre fechas",
+      "calculadora dias",
+      "dias laborables entre fechas",
+      "contar dias",
+      "diferencia fechas"
+    ],
+    "new": true,
+    "accent": "purple",
+    "notes": [
+      "Los días laborables se calculan de lunes a viernes y no incorporan calendarios festivos automáticos."
+    ],
+    "features": [
+      "Días naturales",
+      "Días laborables L-V",
+      "Intervalo inclusivo opcional",
+      "Descuento manual de festivos"
+    ],
+    "reviewed": "2026-09-02",
+    "hook": "Contar días parece simple hasta que entran fines de semana, inclusividad y festivos.",
+    "benefit_heading": "Obtén el intervalo natural y una referencia laborable en el mismo cálculo",
+    "benefit_copy": "Compara días naturales con lunes a viernes, decide si cuentas ambos extremos y descuenta festivos manuales para adaptar el resultado a tu calendario.",
+    "result_heading": "Días naturales y laborables del periodo",
+    "usage_steps": [
+      {
+        "title": "Selecciona las dos fechas",
+        "text": "La fecha final debe ser igual o posterior a la inicial."
+      },
+      {
+        "title": "Elige si cuentas los extremos",
+        "text": "Activa el intervalo inclusivo si quieres contabilizar también el día inicial y el final."
+      },
+      {
+        "title": "Ajusta festivos",
+        "text": "Introduce solo festivos que caigan en días laborables del intervalo para evitar descontarlos dos veces."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "Natural y laborable responden preguntas distintas",
+        "text": "Los días naturales cuentan todos los días; los laborables excluyen sábado y domingo en esta herramienta."
+      },
+      {
+        "title": "Los calendarios reales pueden variar",
+        "text": "Convenios, turnos y festivos territoriales pueden cambiar el número de días efectivamente trabajables."
+      },
+      {
+        "title": "La inclusividad cambia el total",
+        "text": "Contar o no el día inicial es una diferencia frecuente entre calculadoras y plazos. Comprueba el criterio que necesitas."
+      }
+    ]
+  },
+  {
+    "id": "unit-converter",
+    "path": "/es/productividad/calculos-rapidos/conversor-unidades/",
+    "title": "Conversor de unidades online: longitud, peso, volumen y más",
+    "short_title": "Conversor de unidades",
+    "category": "Texto y productividad",
+    "cluster": "Cálculos rápidos",
+    "description": "Convierte unidades de longitud, masa, volumen, temperatura, velocidad y datos con factores transparentes y resultados instantáneos.",
+    "formula": "Cada magnitud se convierte a una unidad base y después a la unidad de destino. En temperatura se aplican las fórmulas específicas de °C, °F y K.",
+    "example": "10 kilómetros equivalen a 6,2137 millas; 25 °C equivalen a 77 °F; 1 GB decimal equivale a 1.000 MB.",
+    "faqs": [
+      [
+        "¿Qué tipos de unidades puedo convertir?",
+        "Longitud, masa, volumen, temperatura, velocidad y almacenamiento de datos."
+      ],
+      [
+        "¿Usa sistema decimal o binario para los datos?",
+        "La herramienta distingue unidades decimales como MB y GB de unidades binarias como MiB y GiB."
+      ],
+      [
+        "¿Las conversiones son aproximadas?",
+        "Los factores definidos se aplican matemáticamente; el resultado mostrado se redondea para facilitar la lectura."
+      ],
+      [
+        "¿Puedo invertir rápidamente la conversión?",
+        "Sí. Usa el botón de intercambiar unidades para invertir origen y destino sin volver a escribir el valor."
+      ],
+      [
+        "¿Se envían mis valores a Clicivo?",
+        "No. El cálculo se realiza localmente en tu navegador."
+      ]
+    ],
+    "sources": [
+      [
+        "BIPM · SI Brochure",
+        "https://www.bipm.org/en/publications/si-brochure"
+      ],
+      [
+        "NIST · Guide for the Use of the International System of Units",
+        "https://www.nist.gov/pml/special-publication-811"
+      ]
+    ],
+    "keywords": [
+      "conversor unidades",
+      "convertir kilómetros millas",
+      "kg libras",
+      "litros galones",
+      "celsius fahrenheit",
+      "mb gb gib"
+    ],
+    "new": true,
+    "accent": "blue",
+    "notes": [
+      "En almacenamiento, MB/GB son unidades decimales y MiB/GiB son binarias."
+    ],
+    "seo_title": "Conversor de unidades online | Longitud, peso, temperatura y más",
+    "features": [
+      "6 magnitudes",
+      "Intercambio origen/destino",
+      "Decimal y binario en datos",
+      "Cálculo local"
+    ],
+    "reviewed": "2026-09-02",
+    "usage_steps": [
+      {
+        "title": "Elige la magnitud",
+        "text": "Selecciona longitud, masa, volumen, temperatura, velocidad o datos."
+      },
+      {
+        "title": "Introduce el valor",
+        "text": "Elige unidades de origen y destino e introduce la cantidad."
+      },
+      {
+        "title": "Intercambia si lo necesitas",
+        "text": "Invierte origen y destino con un botón y compara el resultado al instante."
+      }
+    ],
+    "hook": "¿Cuánto son realmente esas millas, libras, galones o gigabytes en la unidad que utilizas?",
+    "benefit_heading": "Convierte las unidades habituales sin saltar entre calculadoras",
+    "benefit_copy": "Reúne seis magnitudes en una sola herramienta, diferencia unidades decimales y binarias y permite invertir la conversión sin recargar la página.",
+    "interpretation": [
+      {
+        "title": "Comprueba la magnitud",
+        "text": "Solo pueden convertirse unidades de la misma magnitud; kilómetros y millas sí, kilómetros y kilogramos no."
+      },
+      {
+        "title": "Distingue GB de GiB",
+        "text": "GB usa base 1.000 y GiB base 1.024. Esa diferencia explica muchas discrepancias de almacenamiento."
+      },
+      {
+        "title": "Temperatura no usa un simple factor",
+        "text": "Celsius, Fahrenheit y Kelvin requieren una transformación con suma o resta además del factor."
+      }
+    ],
+    "result_heading": "Valor convertido y factor aplicado"
   }
 ]
