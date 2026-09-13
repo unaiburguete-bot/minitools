@@ -522,5 +522,251 @@
         ]
       }
     ]
+  },
+  {
+    "id": "metricas-tiktok",
+    "path": "/es/guias/metricas-tiktok-engagement-rpm-ingresos/",
+    "title": "Métricas de TikTok: cómo relacionar engagement, RPM e ingresos sin mezclar conceptos",
+    "description": "Guía práctica para interpretar engagement, visualizaciones cualificadas, RPM e ingresos de TikTok usando periodos comparables y escenarios explícitos.",
+    "eyebrow": "Analítica de TikTok",
+    "reviewed": "2026-09-13",
+    "tool_ids": [
+      "tiktok-engagement",
+      "tiktok-income",
+      "tiktok-rpm"
+    ],
+    "sources": [
+      [
+        "TikTok Creator Academy",
+        "https://www.tiktok.com/creator-academy/"
+      ],
+      [
+        "TikTok Support",
+        "https://support.tiktok.com/"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Engagement e ingresos responden a preguntas diferentes",
+        "paragraphs": [
+          "El engagement describe la respuesta de la audiencia ante el contenido; el RPM relaciona ingresos y visualizaciones elegibles. Una pieza puede generar mucha interacción y, aun así, aportar pocos ingresos si las vistas no son monetizables o el RPM del periodo es bajo.",
+          "Para analizar una cuenta conviene mantener las métricas separadas y conectarlas solo después, usando el mismo intervalo temporal."
+        ],
+        "bullets": [
+          "Engagement: interacción respecto a una base elegida.",
+          "RPM: ingresos por cada 1.000 visualizaciones elegibles.",
+          "Ingresos estimados: visualizaciones × RPM ÷ 1.000."
+        ]
+      },
+      {
+        "heading": "No mezcles visualizaciones totales y cualificadas",
+        "paragraphs": [
+          "Los programas de monetización pueden utilizar definiciones específicas de visualización elegible. Si calculas un RPM con un tipo de vista y proyectas ingresos con otro, el resultado deja de ser comparable.",
+          "Guarda siempre el nombre de la métrica y el periodo junto al escenario."
+        ]
+      },
+      {
+        "heading": "Usa rangos en vez de una cifra única",
+        "paragraphs": [
+          "Un RPM observado en un mes no es una tarifa garantizada para el siguiente. País de la audiencia, estacionalidad, formato y elegibilidad pueden cambiar.",
+          "Por eso Clicivo separa un escenario bajo, uno central y uno alto cuando la herramienta lo permite."
+        ]
+      },
+      {
+        "heading": "Cómo detectar si el crecimiento monetiza mejor",
+        "paragraphs": [
+          "Compara tres columnas por periodo: vistas, engagement e ingreso. Si las vistas suben pero el ingreso no acompaña, revisa el RPM y la proporción de vistas cualificadas. Si el engagement cae, puede estar cambiando el tipo de alcance.",
+          "La lectura útil está en la evolución conjunta, no en perseguir una sola métrica."
+        ]
+      },
+      {
+        "heading": "Errores frecuentes",
+        "paragraphs": [
+          "Evita extrapolar un vídeo viral a todo el canal, mezclar periodos, usar tarifas publicadas por terceros como si fueran universales o presentar una proyección como ingreso garantizado."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "texto-instagram",
+    "path": "/es/guias/texto-instagram-negritas-espacios-limites/",
+    "title": "Texto para Instagram: negritas, espacios y límites sin perder legibilidad",
+    "description": "Guía para preparar biografías y captions de Instagram usando variantes Unicode, separaciones y conteo de caracteres con criterios de compatibilidad y accesibilidad.",
+    "eyebrow": "Contenido para Instagram",
+    "reviewed": "2026-09-13",
+    "tool_ids": [
+      "instagram-fonts",
+      "instagram-counter",
+      "instagram-spaces"
+    ],
+    "sources": [
+      [
+        "Instagram Help Center",
+        "https://help.instagram.com/"
+      ],
+      [
+        "Unicode Standard",
+        "https://www.unicode.org/standard/standard.html"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Las “fuentes” de Instagram suelen ser caracteres Unicode",
+        "paragraphs": [
+          "La mayoría de generadores no instalan una tipografía nueva dentro de Instagram. Sustituyen letras por caracteres Unicode visualmente parecidos.",
+          "Esto permite copiar y pegar estilos, pero también implica que la compatibilidad y la lectura pueden variar entre dispositivos y tecnologías de asistencia."
+        ]
+      },
+      {
+        "heading": "Usa el estilo para jerarquía, no para decorar todo",
+        "paragraphs": [
+          "Una palabra destacada puede ayudar a ordenar una biografía o una llamada a la acción. Convertir párrafos completos suele empeorar la legibilidad y puede dificultar la lectura con lectores de pantalla.",
+          "Prueba siempre el resultado final en el dispositivo desde el que vas a publicar."
+        ]
+      },
+      {
+        "heading": "El contador sirve para editar, no solo para caber",
+        "paragraphs": [
+          "Contar caracteres ayuda a detectar cuándo un texto se acerca a un límite, pero la mejora real suele venir de eliminar redundancias.",
+          "Conserva primero el mensaje principal, la llamada a la acción y la información que el usuario necesita para decidir qué hacer después."
+        ]
+      },
+      {
+        "heading": "Los espacios son una decisión de estructura",
+        "paragraphs": [
+          "Separar párrafos puede hacer que un caption largo sea más escaneable. La herramienta de espacios prepara una versión que conserva mejor los saltos cuando la plataforma elimina líneas vacías normales.",
+          "No conviertas cada frase en un bloque independiente: demasiados cortes también rompen el ritmo."
+        ]
+      },
+      {
+        "heading": "Flujo recomendado",
+        "paragraphs": [
+          "Redacta primero en texto normal, recorta con el contador, separa los bloques y aplica estilos Unicode solo al final. Así reduces errores y mantienes una versión base legible."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "salario-coste-laboral",
+    "path": "/es/guias/salario-bruto-neto-coste-empresa/",
+    "title": "Salario bruto, neto y coste empresa: tres cifras que no significan lo mismo",
+    "description": "Guía práctica para entender la relación entre salario bruto, neto, cotizaciones y coste empresarial y evitar comparaciones engañosas entre cifras laborales.",
+    "eyebrow": "Empleo y empresa · España",
+    "reviewed": "2026-09-13",
+    "tool_ids": [
+      "net-salary",
+      "employer-cost",
+      "severance",
+      "vacation-days"
+    ],
+    "sources": [
+      [
+        "Seguridad Social",
+        "https://www.seg-social.es/"
+      ],
+      [
+        "Agencia Tributaria",
+        "https://sede.agenciatributaria.gob.es/"
+      ],
+      [
+        "BOE · Estatuto de los Trabajadores",
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Bruto, neto y coste empresa son capas distintas",
+        "paragraphs": [
+          "El salario bruto es la remuneración antes de determinadas deducciones de la persona trabajadora. El neto aproxima lo que finalmente recibe después de retenciones y cotizaciones. El coste empresa añade cargas y otros costes que soporta la organización.",
+          "Comparar una oferta salarial con un presupuesto empresarial exige identificar primero qué cifra estás utilizando."
+        ]
+      },
+      {
+        "heading": "El neto no se obtiene con un porcentaje universal",
+        "paragraphs": [
+          "IRPF, cotizaciones y otras deducciones dependen del caso. Aplicar una regla fija a cualquier salario puede servir como aproximación rápida, pero no sustituye una nómina ni un cálculo fiscal personalizado.",
+          "Por eso los porcentajes de la calculadora son editables y deben contrastarse cuando la decisión sea relevante."
+        ]
+      },
+      {
+        "heading": "El coste empresa no termina en la nómina",
+        "paragraphs": [
+          "Además de cotizaciones empresariales pueden existir bonus, seguros, formación, software, prevención o equipamiento. No todos son obligatorios ni se imputan igual, pero conviene separarlos del salario para presupuestar."
+        ]
+      },
+      {
+        "heading": "Cómo conectar estas cifras con finiquito y vacaciones",
+        "paragraphs": [
+          "Al terminar una relación laboral aparecen conceptos distintos: salario pendiente, vacaciones devengadas, pagas extra y, cuando proceda, indemnización. La base salarial relevante puede no coincidir exactamente con una cifra mensual simplificada.",
+          "Utiliza cada herramienta como comprobación separada y revisa después la documentación aplicable."
+        ]
+      },
+      {
+        "heading": "Qué guardar para comparar escenarios",
+        "paragraphs": [
+          "Conserva fecha, salario bruto anual, número de pagas, porcentajes utilizados y cualquier coste adicional. Sin esos supuestos, dos resultados parecidos pueden estar calculados con criterios diferentes."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rentabilidad-negocio",
+    "path": "/es/guias/margen-punto-equilibrio-roas-cac/",
+    "title": "Margen, punto de equilibrio, ROAS y CAC: cómo conectar las métricas de un negocio",
+    "description": "Guía para relacionar margen de beneficio, punto de equilibrio, ROAS, CAC y rentabilidad por cliente sin analizar cada indicador de forma aislada.",
+    "eyebrow": "Métricas de negocio",
+    "reviewed": "2026-09-13",
+    "tool_ids": [
+      "profit-margin",
+      "break-even",
+      "marketing-roas-cac",
+      "customer-profitability",
+      "freelance-rate"
+    ],
+    "sources": [
+      [
+        "Google Ads Help · ROAS",
+        "https://support.google.com/google-ads/answer/6268637?hl=es"
+      ],
+      [
+        "Banco de España · educación financiera",
+        "https://clientebancario.bde.es/pcb/es/"
+      ]
+    ],
+    "sections": [
+      {
+        "heading": "Facturar más no garantiza ganar más",
+        "paragraphs": [
+          "El margen muestra qué parte de los ingresos queda después de los costes incluidos en el cálculo. Si no defines bien esos costes, la cifra puede parecer mejor de lo que es.",
+          "Antes de comparar meses, documenta qué partidas forman parte del margen y mantén el criterio."
+        ]
+      },
+      {
+        "heading": "El punto de equilibrio convierte costes en un objetivo de ventas",
+        "paragraphs": [
+          "Separar costes fijos y margen de contribución permite estimar cuántas unidades o cuántos ingresos hacen falta para cubrir la estructura.",
+          "Es una referencia operativa: no garantiza demanda ni contempla todos los cambios de precio, costes o capacidad."
+        ]
+      },
+      {
+        "heading": "ROAS y CAC deben leerse junto al margen",
+        "paragraphs": [
+          "Un ROAS alto puede seguir siendo insuficiente si el margen bruto es bajo, hay devoluciones o existen costes importantes fuera de la campaña. Del mismo modo, un CAC aceptable depende del valor que genera cada cliente.",
+          "La publicidad se interpreta mejor cuando conectas adquisición con rentabilidad, no solo con facturación atribuida."
+        ]
+      },
+      {
+        "heading": "Rentabilidad por cliente y tarifa mínima",
+        "paragraphs": [
+          "Para servicios profesionales, conocer coste, horas facturables y margen objetivo ayuda a calcular una tarifa sostenible. Para negocios recurrentes, conviene comparar CAC con la contribución económica del cliente durante un periodo definido."
+        ]
+      },
+      {
+        "heading": "Un cuadro de mando mínimo",
+        "paragraphs": [
+          "Una revisión mensual sencilla puede incluir ingresos, margen, costes fijos, punto de equilibrio, inversión publicitaria, clientes nuevos y beneficio por cliente. Cambia una variable cada vez cuando simules escenarios para entender la causa de cada diferencia."
+        ]
+      }
+    ]
   }
 ]

@@ -1,22 +1,13 @@
-CLICIVO · SEPTIEMBRE DEFINITIVO 10/10 · 2 SEPTIEMBRE 2026
+VERSIÓN RECOMENDADA PARA RECUPERACIÓN SEO + ADSENSE
+Fecha: 13/09/2026
+Versión: 2026.09.13-recovery
 
-Esta carpeta sustituye a todas las entregas anteriores.
+Sube el contenido COMPLETO de esta carpeta al repositorio que publica clicivo.com.
+No mezcles archivos de la versión del 02/09 con esta versión.
 
-1. Descarga una copia de seguridad del repositorio actual desde GitHub > Code > Download ZIP.
-2. Descomprime este paquete.
-3. En GitHub Desktop: Repository > Show in Explorer.
-4. Dentro de la carpeta local `minitools`, elimina los archivos y carpetas visibles. NO borres la carpeta oculta `.git`.
-5. Copia TODO el contenido interior de esta carpeta y pégalo dentro de `minitools`.
-6. Comprueba que existe `.github/workflows/deploy.yml` y que NO existe `compiler.yml`.
-7. En GitHub Desktop escribe como Summary:
-   Clicivo: septiembre definitivo 10/10 2026
-8. Pulsa Commit to main.
-9. Pulsa Push origin.
-10. En GitHub > Actions espera a que `Build and deploy Clicivo` termine en verde.
-11. Abre clicivo.com y fuerza recarga con Ctrl+F5.
-12. Comprueba `/sitemap.xml`, `/robots.txt` y `/ads.txt`. El sitemap debe rondar 112 URL.
-13. Prueba portada, una herramienta ganadora, el conversor de unidades y las tres suites.
-14. Desde un móvil real prueba una calculadora, una tabla, una descarga y la suite PDF/Imágenes.
-15. En GA4 Tiempo real o DebugView verifica `tool_start`, `tool_complete`, `suite_view` y `suite_complete`; prueba también una descarga para confirmar el evento correspondiente.
-16. No solicites indexación de todas las URL. El sitemap comunica los cambios. Si quieres, inspecciona únicamente alguna URL totalmente nueva.
-17. No vuelvas a solicitar AdSense automáticamente. Primero deja acumular datos limpios y realiza la revisión final de valor/calidad antes del nuevo envío.
+Después del despliegue:
+1) Comprueba https://clicivo.com/sitemap.xml
+2) Envía el sitemap una sola vez en Search Console.
+3) Solicita indexación solo de las URLs prioritarias indicadas en RECUPERACION_SEO_ADSENSE_2026-09-13.md.
+4) No publiques nuevas herramientas durante 2-3 semanas.
+5) No vuelvas a solicitar AdSense hasta que esta versión esté estable y rastreada.

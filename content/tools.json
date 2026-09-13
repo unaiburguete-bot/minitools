@@ -160,7 +160,7 @@
       "Peso de guardados y compartidos",
       "Contexto del tamaño de muestra"
     ],
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-09-13",
     "usage_steps": [
       {
         "title": "Selecciona una muestra coherente",
@@ -178,7 +178,21 @@
     "hook": "¿Tu comunidad interactúa o el número de seguidores está ocultando el rendimiento real?",
     "benefit_heading": "Compara cuentas y campañas con una tasa consistente",
     "benefit_copy": "Agrupa las interacciones que realmente te importan, calcula la tasa por seguidores y separa guardados y compartidos para interpretar mejor la calidad de respuesta.",
-    "result_heading": "Tasa de engagement y calidad de interacción"
+    "result_heading": "Tasa de engagement y calidad de interacción",
+    "interpretation": [
+      {
+        "title": "Usa siempre la misma muestra",
+        "text": "Compara publicaciones del mismo tipo y periodos equivalentes. Una campaña pagada, un sorteo o un contenido viral pueden distorsionar una media normal."
+      },
+      {
+        "title": "Separa volumen y calidad",
+        "text": "La tasa resume cuántas interacciones recibe una cuenta respecto a sus seguidores, pero conviene mirar también qué parte son guardados y compartidos."
+      },
+      {
+        "title": "Contrasta con alcance cuando puedas",
+        "text": "El denominador de seguidores sirve para comparar cuentas; para analizar una publicación concreta, el alcance suele aportar un contexto más directo."
+      }
+    ]
   },
   {
     "id": "instagram-engagement-reach",
@@ -282,11 +296,45 @@
       "Usa estilos especiales con moderación: algunos lectores de pantalla pueden pronunciarlos de forma distinta."
     ],
     "seo_title": "Letras en negrita para Instagram: copiar y pegar",
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-13",
+    "features": [
+      "Conversión instantánea de texto",
+      "Variantes Unicode listas para copiar",
+      "Vista previa antes de publicar",
+      "Sin acceso a tu cuenta de Instagram"
+    ],
     "hook": "Una palabra bien destacada puede cambiar dónde se detiene la mirada.",
     "benefit_heading": "Haz que las palabras clave destaquen al instante",
-    "benefit_copy": "Prueba varios estilos, copia el que mejor encaje y mejora la jerarquía visual de tu texto sin instalar nada."
+    "benefit_copy": "Prueba varios estilos, copia el que mejor encaje y mejora la jerarquía visual de tu texto sin instalar nada.",
+    "usage_steps": [
+      {
+        "title": "Escribe el texto original",
+        "text": "Introduce una frase corta y legible; las variantes se generan sin conectar tu cuenta ni pedir credenciales."
+      },
+      {
+        "title": "Prueba varias alternativas",
+        "text": "No todos los caracteres Unicode se muestran igual en todos los dispositivos, por lo que conviene revisar la vista previa."
+      },
+      {
+        "title": "Copia solo lo que necesites",
+        "text": "Usa estas variantes para destacar palabras concretas y evita convertir párrafos completos si perjudica la lectura."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "No es una tipografía instalada en Instagram",
+        "text": "La herramienta transforma letras en caracteres Unicode parecidos visualmente a negritas, cursivas u otros estilos."
+      },
+      {
+        "title": "La compatibilidad puede variar",
+        "text": "Algunas variantes pueden verse de forma distinta según sistema operativo, navegador o lector de pantalla."
+      },
+      {
+        "title": "Prioriza accesibilidad",
+        "text": "Para nombres, biografías y llamadas a la acción suele funcionar mejor usar el efecto con moderación y mantener la mayor parte del texto en caracteres normales."
+      }
+    ],
+    "result_heading": "Variantes listas para copiar"
   },
   {
     "id": "instagram-counter",
@@ -334,11 +382,41 @@
     "new": true,
     "accent": "pink",
     "notes": [],
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-13",
+    "features": [
+      "Conteo de caracteres en tiempo real",
+      "Límites de referencia configurables",
+      "Aviso de caracteres restantes",
+      "Procesamiento local del texto"
+    ],
     "hook": "Un gran copy pierde fuerza cuando se corta en el lugar equivocado.",
     "benefit_heading": "Publica con el texto bajo control",
-    "benefit_copy": "Comprueba cuánto espacio te queda y ajusta el mensaje antes de llegar al límite o perder información importante."
+    "benefit_copy": "Comprueba cuánto espacio te queda y ajusta el mensaje antes de llegar al límite o perder información importante.",
+    "usage_steps": [
+      {
+        "title": "Pega el texto completo",
+        "text": "Incluye espacios, saltos de línea y emojis si forman parte de la versión que vas a publicar."
+      },
+      {
+        "title": "Elige una referencia",
+        "text": "Usa un límite predefinido o introduce uno propio si trabajas con una pauta editorial concreta."
+      },
+      {
+        "title": "Recorta por claridad, no solo por número",
+        "text": "Si superas el límite, elimina repeticiones y conserva primero la información esencial y la llamada a la acción."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "Un carácter no siempre equivale a una letra",
+        "text": "Espacios, signos y algunos símbolos cuentan como caracteres. Los emojis pueden representarse internamente de forma distinta según el sistema."
+      },
+      {
+        "title": "Los límites de plataformas pueden cambiar",
+        "text": "Clicivo utiliza referencias prácticas, pero conviene comprobar las restricciones actuales dentro de la propia plataforma antes de publicar."
+      }
+    ],
+    "result_heading": "Longitud y margen disponible"
   },
   {
     "id": "instagram-spaces",
@@ -386,11 +464,41 @@
     "new": true,
     "accent": "pink",
     "notes": [],
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-13",
+    "features": [
+      "Mantiene separaciones entre párrafos",
+      "Texto preparado para copiar",
+      "Procesamiento local",
+      "Útil para biografías y captions"
+    ],
     "hook": "Un texto más respirable se lee mejor y retiene más.",
     "benefit_heading": "Convierte bloques densos en publicaciones escaneables",
-    "benefit_copy": "Separa ideas, crea ritmo visual y deja tu copy listo para pegar sin editarlo otra vez dentro de Instagram."
+    "benefit_copy": "Separa ideas, crea ritmo visual y deja tu copy listo para pegar sin editarlo otra vez dentro de Instagram.",
+    "usage_steps": [
+      {
+        "title": "Redacta por bloques",
+        "text": "Separa ideas, llamadas a la acción y hashtags antes de aplicar el formato."
+      },
+      {
+        "title": "Genera la versión preparada",
+        "text": "La herramienta conserva las separaciones con caracteres compatibles para que puedas copiar el resultado."
+      },
+      {
+        "title": "Haz una prueba antes de publicar",
+        "text": "Pega primero en un borrador de Instagram para confirmar que el espaciado se mantiene en tu dispositivo."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "El espaciado depende de caracteres invisibles",
+        "text": "Algunas plataformas eliminan líneas vacías normales; por eso se utilizan separadores compatibles para conservar la estructura."
+      },
+      {
+        "title": "Menos bloques suelen leerse mejor",
+        "text": "El objetivo es mejorar la jerarquía visual. Demasiadas líneas vacías pueden hacer que el texto resulte más difícil de escanear."
+      }
+    ],
+    "result_heading": "Texto preparado con separaciones"
   },
   {
     "id": "tiktok-engagement",
@@ -438,11 +546,41 @@
     "new": true,
     "accent": "black",
     "notes": [],
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-13",
+    "features": [
+      "Cálculo por visualizaciones o seguidores",
+      "Suma de likes, comentarios, compartidos y guardados",
+      "Resultado porcentual comparable",
+      "Sin conexión a TikTok"
+    ],
     "hook": "Las visualizaciones impresionan; la interacción revela el impacto real.",
     "benefit_heading": "Separa la viralidad puntual del contenido que conecta",
-    "benefit_copy": "Mide todas las interacciones relevantes en una sola tasa y detecta qué vídeos merecen repetirse o escalarse."
+    "benefit_copy": "Mide todas las interacciones relevantes en una sola tasa y detecta qué vídeos merecen repetirse o escalarse.",
+    "usage_steps": [
+      {
+        "title": "Decide qué quieres medir",
+        "text": "Usa visualizaciones para analizar el rendimiento de una pieza o seguidores para comparar el nivel de interacción respecto al tamaño de la cuenta."
+      },
+      {
+        "title": "Introduce métricas del mismo vídeo o periodo",
+        "text": "No mezcles interacciones de varias piezas con visualizaciones de una sola publicación."
+      },
+      {
+        "title": "Compara con el mismo criterio",
+        "text": "Si monitorizas una serie de vídeos, mantén la misma base para que la evolución tenga sentido."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "La tasa no mide por sí sola la calidad",
+        "text": "Dos vídeos pueden tener el mismo porcentaje con combinaciones muy distintas de comentarios, compartidos o guardados."
+      },
+      {
+        "title": "El denominador cambia la lectura",
+        "text": "Una tasa sobre visualizaciones describe la respuesta entre quienes vieron el vídeo; sobre seguidores sirve mejor para contextualizar la cuenta."
+      }
+    ],
+    "result_heading": "Tasa de interacción y desglose"
   },
   {
     "id": "tiktok-income",
@@ -1245,7 +1383,7 @@
     "accent": "green",
     "notes": [],
     "seo_title": "Calculadora hipoteca | Cuota mensual e intereses",
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-09-13",
     "features": [
       "Cuota mensual",
       "Tabla completa de amortización",
@@ -1269,7 +1407,21 @@
         "text": "TAE, seguros, comisiones y bonificaciones pueden cambiar la comparación final."
       }
     ],
-    "result_heading": "Cuota, amortización y comparación de plazos"
+    "result_heading": "Cuota, amortización y comparación de plazos",
+    "usage_steps": [
+      {
+        "title": "Usa el capital realmente financiado",
+        "text": "Introduce el importe del préstamo, no el precio de la vivienda, salvo que ambas cifras coincidan."
+      },
+      {
+        "title": "Distingue tipo y plazo",
+        "text": "Pequeños cambios en interés o años pueden alterar mucho el coste total; compáralos por separado."
+      },
+      {
+        "title": "Añade gastos fuera de la cuota",
+        "text": "La simulación de cuota no sustituye el coste completo de la operación ni incorpora automáticamente seguros, comisiones o impuestos."
+      }
+    ]
   },
   {
     "id": "personal-loan",
@@ -1404,11 +1556,41 @@
     "new": true,
     "accent": "green",
     "notes": [],
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-13",
+    "features": [
+      "Objetivo de ahorro configurable",
+      "Aportación mensual necesaria",
+      "Comparación de plazo y aportación",
+      "Escenarios editables"
+    ],
     "hook": "Una meta deja de ser abstracta cuando sabes cuánto exige cada mes.",
     "benefit_heading": "Convierte tu objetivo en una cifra mensual accionable",
-    "benefit_copy": "Ajusta tiempo, capital y rentabilidad para encontrar un plan que encaje con tu capacidad real de ahorro."
+    "benefit_copy": "Ajusta tiempo, capital y rentabilidad para encontrar un plan que encaje con tu capacidad real de ahorro.",
+    "usage_steps": [
+      {
+        "title": "Define un objetivo concreto",
+        "text": "Introduce la cantidad que quieres acumular y el plazo disponible para conseguirla."
+      },
+      {
+        "title": "Añade ahorro inicial si ya existe",
+        "text": "Separar lo que ya tienes de las nuevas aportaciones evita sobredimensionar el esfuerzo mensual."
+      },
+      {
+        "title": "Prueba plazos alternativos",
+        "text": "Comparar 12, 24 o 36 meses ayuda a visualizar cuánto cambia la aportación necesaria."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "El plazo suele ser la variable más flexible",
+        "text": "Si la aportación mensual es demasiado alta, ampliar el horizonte puede convertir el objetivo en uno más realista."
+      },
+      {
+        "title": "No confundas ahorro con rentabilidad",
+        "text": "Una meta de ahorro basada en aportaciones no necesita asumir ganancias futuras. Si incluyes rendimiento, trátalo como un escenario separado."
+      }
+    ],
+    "result_heading": "Aportación mensual necesaria"
   },
   {
     "id": "index-funds",
@@ -1457,11 +1639,45 @@
     "accent": "green",
     "notes": [],
     "seo_title": "Simulador de fondos indexados y comisiones",
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-13",
+    "features": [
+      "Aportación inicial y periódica",
+      "Rentabilidad y comisiones editables",
+      "Efecto de inflación opcional",
+      "Proyección por años"
+    ],
     "hook": "Las comisiones pequeñas también se acumulan durante décadas.",
     "benefit_heading": "Compara crecimiento bruto, costes y poder adquisitivo",
-    "benefit_copy": "Descubre cuánto aportas, cuánto podría generar la inversión y cómo cambian los resultados al ajustar comisiones o plazo."
+    "benefit_copy": "Descubre cuánto aportas, cuánto podría generar la inversión y cómo cambian los resultados al ajustar comisiones o plazo.",
+    "usage_steps": [
+      {
+        "title": "Introduce aportaciones realistas",
+        "text": "Separa capital inicial de aportación periódica y utiliza un horizonte coherente con tu objetivo."
+      },
+      {
+        "title": "Usa varios escenarios de rentabilidad",
+        "text": "Ninguna rentabilidad futura está garantizada. Compara hipótesis prudente, central y alta en lugar de depender de una sola cifra."
+      },
+      {
+        "title": "No ignores costes e inflación",
+        "text": "Comisiones pequeñas y pérdida de poder adquisitivo pueden acumularse durante años y cambiar la interpretación del resultado nominal."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "La proyección no predice el mercado",
+        "text": "El resultado aplica una hipótesis matemática constante; los mercados reales suben y bajan y no siguen una trayectoria uniforme."
+      },
+      {
+        "title": "El tiempo amplifica aportaciones y costes",
+        "text": "A horizontes largos, el interés compuesto aumenta el efecto de la rentabilidad, pero también hace más visibles diferencias de comisiones."
+      },
+      {
+        "title": "Compara cifras nominales y reales",
+        "text": "Si ajustas por inflación podrás separar crecimiento monetario de poder adquisitivo estimado."
+      }
+    ],
+    "result_heading": "Proyección de capital por escenarios"
   },
   {
     "id": "mortgage-prepayment",
@@ -1509,11 +1725,45 @@
     "new": true,
     "accent": "green",
     "notes": [],
-    "reviewed": "2026-08-02",
-    "features": [],
+    "reviewed": "2026-09-13",
+    "features": [
+      "Compara reducir cuota o plazo",
+      "Estima intereses evitados",
+      "Escenario antes y después de amortizar",
+      "Variables editables"
+    ],
     "hook": "Amortizar antes no siempre produce el mismo ahorro.",
     "benefit_heading": "Descubre dónde aprovechas mejor una amortización",
-    "benefit_copy": "Introduce capital pendiente, tipo y plazo para visualizar el ahorro potencial antes de hablar con tu entidad."
+    "benefit_copy": "Introduce capital pendiente, tipo y plazo para visualizar el ahorro potencial antes de hablar con tu entidad.",
+    "usage_steps": [
+      {
+        "title": "Introduce el saldo pendiente",
+        "text": "Usa el capital que queda por devolver, el tipo y el plazo restante de tu hipoteca actual."
+      },
+      {
+        "title": "Añade la amortización extraordinaria",
+        "text": "Compara una cantidad concreta y revisa por separado la opción de reducir cuota y la de reducir plazo."
+      },
+      {
+        "title": "Incluye posibles comisiones",
+        "text": "Si tu contrato aplica comisión por amortización anticipada, añádela al análisis económico antes de decidir."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "Reducir plazo suele atacar más intereses",
+        "text": "Mantener una cuota similar y acortar meses suele reducir durante más tiempo el capital expuesto a intereses, aunque el resultado depende de cada préstamo."
+      },
+      {
+        "title": "Reducir cuota mejora liquidez",
+        "text": "Bajar la mensualidad puede ser preferible si tu prioridad es liberar presupuesto, incluso cuando el ahorro total de intereses sea menor."
+      },
+      {
+        "title": "Compara ahorro con usos alternativos",
+        "text": "Amortizar deuda tiene un coste de oportunidad. La calculadora permite cuantificar el efecto hipotecario, no decidir por ti entre ahorro, inversión y liquidez."
+      }
+    ],
+    "result_heading": "Ahorro estimado y nuevo escenario"
   },
   {
     "id": "freelance-rate",
@@ -1613,7 +1863,7 @@
     "new": false,
     "accent": "orange",
     "notes": [],
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-09-13",
     "features": [
       "Margen y markup",
       "Beneficio unitario y total",
@@ -1637,6 +1887,20 @@
       {
         "title": "Usa el mismo criterio fiscal",
         "text": "Compara coste y precio ambos con IVA o ambos sin IVA para evitar márgenes ficticios."
+      }
+    ],
+    "usage_steps": [
+      {
+        "title": "Usa ingresos y costes del mismo periodo",
+        "text": "No mezcles ventas mensuales con costes anuales. La comparación solo es válida si todas las cifras cubren el mismo intervalo."
+      },
+      {
+        "title": "Separa coste variable y otros gastos",
+        "text": "El margen sobre ventas no explica por sí solo la rentabilidad final; identifica qué gastos están incluidos en el cálculo."
+      },
+      {
+        "title": "Simula un cambio cada vez",
+        "text": "Prueba precio, coste o volumen por separado para entender qué variable mueve realmente el margen."
       }
     ]
   },
@@ -1756,10 +2020,35 @@
       "Topes orientativos",
       "Desglose de antigüedad y salario diario"
     ],
-    "reviewed": "2026-08-02",
+    "reviewed": "2026-09-13",
     "hook": "La indemnización y el finiquito no son la misma cantidad.",
     "benefit_heading": "Obtén un desglose comprensible antes de revisar la documentación",
-    "benefit_copy": "Visualiza días indemnizatorios, antigüedad y cuantía estimada sin confundirla con salarios o vacaciones pendientes."
+    "benefit_copy": "Visualiza días indemnizatorios, antigüedad y cuantía estimada sin confundirla con salarios o vacaciones pendientes.",
+    "usage_steps": [
+      {
+        "title": "Identifica la causa y antigüedad",
+        "text": "La indemnización depende del supuesto legal aplicable y del tiempo trabajado; no uses una modalidad distinta solo porque produzca una cifra concreta."
+      },
+      {
+        "title": "Introduce el salario regulador con cuidado",
+        "text": "Revisa qué conceptos salariales deben incluirse en tu caso antes de trasladar la cifra a la calculadora."
+      },
+      {
+        "title": "Contrasta el resultado",
+        "text": "Topes, periodos transitorios y circunstancias contractuales pueden modificar el cálculo; utiliza la estimación como comprobación inicial."
+      }
+    ],
+    "interpretation": [
+      {
+        "title": "Indemnización y finiquito son conceptos distintos",
+        "text": "La indemnización responde a determinadas causas de extinción; el finiquito liquida cantidades pendientes como salario, vacaciones o pagas extra."
+      },
+      {
+        "title": "La antigüedad afecta de forma directa",
+        "text": "Un error en fechas de alta o extinción puede cambiar el número de días indemnizables y, por tanto, el resultado."
+      }
+    ],
+    "result_heading": "Indemnización estimada y variables usadas"
   },
   {
     "id": "severance",
@@ -1923,11 +2212,25 @@
       "IRPF y cotización editables",
       "Desglose anual y por paga"
     ],
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-09-13",
     "hook": "¿Quieres pasar de bruto a neto o saber qué bruto necesitarías para cobrar una cantidad concreta?",
     "benefit_heading": "Calcula en los dos sentidos sin rehacer las cuentas",
     "benefit_copy": "Trabaja bruto → neto o neto → bruto, ajusta IRPF y cotización, compara 12 y 14 pagas y revisa el tipo efectivo total de deducciones.",
-    "result_heading": "Bruto, neto y deducciones del escenario"
+    "result_heading": "Bruto, neto y deducciones del escenario",
+    "usage_steps": [
+      {
+        "title": "Elige la dirección del cálculo",
+        "text": "Puedes partir del salario bruto para estimar el neto o, si la herramienta lo permite, aproximar el bruto a partir de un neto objetivo."
+      },
+      {
+        "title": "Introduce porcentajes coherentes",
+        "text": "IRPF, cotizaciones y otras deducciones deben corresponder al mismo escenario y son editables para reflejar mejor tu caso."
+      },
+      {
+        "title": "Contrasta con una nómina real",
+        "text": "La cifra es una simulación. Convenio, situación personal, bases y regularizaciones pueden cambiar el resultado final."
+      }
+    ]
   },
   {
     "id": "vacation-days",
@@ -1978,7 +2281,7 @@
       "El convenio colectivo o contrato puede mejorar el número de días y establecer reglas propias."
     ],
     "seo_title": "Calculadora días de vacaciones proporcionales | España",
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-09-13",
     "features": [
       "Días generados",
       "Días pendientes",
@@ -2001,6 +2304,20 @@
       {
         "title": "El redondeo puede variar",
         "text": "La empresa o el convenio pueden aplicar reglas de redondeo distintas al cálculo proporcional."
+      }
+    ],
+    "usage_steps": [
+      {
+        "title": "Define el periodo trabajado",
+        "text": "Usa las fechas reales del periodo que quieres analizar y la referencia anual de vacaciones que corresponda a tu relación laboral."
+      },
+      {
+        "title": "Distingue generadas y disfrutadas",
+        "text": "La herramienta permite estimar días devengados y comparar después cuántos se han consumido."
+      },
+      {
+        "title": "Comprueba convenio y criterio de cómputo",
+        "text": "Días naturales, laborables y reglas de redondeo pueden variar, por lo que el resultado debe contrastarse con la documentación aplicable."
       }
     ]
   },
@@ -2052,7 +2369,7 @@
     "notes": [
       "La tasa empresarial es editable y orientativa; no representa una cotización universal."
     ],
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-09-13",
     "features": [
       "Coste anual y mensual",
       "Cotización empresarial editable",
@@ -2076,6 +2393,20 @@
       {
         "title": "Separa costes recurrentes y puntuales",
         "text": "Equipo, formación o bonus pueden alterar el primer año. Introduce solo partidas del mismo periodo."
+      }
+    ],
+    "usage_steps": [
+      {
+        "title": "Parte del bruto anual",
+        "text": "Usa una cifra anual comparable e incluye el número de pagas solo cuando afecte a cómo distribuyes el presupuesto."
+      },
+      {
+        "title": "Ajusta la carga empresarial",
+        "text": "Introduce una tasa de cotización que represente tu escenario y añade bonus u otros costes si forman parte del puesto."
+      },
+      {
+        "title": "Separa nómina y presupuesto total",
+        "text": "El resultado muestra capas distintas para evitar confundir salario bruto con coste total para la empresa."
       }
     ]
   },

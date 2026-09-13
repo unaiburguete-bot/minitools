@@ -15,7 +15,7 @@ GUIDES = json.loads((ROOT / "content" / "guides.json").read_text(encoding="utf-8
 HTML_FILES = sorted(PUBLIC.rglob("index.html"))
 LEGACY_REDIRECT_ROUTES = {
     "/es/herramientas/": "/",
-    "/es/youtube/monetizacion/rpm-youtube/": "/es/youtube/monetizacion/ingresos-youtube/",
+    "/es/youtube/monetizacion/rpm-youtube/": "/es/youtube/monetizacion/calcular-rpm-youtube/",
     "/es/finanzas-personales/": "/es/finanzas/",
     "/es/negocios-y-autonomos/": "/es/negocios/",
     "/politica-cookies/": "/cookies/",
@@ -27,7 +27,13 @@ def route_for_file(path: Path) -> str:
     return "/" if rel.as_posix() == "index.html" else "/" + rel.parent.as_posix().strip("/") + "/"
 
 
-INDEXABLE_HTML_FILES = [path for path in HTML_FILES if route_for_file(path) not in LEGACY_REDIRECT_ROUTES]
+def page_is_indexable(path: Path) -> bool:
+    soup = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
+    robots = soup.select_one('meta[name="robots"]')
+    return not robots or "noindex" not in robots.get("content", "").lower()
+
+
+INDEXABLE_HTML_FILES = [path for path in HTML_FILES if page_is_indexable(path)]
 
 
 def local_target(url: str) -> Path | None:
@@ -254,9 +260,9 @@ def test_result_actions_and_quality_signals_present():
             assert "jspdf" in str(soup).lower(), tool["id"]
         else:
             assert soup.select_one(".js-print-result"), tool["id"]
-        assert soup.select_one(".quality-card")
+        assert soup.select_one(".editorial-note")
         assert soup.select_one(".hero-outcome-card")
-        assert soup.select_one(".benefit-ribbon")
+        assert not soup.select_one(".benefit-ribbon")
         assert "Última revisión" in soup.get_text(" ", strip=True)
 
 
@@ -325,7 +331,7 @@ def test_september_complete_routes_exist():
 
 
 def test_editorial_guides_exist_and_are_substantial():
-    assert len(GUIDES) == 8
+    assert len(GUIDES) >= 12
     assert (PUBLIC / "es" / "guias" / "index.html").exists()
     for guide in GUIDES:
         path=PUBLIC / guide["path"].strip("/") / "index.html"
@@ -359,11 +365,9 @@ def test_retention_and_measurement_javascript_present():
         assert f"case '{tool_id}'" in js
 
 
-def test_affiliate_is_contextual_not_sitewide():
+def test_affiliate_is_disabled_during_recovery():
     affiliate_tools={t["id"] for t in TOOLS if "affiliate-card" in (PUBLIC / t["path"].strip("/") / "index.html").read_text(encoding="utf-8")}
-    assert affiliate_tools
-    assert affiliate_tools <= {"instagram-growth","instagram-engagement-followers","instagram-engagement-reach","tiktok-engagement","tiktok-income","tiktok-rpm","youtube-rpm-revenue","youtube-cpm","youtube-shorts-income","youtube-income"}
-    assert "image-resize" not in affiliate_tools
+    assert not affiliate_tools
 
 
 def test_homepage_exact_five_priority_quick_links_and_no_fake_dashboard():
@@ -418,16 +422,15 @@ def test_integrated_suites_exist_and_are_functional_products():
         assert token in suite_js
 
 
-def test_shorts_guide_and_who_how_why_transparency_present():
+def test_shorts_guide_and_editorial_transparency_present():
     assert any(g["id"]=="ingresos-youtube-shorts" for g in GUIDES)
     guide=PUBLIC/"es/guias/ingresos-youtube-shorts/index.html"
     assert guide.exists()
     for tool in TOOLS:
         soup=BeautifulSoup((PUBLIC/tool["path"].strip("/")/"index.html").read_text(encoding="utf-8"),"html.parser")
-        block=soup.select_one(".editorial-responsibility")
-        assert block, tool["id"]
-        text=block.get_text(" ",strip=True)
-        assert "Quién" in text and "Cómo" in text and "Por qué" in text
+        note=soup.select_one(".editorial-note")
+        assert note, tool["id"]
+        assert note.select_one('a[href="/metodologia/"]'), tool["id"]
 
 
 def test_mobile_390_430_css_and_horizontal_table_protection():
@@ -445,3 +448,46 @@ def test_unit_converter_has_distinct_intent_and_dynamic_units():
     assert "case 'unit-converter'" in js
     assert "UNIT_GROUPS" in js
     assert "js-swap-units" in (PUBLIC/tool["path"].strip("/")/"index.html").read_text(encoding="utf-8")
+
+
+def test_recovery_thin_collections_are_not_search_inventory():
+    # One-tool subcategories redirect to the useful tool; two-tool navigation pages are noindex.
+    for path in HTML_FILES:
+        route=route_for_file(path)
+        soup=BeautifulSoup(path.read_text(encoding="utf-8"),"html.parser")
+        if route in {"/es/empleo/vacaciones/","/es/empleo/salarios/","/es/imagenes/redimensionar/"}:
+            robots=soup.select_one('meta[name="robots"]')
+            assert robots and "noindex" in robots.get("content","")
+    tree=ET.parse(PUBLIC/"sitemap.xml")
+    ns={"s":"http://www.sitemaps.org/schemas/sitemap/0.9"}
+    locs={node.text for node in tree.findall("s:url/s:loc",ns)}
+    assert "https://clicivo.com/es/empleo/vacaciones/" not in locs
+    assert "https://clicivo.com/es/imagenes/redimensionar/" not in locs
+
+
+def test_recovery_adsense_code_only_on_publisher_content():
+    routes_with_ads=[]
+    for path in HTML_FILES:
+        text=path.read_text(encoding="utf-8")
+        if "adsbygoogle.js" in text:
+            routes_with_ads.append(route_for_file(path))
+    assert "/" in routes_with_ads
+    assert any(route.startswith("/es/guias/") and route != "/es/guias/" for route in routes_with_ads)
+    assert not any(route.startswith("/es/empleo/") and "calculadora" in route for route in routes_with_ads)
+    assert not any(route.startswith("/es/suites/") for route in routes_with_ads)
+    assert not any(route in {"/privacidad/","/cookies/","/contacto/"} for route in routes_with_ads)
+
+
+def test_sitemap_uses_route_specific_lastmod():
+    text=(PUBLIC/"sitemap.xml").read_text(encoding="utf-8")
+    assert "<changefreq>" not in text and "<priority>" not in text
+    assert "2026-09-13" in text
+    assert "2026-08-02" in text
+
+
+def test_recovery_removes_repeated_tool_boilerplate():
+    for tool in TOOLS:
+        text=(PUBLIC/tool["path"].strip("/")/"index.html").read_text(encoding="utf-8")
+        assert "Responsabilidad editorial de esta herramienta" not in text
+        assert "benefit-ribbon" not in text
+        assert "Metodología, fuentes y política de correcciones" in text
