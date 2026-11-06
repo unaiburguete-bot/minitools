@@ -4,14 +4,14 @@ Plataforma estática de herramientas online, suites integradas, guías práctica
 
 ## Versión
 
-`2026.09.02-september-complete-10of10`
+`2026.11.06-ux-seo`
 
 ## Contenido
 
 - 50 herramientas activas.
-- 8 guías editoriales originales.
+- 12 guías editoriales originales.
 - 3 suites integradas: Creadores, Laboral España y PDF/Imágenes.
-- 112 rutas indexables generadas.
+- 92 rutas indexables generadas; se mantienen las 50 URLs de herramientas.
 - Generador estático Python.
 - GitHub Pages mediante GitHub Actions.
 - Procesamiento local en navegador para PDF e imágenes cuando se indica.
@@ -33,3 +33,7 @@ node tests/js_smoke.js
 ```
 
 Consulta `ENTREGA_10_10.md`, `SUBIR_ESTA_VERSION.txt` y `CHECKLIST_PUBLICACION.md` antes de publicar.
+
+## Actualización de noviembre de 2026
+
+Nueva portada orientada a tareas, buscador mejorado, catálogo accesible y ejemplos prácticos en seis herramientas prioritarias. Cambios preparados en una rama de revisión para preservar la versión pública hasta su validación.

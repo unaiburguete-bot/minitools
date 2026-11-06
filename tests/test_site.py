@@ -491,3 +491,40 @@ def test_recovery_removes_repeated_tool_boilerplate():
         assert "Responsabilidad editorial de esta herramienta" not in text
         assert "benefit-ribbon" not in text
         assert "Metodología, fuentes y política de correcciones" in text
+
+
+def test_november_home_catalog_visible_before_secondary_content():
+    soup=BeautifulSoup((PUBLIC/'index.html').read_text(encoding='utf-8'), 'html.parser')
+    sections=soup.select('main > section')
+    catalog=next(i for i,sec in enumerate(sections) if sec.get('id')=='herramientas')
+    suite=next(i for i,sec in enumerate(sections) if 'suite-home-section' in sec.get('class',[]))
+    assert catalog == 1
+    assert catalog < suite
+    assert len(soup.select('.catalog-first [data-tool-card]')) == 50
+    assert soup.select_one('[data-expand-catalog]')
+    assert soup.select_one('[data-catalog-count][aria-live="polite"]')
+    assert soup.select_one('[data-clear-search]')
+
+
+def test_november_quality_changes_without_index_loss():
+    assert len(TOOLS) == 50
+    for tool_id in ('instagram-growth','instagram-engagement-followers','instagram-fonts','youtube-rpm-revenue','youtube-shorts-income','youtube-income'):
+        tool=next(x for x in TOOLS if x['id']==tool_id)
+        soup=BeautifulSoup((PUBLIC/tool['path'].strip('/')/'index.html').read_text(encoding='utf-8'), 'html.parser')
+        assert len(soup.select('.case-study')) == 2
+        assert tool['reviewed'] == '2026-11-06'
+        assert soup.select_one('link[rel="canonical"]')['href'] == 'https://clicivo.com' + tool['path']
+    sitemap=(PUBLIC/'sitemap.xml').read_text(encoding='utf-8')
+    assert sitemap.count('<url>') == 92
+    assert '<lastmod>2026-11-06</lastmod>' in sitemap
+    assert '<lastmod>2026-09-13</lastmod>' in sitemap
+
+
+def test_november_catalog_search_and_cache_busting():
+    js=(PUBLIC/'assets/site.js').read_text(encoding='utf-8')
+    html=(PUBLIC/'index.html').read_text(encoding='utf-8')
+    assert 'input[name="q"]' in js
+    assert "every(token => searchable.includes(token))" in js
+    assert "card.hidden = !show" in js
+    assert 'href="/assets/styles.css?v=20261106"' in html
+    assert 'src="/assets/site.js?v=20261106"' in html

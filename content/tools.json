@@ -62,7 +62,7 @@
       "Proyección a 7, 30 y 90 días",
       "Ritmo necesario para llegar a la meta"
     ],
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-11-06",
     "usage_steps": [
       {
         "title": "Define un periodo comparable",
@@ -95,7 +95,17 @@
         "text": "Campañas, viralidad, estacionalidad y pérdidas de seguidores pueden cambiar el resultado. La proyección solo prolonga el ritmo observado."
       }
     ],
-    "result_heading": "Crecimiento, ritmo y fecha orientativa de objetivo"
+    "result_heading": "Crecimiento, ritmo y fecha orientativa de objetivo",
+    "practical_cases": [
+      {
+        "title": "Compara un perfil pequeño con otro grande",
+        "text": "La cuenta A pasa de 1.000 a 1.200 seguidores en 30 días: +20 %. La cuenta B pasa de 100.000 a 101.000: +1 %. B gana más seguidores, pero A crece proporcionalmente más."
+      },
+      {
+        "title": "Evita interpretar una proyección como promesa",
+        "text": "Una cuenta que gana 150 seguidores netos en 30 días promedia cinco al día. Mantener ese ritmo daría unos 150 al mes, pero no garantiza el crecimiento futuro."
+      }
+    ]
   },
   {
     "id": "instagram-engagement-followers",
@@ -104,7 +114,7 @@
     "short_title": "Engagement por seguidores",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Calcula el engagement de Instagram por seguidores con likes, comentarios, guardados y compartidos y compara publicaciones con un criterio consistente.",
+    "description": "Calcula gratis el engagement de Instagram por seguidores: introduce likes, comentarios, guardados y compartidos y compara tu tasa sin conectar tu cuenta.",
     "formula": "Engagement (%) = (me gusta + comentarios + guardados + compartidos) ÷ seguidores × 100.",
     "example": "Con 1.200 interacciones medias y 40.000 seguidores, el engagement por seguidores es del 3 % y equivale a 30 interacciones por cada 1.000 seguidores.",
     "faqs": [
@@ -153,14 +163,14 @@
     "new": false,
     "accent": "pink",
     "notes": [],
-    "seo_title": "Calculadora engagement Instagram gratis | Por seguidores",
+    "seo_title": "Calculadora de engagement Instagram gratis | Por seguidores",
     "features": [
       "Likes, comentarios, guardados y compartidos",
       "Interacciones por 1.000 seguidores",
       "Peso de guardados y compartidos",
       "Contexto del tamaño de muestra"
     ],
-    "reviewed": "2026-09-13",
+    "reviewed": "2026-11-06",
     "usage_steps": [
       {
         "title": "Selecciona una muestra coherente",
@@ -191,6 +201,16 @@
       {
         "title": "Contrasta con alcance cuando puedas",
         "text": "El denominador de seguidores sirve para comparar cuentas; para analizar una publicación concreta, el alcance suele aportar un contexto más directo."
+      }
+    ],
+    "practical_cases": [
+      {
+        "title": "Calcula una tasa sin usar promedios de terceros",
+        "text": "Si una publicación reúne 600 Me gusta, 60 comentarios, 45 guardados y 45 compartidos con 30.000 seguidores, la interacción por seguidores es 750 / 30.000 × 100 = 2,5 %."
+      },
+      {
+        "title": "Compara la misma base y el mismo periodo",
+        "text": "No compares una tasa por seguidores con otra por alcance: responden a preguntas distintas. Repite la fórmula sobre el mismo conjunto de publicaciones y periodo."
       }
     ]
   },
@@ -253,7 +273,7 @@
     "short_title": "Letras para Instagram",
     "category": "Redes sociales",
     "cluster": "Instagram",
-    "description": "Genera letras en negrita, cursiva y otros estilos Unicode para Instagram, listas para copiar y pegar en biografías y publicaciones.",
+    "description": "Convierte tu texto en letras para Instagram: negrita, cursiva y estilos Unicode para copiar y pegar al instante, gratis y sin registro.",
     "formula": "La herramienta sustituye letras compatibles por caracteres Unicode equivalentes; no aplica formato HTML.",
     "example": "Escribe “Nueva colección” y copia una versión como “𝗡𝘂𝗲𝘃𝗮 𝗰𝗼𝗹𝗲𝗰𝗰𝗶ó𝗻”.",
     "faqs": [
@@ -295,8 +315,8 @@
     "notes": [
       "Usa estilos especiales con moderación: algunos lectores de pantalla pueden pronunciarlos de forma distinta."
     ],
-    "seo_title": "Letras en negrita para Instagram: copiar y pegar",
-    "reviewed": "2026-09-13",
+    "seo_title": "Generador de letras para Instagram gratis | Copiar y pegar",
+    "reviewed": "2026-11-06",
     "features": [
       "Conversión instantánea de texto",
       "Variantes Unicode listas para copiar",
@@ -334,7 +354,17 @@
         "text": "Para nombres, biografías y llamadas a la acción suele funcionar mejor usar el efecto con moderación y mantener la mayor parte del texto en caracteres normales."
       }
     ],
-    "result_heading": "Variantes listas para copiar"
+    "result_heading": "Variantes listas para copiar",
+    "practical_cases": [
+      {
+        "title": "Para una frase corta en la biografía",
+        "text": "Genera una variante de una palabra o llamada a la acción, copia el resultado y comprueba cómo se visualiza en Instagram. Conserva el texto normal cuando la legibilidad sea prioritaria."
+      },
+      {
+        "title": "No confundas letras Unicode con formato real",
+        "text": "Estos estilos son caracteres Unicode, no una opción de negrita de Instagram. Algunos lectores de pantalla, buscadores o dispositivos pueden interpretarlos de forma diferente."
+      }
+    ]
   },
   {
     "id": "instagram-counter",
@@ -841,7 +871,7 @@
       "RPM necesario para una meta",
       "Comparación clara con CPM"
     ],
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-11-06",
     "usage_steps": [
       {
         "title": "Usa datos del mismo periodo",
@@ -874,7 +904,17 @@
         "text": "Si mantienes las vistas, necesitas mejorar el RPM; si mantienes el RPM, necesitas aumentar las visualizaciones. La herramienta muestra ambas palancas."
       }
     ],
-    "result_heading": "Tu RPM real y la proyección con más vistas"
+    "result_heading": "Tu RPM real y la proyección con más vistas",
+    "practical_cases": [
+      {
+        "title": "Calcula el RPM con un periodo coherente",
+        "text": "Con 500 € de ingresos y 100.000 visualizaciones del mismo periodo, el RPM es 500 / 100.000 × 1.000 = 5 €. No mezcles ingresos del mes con vistas de una semana."
+      },
+      {
+        "title": "Distingue vistas de rentabilidad",
+        "text": "Si el RPM pasa de 4 € a 2 € con 100.000 vistas, los ingresos estimados pasan de 400 € a 200 €. Más visitas no siempre significan más ingresos."
+      }
+    ]
   },
   {
     "id": "youtube-cpm",
@@ -1032,7 +1072,7 @@
     "short_title": "Ingresos de Shorts",
     "category": "Redes sociales",
     "cluster": "YouTube",
-    "description": "Estima ingresos de YouTube Shorts con visualizaciones y RPM, compara escenarios y calcula cuántas vistas necesitarías para alcanzar una meta.",
+    "description": "Calcula cuánto podrían generar tus YouTube Shorts con vistas y RPM. Compara tres escenarios y las vistas necesarias para tu meta, gratis y sin registro.",
     "formula": "Ingresos = visualizaciones interesadas ÷ 1.000 × RPM de Shorts. La herramienta compara un RPM bajo, central y alto y calcula las vistas necesarias para una meta.",
     "example": "Con 1.000.000 de visualizaciones interesadas y RPM de 0,04 €, 0,08 € y 0,12 €, los escenarios serían 40 €, 80 € y 120 €.",
     "faqs": [
@@ -1083,7 +1123,7 @@
     "new": false,
     "accent": "red",
     "notes": [],
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-11-06",
     "features": [
       "Tres escenarios de RPM",
       "Meta de ingresos y vistas necesarias",
@@ -1123,7 +1163,17 @@
         "text": "Normalizar por mes facilita comparar temporadas y detectar si el cambio viene del volumen de vistas o del RPM."
       }
     ],
-    "result_heading": "Ingresos de Shorts por escenario y objetivo"
+    "result_heading": "Ingresos de Shorts por escenario y objetivo",
+    "practical_cases": [
+      {
+        "title": "Compara dos escenarios sin prometer una tarifa",
+        "text": "Para 500.000 visualizaciones interesadas, un RPM hipotético de 0,05 € daría 25 € y uno de 0,10 € daría 50 €. Son ejemplos matemáticos, no tarifas garantizadas de YouTube."
+      },
+      {
+        "title": "Usa tu propio RPM siempre que sea posible",
+        "text": "El RPM puede variar según audiencia, elegibilidad, periodo y monetización. Cambia la cifra de referencia por el dato real de YouTube Analytics si está disponible."
+      }
+    ]
   },
   {
     "id": "youtube-income",
@@ -1190,7 +1240,7 @@
       "RPM necesario con las vistas actuales",
       "Proyección mensual y anual"
     ],
-    "reviewed": "2026-09-02",
+    "reviewed": "2026-11-06",
     "usage_steps": [
       {
         "title": "Introduce un periodo real",
@@ -1223,7 +1273,17 @@
         "text": "Puedes llegar aumentando visualizaciones, aumentando RPM o combinando ambas. El resultado muestra cuánto exigiría cada alternativa."
       }
     ],
-    "result_heading": "Ingresos estimados y visualizaciones necesarias"
+    "result_heading": "Ingresos estimados y visualizaciones necesarias",
+    "practical_cases": [
+      {
+        "title": "Haz una estimación con una horquilla",
+        "text": "Con 100.000 vistas y un RPM supuesto de 2–5 €, el cálculo arroja 200–500 €. La horquilla permite comparar supuestos, no predecir un pago exacto."
+      },
+      {
+        "title": "Revisa el formato y los datos de origen",
+        "text": "No equipares automáticamente el RPM de vídeos largos al de Shorts. Usa métricas de periodos comparables y separa los formatos cuando el resultado vaya a utilizarse en una decisión."
+      }
+    ]
   },
   {
     "id": "youtube-views-goal",

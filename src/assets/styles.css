@@ -100,3 +100,89 @@ body{background:
 @media(max-width:430px){.container{width:min(calc(100% - 18px),var(--max))}.site-header .container{width:min(calc(100% - 16px),var(--max))}.hero.saas-home-hero,.suite-hero,.tool-hero{padding-top:28px}.saas-home-hero h1,.suite-hero h1,.saas-hero-copy h1{font-size:clamp(2.05rem,11vw,2.8rem);letter-spacing:-.045em}.home-quick-panel,.app-card,.content-card,.guide-section,.suite-card{border-radius:18px;padding:18px}.quick-tool-list a{grid-template-columns:66px minmax(0,1fr) 18px}.quick-tool-list strong{font-size:.9rem}.fields,.suite-kpi-grid{grid-template-columns:1fr}.suite-form fieldset{margin:18px 0}.suite-action-grid .btn,.suite-page .form-actions .btn{width:100%;min-height:48px}.image-compare{grid-template-columns:1fr}.image-compare img{height:210px}.data-table{min-width:560px}.result-actions{position:relative}.suite-results .result-actions{display:grid;grid-template-columns:1fr}.suite-file-status{align-items:flex-start;flex-direction:column}.suite-image-preview img{height:190px}.responsibility-grid>div{padding:14px}}
 @media(max-width:390px){.container{width:min(calc(100% - 14px),var(--max))}.brand span{font-size:1rem}.menu-button{padding:8px 10px}.home-search,.calculator .form-actions{margin-left:0;margin-right:0}.home-quick-panel,.app-card,.content-card,.guide-section,.suite-card{padding:16px}.hero-proof span{font-size:.75rem}.result-panel .result-hero strong{font-size:clamp(2rem,12vw,2.8rem)}.quick-tool-list a{grid-template-columns:60px minmax(0,1fr) 16px;padding:10px 8px}.quick-tool-list span{font-size:.68rem}.suite-card{min-height:0}}
 @media print{.suite-page .site-header,.suite-page .suite-form,.suite-page .result-actions,.suite-page .tool-grid,.suite-page .site-footer{display:none!important}.suite-workspace{display:block}.suite-results{position:static;background:#fff!important;color:#111!important;border:0;box-shadow:none}.suite-results *{color:#111!important}.suite-kpi{border:1px solid #ddd;background:#fff}.suite-table-wrap{max-height:none;overflow:visible}}
+
+
+/* Clicivo · rediseño UX noviembre 2026 */
+[hidden]{display:none!important}
+:root{--ink:#111a30;--muted:#506075;--bg:#f7f9fd;--line:#dfe6f1;--shadow:0 22px 60px rgba(17,34,74,.085)}
+:focus-visible{outline:3px solid #5a90fa;outline-offset:3px}
+.site-header{box-shadow:0 5px 22px rgba(16,37,75,.035)}
+.nav a{font-size:.91rem;padding:10px 11px}
+.saas-home-hero{min-height:unset;padding:62px 0 48px;background:radial-gradient(circle at 86% 22%,rgba(30,177,175,.09),transparent 34%),radial-gradient(circle at 15% 30%,rgba(38,87,216,.11),transparent 40%),linear-gradient(180deg,#fff,#f4f8ff)}
+.saas-home-hero .hero-grid{grid-template-columns:minmax(0,1.12fr) minmax(320px,.78fr);gap:42px;align-items:center}
+.saas-home-hero h1{font-size:clamp(2.6rem,5vw,4.5rem);line-height:1.06;letter-spacing:-.055em;max-width:800px;margin:20px 0 17px}
+.saas-home-hero .home-intro>p{max-width:670px;line-height:1.65;margin:0;color:var(--muted);font-size:clamp(1rem,1.45vw,1.13rem)}
+.saas-home-hero .home-intro>p strong{color:var(--ink);font-weight:800}
+.saas-home-hero .home-search{margin-top:23px}
+.saas-home-hero .hero-actions{margin-top:15px;gap:8px}
+.saas-home-hero .hero-actions .btn{padding:10px 14px;font-size:.88rem}
+.saas-home-hero .hero-proof{margin-top:22px;gap:7px}
+.saas-home-hero .hero-proof span{font-size:.78rem}
+.home-quick-panel{border-radius:24px;background:rgba(255,255,255,.94);border:1px solid #dfe7f3;box-shadow:0 26px 75px rgba(24,49,94,.095)}
+.home-quick-panel h2{font-size:1.5rem;letter-spacing:-.03em;margin-top:13px}
+.home-quick-panel .quick-tool-list a{border-radius:12px;transition:background .17s ease,transform .17s ease}
+.home-quick-panel .quick-tool-list a:hover{background:#eff5ff;transform:translateX(2px)}
+.catalog-first{padding:56px 0 68px;scroll-margin-top:76px;background:#fff}
+.catalog-first .section-head h2{font-size:clamp(1.85rem,3.4vw,2.9rem)}
+.catalog-first .search-wrap{max-width:none;margin-bottom:16px;border-radius:16px;box-shadow:0 8px 26px rgba(17,34,74,.045)}
+.catalog-first .catalog-search-wrap{align-items:center}
+.catalog-first .catalog-search-wrap input{font-size:1.025rem;min-height:40px}
+.catalog-clear{background:#f0f4fc;border:1px solid #d8e4f2;padding:7px 12px;border-radius:10px;font-weight:750;cursor:pointer;color:var(--ink)}
+.catalog-summary{margin:0 0 17px;color:var(--muted);font-size:.87rem;font-weight:700}
+.catalog-first .filters{margin:0 0 14px;gap:7px}
+.catalog-first .filter{font-size:.83rem;min-height:40px;padding:8px 13px;transition:background .16s ease}
+.catalog-first .filter:not(.active):hover{border-color:#b7c9e7;background:#f4f8ff}
+.catalog-first .tool-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.catalog-first .tool-card{min-height:193px;padding:18px 17px;border-radius:18px;box-shadow:0 6px 22px rgba(18,35,75,.045)}
+.catalog-first .tool-card h3{margin:15px 0 8px;font-size:1.045rem;line-height:1.23}
+.catalog-first .tool-card p{font-size:.84rem;line-height:1.48;margin:0 0 12px}
+.catalog-first .tool-card .link{font-size:.81rem}
+.catalog-first .tool-icon{height:39px;width:39px;border-radius:12px}
+.catalog-expand{display:flex;justify-content:center;margin:24px 0 0}
+.catalog-expand .btn{min-width:220px;background:#f2f6fd}
+.catalog-first .empty-state{display:block;background:#f6f8fd;border:1px dashed #ccd8e7;border-radius:16px;padding:22px;color:var(--muted)}
+.case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:14px}
+.case-study{background:linear-gradient(145deg,#f8faff,#eff5ff);padding:21px;border:1px solid #dfe8f5;border-radius:17px}
+.case-study h3{font-size:1.075rem;margin:0 0 9px;letter-spacing:-.012em}
+.case-study p{font-size:.93rem;line-height:1.68;margin:0;color:#44536c}
+.suite-home-section{background:#f5f8fc}
+.section-guides{background:#fff}
+.section-trust{padding-top:34px;padding-bottom:52px}
+.site-footer .footer-bottom{font-size:.79rem}
+@media(max-width:1160px){.catalog-first .tool-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:960px){.saas-home-hero{padding-top:38px}.saas-home-hero .hero-grid{grid-template-columns:1fr;gap:24px}.home-quick-panel{max-width:none}}
+@media(max-width:760px){
+ .catalog-first{padding:36px 0 48px;scroll-margin-top:69px}.catalog-first .section-head{gap:8px}.catalog-first .tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .saas-home-hero{padding:28px 0 32px}.saas-home-hero .hero-grid{gap:20px}.saas-home-hero h1{font-size:clamp(2.2rem,7.9vw,3.4rem);margin:14px 0}
+ .saas-home-hero .hero-proof{display:flex;gap:8px;flex-wrap:wrap}.saas-home-hero .hero-proof span{width:auto}
+ .tool-app .saas-hero{padding:20px 0 16px}.tool-app .saas-hero-copy h1{font-size:clamp(2rem,8vw,2.75rem);line-height:1.1}
+ .tool-app .saas-hero .hero-outcome-card{display:none}
+ .tool-app .app-workspace{padding-top:12px}
+ .tool-app .saas-hero .hero-benefit{font-size:.99rem!important;line-height:1.45!important}
+ .tool-app .saas-hero .trust-inline{margin-top:12px}
+ .tool-app .calculator,.tool-app .result-panel{padding:19px}
+ .case-grid{grid-template-columns:1fr}
+ .saas-home-hero .home-quick-panel{padding:0;border:0;box-shadow:none;background:transparent;overflow:hidden}
+ .saas-home-hero .home-quick-panel>.eyebrow,.saas-home-hero .home-quick-panel>h2,.saas-home-hero .home-quick-panel>p{display:none}
+ .saas-home-hero .quick-tool-list{display:flex;gap:8px;overflow-x:auto;padding:3px 2px 10px;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+ .saas-home-hero .quick-tool-list a{flex:0 0 195px;min-height:72px;display:grid;grid-template-columns:1fr 18px;grid-template-rows:auto auto;padding:12px;border:1px solid #dae3f2;border-radius:15px;background:#fff;scroll-snap-align:start}
+ .saas-home-hero .quick-tool-list a span{grid-row:1;grid-column:1/-1;font-size:.67rem}
+ .saas-home-hero .quick-tool-list a strong{grid-row:2;grid-column:1;font-size:.82rem;line-height:1.25}
+ .saas-home-hero .quick-tool-list a b{grid-row:2;grid-column:2;align-self:center}
+}
+@media(max-width:520px){
+ .catalog-first .tool-grid{grid-template-columns:1fr;gap:10px}
+ .catalog-first .tool-card{min-height:unset;padding:16px;display:grid;grid-template-columns:42px 1fr;column-gap:12px;align-items:start}
+ .catalog-first .tool-card:before{width:4px;height:100%;right:auto;bottom:0}
+ .catalog-first .tool-card .top{grid-row:1/4;grid-column:1;align-self:start}
+ .catalog-first .tool-card .top .badge{display:none}
+ .catalog-first .tool-card h3{grid-column:2;margin:0 0 5px}
+ .catalog-first .tool-card p{grid-column:2;margin:0 0 8px}
+ .catalog-first .tool-card .link{grid-column:2}
+ .saas-home-hero .home-search{margin-top:18px}.saas-home-hero .home-intro>p{font-size:.98rem}
+ .saas-home-hero .hero-actions{display:grid;grid-template-columns:1fr 1fr}
+ .saas-home-hero .hero-actions .btn{min-width:0;font-size:.8rem;padding:10px 7px}
+ .home-quick-panel{padding:18px}
+ .catalog-first .filter{font-size:.79rem;padding:7px 11px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
