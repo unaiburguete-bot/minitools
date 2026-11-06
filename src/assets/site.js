@@ -14,41 +14,95 @@
   const menuButton = document.querySelector('.menu-button');
   const nav = document.querySelector('.nav');
   if (menuButton && nav) {
+    const closeMenu = () => {
+      nav.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Abrir el menú de navegación');
+    };
     menuButton.addEventListener('click', () => {
       const open = nav.classList.toggle('open');
       menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'Cerrar el menú de navegación' : 'Abrir el menú de navegación');
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && nav.classList.contains('open')) { closeMenu(); menuButton.focus(); }
     });
   }
 
   function initCatalog() {
     const search = document.querySelector('.catalog-search');
+    const heroSearch = document.querySelector('[data-home-search]');
     const cards = [...document.querySelectorAll('.tool-card[data-search]')];
     const filters = [...document.querySelectorAll('.filter[data-filter]')];
     const empty = document.querySelector('.empty-state');
+    const count = document.querySelector('[data-catalog-count]');
+    const expand = document.querySelector('[data-expand-catalog]');
+    const clear = document.querySelector('[data-clear-search]');
+    const homeCatalog = Boolean(document.querySelector('.catalog-first'));
     if (!cards.length) return;
     let active = 'all';
+    let expanded = false;
+    const normalize = text => String(text || '').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
     const apply = () => {
-      const q = (search?.value || '').trim().toLowerCase();
-      let shown = 0;
+      const query = normalize(search?.value || '');
+      const tokens = query.split(/\s+/).filter(Boolean);
+      const limited = homeCatalog && !expanded && !tokens.length && active === 'all';
+      let matches = 0;
+      let visible = 0;
       cards.forEach(card => {
-        const matchText = !q || card.dataset.search.includes(q);
-        const matchCat = active === 'all' || card.dataset.category === active;
-        const show = matchText && matchCat;
+        const searchable = normalize(card.dataset.search);
+        const category = active === 'all' || card.dataset.category === active;
+        const matchesQuery = tokens.every(token => searchable.includes(token));
+        const isMatch = category && matchesQuery;
+        if (isMatch) matches++;
+        const show = isMatch && (!limited || visible < 12);
+        if (show) visible++;
         card.classList.toggle('hidden', !show);
-        if (show) shown++;
+        card.hidden = !show;
       });
-      if (empty) empty.style.display = shown ? 'none' : 'block';
+      if (empty) empty.hidden = matches !== 0;
+      if (count) count.textContent = `${visible} de ${cards.length} herramientas visibles${tokens.length ? ' para «' + (search.value.trim().slice(0, 60)) + '»' : ''}`;
+      if (clear) clear.hidden = !query;
+      if (expand) {
+        expand.hidden = !homeCatalog || active !== 'all' || Boolean(tokens.length);
+        expand.setAttribute('aria-expanded', String(expanded));
+        expand.innerHTML = expanded ? 'Mostrar menos <span aria-hidden="true">↑</span>' : `Ver las ${cards.length} herramientas <span aria-hidden="true">↓</span>`;
+      }
     };
     search?.addEventListener('input', apply);
+    clear?.addEventListener('click', () => { search.value=''; apply(); search.focus(); });
     filters.forEach(btn => btn.addEventListener('click', () => {
-      filters.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active'); active = btn.dataset.filter; apply();
+      filters.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-pressed','true'); active = btn.dataset.filter; apply();
     }));
+    expand?.addEventListener('click', () => {
+      expanded = !expanded;
+      apply();
+      if (!expanded) document.querySelector('#herramientas')?.scrollIntoView({block:'start',behavior:'smooth'});
+    });
+    heroSearch?.addEventListener('submit', event => {
+      event.preventDefault();
+      const text = heroSearch.querySelector('input[name="q"]')?.value || '';
+      if (search) search.value = text;
+      active = 'all';
+      filters.forEach(b => {const selected=b.dataset.filter === 'all';b.classList.toggle('active',selected);b.setAttribute('aria-pressed',String(selected));});
+      expanded = false;
+      apply();
+      document.querySelector('#herramientas')?.scrollIntoView({block:'start',behavior:'smooth'});
+      if (search && text.trim()) search.focus({preventScroll:true});
+    });
     const q = new URLSearchParams(location.search).get('q');
-    if (q && search) { search.value = q; apply(); }
+    if (q && search) {
+      search.value = q;
+      const top = heroSearch?.querySelector('input[name="q"]');
+      if (top) top.value = q;
+      apply();
+      window.requestAnimationFrame?.(() => document.querySelector('#herramientas')?.scrollIntoView({block:'start'}));
+    } else apply();
   }
 
-  const track = (event, details = {}) => {
+    const track = (event, details = {}) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', event, { page_path: location.pathname, ...details });
     }
