@@ -434,7 +434,7 @@ gtag('config','{esc(SITE["analytics_measurement_id"])}',{{anonymize_ip:true}});
         f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(full_title)}"><meta name="twitter:description" content="{esc(description[:200])}"><meta name="twitter:image" content="{esc(canonical(image))}">',
         '<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="/assets/favicon-48.png" sizes="48x48"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="manifest" href="/manifest.webmanifest">',
         '<link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com">',
-        '<link rel="stylesheet" href="/assets/styles.css">',
+        '<link rel="stylesheet" href="/assets/styles.css?v=20261106">',
         '<meta name="theme-color" content="#2657d8">',
         consent_bootstrap,
         f'<script async src="https://www.googletagmanager.com/gtag/js?id={esc(SITE["analytics_measurement_id"])}"></script>',
@@ -452,9 +452,9 @@ def header() -> str:
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <header class="site-header"><div class="container header-inner">
 <a class="brand" href="/"><img src="/assets/logo-mark.svg" width="34" height="34" alt=""><span>Clicivo</span></a>
-<button class="menu-button" type="button" aria-controls="main-nav" aria-expanded="false">Menú</button>
+<button class="menu-button" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Abrir el menú de navegación">Menú <span aria-hidden="true">☰</span></button>
 <nav class="nav" id="main-nav" aria-label="Navegación principal">
-<a href="/es/pdf/">PDF</a><a href="/es/imagenes/">Imágenes</a><a href="/es/productividad/">Productividad</a><a href="/es/finanzas/">Finanzas</a><a href="/es/redes-sociales/">Creadores</a><a href="/es/empleo/">Empleo</a><a href="/es/suites/">Suites</a><a href="/es/guias/">Guías</a>
+<a href="/es/redes-sociales/">Creadores</a><a href="/es/empleo/">Empleo</a><a href="/es/pdf/">PDF</a><a href="/es/imagenes/">Imágenes</a><a href="/es/finanzas/">Finanzas</a><a href="/es/productividad/">Productividad</a><a href="/es/suites/">Suites</a><a href="/es/guias/">Guías</a>
 </nav></div></header>'''
 
 
@@ -468,7 +468,7 @@ def footer(extra_scripts: str = "") -> str:
 <div><h3>Legal y privacidad</h3><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Política de privacidad</a><a href="/cookies/">Política de cookies</a><p>El mensaje europeo de Google permite revisar o retirar el consentimiento cuando está publicado.</p><a href="mailto:{esc(SITE['contact_email'])}">{esc(SITE['contact_email'])}</a></div>
 </div><div class="footer-bottom">© 2026 Clicivo · Revisión general: {esc(UPDATED)} · Versión {esc(SITE.get('quality_version','2026.08'))}.</div>
 </div></footer>
-<script src="/assets/site.js" defer></script>{extra_scripts}</body></html>'''
+<script src="/assets/site.js?v=20261106" defer></script>{extra_scripts}</body></html>'''
 
 
 ADVANCED_TOOL_IDS = {
@@ -527,7 +527,7 @@ def tool_scripts(tool) -> str:
             tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
         if tool_id in QR_TOOLS:
             tags.append('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
-        tags.append('<script src="/assets/advanced-tools.js" defer></script>')
+        tags.append('<script src="/assets/advanced-tools.js?v=20261106" defer></script>')
     return "".join(tags)
 
 def breadcrumb(items):
@@ -553,7 +553,7 @@ def tool_icon(tool):
 def tool_card(tool):
     badge = '<span class="badge">Nueva</span>' if tool.get("new") else ('<span class="badge badge-priority">Destacada</span>' if tool.get("opportunity") else '<span class="badge badge-free">Gratis</span>')
     promise = tool.get('benefit_heading', tool['description'])
-    return f'''<a class="tool-card accent-{esc(tool.get('accent','blue'))}" href="{esc(tool['path'])}" data-tool-card="{esc(tool['id'])}" data-category="{esc(tool['category'])}" data-search="{esc((tool['title']+' '+' '.join(tool['keywords'])).lower())}"><div class="top"><span class="tool-icon" aria-hidden="true">{esc(tool_icon(tool))}</span>{badge}</div><h3>{esc(tool['short_title'])}</h3><p>{esc(promise)}</p><span class="link">Abrir herramienta <span aria-hidden="true">→</span></span></a>'''
+    return f'''<a class="tool-card accent-{esc(tool.get('accent','blue'))}" href="{esc(tool['path'])}" data-tool-card="{esc(tool['id'])}" data-category="{esc(tool['category'])}" data-search="{esc((tool['title']+' '+tool['short_title']+' '+tool['cluster']+' '+tool['description']+' '+' '.join(tool['keywords'])).lower())}"><div class="top"><span class="tool-icon" aria-hidden="true">{esc(tool_icon(tool))}</span>{badge}</div><h3>{esc(tool['short_title'])}</h3><p>{esc(promise)}</p><span class="link">Abrir herramienta <span aria-hidden="true">→</span></span></a>'''
 
 def field_html(field):
     kind,name,label,value,minv,maxv,step,hint = field
@@ -705,6 +705,17 @@ def interpretation_block(tool):
     return f'<section class="content-card interpretation-card"><span class="section-badge">Cómo leer el resultado</span><h2>Qué significa y qué decisión puedes tomar</h2><div class="interpretation-grid">{cards}</div></section>'
 
 
+def practical_examples_block(tool):
+    cases=tool.get("practical_cases") or []
+    if not cases:
+        return ""
+    body="".join(
+        f'<article class="case-study"><h3>{esc(case["title"])}</h3><p>{esc(case["text"])}</p></article>'
+        for case in cases
+    )
+    return f'<section class="content-card practical-cases"><span class="section-badge">Ejemplos para decidir</span><h2>Casos prácticos con cifras y supuestos claros</h2><div class="case-grid">{body}</div></section>'
+
+
 def affiliate_block(tool):
     if SITE.get('recovery_mode') or not SITE.get('affiliate_enabled', True):
         return ''
@@ -781,6 +792,7 @@ def tool_page(tool):
 <div class="content-stack">
 {usage_block(tool)}
 {interpretation_block(tool)}
+{practical_examples_block(tool)}
 {suite_block(tool)}
 {guide_block(tool)}
 <section class="content-card benefit-card"><span class="section-badge">Beneficio directo</span><h2>{benefit_heading}</h2><p class="lead-copy">{benefit_copy}</p><ul class="benefit-list">{feature_html}</ul></section>
@@ -860,7 +872,7 @@ def suite_creators_page():
 <div class="form-actions"><button class="btn btn-primary" type="submit">Actualizar panel →</button><button class="btn btn-secondary" type="button" data-suite-save>Guardar fotografía</button><button class="btn btn-ghost" type="button" data-suite-load>Recuperar</button></div><div class="error-message" data-suite-error role="alert"></div></form>
 <aside class="suite-results app-card"><div class="app-card-head"><span class="app-step">02</span><div><p class="result-kicker">Panel integrado</p><h2>Compara sin mezclar métricas</h2></div></div><div data-suite-result class="suite-result"></div><div class="result-actions"><button class="btn btn-primary" type="button" data-suite-pdf>Descargar PDF</button><button class="btn btn-secondary" type="button" data-suite-copy>Copiar resumen</button></div></aside></div></section>
 <section class="section"><div class="container"><div class="content-card"><span class="section-badge">Cómo usar la suite</span><h2>Una fotografía comparable, no una clasificación entre plataformas</h2><p>RPM de YouTube y TikTok utilizan bases distintas y no deben interpretarse como una comparación directa de valor. El panel sirve para guardar una fotografía de cada canal con un criterio estable y repetirla en el siguiente periodo.</p></div><div class="section-head"><div><span class="eyebrow">Más detalle</span><h2>Abre la calculadora especializada cuando lo necesites</h2></div></div><div class="tool-grid">{links}</div></div></section></main>'''
-    scripts='<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/4.2.1/jspdf.umd.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="/assets/suites.js" defer></script>'
+    scripts='<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/4.2.1/jspdf.umd.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="/assets/suites.js?v=20261106" defer></script>'
     return head(suite['title'],suite['description'],suite['path'],[page_schema(suite['title'],suite['description'],suite['path']),crumb_ld],adsense=False)+header()+body+footer(scripts)
 
 
@@ -896,21 +908,40 @@ def suite_documents_page():
 def homepage():
     website_ld={"@context":"https://schema.org","@type":"WebSite","name":"Clicivo","url":ORIGIN,"description":SITE['site_description'],"inLanguage":"es","potentialAction":{"@type":"SearchAction","target":ORIGIN+"/?q={search_term_string}","query-input":"required name=search_term_string"}}
     org_ld={"@context":"https://schema.org","@type":"Organization","name":"Clicivo","alternateName":SITE.get('operator_name','Zurekin Comunicación'),"url":ORIGIN,"logo":canonical('/assets/logo-mark.svg'),"email":SITE['contact_email']}
-    featured_ids=['instagram-growth','youtube-rpm-revenue','youtube-income','youtube-shorts-income','tiktok-income','net-salary','employer-cost','image-resize']
-    featured=[next(t for t in TOOLS if t['id']==x) for x in featured_ids]
-    catcards=''.join(f'''<a class="category-card" href="{m['path']}"><span aria-hidden="true">{m['icon']}</span><h3>{esc(k)}</h3><p>{esc(m['description'])}</p><b>Explorar área →</b></a>''' for k,m in CATEGORY_META.items())
-    allcards=''.join(tool_card(t) for t in TOOLS)
+    prioritized=['instagram-growth','instagram-engagement-followers','youtube-rpm-revenue','instagram-fonts','youtube-shorts-income','youtube-income','instagram-spaces','tiktok-income','tiktok-engagement','youtube-cpm','severance','image-resize']
+    order={tool_id:i for i,tool_id in enumerate(prioritized)}
+    catalog_tools=sorted(TOOLS,key=lambda t:(order.get(t['id'],len(order)),t['title'].lower()))
+    allcards=''.join(tool_card(t) for t in catalog_tools)
     guidecards=''.join(guide_card(g) for g in GUIDES[:6])
     return head('Herramientas online para calcular, convertir y descargar | Clicivo',SITE['site_description'],'/',[website_ld,org_ld])+header()+f'''
-<main id="contenido"><section class="hero saas-home-hero"><div class="container hero-grid"><div><span class="eyebrow">Herramientas prácticas · gratis y sin registro</span><p class="curiosity-hook">Una tarea concreta debería resolverse en minutos, no después de abrir cinco webs.</p><h1>Herramientas online gratuitas para calcular, convertir y crear</h1><p>Herramientas para creadores, empleo, finanzas, PDF, imágenes, negocio y productividad. Introduce tus datos o archivos, obtén un resultado claro y reutilízalo sin crear una cuenta.</p><form class="home-search" action="/" method="get" data-home-search><label class="sr-only" for="home-q">Buscar herramienta</label><input id="home-q" name="q" type="search" placeholder="¿Qué necesitas hacer? Ej.: calcular RPM, finiquito, IVA, redimensionar imagen…"><button class="btn btn-primary" type="submit">Buscar herramienta <span aria-hidden="true">→</span></button></form><div class="hero-actions"><a class="btn btn-secondary" href="#herramientas">Ver todas las herramientas</a><a class="btn btn-secondary" href="/es/guias/">Leer guías prácticas</a></div><div class="hero-proof"><span>✓ Resultado inmediato</span><span>✓ Diseñada primero para móvil</span><span>✓ Procesamiento local cuando se indica</span></div></div><aside class="home-quick-panel" aria-label="Accesos rápidos"><span class="eyebrow">Accesos rápidos</span><h2>Empieza por una tarea real</h2><p>Las herramientas con mejor encaje actual y mayor utilidad práctica.</p><nav class="quick-tool-list"><a data-home-quick="instagram-growth" href="/es/instagram/analitica/crecimiento-seguidores-instagram/"><span>Instagram</span><strong>Medir crecimiento de seguidores</strong><b>→</b></a><a data-home-quick="youtube-income" href="/es/youtube/monetizacion/ingresos-youtube/"><span>YouTube</span><strong>Estimar ingresos por visitas</strong><b>→</b></a><a data-home-quick="severance" href="/es/empleo/liquidacion-laboral/calculadora-finiquito/"><span>Empleo</span><strong>Calcular un finiquito</strong><b>→</b></a><a data-home-quick="image-resize" href="/es/imagenes/redimensionar/cambiar-tamano-imagen/"><span>Imágenes</span><strong>Cambiar tamaño de imágenes</strong><b>→</b></a><a data-home-quick="pdf-organize" href="/es/pdf/organizar/organizar-paginas-pdf/"><span>PDF</span><strong>Organizar páginas de un PDF</strong><b>→</b></a></nav><p class="quick-note">Cada acceso abre una herramienta funcional; no mostramos cifras decorativas.</p></aside></div></section>
+<main id="contenido">
+<section class="hero saas-home-hero"><div class="container hero-grid">
+<div class="home-intro"><span class="eyebrow">Gratis · Sin registro · Resultado inmediato</span>
+<h1>Herramientas online gratuitas para calcular, convertir y crear</h1>
+<p>Calcula métricas de Instagram y YouTube, resuelve gestiones de empleo o edita PDF e imágenes. <strong>Elige una herramienta y úsala directamente.</strong></p>
+<form class="home-search" action="/" method="get" data-home-search role="search"><label class="sr-only" for="home-q">Buscar herramienta</label><input id="home-q" name="q" type="search" autocomplete="off" placeholder="Prueba: engagement, RPM, finiquito o unir PDF…"><button class="btn btn-primary" type="submit">Buscar <span aria-hidden="true">→</span></button></form>
+<div class="hero-actions"><a class="btn btn-secondary" href="#herramientas">Ver las 50 herramientas</a><a class="btn btn-secondary" href="/es/guias/">Guías prácticas</a></div>
+<div class="hero-proof"><span>✓ Sin instalar nada</span><span>✓ Compatible con móvil</span><span>✓ Archivos procesados localmente cuando se indica</span></div></div>
+<aside class="home-quick-panel" aria-label="Herramientas populares"><span class="eyebrow">Accesos directos</span><h2>Resuelve algo ahora mismo</h2><p>Cinco tareas frecuentes, un clic para empezar.</p><nav class="quick-tool-list">
+<a data-home-quick="instagram-growth" href="/es/instagram/analitica/crecimiento-seguidores-instagram/"><span>Instagram</span><strong>Crecimiento de seguidores</strong><b aria-hidden="true">→</b></a>
+<a data-home-quick="youtube-income" href="/es/youtube/monetizacion/ingresos-youtube/"><span>YouTube</span><strong>Calcular ingresos</strong><b aria-hidden="true">→</b></a>
+<a data-home-quick="severance" href="/es/empleo/liquidacion-laboral/calculadora-finiquito/"><span>Empleo</span><strong>Calcular finiquito</strong><b aria-hidden="true">→</b></a>
+<a data-home-quick="image-resize" href="/es/imagenes/redimensionar/cambiar-tamano-imagen/"><span>Imágenes</span><strong>Cambiar tamaño de imagen</strong><b aria-hidden="true">→</b></a>
+<a data-home-quick="pdf-organize" href="/es/pdf/organizar/organizar-paginas-pdf/"><span>PDF</span><strong>Organizar páginas</strong><b aria-hidden="true">→</b></a>
+</nav></aside></div></section>
+<section class="section catalog-first" id="herramientas"><div class="container">
+<div class="section-head"><div><span class="eyebrow">Catálogo completo</span><h2>Encuentra tu herramienta</h2></div><p>Las 50 herramientas siguen disponibles. Filtra por temática o busca por el nombre de la tarea.</p></div>
+<div class="search-wrap catalog-search-wrap"><span aria-hidden="true">⌕</span><input id="catalog-query" type="search" class="catalog-search" autocomplete="off" placeholder="Buscar entre las 50 herramientas…" aria-label="Buscar herramientas del catálogo"><button class="catalog-clear" type="button" data-clear-search hidden aria-label="Borrar búsqueda">Borrar</button></div>
+<div class="filters" role="group" aria-label="Filtrar por área"><button type="button" class="filter active" data-filter="all" aria-pressed="true">Todas</button>{''.join(f'<button type="button" class="filter" data-filter="{esc(k)}" aria-pressed="false">{esc(k)}</button>' for k in CATEGORY_META)}</div>
+<p class="catalog-summary" data-catalog-count role="status" aria-live="polite">Herramientas disponibles: {len(TOOLS)}</p>
+<div class="tool-grid" id="tool-grid">{allcards}</div><p class="empty-state" hidden>No hemos encontrado ninguna herramienta. Prueba con otra palabra o selecciona «Todas».</p>
+<div class="catalog-expand"><button type="button" class="btn btn-secondary" data-expand-catalog aria-expanded="false" aria-controls="tool-grid">Ver las 50 herramientas <span aria-hidden="true">↓</span></button></div>
+</div></section>
 <section class="section recent-section" data-recent-section hidden><div class="container"><div class="section-head"><div><span class="eyebrow">Tu espacio local</span><h2>Favoritas y usadas recientemente</h2></div><p>Se guarda únicamente en este navegador. No necesitas cuenta.</p></div><div class="recent-tools-grid" data-recent-tools></div></div></section>
-<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">Empieza por aquí</span><h2>Herramientas que convierten datos en decisiones</h2></div><p>Priorizadas por utilidad, señales de búsqueda y capacidad para resolver una tarea completa.</p></div><div class="tool-grid">{''.join(tool_card(t) for t in featured)}</div></div></section>
-<section class="section suite-home-section"><div class="container"><div class="section-head"><div><span class="eyebrow">Más defensibilidad</span><h2>Resuelve un flujo completo sin repetir datos</h2></div><p>Tres suites integradas conectan cálculos y operaciones que normalmente obligan a saltar entre herramientas.</p></div><div class="suite-grid">{''.join(suite_card(k,v) for k,v in SUITES.items())}</div><div class="section-cta"><a class="btn btn-secondary" href="/es/suites/">Ver las suites →</a></div></div></section>
-<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">Entiende antes de decidir</span><h2>Guías originales conectadas con las herramientas</h2></div><p>Explican qué significa el resultado, qué errores evitar y qué variables merece la pena comparar.</p></div><div class="guide-grid">{guidecards}</div><div class="section-cta"><a class="btn btn-secondary" href="/es/guias/">Ver todas las guías →</a></div></div></section>
-<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">Una plataforma, varias necesidades</span><h2>Elige el área que quieres resolver</h2></div><p>Documentos, imágenes, productividad, negocio, cálculos y herramientas para creadores, organizadas para que encuentres la respuesta sin navegar entre webs.</p></div><div class="category-strip">{catcards}</div></div></section>
-<section class="section section-trust"><div class="container"><div class="quality-card"><div><strong>Resultados que puedes reutilizar</strong><p>Las calculadoras profesionales permiten copiar, exportar a PDF o CSV y guardar escenarios en tu navegador.</p></div><div><strong>Privacidad práctica</strong><p>Los PDF, imágenes y textos se procesan en tu dispositivo cuando la página lo indica. Clicivo no recibe esos archivos.</p><a href="/metodologia/">Ver metodología y controles →</a></div></div></div></section>
-<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">Criterio editorial</span><h2>No publicamos una URL solo porque exista una palabra clave</h2></div><p>Cada herramienta debe resolver una tarea concreta, explicar su método y aportar una salida reutilizable.</p></div><div class="content-card"><p>Clicivo combina software funcional con contenido editorial propio. Priorizamos fórmulas visibles, ejemplos, fuentes primarias cuando existen, límites claros y guías que ayudan a interpretar el resultado. Las páginas de navegación con poco contenido se mantienen fuera del índice o redirigen a la herramienta útil.</p><p><a href="/metodologia/">Consulta cómo seleccionamos, probamos y corregimos las herramientas →</a></p></div></div></section>
-<section class="section" id="herramientas"><div class="container"><div class="section-head"><div><span class="eyebrow">Catálogo completo</span><h2>¿Qué quieres resolver hoy?</h2></div><p>Busca una tarea concreta o filtra por área.</p></div><div class="search-wrap"><span aria-hidden="true">⌕</span><input type="search" class="catalog-search" placeholder="Ej.: ingresos de TikTok, ROAS, unir PDF, finiquito, comprimir imágenes…" aria-label="Buscar herramientas"></div><div class="filters"><button class="filter active" data-filter="all">Todas</button>{''.join(f'<button class="filter" data-filter="{esc(k)}">{esc(k)}</button>' for k in CATEGORY_META)}</div><div class="tool-grid" id="tool-grid">{allcards}</div><p class="empty-state">No hemos encontrado una herramienta con ese término.</p></div></section></main>'''+footer()
+<section class="section suite-home-section"><div class="container"><div class="section-head"><div><span class="eyebrow">Trabaja de principio a fin</span><h2>Una tarea, varias herramientas conectadas</h2></div><p>Las suites permiten comparar resultados sin introducir los mismos datos en distintas calculadoras.</p></div><div class="suite-grid">{''.join(suite_card(k,v) for k,v in SUITES.items())}</div><div class="section-cta"><a class="btn btn-secondary" href="/es/suites/">Explorar suites →</a></div></div></section>
+<section class="section section-guides"><div class="container"><div class="section-head"><div><span class="eyebrow">Aprende a interpretar el resultado</span><h2>Guías claras para tomar mejores decisiones</h2></div><p>Explicaciones prácticas con ejemplos, supuestos y fuentes para utilizar las herramientas con criterio.</p></div><div class="guide-grid">{guidecards}</div><div class="section-cta"><a class="btn btn-secondary" href="/es/guias/">Ver las 12 guías →</a></div></div></section>
+<section class="section section-trust"><div class="container"><div class="quality-card"><div><strong>Resultados que puedes reutilizar</strong><p>Copia el resultado o exporta informes PDF y CSV en las calculadoras compatibles.</p></div><div><strong>Privacidad y método visibles</strong><p>Los archivos se procesan en tu dispositivo cuando la herramienta lo indica; las estimaciones explican sus supuestos.</p><a href="/metodologia/">Cómo funciona Clicivo →</a></div></div></div></section>
+</main>'''+footer()
 
 def legal_page(title,route,body):
     crumbs,crumb_ld=breadcrumb([("Inicio","/"),(title,None)])
@@ -1059,7 +1090,7 @@ def main():
     routes=sorted(set(routes))
     sitemap=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for route in routes:
-        lastmod=tool_dates.get(route,guide_dates.get(route,UPDATED))
+        lastmod=tool_dates.get(route,guide_dates.get(route,'2026-11-06' if route=='/' else UPDATED))
         sitemap.append(f'<url><loc>{esc(canonical(route))}</loc><lastmod>{esc(lastmod)}</lastmod></url>')
     sitemap.append('</urlset>')
     (PUBLIC/'sitemap.xml').write_text('\n'.join(sitemap),encoding='utf-8')
