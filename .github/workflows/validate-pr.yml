@@ -1,0 +1,32 @@
+name: Validate Clicivo pull request
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Build and test without deploying
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build static site
+        run: python src/build.py
+      - name: Python tests
+        run: pytest -q
+      - name: JavaScript checks
+        run: |
+          node --check src/assets/site.js
+          node --check public/assets/site.js
+          node --check public/assets/advanced-tools.js
+          node --check public/assets/suites.js
+          node tests/js_smoke.js
